@@ -64,5 +64,11 @@ namespace BookingApp.View
             }
             
         }
+        private void RegisterView(object sender,RoutedEventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Show();
+            Close();
+        }
     }
 }
