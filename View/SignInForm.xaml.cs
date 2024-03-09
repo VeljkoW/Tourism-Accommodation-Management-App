@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.Guide;
+using BookingApp.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -56,8 +57,11 @@ namespace BookingApp.View
                 }
                 else if (user.Password == txtPassword.Password)
                 {
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
+                    if(user.UserType == UserType.Tourist)
+                    {
+                        TouristMainWindow touristMainWindow = new TouristMainWindow();
+                        touristMainWindow.Show();
+                    }
                     Close();
                 }
                 else
