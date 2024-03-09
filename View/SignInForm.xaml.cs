@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guide;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -47,12 +48,18 @@ namespace BookingApp.View
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if(user.Password == txtPassword.Password)
+                if (user.Password == txtPassword.Password && user.UserType == UserType.Guide)
+                {
+                    GuideMainWindow guideMainWindow = new GuideMainWindow(user);
+                    guideMainWindow.Show();
+                    Close();
+                }
+                else if (user.Password == txtPassword.Password)
                 {
                     CommentsOverview commentsOverview = new CommentsOverview(user);
                     commentsOverview.Show();
                     Close();
-                } 
+                }
                 else
                 {
                     MessageBox.Show("Wrong password!");
