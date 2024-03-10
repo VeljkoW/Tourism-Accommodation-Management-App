@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.Repository.AccommodationRepositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +23,20 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class AccommodationRegistration : Page
     {
-        public AccommodationRegistration()
+        public Accommodation Accommodation { get; set; }
+        public AccommodationRepository AccommodationRepository { get; set; }
+        public AccommodationRegistration(Accommodation accommodation)
         {
             InitializeComponent();
+            DataContext = this;
+            Accommodation = new Accommodation();
+            AccommodationRepository = new AccommodationRepository();
+        }
+
+        private void AcceptButtonClick(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(Accommodation.MaxGuestNumber);
+            AccommodationRepository.Add(Accommodation);
         }
     }
 }

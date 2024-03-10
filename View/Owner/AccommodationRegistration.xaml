@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="NameLabel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="108" VerticalAlignment="Top" Margin="10,21,0,0" Content="Name:"/>
         <Label x:Name="LocationLabel" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="108" VerticalAlignment="Center" Margin="10,0,0,0" Content="Location:"></Label>
-        <Label x:Name="AccommodationTypeLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="100" VerticalAlignment="Top" Height="41" Margin="10,8,0,0" Content="Type:"></Label>
+        <Label x:Name="AccommodationTypeLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="100" VerticalAlignment="Center" Height="41" Margin="14,0,0,0" Content="Type:"></Label>
         <Label x:Name="MaxGuestNumberLabel1" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Height="41" Margin="0,11,0,0" Content="Max number"/>
         <Label x:Name="MaxGuestNumberLabel2" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="150" VerticalAlignment="Top" Height="41" Margin="10,35,0,0" Content="of guests:"/>
 
@@ -32,18 +32,18 @@
         <Label x:Name="MinReservationDaysaLabel2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="98" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="18,43,0,0" Content="res. days:"/>
         <Label x:Name="CancelationDaysLimitLabel1" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="132" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,10,0,0" Content="Cancelation"/>
         <Label x:Name="CancelationDaysLimitLabel2" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="132" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,35,0,0" Content="Days Limit:"/>
-        <Label x:Name="ImagesLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="82" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="6,13,0,0" Content="Images"/>
-        <TextBox Text="{Binding Path=profesorDTO.Ime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-        <TextBox Text="{Binding Path=profesorDTO.Prezime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-        <TextBox Text="{Binding Path=profesorDTO.Broj, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-        <TextBox Text="{Binding Path=profesorDTO.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <Label x:Name="ImagesLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="82" VerticalAlignment="Center" Height="41" Grid.Column="2" Margin="10,0,0,0" Content="Images"/>
+        <TextBox Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=Accommodation.Location.City, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=Accommodation.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
 
-        <TextBox Text="{Binding Path=profesorDTO.Ulica, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-        <TextBox Text="{Binding Path=profesorDTO.Br, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-        <TextBox Text="{Binding Path=profesorDTO.Drzava, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=Accommodation.MinReservationDays, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=Accommodation.CancelationDaysLimit, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=Accommodation.Images.Id, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
 
 
-        <Button x:Name="AcceptButton" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Margin="96,25,0,0" Content="Accept"/>
+        <Button x:Name="AcceptButton" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Margin="96,25,0,0" Content="Accept" Click="AcceptButtonClick"/>
         <Button x:Name="DeclineButton" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Content="Decline" Margin="20,25,0,0"/>
 
 
