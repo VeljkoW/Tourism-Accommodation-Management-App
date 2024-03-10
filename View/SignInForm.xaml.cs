@@ -64,7 +64,8 @@ namespace BookingApp.View
                     }
                     else if(user.UserType == UserType.Owner)
                     {
-
+                        OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+                        ownerMainWindow.Show();
                     }
                     else if(user.UserType == UserType.Guest)
                     {
