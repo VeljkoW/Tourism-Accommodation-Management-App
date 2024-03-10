@@ -8,6 +8,6 @@
         Title="OwnerMainWindow" Height="450" Width="800">
     <Grid>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
-        <Button Margin="275,187,275,197" Height="50" Width="250" Click="Button_Click">PREDJI NA DRUGI</Button>
+        <!--<Button Margin="275,187,275,197" Height="50" Width="250" Click="Button_Click">PREDJI NA DRUGI</Button>-->
     </Grid>
 </Window>

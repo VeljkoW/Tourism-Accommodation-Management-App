@@ -29,9 +29,9 @@ namespace BookingApp.View.Owner
             mainFrame.Navigate(new Uri("../../../View/Owner/AccommodationRegistration.xaml", UriKind.Relative));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /*private void Button_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Navigate(new Uri("../../../View/Owner/RateGuest.xaml", UriKind.Relative));
-        }
+        }*/
     }
 }

@@ -62,6 +62,12 @@ namespace BookingApp.View
                     ownerMainWindow.Show();
                     Close();
                 }
+                else if (user.Password == txtPassword.Password && user.UserType == UserType.Guest)
+                {
+                    OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+                    ownerMainWindow.Show();
+                    Close();
+                }
                 else if (user.Password == txtPassword.Password)
                 {
                     if(user.UserType == UserType.Tourist)
