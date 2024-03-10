@@ -1,4 +1,5 @@
-﻿using BookingApp.Serializer;
+﻿using BookingApp.Repository;
+using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,15 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Location Location { get; set; }
+        public int LocationId { get; set; }
+        public Location? Location { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
         public int MaxTourists { get; set; }
-        public List<String> KeyPoints { get; set; }
+        public List<KeyPoint> KeyPoints { get; set; }
         public int Duration { get; set; }
-        public List<String> ImagePaths { get; set; }
-        public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<string> keyPoints, int duration, List<string> imagePaths)
+        public List<Image> Images { get; set; }
+        public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths)
         {
             Id = id;
             Name = name;
@@ -28,18 +30,19 @@ namespace BookingApp.Model
             MaxTourists = maxTourists;
             KeyPoints = keyPoints;
             Duration = duration;
-            ImagePaths = imagePaths;
+            Images = imagePaths;
         }
         public Tour() { }
-
         public string[] ToCSV()
         {
-            throw new NotImplementedException();
+            string[] ret = {Id.ToString(),Name,LocationId.ToString(),Description,Language,MaxTourists.ToString(),Duration.ToString()};
+            return ret;
         }
-
         public void FromCSV(string[] values)
         {
-            throw new NotImplementedException();
+            Id = Convert.ToInt32(values[0]);
+            Name = Convert.ToString(values[1]);
+            LocationId = Convert.ToInt32(values[2]);
         }
     }
 }

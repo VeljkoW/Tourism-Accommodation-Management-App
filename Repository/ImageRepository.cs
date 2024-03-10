@@ -39,10 +39,10 @@ namespace BookingApp.Repository
         {
             return _serializer.FromCSV(FilePath);
         }
-        public List<Image> GetById(int Id)
+        public Image? GetById(int Id)
         {
             _images = _serializer.FromCSV(FilePath);
-            return _images.FindAll(c => c.Id == Id);
+            return _images.Find(c => c.Id == Id);
         }
     }
 }

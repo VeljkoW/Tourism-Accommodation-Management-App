@@ -20,10 +20,10 @@ namespace BookingApp.View.Guide
     /// </summary>
     public partial class GuideMainWindow : Window
     {
-        User user {  get; set; }
+        public User User {  get; set; }
         public GuideMainWindow(User user)
         {
-            this.user = user;
+            User = user;
             InitializeComponent();
         }
     }
