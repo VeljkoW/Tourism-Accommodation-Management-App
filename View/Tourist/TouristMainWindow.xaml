@@ -14,13 +14,53 @@
         <Border Background="#ebde8f" BorderThickness="0 0 0 6" BorderBrush="#9c935f">
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" BorderThickness="0,1,5,1" BorderBrush="#9c935f" CornerRadius="0,10,10,0">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontStyle="Italic" FontWeight="Bold" Foreground="#69623c">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="White" BlurRadius="2"/>
+                        </TextBlock.Effect>
+                        Tourist
+                    </TextBlock>
+                </Border>
 
-                <TextBox Width="200" Height="25" Margin="30" HorizontalAlignment="Right" Grid.Column="1" 
-                 Text="Search tours..." Foreground="Gray"
-                 GotFocus="SearchBox_Clicked" LostFocus="SearchBox_NotClicked"/>
+                <Border Grid.Column="2" BorderThickness="1" BorderBrush="#9c935f" CornerRadius="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Width="150" Height="25" Margin="30 30 0 30" HorizontalAlignment="Center" 
+                         Text="Search tours..." Foreground="Gray"
+                         GotFocus="SearchBox_Clicked" LostFocus="SearchBox_NotClicked" VerticalContentAlignment="Center"/>
+                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="#9c935f">
+                            <Image Source="pack://application:,,,/Resources/Images/Tourist/search.png" Width="17" Height="17"/>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="4" BorderThickness="1,1,0,1" BorderBrush="#9c935f" CornerRadius="10,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Foreground="#69623c" Margin="10 0 5 0">Logged in as:</TextBlock>
+                            <TextBlock Foreground="#69623c" FontWeight="Bold" Text="{Binding Username}" TextTrimming="CharacterEllipsis" Margin="0 0 10 0"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Foreground="#69623c" FontWeight="Bold" TextDecorations="Underline" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0">
+                            <Hyperlink Foreground="#69623c" Click="LogOut">
+                                <TextBlock Foreground="#69623c" Text="Log out"/>
+                            </Hyperlink>
+                        </TextBlock>
+                    </Grid>
+                </Border>
             </Grid>
         </Border>
 
@@ -33,23 +73,99 @@
             <Border Background="#ebde8f" Grid.Column="0" BorderThickness="0 0 6 0" BorderBrush="#9c935f">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                     
+                    <Button Height="90" Background="#ebde8f" Margin="5 5 5 5" BorderBrush="#9c935f" BorderThickness="2" Click="ToursTabClick">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#69623c"/>
+                    </Button>
+                    
+                    <Button Height="90" Background="#ebde8f" Margin="5 5 5 5" BorderBrush="#9c935f" BorderThickness="2" Click="ReservationTabClick">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="My reservations" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#69623c"/>
+                    </Button>
+
+                    <Button Height="90" Background="#ebde8f" Margin="5 5 5 5" BorderBrush="#9c935f" BorderThickness="2" Click="SuggestionTabClick">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="Suggest tour" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#69623c"/>
+                    </Button>
+
+                    <Button Height="90" Background="#ebde8f" Margin="5 5 5 5" BorderBrush="#9c935f" BorderThickness="2">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#69623c"/>
+                    </Button>
+
+                    <Button Height="90" Background="#ebde8f" Margin="5 5 5 5" BorderBrush="#9c935f" BorderThickness="2">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#69623c"/>
+                    </Button>
+
                 </StackPanel>
             </Border>
-            
-            <ScrollViewer Grid.Column="1">
-                <ItemsControl ItemsSource="{Binding Tours}" Margin="10" HorizontalAlignment="Stretch">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:TourCard/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
+            <TabControl Grid.Column="1" BorderThickness="0" Background="Transparent" TabStripPlacement="Left" x:Name="Tab">
+
+                <TabItem Margin="-2,-3,0,6" RenderTransformOrigin="0,0">
+                    <TabItem.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TabItem.RenderTransform>
+                    <ScrollViewer Grid.Column="1">
+                        <ItemsControl ItemsSource="{Binding Tours}" Margin="10" HorizontalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:TourCard/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem Margin="-2,-6,0,10" RenderTransformOrigin="0,0">
+                    <TabItem.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TabItem.RenderTransform>
+                    
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"> Reservation TAB</TextBlock>
+                    
+                </TabItem>
+
+                <TabItem Margin="-2,-10,0,14" RenderTransformOrigin="0,0">
+                    <TabItem.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TabItem.RenderTransform>
+
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30">Suggestions TAB</TextBlock>
+                    
+                </TabItem>
+
+            </TabControl>
         </Grid>
     </Grid>
 </Window>
