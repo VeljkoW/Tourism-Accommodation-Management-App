@@ -50,30 +50,25 @@ namespace BookingApp.View
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if (user.Password == txtPassword.Password && user.UserType == UserType.Guide)
-                {
-                    GuideMainWindow guideMainWindow = new GuideMainWindow(user);
-                    guideMainWindow.Show();
-                    Close();
-                }
-                else if(user.Password == txtPassword.Password && user.UserType == UserType.Owner)
-                {
-                    OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
-                    ownerMainWindow.Show();
-                    Close();
-                }
-                else if (user.Password == txtPassword.Password && user.UserType == UserType.Guest)
-                {
-                    OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
-                    ownerMainWindow.Show();
-                    Close();
-                }
-                else if (user.Password == txtPassword.Password)
+               if (user.Password == txtPassword.Password)
                 {
                     if(user.UserType == UserType.Tourist)
                     {
-                        TouristMainWindow touristMainWindow = new TouristMainWindow();
+                        TouristMainWindow touristMainWindow = new TouristMainWindow(user);
                         touristMainWindow.Show();
+                    }
+                    else if(user.UserType == UserType.Guide) 
+                    {
+                        GuideMainWindow guideMainWindow = new GuideMainWindow(user);
+                        guideMainWindow.Show();
+                    }
+                    else if(user.UserType == UserType.Owner)
+                    {
+
+                    }
+                    else if(user.UserType == UserType.Guest)
+                    {
+
                     }
                     Close();
                 }
