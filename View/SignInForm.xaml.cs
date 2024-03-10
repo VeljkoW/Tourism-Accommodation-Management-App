@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using BookingApp.View.Guide;
 using BookingApp.View.Owner;
 using BookingApp.View.Tourist;
+using BookingApp.View.Guest;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -60,6 +61,12 @@ namespace BookingApp.View
                 {
                     OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
                     ownerMainWindow.Show();
+                    Close();
+                }
+                else if (user.Password == txtPassword.Password && user.UserType == UserType.Guest)
+                {
+                    GuestMainWindow guestMainWindow = new GuestMainWindow(user);
+                    guestMainWindow.Show();
                     Close();
                 }
                 else if (user.Password == txtPassword.Password)
