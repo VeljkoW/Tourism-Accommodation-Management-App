@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,19 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.Guide
+namespace BookingApp.View.Owner
 {
     /// <summary>
-    /// Interaction logic for GuideMainWindow.xaml
+    /// Interaction logic for AccommodationRegistration.xaml
     /// </summary>
-    public partial class GuideMainWindow : Window
+    public partial class AccommodationRegistration : Page
     {
-        public User User {  get; set; }
-        public GuideMainWindow(User user)
+        public AccommodationRegistration()
         {
-            User = user;
             InitializeComponent();
         }
     }

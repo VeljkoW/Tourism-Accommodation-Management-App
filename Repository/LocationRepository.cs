@@ -40,10 +40,10 @@ namespace BookingApp.Repository
         {
             return _serializer.FromCSV(FilePath);
         }
-        public List<Location> GetById(int Id)
+        public Location? GetById(int Id)
         {
             _locations = _serializer.FromCSV(FilePath);
-            return _locations.FindAll(c => c.Id == Id);
+            return _locations.Find(c => c.Id == Id);
         }
     }
 }

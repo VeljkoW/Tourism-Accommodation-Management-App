@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.Guide;
+using BookingApp.View.Owner;
 using BookingApp.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
