@@ -27,14 +27,14 @@ namespace BookingApp.View.Tourist
             InitializeComponent();
             DataContext = this;
 
-            Tours = new ObservableCollection<Tour>
+            /*Tours = new ObservableCollection<Tour>
             {
                 new Tour(1,"Tour 1",new Location(),"descriptionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","lang",100,new List<string>(),10,new List<string>()),
                 //int id, string name, Location location, string description, string language, int maxTourists, List<string> keyPoints, int duration, List<string> imagePaths
                 new Tour(1,"Tour 2",new Location(),"description","lang",100,new List<string>(),10,new List<string>()),
                 new Tour(1,"Tour 3",new Location(),"description","lang",100,new List<string>(),10,new List<string>()),
                 new Tour(1,"Tour 4",new Location(),"description","lang",100,new List<string>(),10,new List<string>())
-            };
+            };*/
             
 
 
