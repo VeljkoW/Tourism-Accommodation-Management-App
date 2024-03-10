@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Image = BookingApp.Model.Image;
 
 namespace BookingApp.View.Tourist
 {
@@ -39,14 +40,15 @@ namespace BookingApp.View.Tourist
 
 
 
-            /*Tours = new ObservableCollection<Tour>
+            Tours = new ObservableCollection<Tour>
             {
-                new Tour(1,"Tour 1",new Location(),"descriptionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","lang",100,new List<string>(),10,new List<string>()),
-                new Tour(1,"Tour 2",new Location(),"description","lang",100,new List<string>(),10,new List<string>()),
-                new Tour(1,"Tour 3",new Location(),"description","lang",100,new List<string>(),10,new List<string>()),
-                new Tour(1,"Tour 4",new Location(),"description","lang",100,new List<string>(),10,new List<string>())
-            };*/
-            
+                new Tour(1,"Tour 1",new Location(),"descriptionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","lang",100,new List<KeyPoint>(),10,new List<Image>()),
+            //int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths
+                new Tour(1,"Tour 2",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
+                new Tour(1,"Tour 3",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
+                new Tour(1,"Tour 4",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>())
+            };
+
 
 
         }
