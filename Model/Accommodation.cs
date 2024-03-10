@@ -1,4 +1,5 @@
 ﻿using BookingApp.Repository;
+using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ using System.Threading.Tasks;
 public enum AccommodationType { Apartment, House, Hut }
 namespace BookingApp.Model
 {
-    public class Accommodation
+    public class Accommodation : ISerializable
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public Location? Location { get; set; }
         public AccommodationType AccommodationType {  get; set; }

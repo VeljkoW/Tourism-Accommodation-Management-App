@@ -26,7 +26,15 @@ namespace BookingApp.View.Owner
         {
             InitializeComponent();
             this.user = user;
-            mainFrame.Navigate(new Uri("../../../View/Owner/AccommodationRegistration.xaml", UriKind.Relative));
+
+            // Kreiranje instance Accommodation i prosleđivanje u konstruktor AccommodationRegistration stranice
+            Accommodation accommodation = new Accommodation(); // Zamijenjajte sa stvarnim podacima
+            AccommodationRegistration registrationPage = new AccommodationRegistration(accommodation);
+
+            // Postavljanje stranice u glavni okvir (mainFrame)
+            mainFrame.Navigate(registrationPage);
+
+            //mainFrame.Navigate(new Uri("../../../View/Owner/AccommodationRegistration.xaml", UriKind.Relative));
         }
 
         /*private void Button_Click(object sender, RoutedEventArgs e)
