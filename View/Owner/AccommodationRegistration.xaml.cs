@@ -28,7 +28,7 @@ namespace BookingApp.View.Owner
         public AccommodationRegistration(Accommodation accommodation)
         {
             InitializeComponent();
-            DataContext = this;
+            this.DataContext = this;
             Accommodation = new Accommodation();
             AccommodationRepository = new AccommodationRepository();
         }
