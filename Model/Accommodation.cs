@@ -50,6 +50,7 @@ namespace BookingApp.Model
         public string[] ToCSV()
         {
             string[] csvValues = { 
+                Id.ToString(),
                 Name, 
                 Location.Id.ToString(), 
                 AccommodationType.ToString(), 
@@ -62,14 +63,15 @@ namespace BookingApp.Model
         }
         public void FromCSV(string[] values)
         {
-            Name = values[0];
+            Id = Convert.ToInt32(values[0]);
+            Name = values[1];
             LocationRepository LocationRepository = new LocationRepository();
-            Location = LocationRepository.GetById(Convert.ToInt32(values[1]));
-            AccommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[2]);
-            MaxGuestNumber = Convert.ToInt32(values[3]);
-            MinReservationDays = Convert.ToInt32(values[4]);
-            CancelationDaysLimit = Convert.ToInt32(values[5]);
-            if (values[6].Length > 0)
+            Location = LocationRepository.GetById(Convert.ToInt32(values[2]));
+            AccommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
+            MaxGuestNumber = Convert.ToInt32(values[4]);
+            MinReservationDays = Convert.ToInt32(values[5]);
+            CancelationDaysLimit = Convert.ToInt32(values[6]);
+            if (values[7].Length > 0)
             {
                 string[] ImageIds = values[6].Split(',');
                 for (int i = 0; i < ImageIds.Length; i++)
