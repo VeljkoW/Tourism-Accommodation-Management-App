@@ -11,6 +11,7 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\Guide\user.png" />
     <None Remove="Resources\Images\Tourist\search.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
@@ -31,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Guide\user.png" />
     <Resource Include="Resources\Images\Tourist\search.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
