@@ -20,7 +20,8 @@ namespace BookingApp.Model
         public List<KeyPoint> KeyPoints { get; set; }
         public int Duration { get; set; }
         public List<Image> Images { get; set; }
-        public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths)
+        public DateTime DateTime { get; set; }
+        public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths,DateTime dateTime=new DateTime())
         {
             Id = id;
             Name = name;
