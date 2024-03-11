@@ -93,5 +93,21 @@ namespace BookingApp.View.Tourist
             Tab.SelectedIndex = 2;
         }
 
+        private void LoadedFunctions(object sender, RoutedEventArgs e)
+        {
+            CenterWindow();
+        }
+
+        private void CenterWindow()
+        {
+            double SWidth = SystemParameters.PrimaryScreenWidth;
+            double SHeight = SystemParameters.PrimaryScreenHeight;
+            double WWidth = this.Width;
+            double WHeight = this.Height;
+
+            this.Left = (SWidth - WWidth) / 2;
+            this.Top = (SHeight - WHeight) / 2;
+        }
+
     }
 }

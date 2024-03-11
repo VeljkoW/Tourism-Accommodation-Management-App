@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,19 @@ namespace BookingApp.View.Tourist.ListComponents
         {
             InitializeComponent();
         }
+
+        public void ClickedOnCard(object sender, RoutedEventArgs e)
+        {
+            var Selectedtour = DataContext as Tour;
+            if (Selectedtour != null)
+            {
+                string name = Selectedtour.Name;
+                string description = Selectedtour.Description;
+                //string imagePaths = tour.ImagePath;
+                TourDetailed tourDetailed = new TourDetailed(Selectedtour);
+                tourDetailed.ShowDialog();
+            }
+        }
+
     }
 }

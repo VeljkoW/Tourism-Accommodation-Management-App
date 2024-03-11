@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Tourist.ListComponents"
         mc:Ignorable="d"
+        Loaded="LoadedFunctions"
         Title="Booking App" Height="800" Width="1500">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
@@ -45,10 +46,10 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Width="150" Height="25" Margin="30 30 0 30" HorizontalAlignment="Center" 
+                        <TextBox Width="200" Height="25" Margin="30 30 0 30" HorizontalAlignment="Center" 
                          Text="Search tours..." Foreground="Gray"
                          GotFocus="SearchBox_Clicked" LostFocus="SearchBox_NotClicked" VerticalContentAlignment="Center"/>
-                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}">
+                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand">
                             <Image Source="pack://application:,,,/Resources/Images/Tourist/search.png" Width="17" Height="17"/>
                         </Button>
                     </Grid>
@@ -83,35 +84,35 @@
             <Border Background="{StaticResource BackgroundColorBrush}" Grid.Column="0" BorderThickness="0 0 6 0" BorderBrush="{StaticResource BorderColorBrush}">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top">
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ToursTabClick">
+                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ToursTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ReservationTabClick">
+                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ReservationTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="My reservations" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="SuggestionTabClick">
+                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="SuggestionTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="Suggest tour" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2">
+                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2">
+                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
