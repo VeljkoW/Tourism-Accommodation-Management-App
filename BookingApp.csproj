@@ -38,4 +38,8 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\Accommodation\" />
+  </ItemGroup>
+
 </Project>
