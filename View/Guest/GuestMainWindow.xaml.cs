@@ -21,10 +21,8 @@ namespace BookingApp.View.Guest
     /// </summary>
     public partial class GuestMainWindow : Window
     {
-        public User User { get; set; }
         public GuestMainWindow(User user)
         {
-            User = user;
             InitializeComponent();
         }
     }

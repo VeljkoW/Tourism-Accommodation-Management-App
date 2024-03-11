@@ -14,9 +14,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="1.2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,39 +22,29 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="imeLabel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="108" VerticalAlignment="Top" Margin="10,21,0,0" Content="{ns:Loc Ime:}"/>
-        <Label x:Name="prezimeLabel" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="108" VerticalAlignment="Center" Margin="10,0,0,0" Content="{ns:Loc Prezime:}"></Label>
-        <Label x:Name="datumRodjLabel1" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="100" VerticalAlignment="Top" Height="41" Margin="10,8,0,0" Content="{ns:Loc Datum}"></Label>
-        <Label x:Name="datumRodjLabel2" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="100" VerticalAlignment="Top" Height="41" Margin="10,31,0,0" Content="{ns:Loc rodjenja:}"></Label>
-        <Label x:Name="brojTelefonaLabel" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="150" VerticalAlignment="Center" Height="41" Content="{ns:Loc Broj telefona:}" Margin="10,0,0,0"/>
-        <Label x:Name="emailLabel" Grid.Row="4" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Width="140" VerticalAlignment="Center" Height="41" Content="{ns:Loc Email adresa:}"/>
+        <Label x:Name="NameLabel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="108" VerticalAlignment="Top" Margin="10,21,0,0" Content="Name:"/>
+        <Label x:Name="LocationLabel" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="108" VerticalAlignment="Center" Margin="10,0,0,0" Content="Location:"></Label>
+        <Label x:Name="AccommodationTypeLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="100" VerticalAlignment="Top" Height="41" Margin="10,8,0,0" Content="Type:"></Label>
+        <Label x:Name="MaxGuestNumberLabel1" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Height="41" Margin="0,11,0,0" Content="Max number"/>
+        <Label x:Name="MaxGuestNumberLabel2" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="150" VerticalAlignment="Top" Height="41" Margin="10,35,0,0" Content="of guests:"/>
 
-        <Label x:Name="ulicaLabel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="74" VerticalAlignment="Center" Height="41" Grid.Column="2" Content="{ns:Loc Ulica:}" Margin="10,0,0,0"/>
-        <Label x:Name="brojLabel" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="86" VerticalAlignment="Center" Height="41" Grid.Column="2" Content="{ns:Loc Broj:}" Margin="10,0,0,0"/>
-        <Label x:Name="gradLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="60" VerticalAlignment="Center" Height="41" Grid.Column="2" Content="{ns:Loc Grad:}" Margin="10,0,0,0"/>
-        <Label x:Name="drzavaLabel" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="82" VerticalAlignment="Center" Height="41" Grid.Column="2" Content="{ns:Loc Drzava:}" Margin="10,0,0,0"/>
-        <Label x:Name="zvanjeLabel" Grid.Row="5" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="76" VerticalAlignment="Center" Height="41" Content="{ns:Loc Zvanje:}" Margin="10,0,0,0"/>
-        <Label x:Name="brojLicneKarteLabel1" Grid.Row="4" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="98" VerticalAlignment="Top" Height="32" Grid.Column="2" Content="{ns:Loc Broj licne}" Margin="10,9,0,0"/>
-        <Label x:Name="brojLicneKarteLabel2" Grid.Row="4" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="82" VerticalAlignment="Top" Height="32" Grid.Column="2" Content="{ns:Loc karte:}" Margin="10,33,0,0"/>
-        <Label x:Name="godinaStazaLabel" Grid.Row="5" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="144" VerticalAlignment="Center" Height="41" Grid.Column="2" Content="{ns:Loc Godina staza:}" Margin="6,0,0,0"/>
-        <TextBox Text="{Binding Path=profesorDTO.Ime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Prezime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <DatePicker SelectedDate="{Binding Path=profesorDTO.Datum, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <!--<TextBox Text="{Binding Path=profesorDTO.Datum, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>-->
-        <TextBox Text="{Binding Path=profesorDTO.Broj, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Zvanje, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <Label x:Name="MinReservationDaysaLabel1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="145" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,14,0,0" Content="Min number of"/>
+        <Label x:Name="MinReservationDaysaLabel2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="98" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="18,43,0,0" Content="res. days:"/>
+        <Label x:Name="CancelationDaysLimitLabel1" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="132" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,10,0,0" Content="Cancelation"/>
+        <Label x:Name="CancelationDaysLimitLabel2" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="132" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,35,0,0" Content="Days Limit:"/>
+        <Label x:Name="ImagesLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="82" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="6,13,0,0" Content="Images"/>
+        <TextBox Text="{Binding Path=profesorDTO.Ime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=profesorDTO.Prezime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=profesorDTO.Broj, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=profesorDTO.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
 
-        <TextBox Text="{Binding Path=profesorDTO.Ulica, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Br, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Grad, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Drzava, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Br_lic, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Text="{Binding Path=profesorDTO.Staz, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <TextBox Text="{Binding Path=profesorDTO.Ulica, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=profesorDTO.Br, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+        <TextBox Text="{Binding Path=profesorDTO.Drzava, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
 
 
-        <Button x:Name="potvrdiButton" Click="addClick" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Margin="96,59,0,0" Grid.RowSpan="2" Content="{ns:Loc Potvrdi}"></Button>
-        <Button x:Name="odustaniButton" Click="noClick" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Margin="20,59,0,0" Grid.RowSpan="2" Content="{ns:Loc Odustani}"></Button>
+        <Button x:Name="AcceptButton" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Margin="96,25,0,0" Content="Accept"/>
+        <Button x:Name="DeclineButton" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Content="Decline" Margin="20,25,0,0"/>
 
 
     </Grid>

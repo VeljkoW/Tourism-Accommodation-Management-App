@@ -7,21 +7,6 @@
         mc:Ignorable="d"
         Title="GuestMainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl>
-            <TabItem Header="Accommodation">
-                <ItemsControl Name="accommodationItems">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="Gray" BorderThickness="1" Margin="5">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Width="200" Height="150" Stretch="UniformToFill"/>
-                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="5"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </TabItem>
-        </TabControl>
+        
     </Grid>
 </Window>
