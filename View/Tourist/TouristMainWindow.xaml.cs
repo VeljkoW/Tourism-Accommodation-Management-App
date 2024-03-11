@@ -38,7 +38,7 @@ namespace BookingApp.View.Tourist
                 Username = Username.Substring(0,10) + "...";    
             }
 
-
+            //old color pallete: Background : #ebde8f | Borders : #9c935f | Text : #69623c
 
             Tours = new ObservableCollection<Tour>
             {
