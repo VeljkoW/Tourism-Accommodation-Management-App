@@ -4,15 +4,23 @@ using System.Linq;
 using BookingApp.Serializer;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace BookingApp.Model
 {
-    public class Location : ISerializable
+    public class Location : ISerializable, INotifyPropertyChanged
     {
         public int Id {  get; set; }
         public string State { get; set; }
         public string City { get; set; }
-
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
         public Location() {
             this.City = string.Empty;
             this.State = string.Empty;
@@ -21,6 +29,21 @@ namespace BookingApp.Model
         {
             this.City = city;
             this.State = state;
+        }
+        public string Print
+        {
+            get
+            {
+                return Id + ": " + State + " - " + City;
+            }
+            set
+            {
+                if (value != Print)
+                {
+                    Print = value;
+                    OnPropertyChanged("Print");
+                }
+            }
         }
         public string[] ToCSV()
         {
