@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.View.Guide;
 using BookingApp.View.Owner;
+using BookingApp.View.Guest;
 using BookingApp.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -50,26 +51,27 @@ namespace BookingApp.View
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-               if (user.Password == txtPassword.Password)
+                if (user.Password == txtPassword.Password)
                 {
-                    if(user.UserType == UserType.Tourist)
+                    if (user.UserType == UserType.Tourist)
                     {
                         TouristMainWindow touristMainWindow = new TouristMainWindow(user);
                         touristMainWindow.Show();
                     }
-                    else if(user.UserType == UserType.Guide) 
+                    else if (user.UserType == UserType.Guide)
                     {
                         GuideMainWindow guideMainWindow = new GuideMainWindow(user);
                         guideMainWindow.Show();
                     }
-                    else if(user.UserType == UserType.Owner)
+                    else if (user.UserType == UserType.Owner)
                     {
                         OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
                         ownerMainWindow.Show();
                     }
-                    else if(user.UserType == UserType.Guest)
+                    else if (user.UserType == UserType.Guest)
                     {
-
+                        GuestMainWindow guestMainWindow = new GuestMainWindow(user);
+                        guestMainWindow.Show();
                     }
                     Close();
                 }
@@ -82,9 +84,9 @@ namespace BookingApp.View
             {
                 MessageBox.Show("Wrong username!");
             }
-            
+
         }
-        private void RegisterView(object sender,RoutedEventArgs e)
+        private void RegisterView(object sender, RoutedEventArgs e)
         {
             RegisterForm registerForm = new RegisterForm();
             registerForm.Show();

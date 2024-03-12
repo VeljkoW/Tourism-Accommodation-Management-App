@@ -12,20 +12,20 @@ namespace BookingApp.Repository.TourRepositories
     {
         private const string FilePath = "../../../Resources/Data/tourschedules.csv";
 
-        private readonly Serializer<TourImage> _serializer;
+        private readonly Serializer<TourSchedule> _serializer;
 
-        private List<TourImage> _tourImages;
+        private List<TourSchedule> _tourImages;
         public TourScheduleRepository()
         {
-            _serializer = new Serializer<TourImage>();
+            _serializer = new Serializer<TourSchedule>();
             _tourImages = _serializer.FromCSV(FilePath);
         }
-        internal void Add(TourImage newTour)
+        internal void Add(TourSchedule newTour)
         {
             _tourImages.Add(newTour);
             _serializer.ToCSV(FilePath, _tourImages);
         }
-        public List<TourImage> GetAll()
+        public List<TourSchedule> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }

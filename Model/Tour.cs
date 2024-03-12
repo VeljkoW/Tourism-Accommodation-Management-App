@@ -21,7 +21,7 @@ namespace BookingApp.Model
         public int Duration { get; set; }
         public List<Image> Images { get; set; }
         public DateTime DateTime { get; set; }
-        public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths,DateTime dateTime=new DateTime())
+         public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths,DateTime dateTime=new DateTime())
         {
             Id = id;
             Name = name;
@@ -44,6 +44,10 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             Name = Convert.ToString(values[1]);
             LocationId = Convert.ToInt32(values[2]);
+            Description = Convert.ToString(values[3]);
+            Language = Convert.ToString(values[4]);
+            MaxTourists = Convert.ToInt32(values[5]);
+            Duration = Convert.ToInt32(values[6]);
         }
     }
 }

@@ -29,6 +29,9 @@ namespace BookingApp.View.Owner
     {
         public Accommodation Accommodation { get; set; }
         public AccommodationRepository AccommodationRepository { get; set; }
+        public LocationRepository LocationRepository {  get; set; }
+        public List<Location> Locations { get; set; }
+        public string? SelectedLocation {  get; set; }
         public ImageRepository imageRepository = new ImageRepository();
         List<string> relativeImagePaths = new List<string>();
         public AccommodationRegistration(Accommodation accommodation)
@@ -37,11 +40,18 @@ namespace BookingApp.View.Owner
             this.DataContext = this;
             Accommodation = new Accommodation();
             AccommodationRepository = new AccommodationRepository();
+            LocationRepository = new LocationRepository();
+            Locations = new List<Location>();
+            Locations = LocationRepository.GetAll();
         }
 
         private void AcceptButtonClick(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(Accommodation.MaxGuestNumber);
+            string[] temporaryStrings = SelectedLocation.Split(':');
+            Location Location = LocationRepository.GetById(Convert.ToInt32(temporaryStrings[0]));
+            Accommodation.Location.Id = Location.Id;
+            Accommodation.Location.State = Location.State;
+            Accommodation.Location.City = Location.City;
             AccommodationRepository.Add(Accommodation);
         }
 
