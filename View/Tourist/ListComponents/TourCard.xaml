@@ -11,12 +11,16 @@
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
         <Color x:Key="TextColor">#403022</Color>
+        <Color x:Key="HoverColor">#d19f71</Color>
         <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
         <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
         <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
     </UserControl.Resources>
-    
-    <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Margin="5" CornerRadius="5" Background="{StaticResource BackgroundColorBrush}">
+
+    <Border x:Name="Border" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Margin="5" CornerRadius="5" Background="{StaticResource BackgroundColorBrush}" RenderTransformOrigin="0.5, 0.5" MouseLeftButtonDown="ClickedOnCard" Cursor="Hand">
+        <Border.RenderTransform>
+            <ScaleTransform ScaleX="1" ScaleY="1"/>
+        </Border.RenderTransform>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -27,10 +31,41 @@
             </Border>
             <StackPanel Grid.Column="1" Margin="5" HorizontalAlignment="Stretch">
                 <Border BorderThickness="0,0,0,2" BorderBrush="{StaticResource BorderColorBrush}">
-                    <TextBlock Foreground="{StaticResource TextColorBrush}" Text="{Binding Name}" FontWeight="Bold" Margin="0 0 0 5"/>
+                    <TextBlock x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0 0 0 5"/>
                 </Border>
                 <TextBlock Foreground="{StaticResource TextColorBrush}" Text="{Binding Description}" TextWrapping="Wrap"/>
             </StackPanel>
         </Grid>
     </Border>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter">
+            <BeginStoryboard>
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:0.2"/>
+                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:0.2"/>
+
+                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="{StaticResource HoverColor}" Duration="0:0:0.2"/>
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="Mouse.MouseLeave">
+            <BeginStoryboard>
+                <Storyboard>
+
+                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2"/>
+                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2"/>
+
+                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="{StaticResource BackgroundColor}" Duration="0:0:0.2"/>
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+
+    </UserControl.Triggers>
+    
+    
 </UserControl>

@@ -23,6 +23,7 @@ namespace BookingApp.View.Owner
         public RateGuest()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
     }
 }
