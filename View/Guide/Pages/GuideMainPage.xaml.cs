@@ -13,17 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.Owner
+namespace BookingApp.View.Guide.Pages
 {
     /// <summary>
-    /// Interaction logic for RateGuest.xaml
+    /// Interaction logic for GuideMainPage.xaml
     /// </summary>
-    public partial class RateGuest : Page
+    public partial class GuideMainPage : Page
     {
-        public RateGuest()
+        public GuideMainPage()
         {
+
             InitializeComponent();
-            this.DataContext = this;
+        }
+
+        private void ClickCreateTour(object sender, RoutedEventArgs e)
+        {
+            CreateTourForm createTourForm = new CreateTourForm();
+            NavigationService.Navigate(createTourForm);
         }
     }
 }

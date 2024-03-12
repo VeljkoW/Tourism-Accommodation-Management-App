@@ -21,13 +21,35 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class OwnerMainWindow : Window
     {
-        User user { get; set; }
+        public User user { get; set; }
+        public Accommodation Accommodation { get; set; }
+        public AccommodationRegistration AccommodationRegistration { get; set; }
+        public RateGuest RateGuest { get; set; }
         public OwnerMainWindow(User user)
         {
             InitializeComponent();
+            this.DataContext = this;
             this.user = user;
-            mainFrame.Navigate(new Uri("../../../View/Owner/AccommodationRegistration.xaml", UriKind.Relative));
+
+            Accommodation = new Accommodation();
+            AccommodationRegistration = new AccommodationRegistration(Accommodation);
+            RateGuest = new RateGuest();
+
+            mainFrame.Navigate(AccommodationRegistration);
+
+            //mainFrame.Navigate(new Uri("../../../View/Owner/AccommodationRegistration.xaml", UriKind.Relative));
         }
+
+        private void AccommodationReservationClick(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(AccommodationRegistration);
+        }
+
+        private void RateGuestClick(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(RateGuest);
+        }
+
 
         /*private void Button_Click(object sender, RoutedEventArgs e)
         {

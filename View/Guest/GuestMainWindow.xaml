@@ -7,6 +7,46 @@
         mc:Ignorable="d"
         Title="GuestMainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1" Grid.Row="1">Search</Label>
+            <TextBox x:Name="SearchBoxName" Grid.Column="3" Grid.Row="0" />
+            <Button Content="Click" Grid.Column="1" Grid.Row="2" Click="SearchButton"/>
+
+            <TextBox x:Name="TextBoxName" Grid.Column="0" Grid.Row="0" />
+            <TextBox x:Name="TextBoxState" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Height="25" Margin="0,0,0,39"/>
+            <TextBox x:Name="TextBoxCity" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Height="25" Margin="0,34,0,5"/>
+            <ComboBox x:Name="ComboBoxType" Grid.Column="0" Grid.Row="2">
+                <ComboBoxItem Content= "Apartment"></ComboBoxItem>
+                <ComboBoxItem Content= "House"></ComboBoxItem>
+                <ComboBoxItem Content= "Hut"></ComboBoxItem>
+            </ComboBox>
+            <TextBox x:Name="TextBoxGuestNumber" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap"/>
+            <TextBox x:Name="TextBoxReservationDays" Grid.Column="0" Grid.Row="4" />
+            <ListBox x:Name="PrintAccommodation" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="5"
+                     SelectedValuePath="Print" DisplayMemberPath="Print"/>
+        </Grid>
     </Grid>
 </Window>

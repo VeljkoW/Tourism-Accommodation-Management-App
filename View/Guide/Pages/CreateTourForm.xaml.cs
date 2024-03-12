@@ -1,12 +1,11 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.Repository.AccommodationRepositories;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,32 +19,55 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Image = BookingApp.Model.Image;
 
-namespace BookingApp.View.Owner
+namespace BookingApp.View.Guide.Pages
 {
     /// <summary>
-    /// Interaction logic for AccommodationRegistration.xaml
+    /// Interaction logic for CreateTourForm.xaml
     /// </summary>
-    public partial class AccommodationRegistration : Page
+    public partial class CreateTourForm : Page
     {
-        public Accommodation Accommodation { get; set; }
-        public AccommodationRepository AccommodationRepository { get; set; }
         public ImageRepository imageRepository = new ImageRepository();
         List<string> relativeImagePaths = new List<string>();
-        public AccommodationRegistration(Accommodation accommodation)
+        private string _name;
+        public string Name
         {
+            get => _name;
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _duration;
+        public int Duration
+        {
+            get => _duration;
+            set
+            {
+                if (value != _duration)
+                {
+                    _duration = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void OnPropertyChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        public CreateTourForm()
+        {
+            DataContext = this;
             InitializeComponent();
-            this.DataContext = this;
-            Accommodation = new Accommodation();
-            AccommodationRepository = new AccommodationRepository();
         }
 
-        private void AcceptButtonClick(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine(Accommodation.MaxGuestNumber);
-            AccommodationRepository.Add(Accommodation);
-        }
 
-        private void AddImagesClick(object sender, RoutedEventArgs e)
+        private void BtnSelectFiles_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp;*.gif)|*.png;*.jpeg;*.jpg;*.bmp;*.gif";
@@ -55,7 +77,7 @@ namespace BookingApp.View.Owner
                 // Get path to .exe file
                 string binPath = AppDomain.CurrentDomain.BaseDirectory;
                 // Position to the right folder
-                string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\Accommodation";
+                string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\Tour";
 
                 // Ensure the target folder exists
                 if (!Directory.Exists(targetFolderPath))
@@ -69,7 +91,7 @@ namespace BookingApp.View.Owner
                     SaveImageFile(filePath, destFilePath);
 
                     // Forming relative path to the new Image
-                    string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
+                    string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
                     relativeImagePaths.Add(relativePath);
                     if (relativeImagePaths.Count > 0)
                     {
@@ -80,12 +102,11 @@ namespace BookingApp.View.Owner
         }
         private void SaveImageIntoCSV(List<string> relativeImagePaths)
         {
-            foreach (string filePath in relativeImagePaths)
+            foreach(string filePath in relativeImagePaths)
             {
-                Image? image = new Image();
+                Image image = new Image();
                 image.Path = filePath;
-                image = imageRepository.Add(image);
-                Accommodation.Images.Add(image);
+                imageRepository.Add(image);
             }
         }
         private void SaveImageFile(string filePath, string destFilePath)
@@ -122,5 +143,19 @@ namespace BookingApp.View.Owner
             return path;
         }
 
+        private void ClickCreateButton(object sender, RoutedEventArgs e)
+        {
+
+            NavigationService.GoBack();
+        }
+        private void ClickCancelButton(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void MaxTouristTextbox_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
     }
 }
