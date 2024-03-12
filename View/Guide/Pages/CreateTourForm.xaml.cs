@@ -1,11 +1,14 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Repository.TourRepositories;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,9 +30,46 @@ namespace BookingApp.View.Guide.Pages
     public partial class CreateTourForm : Page
     {
         public ImageRepository imageRepository = new ImageRepository();
-        List<string> relativeImagePaths = new List<string>();
+        public KeyPointRepository keyPointRepository = new KeyPointRepository();
+        public TourRepository tourRepository = new TourRepository();
+        public TourImageRepository tourImageRepository = new TourImageRepository();
+        public TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
+
+        public List<string> relativeImagePaths = new List<string>();
+        private List<Image> images = new List<Image>();
+        private List<TourSchedule> schedules = new List<TourSchedule>();
+        private List<DateTime> dates = new List<DateTime>();
+        public List<KeyPoint> keyPoints = new List<KeyPoint>();
+        public List<string> keyPointStrings = new List<string>();
+        public List<int> HoursList { get; set; }
+        private int _hours;
+        public int Hours
+        {
+            get => _hours;
+            set
+            {
+                if (value != _hours)
+                {
+                    _hours = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _minutes;
+        public int Minutes
+        {
+            get => _minutes;
+            set
+            {
+                if (value != _minutes)
+                {
+                    _minutes= value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _name;
-        public string Name
+        public new string Name
         {
             get => _name;
             set
@@ -54,21 +94,91 @@ namespace BookingApp.View.Guide.Pages
                 }
             }
         }
-
-        private void OnPropertyChanged()
+        private int _maxTourists;
+        public int MaxTourists
         {
-            throw new NotImplementedException();
+            get => _maxTourists;
+            set
+            {
+                if (value != _maxTourists)
+                {
+                    _maxTourists = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _state;
+        public string State
+        {
+            get => _state;
+            set
+            {
+                if (value != _state)
+                {
+                    _state = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _city;
+        public string City
+        {
+            get => _city;
+            set
+            {
+                if (value != _city)
+                {
+                    _city = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _language;
+        public new string Language
+        {
+            get => _language;
+            set
+            {
+                if (value != _language)
+                {
+                    _language = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _description;
+        public string Description
+        {
+            get => _language;
+            set
+            {
+                if (value != _description)
+                {
+                    _description = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public CreateTourForm()
         {
             DataContext = this;
+            images.Clear();
+            HoursList = Enumerable.Range(0, 24).ToList();
             InitializeComponent();
         }
 
 
         private void BtnSelectFiles_Click(object sender, RoutedEventArgs e)
         {
+            relativeImagePaths.Clear();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp;*.gif)|*.png;*.jpeg;*.jpg;*.bmp;*.gif";
             dlg.Multiselect = true;
@@ -79,7 +189,7 @@ namespace BookingApp.View.Guide.Pages
                 // Position to the right folder
                 string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\Tour";
 
-                // Ensure the target folder exists
+                // Make sure that the target folder exists
                 if (!Directory.Exists(targetFolderPath))
                 {
                     Directory.CreateDirectory(targetFolderPath);
@@ -88,15 +198,11 @@ namespace BookingApp.View.Guide.Pages
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
-                    SaveImageFile(filePath, destFilePath);
-
+                    images.Clear();
+                    fileName=SaveImageFile(filePath, destFilePath,fileName);
                     // Forming relative path to the new Image
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
                     relativeImagePaths.Add(relativePath);
-                    if (relativeImagePaths.Count > 0)
-                    {
-                        SaveImageIntoCSV(relativeImagePaths);
-                    }
                 }
             }
         }
@@ -104,26 +210,30 @@ namespace BookingApp.View.Guide.Pages
         {
             foreach(string filePath in relativeImagePaths)
             {
-                Image image = new Image();
-                image.Path = filePath;
-                imageRepository.Add(image);
+                Image image = new Image(0,filePath);
+                image = imageRepository.Add(image);
+                images.Add(image);
             }
         }
-        private void SaveImageFile(string filePath, string destFilePath)
+        private string SaveImageFile(string filePath, string destFilePath,string fileName)
         {
             if (!File.Exists(destFilePath))
             {
                 File.Copy(filePath, destFilePath, false);
+                return fileName;
             }
             else
             {
+                string[] fileNameParts = fileName.Split(".");
                 while (File.Exists(destFilePath))
                 {
                     string[] name = destFilePath.Split(".");
                     name[0] = name[0] + "A";
                     destFilePath = name[0] + "." + name[1];
+                    fileNameParts[0] = fileNameParts[0] + "A";
                 }
                 File.Copy(filePath, destFilePath, false);
+                return fileNameParts[0]+"."+fileNameParts[1];
             }
         }
         private string GetBaseFolder(string path)
@@ -146,6 +256,53 @@ namespace BookingApp.View.Guide.Pages
         private void ClickCreateButton(object sender, RoutedEventArgs e)
         {
 
+            // Create a new Tour object
+            State = StateBox.Text.Trim();
+            City = CityBox.Text.Trim();
+            Location location = new Location(State,City);
+            location.Id = 66;
+            Tour newTour = new Tour
+            {
+                Name = TourNameTextbox.Text.Trim(),
+                Description = DescriptionTextbox.Text.Trim(),
+                Language = LanguageTextbox.Text.Trim(),
+                Location = location,
+                MaxTourists = Convert.ToInt32(MaxTouristTextbox.Text.Trim()),
+                Duration = Convert.ToInt32(DurationTextbox.Text.Trim()),
+                DateTime = DateTime.Now,
+                Images =images,
+                KeyPoints = this.keyPoints
+            };
+
+            try
+            {
+                if (relativeImagePaths.Count > 0)
+                {
+                    SaveImageIntoCSV(relativeImagePaths);
+                }
+                newTour = tourRepository.Add(newTour);
+                int tourId = newTour.Id;
+                foreach(string keyPointString in keyPointStrings)
+                {
+                    KeyPoint keyPoint = new KeyPoint(tourId, keyPointString);
+                    keyPointRepository.Add(keyPoint);
+                }
+                foreach (Image image in images)
+                {
+                    TourImage tourImage = new TourImage(tourId, image.Id);
+                    tourImageRepository.Add(tourImage);
+                }
+                foreach(TourSchedule schedule in schedules)
+                {
+                    schedule.TourId = tourId;
+                    tourScheduleRepository.Add(schedule);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors, perhaps logging them and showing a message to the user
+                MessageBox.Show($"Failed to create the tour. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             NavigationService.GoBack();
         }
         private void ClickCancelButton(object sender, RoutedEventArgs e)
@@ -156,6 +313,45 @@ namespace BookingApp.View.Guide.Pages
         private void MaxTouristTextbox_SourceUpdated(object sender, DataTransferEventArgs e)
         {
 
+        }
+        private void ClickAddKeyPoint(object sender, RoutedEventArgs e)
+        {
+            keyPointStrings.Add(KeyPointTextbox.Text);
+            KeyPointTextbox.Clear();
+        }
+
+        public void ClickAddDate(object sender, RoutedEventArgs e)
+        {
+            DateTime date;
+            if(DateTime.TryParse(datePicker.SelectedDate.Value.Date.ToShortDateString() +" "+Hours.ToString()+":"+Minutes.ToString(), out date))
+            {
+                TourSchedule schedule = new TourSchedule();
+                schedule.Guests = 0;
+                if (DateExists(date))
+                {
+                    return;
+                }
+                schedule.Date = date;
+                schedule.Guests = 0;
+                schedules.Add(schedule);
+                dates.Add(date);
+            }
+        }
+        private bool DateExists(DateTime date)
+        {
+            foreach(DateTime listDate in dates)
+            {
+                if (date.Equals(listDate))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void DatePicker_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

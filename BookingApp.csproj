@@ -42,4 +42,8 @@
 		<Folder Include="Resources\Images\Accommodation\" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\Tour\" />
+  </ItemGroup>
+
 </Project>

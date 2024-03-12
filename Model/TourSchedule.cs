@@ -16,17 +16,18 @@ namespace BookingApp.Model
         public int Id { get; set; }
         public int TourId { get; set; }
         public DateTime Date { get; set; }
+        public int Guests {  get; set; }
         public TourSchedule() { }
-        public TourSchedule(int id,int tourId, DateTime dateTime)
+        public TourSchedule(Tour tour, DateTime dateTime)
         {
-            Id = id;
-            TourId = tourId;
+            Id = 999;
+            TourId = tour.Id;
             Date=dateTime;
         }
 
         public string[] ToCSV()
         {
-            string[] ret = { Id.ToString(), TourId.ToString(), Date.ToString()};
+            string[] ret = { Id.ToString(), TourId.ToString(), Date.ToString(),Guests.ToString()};
             return ret;
         }
 
@@ -35,6 +36,7 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             TourId= Convert.ToInt32(values[1]);
             Date = Convert.ToDateTime(values[2]);
+            Guests = Convert.ToInt32(values[3]);
         }
     }
 }

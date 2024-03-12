@@ -30,11 +30,12 @@ namespace BookingApp.Repository.TourRepositories
             }
             return _tours.Max(c => c.Id) + 1;
         }
-        internal void Add(Tour newTour)
+        internal Tour Add(Tour newTour)
         {
             newTour.Id = NextId();
             _tours.Add(newTour);
             _serializer.ToCSV(FilePath, _tours);
+            return newTour;
         }
         public List<Tour> GetAll()
         {
