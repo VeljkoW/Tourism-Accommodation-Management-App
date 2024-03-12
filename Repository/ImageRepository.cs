@@ -29,11 +29,12 @@ namespace BookingApp.Repository
             }
             return _images.Max(c => c.Id) + 1;
         }
-        internal void Add(Image newImage)
+        internal Image? Add(Image newImage)
         {
             newImage.Id = NextId();
             _images.Add(newImage);
             _serializer.ToCSV(FilePath, _images);
+            return newImage;
         }
         public List<Image> GetAll()
         {
