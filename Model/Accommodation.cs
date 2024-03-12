@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -10,20 +11,156 @@ using System.Threading.Tasks;
 public enum AccommodationType { Apartment, House, Hut }
 namespace BookingApp.Model
 {
-    public class Accommodation : ISerializable
+    public class Accommodation : ISerializable, INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Location? Location { get; set; }
-        public AccommodationType AccommodationType {  get; set; }
+         public int id { get; set; }
+         public string name { get; set; }
+         public Location? location { get; set; }
+         public AccommodationType accommodationType {  get; set; }
         
-        public int MaxGuestNumber {  get; set; }
-        //public int GuestNumber { get; set; }
-        public int MinReservationDays {  get; set; }
-        //public int ReservationDays { get; set; }
-        public int CancelationDaysLimit {  get; set; }
-        public List<Image> Images { get; set; }
+         public int maxGuestNumber {  get; set; }
+         //public int GuestNumber { get; set; }
+         public int minReservationDays {  get; set; }
+       // public int ReservationDays { get; set; }
+         public int cancelationDaysLimit {  get; set; }
+         public List<Image> images { get; set; }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value != name)
+                {
+                    name = value;
+                    OnPropertyChanged(nameof(name));
+                }
+            }
+        }
+
+        public Location Location
+        {
+            get
+            {
+                return location;
+            }
+            set
+            {
+                if (value != location)
+                {
+                    location = value;
+                    OnPropertyChanged(nameof(location));
+                }
+            }
+        }
+
+        public AccommodationType AccommodationType
+        {
+            get
+            {
+                return accommodationType;
+            }
+            set
+            {
+                if (value != accommodationType)
+                {
+                    accommodationType = value;
+                    OnPropertyChanged(nameof(accommodationType));
+                }
+            }
+        }
+
+        public int MaxGuestNumber
+        {
+            get
+            {
+                return maxGuestNumber;
+            }
+            set
+            {
+                if (value != maxGuestNumber)
+                {
+                    maxGuestNumber = value;
+                    OnPropertyChanged(nameof(maxGuestNumber));
+                }
+            }
+        }
+
+        public int MinReservationDays
+        {
+            get
+            {
+                return minReservationDays;
+            }
+            set
+            {
+                if (value != minReservationDays)
+                {
+                    minReservationDays = value;
+                    OnPropertyChanged(nameof(minReservationDays));
+                }
+            }
+        }
+
+        public int CancelationDaysLimit
+        {
+            get
+            {
+                return cancelationDaysLimit;
+            }
+            set
+            {
+                if (value != cancelationDaysLimit)
+                {
+                    cancelationDaysLimit = value;
+                    OnPropertyChanged(nameof(cancelationDaysLimit));
+                }
+            }
+        }
+
+
+        public List<Image> Images
+        {
+            get
+            {
+                return images;
+            }
+            set
+            {
+                if (value != images)
+                {
+                    images = value;
+                    OnPropertyChanged(nameof(images));
+                }
+            }
+        }
         public Accommodation()
         {
             this.Name = string.Empty;
@@ -93,6 +230,22 @@ namespace BookingApp.Model
             if (str.Length > 0)
                 str = str.Remove(str.Length - 1);
             return str;
+        }
+
+        public string Print
+        {
+            get
+            {
+                return Name + ": " + Location.State + ", "+ Location.City+", "+AccommodationType+", "+MaxGuestNumber+", "+MinReservationDays;
+            }
+            set
+            {
+                if (value != Print)
+                {
+                    Print = value;
+                    OnPropertyChanged("Print");
+                }
+            }
         }
     }
 }
