@@ -42,7 +42,7 @@
         <Grid Grid.Row="1" Grid.Column="0" >
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock FontSize="22" VerticalAlignment="Top" HorizontalAlignment="Center"   FontWeight="Bold">Description:</TextBlock>
-                <TextBox x:Name="DescriptionTextbox" Width="300" Height="95" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBox>
+                <TextBox x:Name="DescriptionTextbox" Width="300" Height="80" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBox>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" >

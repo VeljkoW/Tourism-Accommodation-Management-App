@@ -46,4 +46,8 @@
     <Folder Include="Resources\Images\Tour\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Resources\Images\**\*.*" />
+  </ItemGroup>
+
 </Project>
