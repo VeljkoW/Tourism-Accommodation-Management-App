@@ -22,13 +22,15 @@ namespace BookingApp.View.Tourist
     public partial class TourDetailed : Window
     {
         public Tour Tour { get; set; }
+        public User User {  get; set; }
         //public LocationRepository LocationRepository = new LocationRepository();
         //public List<Location> _locations {  get; set; }
-        public TourDetailed(Tour selectedTour)
+        public TourDetailed(Tour selectedTour,User user)
         {
 
             InitializeComponent();
             Tour = selectedTour;
+            User = user;
             NameTextBlock.Text = Tour.Name;
             DescriptionTextBlock.Text = Tour.Description;
             StateTextBlock.Text = Tour.Location.State;
@@ -85,7 +87,7 @@ namespace BookingApp.View.Tourist
         public void OpenReservationWindow(object sender, RoutedEventArgs e)
         {
             Close();
-            TourReservation tourReservation = new TourReservation(Tour);
+            TourReservationWindow tourReservation = new TourReservationWindow(Tour, User);
             tourReservation.ShowDialog();
         }
     }

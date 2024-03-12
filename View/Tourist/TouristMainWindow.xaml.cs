@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Repository.TourRepositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,7 +24,8 @@ namespace BookingApp.View.Tourist
     /// </summary>
     public partial class TouristMainWindow : Window
     {
-        public ObservableCollection<Tour> Tours {  get; set; }
+        public List<Tour> Tours {  get; set; }
+        public TourRepository tourRepository { get; set; }
         public User User { get; set; }
         public string Username {  get; set; }
         public TouristMainWindow(User user)
@@ -38,22 +40,22 @@ namespace BookingApp.View.Tourist
                 Username = Username.Substring(0,10) + "...";    
             }
 
-            //old color pallete: Background : #ebde8f | Borders : #9c935f | Text : #69623c
+            tourRepository = new TourRepository();
 
-            Tours = new ObservableCollection<Tour>
+            //Tours = tourRepository.GetAll();
+            Tours = new List<Tour>
             { 
                 new Tour(1,"Tour 1",new Location(),"descriptionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","lang",100,new List<KeyPoint>(),10,new List<Image>()),
-            //int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths
-                new Tour(1,"Tour 2",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
-                new Tour(1,"Tour 3",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
-                new Tour(1,"Tour 4",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>())
+                new Tour(2,"Tour 2",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
+                new Tour(3,"Tour 3",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
+                new Tour(4,"Tour 4",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>())
             };
 
 
-
+            
         }
 
-        private void SearchBox_Clicked(Object sender, RoutedEventArgs e)
+        private void SearchBoxClicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             if (textBox.Text == "Search tours...")
@@ -64,7 +66,7 @@ namespace BookingApp.View.Tourist
 
         }
 
-        private void SearchBox_NotClicked(Object sender, RoutedEventArgs e)
+        private void SearchBoxNotClicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             if(string.IsNullOrWhiteSpace(textBox.Text))
