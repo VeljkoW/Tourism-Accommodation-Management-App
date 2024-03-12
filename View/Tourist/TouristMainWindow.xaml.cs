@@ -41,7 +41,7 @@ namespace BookingApp.View.Tourist
             //old color pallete: Background : #ebde8f | Borders : #9c935f | Text : #69623c
 
             Tours = new ObservableCollection<Tour>
-            {
+            { 
                 new Tour(1,"Tour 1",new Location(),"descriptionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","lang",100,new List<KeyPoint>(),10,new List<Image>()),
             //int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths
                 new Tour(1,"Tour 2",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
