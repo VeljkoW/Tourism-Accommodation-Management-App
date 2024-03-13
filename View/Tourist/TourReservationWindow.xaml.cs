@@ -25,6 +25,7 @@ namespace BookingApp.View.Tourist
         public User User { get; set; }
         public TourPersonRepository tourPersonRepository { get; set; }
         public TourReservationRepository tourReservationRepository { get; set; }
+        public TourScheduleRepository tourScheduleRepository { get; set; }
         public TourReservationWindow(Tour tour, User user)
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace BookingApp.View.Tourist
 
             tourPersonRepository = new TourPersonRepository();
             tourReservationRepository = new TourReservationRepository();
+            tourScheduleRepository = new TourScheduleRepository();
             User = user;
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
@@ -88,6 +90,11 @@ namespace BookingApp.View.Tourist
             {
                 TextBoxesPanel.Children.Clear();
 
+                if(numberOfPeople > Tour.MaxTourists)
+                {
+                    numberOfPeople = Tour.MaxTourists;          // Caps off the text boxes generation,sets the limit to the max people on that tour to reduce lag | A TEMPORARY SOLUTION??
+                }
+
                 for (int i = 0; i < numberOfPeople; i++)
                 {
                     //Name text box
@@ -98,7 +105,8 @@ namespace BookingApp.View.Tourist
                     nameTextBox.Margin = new Thickness(5);
                     nameTextBox.FontSize = 15;
                     nameTextBox.Background = Brushes.White;
-                    
+                    nameTextBox.Name = "nameTextBox";
+
                     //Surname textbox
                     TextBox surnameTextBox = new TextBox();
                     surnameTextBox.VerticalAlignment = VerticalAlignment.Center;
@@ -107,6 +115,7 @@ namespace BookingApp.View.Tourist
                     surnameTextBox.Margin = new Thickness(5);
                     surnameTextBox.FontSize = 15;
                     surnameTextBox.Background = Brushes.White;
+                    surnameTextBox.Name = "surnameTextBox";
 
                     //Age textbox
                     TextBox ageTextBox = new TextBox();
@@ -116,6 +125,7 @@ namespace BookingApp.View.Tourist
                     ageTextBox.Margin = new Thickness(5);
                     ageTextBox.FontSize = 15;
                     ageTextBox.Background = Brushes.White;
+                    ageTextBox.Name = "ageTextBox";
 
                     //Name textblock
                     TextBlock nameTextBlock = new TextBlock();
@@ -124,6 +134,7 @@ namespace BookingApp.View.Tourist
                     nameTextBlock.Text = "  Name: ";
                     nameTextBlock.FontSize = 15;
                     nameTextBlock.Foreground = Brushes.Black;
+
 
                     //Surname textblock
                     TextBlock surnameTextBlock = new TextBlock();
@@ -164,68 +175,113 @@ namespace BookingApp.View.Tourist
         }
         public void Reserve(object sender, RoutedEventArgs e)
         {
-            
-            List<TourPerson> tourPeople = new List<TourPerson>();
 
-
-            foreach(StackPanel stackpanel in TextBoxesPanel.Children)
+            List<TourSchedule> tourSchedules = tourScheduleRepository.GetAll();
+            TourSchedule tourSchedule = new TourSchedule();
+            tourSchedule.Id = -1;
+            tourSchedule.Guests = 0;  // temporary line
+            //finds the right schedule for the tour
+            foreach (TourSchedule tourScheduleI in tourSchedules)
             {
-                string name = "";
-                string surname = "";
-                int age = 0;
-
-                foreach(var child in stackpanel.Children)
+                if (tourScheduleI.TourId == Tour.Id && tourScheduleI.Date == Tour.DateTime)
                 {
-                    if(child is TextBox)
-                    {
-                        TextBox textBox = (TextBox) child;
+                    tourSchedule = tourScheduleI;
+                }
+            }
 
-                        if(textBox.Name == "nameTextBox")
+
+            if (!NumberOfPeopleTextBox.Text.Contains("Max") && !string.IsNullOrEmpty(NumberOfPeopleTextBox.Text) && tourSchedule.Guests+Convert.ToInt32(NumberOfPeopleTextBox.Text) <= Tour.MaxTourists)
+            {
+                List<TourPerson> tourPeople = new List<TourPerson>();
+
+                foreach (StackPanel stackpanel in TextBoxesPanel.Children)
+                {
+                    string name = "";
+                    string surname = "";
+                    int age = -1;
+
+                    foreach (var child in stackpanel.Children)
+                    {
+                        if (child is TextBox)
                         {
-                            if (string.IsNullOrEmpty(textBox.Text))
+                            TextBox textBox = (TextBox)child;
+
+                            if (textBox.Name == "nameTextBox")
                             {
-                                MessageBox.Show("You haven't filled in the Name textbox");
-                                return;
+                                if (string.IsNullOrEmpty(textBox.Text))
+                                {
+                                    MessageBox.Show("You haven't filled in the Name textbox");
+                                    return;
+                                }
+                                else
+                                {
+                                    name = textBox.Text;
+                                }
                             }
-                            else
+                            else if (textBox.Name == "surnameTextBox")
                             {
-                                name = textBox.Text;
+                                if (string.IsNullOrEmpty(textBox.Text))
+                                {
+                                    MessageBox.Show("You haven't filled in the Surname textbox");
+                                    return;
+                                }
+                                else
+                                {
+                                    surname = textBox.Text;
+                                }
                             }
-                        }
-                        else if(textBox.Name == "surnameTextBox")
-                        {
-                            if (string.IsNullOrEmpty(textBox.Text))
+                            else if (textBox.Name == "ageTextBox")
                             {
-                                MessageBox.Show("You haven't filled in the Surname textbox");
-                                return;
-                            }
-                            else
-                            {
-                                surname = textBox.Text;
-                            }
-                        }
-                        else if (textBox.Name == "ageTextBox")
-                        {
-                            if (string.IsNullOrEmpty(textBox.Text))
-                            {
-                                MessageBox.Show("You haven't filled in the Age textbox");
-                                return;
-                            }
-                            else
-                            {
-                                age = Convert.ToInt32(textBox.Text);
+                                if (string.IsNullOrEmpty(textBox.Text))
+                                {
+                                    MessageBox.Show("You haven't filled in the Age textbox");
+                                    return;
+                                }
+                                else
+                                {
+                                    age = Convert.ToInt32(textBox.Text);
+                                }
                             }
                         }
                     }
+                    int id = tourPersonRepository.NextId();
+                    TourPerson person = new TourPerson(id, name, surname, age);
+                    tourPeople.Add(person);
                 }
-                int id = tourPersonRepository.NextId();
-                TourPerson person = new TourPerson(id,name,surname,age);
-                tourPersonRepository.Add(person);
-                tourPeople.Add(person);
+
+                foreach (TourPerson person in tourPeople)
+                {
+                    tourPersonRepository.Add(person);
+                }
+
+                /*                                                       //NEEDS TO BE UNCOMMENTED WHEN THE TOURS LIST IS IMPLEMENTED !!!!!!!!!!!!!!!!
+                if(tourSchedule.Id == -1)
+                {
+                    MessageBox.Show("Couldn't find the tour schedlue!");
+                    return;
+                }
+                */
+                
+
+                TourReservation tourReservation = new TourReservation(0, User.Id, tourSchedule.Id, tourPeople);
+                tourReservationRepository.Add(tourReservation);
+                Close();
+                TourReservationSuccessful tourReservationSuccessful = new TourReservationSuccessful(Tour, tourReservation);
+                tourReservationSuccessful.ShowDialog();
+
             }
-            TourReservation tourReservation = new TourReservation(0,User.Id,Tour.Id,tourPeople);
-            tourReservationRepository.Add(tourReservation);
-            Close();
+            else if(NumberOfPeopleTextBox.Text.Contains("Max") && string.IsNullOrEmpty(NumberOfPeopleTextBox.Text))
+            {
+                MessageBox.Show("You need to insert the amount of people going on the tour!");
+                return;
+            }
+            else// Opens the "There aren't enough free slots on the tour" window
+            {
+                TourReservationFailed tourReservationFailed = new TourReservationFailed();
+                tourReservationFailed.Owner = this;
+                tourReservationFailed.ShowDialog();
+            }
+
         }
 
     }
