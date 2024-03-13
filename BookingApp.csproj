@@ -17,6 +17,7 @@
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
+  
 	<ItemGroup>
 		<Content Include="Resources\Images\add.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -46,6 +47,11 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Tour\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Resource Include="Resources\Images\*.*">
+    </Resource>
   </ItemGroup>
 
 </Project>

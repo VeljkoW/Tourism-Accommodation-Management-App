@@ -10,17 +10,11 @@
 
     <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="224"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
@@ -29,8 +23,35 @@
                 <TextBlock x:Name="UserNameTextbox" Text="{Binding UserName}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </Grid>
-        <Grid Grid.Column="0" Grid.Row="1">
-            <Button x:Name="CreateTour" Margin="10" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickCreateTour">Create tour</Button>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="CreateTour" Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickCreateTour">Create tour</Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <ScrollViewer Grid.Column="1">
+                <ItemsControl ItemsSource="{Binding Tours}" Margin="10" HorizontalAlignment="Stretch">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:UserControlTourCard/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

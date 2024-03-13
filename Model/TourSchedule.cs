@@ -17,6 +17,7 @@ namespace BookingApp.Model
         public int TourId { get; set; }
         public DateTime Date { get; set; }
         public int Guests {  get; set; }
+        // status ture ready started finished
         public TourSchedule() { }
         public TourSchedule(Tour tour, DateTime dateTime)
         {

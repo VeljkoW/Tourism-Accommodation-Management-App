@@ -26,12 +26,14 @@ namespace BookingApp.Model
             Id = id;
             Name = name;
             Location = location;
+            LocationId = location.Id;
             Description = description;
             Language = language;
             MaxTourists = maxTourists;
             KeyPoints = keyPoints;
             Duration = duration;
             Images = imagePaths;
+            DateTime = dateTime;
         }
         public Tour() { }
         public string[] ToCSV()

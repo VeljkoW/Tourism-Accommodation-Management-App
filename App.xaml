@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:BookingApp"
              StartupUri="View/SignInForm.xaml">
     <Application.Resources>
-         
+
+        <SolidColorBrush x:Key="DirtColor" Color="#5c2600"/>
+        <SolidColorBrush x:Key="LightDirtColor" Color="#ff9142"/>
+        <SolidColorBrush x:Key="GuideTextboxBackground" Color="#fcde97"/>
+        <SolidColorBrush x:Key="GrassDark" Color="#166300"/>
+        <SolidColorBrush x:Key="GrassLight" Color="#24a800"/>
+        
     </Application.Resources>
 </Application>
