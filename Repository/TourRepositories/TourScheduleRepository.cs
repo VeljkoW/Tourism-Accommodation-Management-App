@@ -14,16 +14,26 @@ namespace BookingApp.Repository.TourRepositories
 
         private readonly Serializer<TourSchedule> _serializer;
 
-        private List<TourSchedule> _tourImages;
+        private List<TourSchedule> _tourSchedules;
         public TourScheduleRepository()
         {
             _serializer = new Serializer<TourSchedule>();
-            _tourImages = _serializer.FromCSV(FilePath);
+            _tourSchedules = _serializer.FromCSV(FilePath);
         }
-        internal void Add(TourSchedule newTour)
+        public int NextId()
         {
-            _tourImages.Add(newTour);
-            _serializer.ToCSV(FilePath, _tourImages);
+            _tourSchedules = _serializer.FromCSV(FilePath);
+            if (_tourSchedules.Count < 1)
+            {
+                return 1;
+            }
+            return _tourSchedules.Max(c => c.Id) + 1;
+        }
+        internal void Add(TourSchedule newSchedule)
+        {
+            newSchedule.Id = NextId();
+            _tourSchedules.Add(newSchedule);
+            _serializer.ToCSV(FilePath, _tourSchedules);
         }
         public List<TourSchedule> GetAll()
         {

@@ -14,24 +14,10 @@
     <None Remove="Resources\Images\Guide\user.png" />
     <None Remove="Resources\Images\Tourist\person.png" />
     <None Remove="Resources\Images\Tourist\search.png" />
+    <None Remove="Resources\Images\Tour\BigBen.jpg" />
+    <None Remove="Resources\Images\Tour\giza.jpg" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
-
-  
-	<ItemGroup>
-		<Content Include="Resources\Images\add.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\Images\delete.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\Images\edit.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\Images\view.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\Images\Guide\user.png" />
@@ -39,19 +25,26 @@
     <Resource Include="Resources\Images\Tourist\search.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\Tour\BigBen.jpg" />
   </ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Resources\Images\Accommodation\" />
 	</ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Images\Tour\" />
-  </ItemGroup>
   
-  <ItemGroup>
-    <Resource Include="Resources\Images\*.*">
-    </Resource>
-  </ItemGroup>
+<ItemGroup>
+  <Content Include="Resources\Images\*.*">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+  <Content Include="Resources\Images\Guide\*.*">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+  <Content Include="Resources\Images\Tour\*.*">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+  <Content Include="Resources\Images\Tourist\*.*">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
 
 </Project>

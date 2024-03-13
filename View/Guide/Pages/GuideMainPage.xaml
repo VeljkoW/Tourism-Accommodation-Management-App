@@ -45,11 +45,6 @@
                             <local:UserControlTourCard/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
         </Grid>

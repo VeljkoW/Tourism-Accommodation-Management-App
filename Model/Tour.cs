@@ -17,10 +17,11 @@ namespace BookingApp.Model
         public string Description { get; set; }
         public string Language { get; set; }
         public int MaxTourists { get; set; }
-        public List<KeyPoint> KeyPoints { get; set; }
+        public List<KeyPoint> KeyPoints { get; set; } = new List<KeyPoint>();
         public int Duration { get; set; }
-        public List<Image> Images { get; set; }
+        public List<Image> Images { get; set; } = new List<Image>();
         public DateTime DateTime { get; set; }
+        public int OwnerId {  get; set; }
          public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths,DateTime dateTime=new DateTime())
         {
             Id = id;
@@ -38,7 +39,7 @@ namespace BookingApp.Model
         public Tour() { }
         public string[] ToCSV()
         {
-            string[] ret = {Id.ToString(),Name,LocationId.ToString(),Description,Language,MaxTourists.ToString(),Duration.ToString()};
+            string[] ret = {Id.ToString(),Name,LocationId.ToString(),Description,Language,MaxTourists.ToString(),Duration.ToString(),OwnerId.ToString()};
             return ret;
         }
         public void FromCSV(string[] values)
@@ -50,6 +51,7 @@ namespace BookingApp.Model
             Language = Convert.ToString(values[4]);
             MaxTourists = Convert.ToInt32(values[5]);
             Duration = Convert.ToInt32(values[6]);
+            OwnerId = Convert.ToInt32(values[7]);
         }
     }
 }

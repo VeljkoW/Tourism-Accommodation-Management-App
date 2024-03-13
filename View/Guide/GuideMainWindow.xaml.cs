@@ -27,10 +27,9 @@ namespace BookingApp.View.Guide
         public GuideMainWindow(User user)
         {
             InitializeComponent();
-            DataContext = this;
             User = user;
-            UserName = user.Username;
-            GuideMainPage guideMainPage = new GuideMainPage();
+            DataContext = this;
+            GuideMainPage guideMainPage = new GuideMainPage(user);
             MainFrame.Navigate(guideMainPage);
         }
     }
