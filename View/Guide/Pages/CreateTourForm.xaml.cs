@@ -44,6 +44,7 @@ namespace BookingApp.View.Guide.Pages
         public List<Location> Locations = new List<Location>();
         public List<string> keyPointStrings = new List<string>();
         public List<int> HoursList { get; set; }
+        public List<int> MinutesList { get; set; }
         public List<string> States { get; set; }
         public List<string> Cities { get; set; }
         private int _hours;
