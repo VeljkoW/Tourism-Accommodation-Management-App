@@ -34,14 +34,18 @@ namespace BookingApp.View.Guide.Pages
         public TourRepository tourRepository = new TourRepository();
         public TourImageRepository tourImageRepository = new TourImageRepository();
         public TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
+        public LocationRepository locationRepository = new LocationRepository();
 
         public List<string> relativeImagePaths = new List<string>();
         private List<Image> images = new List<Image>();
         private List<TourSchedule> schedules = new List<TourSchedule>();
         private List<DateTime> dates = new List<DateTime>();
         public List<KeyPoint> keyPoints = new List<KeyPoint>();
+        public List<Location> Locations = new List<Location>();
         public List<string> keyPointStrings = new List<string>();
         public List<int> HoursList { get; set; }
+        public List<string> States { get; set; }
+        public List<string> Cities { get; set; }
         private int _hours;
         public int Hours
         {
@@ -169,10 +173,20 @@ namespace BookingApp.View.Guide.Pages
 
         public CreateTourForm()
         {
+            InitializeComponent();
             DataContext = this;
             images.Clear();
             HoursList = Enumerable.Range(0, 24).ToList();
-            InitializeComponent();
+            Locations = locationRepository.GetAll();
+            States = new List<string>();
+            Cities = new List<string>();
+            foreach (Location location in Locations)
+            {
+                if (!States.Contains(location.State))
+                {
+                    States.Add(location.State);
+                }
+            }
         }
 
 
@@ -260,7 +274,7 @@ namespace BookingApp.View.Guide.Pages
             State = StateBox.Text.Trim();
             City = CityBox.Text.Trim();
             Location location = new Location(State,City);
-            location.Id = 66;
+            location.Id = locationRepository.GetIdByStateCity(State,City);
             Tour newTour = new Tour
             {
                 Name = TourNameTextbox.Text.Trim(),
@@ -273,7 +287,7 @@ namespace BookingApp.View.Guide.Pages
                 Images =images,
                 KeyPoints = this.keyPoints
             };
-
+            newTour.LocationId = location.Id;
             try
             {
                 if (relativeImagePaths.Count > 0)
@@ -352,6 +366,22 @@ namespace BookingApp.View.Guide.Pages
         private void DatePicker_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void StateBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Cities.Clear();
+            string selectedState = StateBox.SelectedItem as string;
+            foreach (Location location in Locations)
+            {
+                if (selectedState.Equals(location.State) && !Cities.Contains(location.City))
+                {
+                    Cities.Add(location.City);
+                }
+            }
+            CityBox.ItemsSource = null;
+            CityBox.ItemsSource = Cities;
+            CityBox.IsEnabled = StateBox.SelectedItem != null;
         }
     }
 }

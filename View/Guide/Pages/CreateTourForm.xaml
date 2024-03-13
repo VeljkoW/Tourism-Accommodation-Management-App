@@ -60,13 +60,13 @@
                         <TextBlock FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold">State:</TextBlock>
                     </Grid>
                     <Grid Grid.Column="0" Grid.Row="1">
-                        <TextBox x:Name="StateBox" Width="200" Height="30" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="5"/>
+                        <ComboBox x:Name="StateBox" Width="200" Height="30" HorizontalAlignment="Center" ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5" SelectionChanged="StateBox_SelectionChanged"/>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="0">
                         <TextBlock FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold">City:</TextBlock>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="1">
-                        <TextBox x:Name="CityBox" Width="200" Height="30" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="5"/>
+                        <ComboBox x:Name="CityBox" Width="200" Height="30" HorizontalAlignment="Center" ItemsSource="{Binding Cities}" Margin="5"/>
                     </Grid>
                 </Grid>
             </StackPanel>

@@ -25,7 +25,9 @@
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid>
-                <TextBlock FontSize="48" FontWeight="Bold">Tour monitoring</TextBlock>
+                <ListBox>
+                    
+                </ListBox>
             </Grid>
         </Grid>
         

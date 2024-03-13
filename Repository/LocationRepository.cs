@@ -45,5 +45,19 @@ namespace BookingApp.Repository
             _locations = _serializer.FromCSV(FilePath);
             return _locations.Find(c => c.Id == Id);
         }
+        public int GetIdByStateCity(string State,string City) {
+            List<Location> locations = GetAll();
+            foreach(Location location in locations)
+            {
+                if(location.City == City)
+                {
+                    if(location.State==State)
+                    {
+                        return location.Id;
+                    }
+                }
+            }
+            return -1;
+        }
     }
 }

@@ -16,6 +16,7 @@
 		<None Remove="Resources\Images\view.png" />
 	</ItemGroup>
 
+  
 	<ItemGroup>
 		<Content Include="Resources\Images\add.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -30,8 +31,7 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
-
-	<ItemGroup>
+  <ItemGroup>
 		<Resource Include="Resources\Images\Guide\user.png" />
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -45,9 +45,10 @@
   <ItemGroup>
     <Folder Include="Resources\Images\Tour\" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <Resource Include="Resources\Images\**\*.*" />
+    <Resource Include="Resources\Images\*.*">
+    </Resource>
   </ItemGroup>
 
 </Project>

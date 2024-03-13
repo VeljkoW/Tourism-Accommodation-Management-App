@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,16 +16,14 @@ using System.Windows.Shapes;
 namespace BookingApp.View.Guide.Pages
 {
     /// <summary>
-    /// Interaction logic for MonitoringTour.xaml
+    /// Interaction logic for UserControlTourCard.xaml
     /// </summary>
-    public partial class MonitoringTour : Page
+    public partial class UserControlTourCard : UserControl
     {
-        public List<KeyPoint> KeyPoints { get; set; }
-
-        public MonitoringTour()
+        public UserControlTourCard()
         {
             InitializeComponent();
-
+            DataContext = this;
         }
     }
 }
