@@ -7,14 +7,15 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<None Remove="Resources\Images\add.png" />
-		<None Remove="Resources\Images\delete.png" />
-		<None Remove="Resources\Images\edit.png" />
-		<None Remove="Resources\Images\Guide\user.png" />
-		<None Remove="Resources\Images\Tourist\search.png" />
-		<None Remove="Resources\Images\view.png" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\delete.png" />
+    <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\Guide\user.png" />
+    <None Remove="Resources\Images\Tourist\person.png" />
+    <None Remove="Resources\Images\Tourist\search.png" />
+    <None Remove="Resources\Images\view.png" />
+  </ItemGroup>
 
   
 	<ItemGroup>
@@ -31,12 +32,14 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+
   <ItemGroup>
-		<Resource Include="Resources\Images\Guide\user.png" />
-		<Resource Include="Resources\Images\Tourist\search.png">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</Resource>
-	</ItemGroup>
+    <Resource Include="Resources\Images\Guide\user.png" />
+    <Resource Include="Resources\Images\Tourist\person.png" />
+    <Resource Include="Resources\Images\Tourist\search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Resources\Images\Accommodation\" />
