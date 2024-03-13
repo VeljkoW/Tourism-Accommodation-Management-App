@@ -67,7 +67,9 @@
                         </Border>
 
                         <Border Grid.Row="3" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0">
-                            <StackPanel x:Name="TextBoxesPanel" Orientation="Vertical"/>
+                            <ScrollViewer>
+                                <StackPanel x:Name="TextBoxesPanel" Orientation="Vertical"/>
+                            </ScrollViewer>
                         </Border>
 
                     </Grid>

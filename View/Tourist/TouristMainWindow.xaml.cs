@@ -48,7 +48,7 @@ namespace BookingApp.View.Tourist
                 new Tour(1,"Tour 1",new Location(),"descriptionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","lang",100,new List<KeyPoint>(),10,new List<Image>()),
                 new Tour(2,"Tour 2",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
                 new Tour(3,"Tour 3",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
-                new Tour(4,"Tour 4",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>())
+                new Tour(4,"Tour 4",new Location(),"description","lang",5,new List<KeyPoint>(),10,new List<Image>())
             };
 
 
