@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,7 +24,12 @@ namespace BookingApp.View.Guide.Pages
         public UserControlTourCard()
         {
             InitializeComponent();
-            DataContext = this;
+
+        }
+
+        private void ClickedOnCard(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
