@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Tourist"
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
-        Title="TourReservationSuccessful" Height="350" Width="500">
+        Title="TourReservationSuccessful" Height="350" Width="510">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>

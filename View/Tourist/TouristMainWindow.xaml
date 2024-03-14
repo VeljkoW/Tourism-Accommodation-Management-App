@@ -47,9 +47,9 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Width="200" Height="25" Margin="30 30 0 30" HorizontalAlignment="Center" 
-                         Text="Search tours..." Foreground="Gray"
-                         GotFocus="SearchBoxClicked" LostFocus="SearchBoxNotClicked" VerticalContentAlignment="Center"/>
-                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand">
+                         Text="Search tours..." Foreground="Gray" x:Name="SearchBarTextBox"
+                         GotFocus="SearchBoxClicked" LostFocus="SearchBoxNotClicked" VerticalContentAlignment="Center" IsReadOnly="True"/>
+                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand" Click="SearchTours">
                             <Image Source="pack://application:,,,/Resources/Images/Tourist/search.png" Width="17" Height="17"/>
                         </Button>
                     </Grid>
@@ -123,7 +123,7 @@
             </Border>
 
             <Border Grid.Column="1" Background="{StaticResource TabColorBrush}">
-                <TabControl Grid.Column="1" BorderThickness="0" Background="Transparent" TabStripPlacement="Left" x:Name="Tab">
+                <TabControl Grid.Column="1" BorderThickness="0" Background="Transparent" TabStripPlacement="Left" x:Name="Tab" Margin="0 -2 0 0">
                     <TabItem Margin="-2,-3,0,6" RenderTransformOrigin="0,0">
                         <TabItem.RenderTransform>
                             <TransformGroup>
@@ -133,20 +133,101 @@
                                 <TranslateTransform/>
                             </TransformGroup>
                         </TabItem.RenderTransform>
-                        <ScrollViewer Grid.Column="1">
-                            <ItemsControl ItemsSource="{Binding Tours}" Margin="10" HorizontalAlignment="Stretch">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <local:TourCard/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Vertical"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </ScrollViewer>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Height="110" x:Name="SearchBarGrid" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="200"/>
+                                    </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="1" Background="{StaticResource BackgroundColorBrush}" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="6 0 6 6" CornerRadius="0 0 10 10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="1" Foreground="{StaticResource TextColorBrush}" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="Location : " Margin="30 5 0 5"/>
+
+                                        <Grid Grid.Column="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Text="State" Margin="20 2 0 0"/>
+                                            <ComboBox Grid.Row="2" Margin="20 2 0 5" Width="100" x:Name="StateComboBox" SelectionChanged="StateComboBoxSelectionChanged"/>
+                                            <TextBlock Grid.Row="3" Foreground="{StaticResource TextColorBrush}" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Text="City" Margin="20 0 0 0"/>
+                                            <ComboBox Grid.Row="4" Margin="20 2 0 5" Width="100" x:Name="CityComboBox"/>
+                                        </Grid>
+
+                                        <TextBlock Grid.Column="3" Foreground="{StaticResource TextColorBrush}" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="Duration : " Margin="30 5 0 5"/>
+
+                                        <TextBox Grid.Column="4" VerticalAlignment="Center" Width="60" Margin="20 10 0 5" x:Name="DurationTextBox" PreviewTextInput="NumbersPreviewTextInput"/>
+
+                                        <TextBlock Grid.Column="5" Foreground="{StaticResource TextColorBrush}" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="Language : " Margin="30 5 0 5"/>
+
+                                        <TextBox Grid.Column="6" VerticalAlignment="Center" Width="60" Margin="20 10 0 5" x:Name="LanguageTextBox"/>
+
+                                        <TextBlock Grid.Column="7" Foreground="{StaticResource TextColorBrush}" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="People going : " Margin="30 5 0 5"/>
+
+                                        <Grid Grid.Column="8">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBox Grid.Row="2" VerticalAlignment="Center" Width="60" Margin="20 10 20 5" x:Name="PeopleTextBox" PreviewTextInput="NumbersPreviewTextInput"/>
+
+                                            <Button Grid.Row="4" VerticalAlignment="Bottom" Width="30" Height="20" HorizontalAlignment="Right" Margin="0 0 20 0" Background="{StaticResource BackgroundColorBrush}"
+                                                        BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="3 3 3 0" Click="CollapseSearchBar" Cursor="Hand">
+                                                <TextBlock Text="^" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 3 0 0" Foreground="{StaticResource TextColorBrush}"/>
+                                            </Button>
+
+                                        </Grid>
+
+
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            
+                            
+                            <ScrollViewer Grid.Row="1">
+                                <ItemsControl ItemsSource="{Binding Tours}" Margin="10" HorizontalAlignment="Stretch">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:TourCard/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
                     </TabItem>
 
                     <TabItem Margin="-2,-6,0,10" RenderTransformOrigin="0,0">
