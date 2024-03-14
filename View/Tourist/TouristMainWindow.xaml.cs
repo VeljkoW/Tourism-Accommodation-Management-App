@@ -108,6 +108,5 @@ namespace BookingApp.View.Tourist
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
         }
-
     }
 }
