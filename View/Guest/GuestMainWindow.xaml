@@ -9,8 +9,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -32,21 +32,56 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="1" Grid.Row="1">Search</Label>
-            <TextBox x:Name="SearchBoxName" Grid.Column="3" Grid.Row="0" />
-            <Button Content="Click" Grid.Column="1" Grid.Row="2" Click="SearchButton"/>
-
+            <Button Content="Click" Grid.Column="2" Grid.Row="1" Click="SearchButton"/>
             <TextBox x:Name="TextBoxName" Grid.Column="0" Grid.Row="0" />
-            <TextBox x:Name="TextBoxState" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Height="25" Margin="0,0,0,39"/>
-            <TextBox x:Name="TextBoxCity" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Height="25" Margin="0,34,0,5"/>
-            <ComboBox x:Name="ComboBoxType" Grid.Column="0" Grid.Row="2">
+            <TextBox x:Name="TextBoxState" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Height="25" Margin="0,0,0,39"/>
+            <TextBox x:Name="TextBoxCity" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Height="25" Margin="0,34,0,5"/>
+            <ComboBox x:Name="ComboBoxType" Grid.Column="2" Grid.Row="0">
                 <ComboBoxItem Content= "Apartment"></ComboBoxItem>
                 <ComboBoxItem Content= "House"></ComboBoxItem>
                 <ComboBoxItem Content= "Hut"></ComboBoxItem>
             </ComboBox>
-            <TextBox x:Name="TextBoxGuestNumber" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap"/>
-            <TextBox x:Name="TextBoxReservationDays" Grid.Column="0" Grid.Row="4" />
-            <ListBox x:Name="PrintAccommodation" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="5"
+            <TextBox x:Name="TextBoxGuestNumber" Grid.Column="3" Grid.Row="0" TextWrapping="Wrap"/>
+            <TextBox x:Name="TextBoxReservationDays" Grid.Column="0" Grid.Row="1" />
+            <ListBox x:Name="PrintAccommodation" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="3"
                      SelectedValuePath="Print" DisplayMemberPath="Print"/>
         </Grid>
+        <ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Name="accommodationItems" Grid.Row="2" Grid.Column="1">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="ClickedOnCard">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                            </Border.Effect>
+                            <Grid Margin="50">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" BorderThickness="0">
+                                    <ItemsControl ItemsSource="{Binding Path=Images}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Path=Path}" Stretch="UniformToFill" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Border>
+                                <Border Grid.Column="1" BorderThickness="0">
+                                    <StackPanel Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                        <TextBlock Text="{Binding Path=Name}" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Path=Location.City}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Path=Location.State}" FontWeight="Bold" Foreground="Green"/>
+                                        <Button Content="Reservation" Click="ReservationButton"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>

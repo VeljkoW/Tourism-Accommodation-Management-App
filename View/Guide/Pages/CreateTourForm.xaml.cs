@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xaml.Schema;
 using Image = BookingApp.Model.Image;
 
 namespace BookingApp.View.Guide.Pages
@@ -43,8 +44,11 @@ namespace BookingApp.View.Guide.Pages
         public List<KeyPoint> keyPoints = new List<KeyPoint>();
         public List<Location> Locations = new List<Location>();
         public List<string> keyPointStrings = new List<string>();
+
         public List<int> HoursList { get; set; }
         public List<int> MinutesList { get; set; }
+        public List<string> AmPm {  get; set; }
+
         public List<string> States { get; set; }
         public List<string> Cities { get; set; }
         private int _hours;
@@ -155,7 +159,7 @@ namespace BookingApp.View.Guide.Pages
         private string _description;
         public string Description
         {
-            get => _language;
+            get => _description;
             set
             {
                 if (value != _description)
@@ -177,10 +181,13 @@ namespace BookingApp.View.Guide.Pages
             InitializeComponent();
             DataContext = this;
             images.Clear();
-            HoursList = Enumerable.Range(0, 24).ToList();
+            HoursList = Enumerable.Range(1, 12).ToList();
+            MinutesList = new List<int>() { 0, 15, 30, 45 };
+            AmPm = new List<string>() { "AM", "PM"};
             Locations = locationRepository.GetAll();
             States = new List<string>();
             Cities = new List<string>();
+            datePicker.DisplayDateStart= DateTime.Now;
             foreach (Location location in Locations)
             {
                 if (!States.Contains(location.State))
@@ -215,7 +222,6 @@ namespace BookingApp.View.Guide.Pages
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
                     images.Clear();
                     fileName=SaveImageFile(filePath, destFilePath,fileName);
-                    // Forming relative path to the new Image
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
                     relativeImagePaths.Add(relativePath);
                 }
@@ -307,9 +313,11 @@ namespace BookingApp.View.Guide.Pages
                     TourImage tourImage = new TourImage(tourId, image.Id);
                     tourImageRepository.Add(tourImage);
                 }
-                foreach(TourSchedule schedule in schedules)
+                foreach(DateTime date in dates)
                 {
+                    TourSchedule schedule = new TourSchedule();
                     schedule.TourId = tourId;
+                    schedule.Date = date;
                     tourScheduleRepository.Add(schedule);
                 }
             }
@@ -322,6 +330,13 @@ namespace BookingApp.View.Guide.Pages
         }
         private void ClickCancelButton(object sender, RoutedEventArgs e)
         {
+            dates.Clear();
+            keyPoints.Clear();
+            schedules.Clear();
+            relativeImagePaths.Clear();
+            images.Clear();
+            keyPointStrings.Clear();
+            Locations.Clear();
             NavigationService.GoBack();
         }
 
@@ -337,26 +352,30 @@ namespace BookingApp.View.Guide.Pages
 
         public void ClickAddDate(object sender, RoutedEventArgs e)
         {
-            DateTime date;
-            if(DateTime.TryParse(datePicker.SelectedDate.Value.Date.ToShortDateString() +" "+Hours.ToString()+":"+Minutes.ToString(), out date))
+            int selectedHour = (int)ChosenHours.SelectedValue; 
+            int selectedMinute = (int)ChosenMinutes.SelectedValue;
+            string selectedAmPm = (string)ChosenAmPm.SelectedValue;
+            if (selectedAmPm == "PM" && selectedHour != 12)
             {
-                TourSchedule schedule = new TourSchedule();
-                schedule.Guests = 0;
-                if (DateExists(date))
-                {
-                    return;
-                }
-                schedule.Date = date;
-                schedule.Guests = 0;
-                schedules.Add(schedule);
-                dates.Add(date);
+                selectedHour += 12;
+            }
+            else if (selectedAmPm == "AM" && selectedHour == 12)
+            {
+                selectedHour = 0;
+            }
+
+            DateTime date = datePicker.SelectedDate ?? DateTime.Now.Date;
+            DateTime selectedDate = new DateTime(date.Year, date.Month, date.Day, selectedHour, selectedMinute, 0);
+            if(!DateExists(selectedDate))
+            {
+            dates.Add(selectedDate);
             }
         }
         private bool DateExists(DateTime date)
         {
-            foreach(DateTime listDate in dates)
+            foreach (DateTime listDate in dates)
             {
-                if (date.Equals(listDate))
+                if (date.Date == listDate.Date && date.Hour.ToString().Equals(listDate.Hour.ToString()) && date.Minute.ToString().Equals( listDate.Minute.ToString()))
                 {
                     return true;
                 }

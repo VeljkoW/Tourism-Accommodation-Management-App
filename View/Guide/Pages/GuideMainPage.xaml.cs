@@ -53,6 +53,10 @@ namespace BookingApp.View.Guide.Pages
             Tours = new List<Tour>();
             foreach (TourSchedule schedule in schedules)
             {
+                if(schedule.Date.Date != DateTime.Now.Date)
+                {
+                    continue;
+                }
                 Tour tour = new Tour();
                 tour = tourRepository.GetById(schedule.TourId);
                 tour.DateTime = schedule.Date;
@@ -73,12 +77,25 @@ namespace BookingApp.View.Guide.Pages
                 }
                 Tours.Add(tour);
             }
+            ListOfTours.Children.Clear();
+            foreach (Tour t in Tours)
+            {
+                UserControlTourCard userControlTourCard = new UserControlTourCard(t,User);
+                userControlTourCard.Margin = new Thickness(0, 0, 0, 15);
+                ListOfTours.Children.Add(userControlTourCard);
+            }
         }
 
         private void ClickCreateTour(object sender, RoutedEventArgs e)
         {
             CreateTourForm createTourForm = new CreateTourForm();
             NavigationService.Navigate(createTourForm);
+            LoadTours();
+        }
+
+        private void ClickMonitorTour(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

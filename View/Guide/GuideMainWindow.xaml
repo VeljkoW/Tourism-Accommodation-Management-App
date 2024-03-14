@@ -8,5 +8,5 @@
         WindowStartupLocation="CenterScreen"
         Title="GuideMainWindow" Width="1024" Height="768">
     
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Background="{StaticResource NBackGroundColor}"/>
 </Window>
