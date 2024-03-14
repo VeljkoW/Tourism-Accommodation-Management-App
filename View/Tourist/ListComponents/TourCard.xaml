@@ -34,6 +34,7 @@
                     <TextBlock x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0 0 0 5"/>
                 </Border>
                 <TextBlock Foreground="{StaticResource TextColorBrush}" Text="{Binding Description}" TextWrapping="Wrap"/>
+                <TextBlock Foreground="{StaticResource TextColorBrush}" Text="{Binding DateTime}" TextWrapping="Wrap"/>
             </StackPanel>
         </Grid>
     </Border>

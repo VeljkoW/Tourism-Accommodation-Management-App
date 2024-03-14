@@ -33,15 +33,20 @@ namespace BookingApp.View.Tourist
             User = user;
             NameTextBlock.Text = Tour.Name;
             DescriptionTextBlock.Text = Tour.Description;
-            StateTextBlock.Text = Tour.Location.State;
-            if(!String.IsNullOrEmpty(Tour.Location.City))
-            { 
-                CityTextBlock.Text = ", " + Tour.Location.City;
-            }
-            else
+
+            if (Tour.Location != null)
             {
-                CityTextBlock.Text = Tour.Location.City;
+                StateTextBlock.Text = Tour.Location.State;
+                if (!String.IsNullOrEmpty(Tour.Location.City))
+                {
+                    CityTextBlock.Text = ", " + Tour.Location.City;
+                }
+                else
+                {
+                    CityTextBlock.Text = Tour.Location.City;
+                }
             }
+
             LanguageTextBlock.Text = Tour.Language;
             DateTextBlock.Text = Tour.DateTime.Date.ToString();
 
