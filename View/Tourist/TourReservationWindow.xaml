@@ -1,4 +1,4 @@
-﻿<Window x:Class="BookingApp.View.Tourist.TourReservation"
+﻿<Window x:Class="BookingApp.View.Tourist.TourReservationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -31,7 +31,48 @@
                     <CornerRadius TopRight="10" TopLeft="10"/>
                 </Border.CornerRadius>
                 <Border Background="{StaticResource TabColorBrush}" Margin="30 30 30 0" CornerRadius="10">
+                    <Grid Margin="20 20 20 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="30" Margin="0 5 0 0"/>
+                                <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="30" Text="Reservation Form" Margin="0 0 0 5"/>
+                            </Grid>
+                        </Border>
+                        
+                        <Border Grid.Row="1" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0">
+                            <TextBlock x:Name="DateTextBlock" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="15" Margin="0 5 0 5"/>
+                        </Border>
 
+                        <Border Grid.Row="2" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Enter the amout of people going:" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="15" Margin="10 5 0 5"/>
+                                <TextBox Grid.Column="1" TextAlignment="Center" Foreground="Gray" Background="{StaticResource TabColorBrush}" HorizontalAlignment="Stretch" FontWeight="Bold" FontSize="15" Margin="10 5 10 5" 
+                                         PreviewTextInput="NumberOfPeoplePreviewTextInput" x:Name="NumberOfPeopleTextBox" GotFocus="NumberOfPeopleTextBoxClicked" LostFocus="NumberOfPeopleTextBoxNotClicked" TextChanged="GenerateTextBoxes"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="3" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0">
+                            <ScrollViewer>
+                                <StackPanel x:Name="TextBoxesPanel" Orientation="Vertical"/>
+                            </ScrollViewer>
+                        </Border>
+
+                    </Grid>
                 </Border>
             </Border>
         </Border>

@@ -16,15 +16,31 @@ using System.Windows.Shapes;
 namespace BookingApp.View.Tourist
 {
     /// <summary>
-    /// Interaction logic for TourReservation.xaml
+    /// Interaction logic for TourReservationSuccessful.xaml
     /// </summary>
-    public partial class TourReservation : Window
+    public partial class TourReservationSuccessful : Window
     {
         public Tour Tour {  get; set; }
-        public TourReservation(Tour tour)
+        public TourReservation TourReservation { get; set; }
+        public TourReservationSuccessful(Tour tour,TourReservation tourReservation)
         {
-            Tour = tour;
             InitializeComponent();
+            Tour = tour;
+            TourReservation = tourReservation;
+            NumberTextBlock.Text = TourReservation.People.Count().ToString();
+            TourNameTextBlock.Text = "\"" + Tour.Name + "\"";
+            
+            //if(!Tour.Name.Contains("Tour") && !Tour.Name.Contains("tour"))
+            //{
+                TourTextBlock.Text = " tour.";
+            //}
+            //else
+            //{
+            //    TourTextBlock.Text = ".";
+            //}
+
+            TourDateTextBlock.Text = Tour.DateTime.ToString();
+
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
@@ -42,18 +58,9 @@ namespace BookingApp.View.Tourist
             this.Top = (SHeight - WHeight) / 2;
         }
 
-        public void Cancel(object sender, RoutedEventArgs e)
+        public void Close(object sender, RoutedEventArgs e)
         {
             Close();
-            TourDetailed tourDetailed = new TourDetailed(Tour);
-            tourDetailed.ShowDialog();
         }
-        public void Reserve(object sender, RoutedEventArgs e)
-        {
-
-
-            Close();
-        }
-
     }
 }

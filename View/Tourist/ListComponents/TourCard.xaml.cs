@@ -21,6 +21,7 @@ namespace BookingApp.View.Tourist.ListComponents
     /// </summary>
     public partial class TourCard : UserControl
     {
+        public User User { get; set; }
         public TourCard()
         {
             InitializeComponent();
@@ -31,10 +32,8 @@ namespace BookingApp.View.Tourist.ListComponents
             var Selectedtour = DataContext as Tour;
             if (Selectedtour != null)
             {
-                string name = Selectedtour.Name;
-                string description = Selectedtour.Description;
-                //string imagePaths = tour.ImagePath;
-                TourDetailed tourDetailed = new TourDetailed(Selectedtour);
+                User user = new User(); // TEMPORARY SOLUTION XD
+                TourDetailed tourDetailed = new TourDetailed(Selectedtour,user);
                 tourDetailed.ShowDialog();
             }
         }

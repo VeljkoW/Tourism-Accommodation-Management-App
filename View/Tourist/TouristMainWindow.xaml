@@ -48,7 +48,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBox Width="200" Height="25" Margin="30 30 0 30" HorizontalAlignment="Center" 
                          Text="Search tours..." Foreground="Gray"
-                         GotFocus="SearchBox_Clicked" LostFocus="SearchBox_NotClicked" VerticalContentAlignment="Center"/>
+                         GotFocus="SearchBoxClicked" LostFocus="SearchBoxNotClicked" VerticalContentAlignment="Center"/>
                         <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand">
                             <Image Source="pack://application:,,,/Resources/Images/Tourist/search.png" Width="17" Height="17"/>
                         </Button>

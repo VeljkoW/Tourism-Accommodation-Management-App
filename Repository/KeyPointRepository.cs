@@ -30,11 +30,12 @@ namespace BookingApp.Repository
             }
             return _keypoints.Max(c => c.Id) + 1;
         }
-        internal void Add(KeyPoint newKeyPoint)
+        internal KeyPoint Add(KeyPoint newKeyPoint)
         {
             newKeyPoint.Id = NextId();
             _keypoints.Add(newKeyPoint);
             _serializer.ToCSV(FilePath, _keypoints);
+            return newKeyPoint;
         }
         public List<KeyPoint> GetAll()
         {
