@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,15 @@ namespace BookingApp.View.Tourist
     {
         public int FreeSlots {  get; set; }
         private TourReservationWindow PreviousWindow;
-        public TourReservationFailed(TourReservationWindow tourReservationWindow,int freeSlots)
+        public Tour SelectedTour { get; set; }
+        public TourReservationFailed(TourReservationWindow tourReservationWindow,int freeSlots,Tour selectedTour)
         {
             InitializeComponent();
             this.PreviousWindow = tourReservationWindow;
             FreeSlots = freeSlots;
+            SelectedTour = selectedTour;
             FreeSlotsTextBlock.Text = FreeSlots.ToString();
+
 
             if(FreeSlots > 0)
             {
@@ -75,7 +79,9 @@ namespace BookingApp.View.Tourist
 
         public void SearchSimilarTours(object sender, RoutedEventArgs e)
         {
-
+            Close();
+            TourReservationSimilarTours tourReservationSimilarTours = new TourReservationSimilarTours(SelectedTour);
+            tourReservationSimilarTours.ShowDialog();
         }
 
     }
