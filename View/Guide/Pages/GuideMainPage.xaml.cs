@@ -90,6 +90,7 @@ namespace BookingApp.View.Guide.Pages
         {
             CreateTourForm createTourForm = new CreateTourForm();
             NavigationService.Navigate(createTourForm);
+            LoadTours();
         }
 
         private void ClickMonitorTour(object sender, RoutedEventArgs e)
