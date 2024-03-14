@@ -32,6 +32,8 @@ namespace BookingApp.View.Guest
             this.user = user;
             Accommodation = new Accommodation();
             this.AccommodationRepository = new AccommodationRepository();
+            PrintAccommodation.ItemsSource = AccommodationRepository.GetAll();
+            accommodationItems.ItemsSource = AccommodationRepository.GetAll();
         }
 
         private void SearchButton(object sender, RoutedEventArgs e)
@@ -97,6 +99,19 @@ namespace BookingApp.View.Guest
                 (GuestNumber<= 0 || accommodation.MaxGuestNumber >= GuestNumber) &&
                 (ReservationDays <= 0 || accommodation.MinReservationDays <= ReservationDays)
             ).ToList();
+        }
+
+        private void ReservationButton(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void ClickedOnCard(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
+            GuestReservation guestReservation = new GuestReservation(selectedCard, user);
+            guestReservation.Owner = this;
+            guestReservation.Show();
         }
     }
 }
