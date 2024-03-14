@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BookingApp.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +23,32 @@ namespace BookingApp.View.Guide.Pages
     /// </summary>
     public partial class UserControlKeyPoint : UserControl
     {
-        public UserControlKeyPoint()
+        public KeyPoint KeyPoint { get; set; }
+
+        private string _point;
+        public string Point
+        {
+            get => _point;
+            set
+            {
+                if (value != _point)
+                {
+                    _point = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public UserControlKeyPoint(KeyPoint keyPoint)
         {
             InitializeComponent();
+            DataContext = this;
+            Point = keyPoint.Point;
         }
 
         private void VisitKeyPoint(object sender, RoutedEventArgs e)
