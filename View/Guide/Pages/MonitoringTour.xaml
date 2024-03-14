@@ -8,7 +8,7 @@
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="MonitoringTour">
 
-    <Grid Background="Wheat">
+    <Grid Background="{StaticResource NBackGroundColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <StackPanel>
@@ -25,13 +26,20 @@
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid>
-                <ListBox>
-                    
-                </ListBox>
+                <ScrollViewer >
+                    <StackPanel x:Name="ListOfKeypoints"/>
+                </ScrollViewer>
             </Grid>
         </Grid>
-        
-        
-        
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid>
+                <ScrollViewer >
+                    <StackPanel x:Name="ListOfTourists"/>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Button Margin="20" Width="300" Content="Finish tour" FontSize="22" FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </Page>

@@ -8,9 +8,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GuideMainPage">
 
-    <Grid Background="Wheat">
+    <Grid Background="{StaticResource NBackGroundColor}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -19,8 +19,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <StackPanel>
-                <Image Source="../../../Resources/Images/Guide/user.png" Height="125" Width="125" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-5,0,0"></Image>
-                <TextBlock x:Name="UserNameTextbox" Text="{Binding UserName}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <Image Source="../../../Resources/Images/Guide/user.png" Height="125" Width="125" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,-5,0,0" ></Image>
+                <TextBlock x:Name="UserNameTextbox" Text="{Binding UserName}" Foreground="{StaticResource NButtonColor3Text}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0">
@@ -34,18 +34,17 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="CreateTour" Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickCreateTour">Create tour</Button>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Button x:Name="CreateTour" Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickCreateTour" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2">Create tour</Button>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Button x:Name="MonitorTour" Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickMonitorTour" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2">Monitor tour</Button>
+                </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <ScrollViewer Grid.Column="1">
-                <ItemsControl ItemsSource="{Binding Tours}" Margin="10" HorizontalAlignment="Stretch">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:UserControlTourCard/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <StackPanel x:Name="ListOfTours"></StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>

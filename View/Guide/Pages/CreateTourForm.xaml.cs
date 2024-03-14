@@ -181,6 +181,7 @@ namespace BookingApp.View.Guide.Pages
             Locations = locationRepository.GetAll();
             States = new List<string>();
             Cities = new List<string>();
+            datePicker.DisplayDateStart= DateTime.Now;
             foreach (Location location in Locations)
             {
                 if (!States.Contains(location.State))
