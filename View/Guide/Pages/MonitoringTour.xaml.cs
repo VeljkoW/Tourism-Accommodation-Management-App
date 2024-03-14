@@ -22,11 +22,23 @@ namespace BookingApp.View.Guide.Pages
     public partial class MonitoringTour : Page
     {
         public List<KeyPoint> KeyPoints { get; set; }
-
-        public MonitoringTour()
+        public Tour Tour { get; set; }
+        public User User { get; set; }
+        public MonitoringTour(Tour tour,User user)
         {
             InitializeComponent();
+            KeyPoints = tour.KeyPoints;
+            User = user;
+            Tour = tour;
+            Update();
+        }
+        private void Update()
+        {
+            foreach(var keyPoint in KeyPoints)
+            {
 
+               // ListOfKeypoints.Add(keyPoint);
+            }
         }
     }
 }
