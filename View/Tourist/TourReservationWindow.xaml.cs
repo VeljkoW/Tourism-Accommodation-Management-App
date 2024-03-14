@@ -179,7 +179,7 @@ namespace BookingApp.View.Tourist
             List<TourSchedule> tourSchedules = tourScheduleRepository.GetAll();
             TourSchedule tourSchedule = new TourSchedule();
             tourSchedule.Id = -1;
-            tourSchedule.Guests = 0;  // temporary line
+            tourSchedule.Guests = 4;  // temporary line
             //finds the right schedule for the tour
             foreach (TourSchedule tourScheduleI in tourSchedules)
             {
@@ -188,7 +188,6 @@ namespace BookingApp.View.Tourist
                     tourSchedule = tourScheduleI;
                 }
             }
-
 
             if (!NumberOfPeopleTextBox.Text.Contains("Max") && !string.IsNullOrEmpty(NumberOfPeopleTextBox.Text) && tourSchedule.Guests+Convert.ToInt32(NumberOfPeopleTextBox.Text) <= Tour.MaxTourists)
             {
@@ -237,6 +236,11 @@ namespace BookingApp.View.Tourist
                                     MessageBox.Show("You haven't filled in the Age textbox");
                                     return;
                                 }
+                                else if(!int.TryParse(textBox.Text, out int result))
+                                {
+                                    MessageBox.Show("Only numbers go into the Age textbox");
+                                    return;
+                                }
                                 else
                                 {
                                     age = Convert.ToInt32(textBox.Text);
@@ -253,15 +257,12 @@ namespace BookingApp.View.Tourist
                 {
                     tourPersonRepository.Add(person);
                 }
-
-                /*                                                       //NEEDS TO BE UNCOMMENTED WHEN THE TOURS LIST IS IMPLEMENTED !!!!!!!!!!!!!!!!
+                
                 if(tourSchedule.Id == -1)
                 {
                     MessageBox.Show("Couldn't find the tour schedlue!");
                     return;
                 }
-                */
-                
 
                 TourReservation tourReservation = new TourReservation(0, User.Id, tourSchedule.Id, tourPeople);
                 tourReservationRepository.Add(tourReservation);
@@ -277,7 +278,9 @@ namespace BookingApp.View.Tourist
             }
             else// Opens the "There aren't enough free slots on the tour" window
             {
-                TourReservationFailed tourReservationFailed = new TourReservationFailed();
+
+                int FreeSlots = Tour.MaxTourists - tourSchedule.Guests;
+                TourReservationFailed tourReservationFailed = new TourReservationFailed(this,FreeSlots);
                 tourReservationFailed.Owner = this;
                 tourReservationFailed.ShowDialog();
             }
