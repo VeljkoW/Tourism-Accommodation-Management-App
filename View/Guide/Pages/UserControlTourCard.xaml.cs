@@ -74,6 +74,20 @@ namespace BookingApp.View.Guide.Pages
                 }
             }
         }
+        private int _scheduleId;
+        public int ScheduleId
+        {
+            get => _scheduleId;
+            set
+            {
+                if (value != _scheduleId)
+                {
+                    _scheduleId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public TourSchedule TourSchedule { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -81,7 +95,7 @@ namespace BookingApp.View.Guide.Pages
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public UserControlTourCard(Tour t, User user)
+        public UserControlTourCard(Tour t, User user,TourSchedule schedule)
         {
             InitializeComponent();
             DataContext = this;
@@ -90,20 +104,27 @@ namespace BookingApp.View.Guide.Pages
             TourName =t.Name;
             DateString=t.DateTime.ToString();
             Description = t.Description;
-            TourDate.Text = Date.ToString();
             Image =t.Images[0];
+            ScheduleId = schedule.Id;
+            TourSchedule = schedule;
+            if (schedule.ScheduleStatus == ScheduleStatus.Ongoing)
+            {
+                LiveIcon.Opacity = 1;
+            }
             var converter = new ImageSourceConverter();
             MainImage.Source = (ImageSource)converter.ConvertFromString(Image.Path);
         }
-        private void Update()
-        {
-            TourSelected?.Invoke(this, EventArgs.Empty);
-        }
-
         private void MonitoringSelectedTour(object sender, RoutedEventArgs e)
         {
-            MonitoringTour monitoringTour = new MonitoringTour(Tour,User);
+            MonitoringTour monitoringTour = new MonitoringTour(Tour,User, TourSchedule);
             NavigationService.GetNavigationService(this).Navigate(monitoringTour);
+            monitoringTour.OnFinishedTour += MonitoringTour_OnFinishedTour;
+            monitoringTour.OnLastKeypoint += MonitoringTour_OnFinishedTour;
+        }
+        public event EventHandler OnFinishedTour;
+        private void MonitoringTour_OnFinishedTour(object? sender, EventArgs e)
+        {
+            OnFinishedTour?.Invoke(this, e);
         }
     }
 }

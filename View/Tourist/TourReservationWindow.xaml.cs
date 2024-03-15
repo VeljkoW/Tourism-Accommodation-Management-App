@@ -267,7 +267,7 @@ namespace BookingApp.View.Tourist
                     return;
                 }
                 tourSchedule.Guests += Convert.ToInt32(NumberOfPeopleTextBox.Text);
-                tourScheduleRepository.Update(tourSchedule);            //Updates the amount of people going on the tour
+                tourScheduleRepository.Update(tourSchedule); 
 
                 TourReservation tourReservation = new TourReservation(0, User.Id, tourSchedule.Id, tourPeople);
                 tourReservationRepository.Add(tourReservation);

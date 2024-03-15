@@ -282,6 +282,35 @@ namespace BookingApp.View.Guide.Pages
             City = CityBox.Text.Trim();
             Location location = new Location(State,City);
             location.Id = locationRepository.GetIdByStateCity(State,City);
+            if (images.Count == 0 || string.IsNullOrEmpty(TourNameTextbox.Text) || keyPoints.Count <2)
+            {
+                if(images.Count == 0) { 
+                ErrorCode.Text = "No Image selected";
+                }
+                if (string.IsNullOrEmpty(TourNameTextbox.Text))
+                {
+                    if (string.IsNullOrEmpty(ErrorCode.Text))
+                    {
+                        ErrorCode.Text = "Missing name";
+                    }
+                    else
+                    {
+                        ErrorCode.Text += ", missing name";
+                    }
+                }
+                if(keyPoints.Count < 2)
+                {
+                    if (string.IsNullOrEmpty(ErrorCode.Text))
+                    {
+                        ErrorCode.Text = "Missing keypoints";
+                    }
+                    else
+                    {
+                        ErrorCode.Text += ", missing keypoints";
+                    }
+                }
+                return;
+            }
             Tour newTour = new Tour
             {
                 Name = TourNameTextbox.Text.Trim(),

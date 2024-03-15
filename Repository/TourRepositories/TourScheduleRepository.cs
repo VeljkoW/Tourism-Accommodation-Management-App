@@ -47,7 +47,8 @@ namespace BookingApp.Repository.TourRepositories
             oldTourSchedule.Date = tourSchedule.Date;
             oldTourSchedule.TourId = tourSchedule.TourId;
             oldTourSchedule.Guests = tourSchedule.Guests;
-
+            oldTourSchedule.ScheduleStatus = tourSchedule.ScheduleStatus;
+            oldTourSchedule.VisitedKeypoints = tourSchedule.VisitedKeypoints;
             _serializer.ToCSV(FilePath, _tourSchedules);
             return oldTourSchedule;
         }

@@ -21,6 +21,8 @@
 		<None Remove="Resources\Images\add.png" />
 		<None Remove="Resources\Images\delete.png" />
 		<None Remove="Resources\Images\edit.png" />
+		<None Remove="Resources\Images\eye.png" />
+		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
 		<None Remove="Resources\Images\view.png" />
@@ -46,18 +48,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\Images\Accommodation\30362f27-7a75-4bec-b8a6-0fbaf335b170.jpg" />
-		<Resource Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61d.jpg" />
-		<Resource Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61dA.jpg" />
-		<Resource Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61dAA.jpg" />
-		<Resource Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61dAAAA.jpg" />
-		<Resource Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61dAAAAA.jpg" />
-		<Resource Include="Resources\Images\Accommodation\_cc371cd9-38b7-47c7-bab4-501071fa003f.jpg" />
-		<Resource Include="Resources\Images\Accommodation\_cc371cd9-38b7-47c7-bab4-501071fa003fA.jpg" />
-		<Resource Include="Resources\Images\Accommodation\_cc371cd9-38b7-47c7-bab4-501071fa003fAA.jpg" />
+		<Resource Include="Resources\Images\Accommodation\*.*" />
+      <Content Include="Resources\Images\*.*">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Accommodation\*.*">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\Guide\*.*">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\Tour\*.*">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\Tourist\*.*">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+		<Content Include="Resources\Images\eye.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Resource Include="Resources\Images\Guide\user.png" />
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
+  </ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="View\Guide\Pages\UserControlTourist.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 </Project>

@@ -49,11 +49,22 @@ namespace BookingApp.View.Guide.Pages
             InitializeComponent();
             DataContext = this;
             Point = keyPoint.Point;
+            KeyPoint = new KeyPoint();
+            KeyPoint = keyPoint;
         }
+        public EventHandler<KeyPoint> EventHandler { get; set; }
 
-        private void VisitKeyPoint(object sender, RoutedEventArgs e)
+        private void handleEvent()
         {
-
+            EventHandler?.Invoke(this, KeyPoint);
         }
+
+        private void ClickVisitKeyPoint(object sender, RoutedEventArgs e)
+        {
+            handleEvent();
+            OnClickedVisitTour?.Invoke(sender, e);
+        }
+        public EventHandler OnClickedVisitTour { get;set; }
+
     }
 }
