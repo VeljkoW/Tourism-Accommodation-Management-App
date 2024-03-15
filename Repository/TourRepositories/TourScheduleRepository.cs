@@ -39,5 +39,23 @@ namespace BookingApp.Repository.TourRepositories
         {
             return _serializer.FromCSV(FilePath);
         }
+
+        public TourSchedule? Update(TourSchedule tourSchedule)
+        {
+            TourSchedule? oldTourSchedule = GetById(tourSchedule.Id);
+            if (oldTourSchedule is null) return null;
+            oldTourSchedule.Date = tourSchedule.Date;
+            oldTourSchedule.TourId = tourSchedule.TourId;
+            oldTourSchedule.Guests = tourSchedule.Guests;
+
+            _serializer.ToCSV(FilePath, _tourSchedules);
+            return oldTourSchedule;
+        }
+
+        public TourSchedule? GetById(int Id)
+        {
+            _tourSchedules = _serializer.FromCSV(FilePath);
+            return _tourSchedules.Find(c => c.Id == Id);
+        }
     }
 }

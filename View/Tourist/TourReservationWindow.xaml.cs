@@ -101,7 +101,7 @@ namespace BookingApp.View.Tourist
                     TextBox nameTextBox = new TextBox();
                     nameTextBox.VerticalAlignment = VerticalAlignment.Center;
                     nameTextBox.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    nameTextBox.Width = 70;
+                    nameTextBox.Width = 60;
                     nameTextBox.Margin = new Thickness(5);
                     nameTextBox.FontSize = 15;
                     nameTextBox.Background = Brushes.White;
@@ -111,7 +111,7 @@ namespace BookingApp.View.Tourist
                     TextBox surnameTextBox = new TextBox();
                     surnameTextBox.VerticalAlignment = VerticalAlignment.Center;
                     surnameTextBox.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    surnameTextBox.Width = 70;
+                    surnameTextBox.Width = 60;
                     surnameTextBox.Margin = new Thickness(5);
                     surnameTextBox.FontSize = 15;
                     surnameTextBox.Background = Brushes.White;
@@ -164,6 +164,8 @@ namespace BookingApp.View.Tourist
                     
                     TextBoxesPanel.Children.Add(stackPanel);
                 }
+
+                TextBoxesPanel.UpdateLayout();
             }
         }
 
@@ -179,7 +181,8 @@ namespace BookingApp.View.Tourist
             List<TourSchedule> tourSchedules = tourScheduleRepository.GetAll();
             TourSchedule tourSchedule = new TourSchedule();
             tourSchedule.Id = -1;
-            tourSchedule.Guests = 4;  // temporary line
+            //tourSchedule.Guests = 4;  // temporary line
+
             //finds the right schedule for the tour
             foreach (TourSchedule tourScheduleI in tourSchedules)
             {
@@ -249,7 +252,7 @@ namespace BookingApp.View.Tourist
                         }
                     }
                     int id = tourPersonRepository.NextId();
-                    TourPerson person = new TourPerson(id, name, surname, age);
+                    TourPerson person = new TourPerson(id, name, surname, age,-1);
                     tourPeople.Add(person);
                 }
 
@@ -263,6 +266,8 @@ namespace BookingApp.View.Tourist
                     MessageBox.Show("Couldn't find the tour schedlue!");
                     return;
                 }
+                tourSchedule.Guests += Convert.ToInt32(NumberOfPeopleTextBox.Text);
+                tourScheduleRepository.Update(tourSchedule);            //Updates the amount of people going on the tour
 
                 TourReservation tourReservation = new TourReservation(0, User.Id, tourSchedule.Id, tourPeople);
                 tourReservationRepository.Add(tourReservation);
@@ -280,7 +285,7 @@ namespace BookingApp.View.Tourist
             {
 
                 int FreeSlots = Tour.MaxTourists - tourSchedule.Guests;
-                TourReservationFailed tourReservationFailed = new TourReservationFailed(this,FreeSlots);
+                TourReservationFailed tourReservationFailed = new TourReservationFailed(this,FreeSlots,Tour);
                 tourReservationFailed.Owner = this;
                 tourReservationFailed.ShowDialog();
             }
