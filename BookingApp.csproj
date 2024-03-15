@@ -22,6 +22,7 @@
 		<None Remove="Resources\Images\delete.png" />
 		<None Remove="Resources\Images\edit.png" />
 		<None Remove="Resources\Images\eye.png" />
+		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
 		<None Remove="Resources\Images\view.png" />
@@ -71,4 +72,10 @@
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
   </ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="View\Guide\Pages\UserControlTourist.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
 </Project>

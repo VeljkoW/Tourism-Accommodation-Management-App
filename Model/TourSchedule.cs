@@ -18,17 +18,21 @@ namespace BookingApp.Model
         public DateTime Date { get; set; }
         public int Guests {  get; set; }
         // status ture ready started finished
+        public int VisitedKeypoints {  get; set; }
+        public ScheduleStatus ScheduleStatus { get; set; }
         public TourSchedule() { }
         public TourSchedule(Tour tour, DateTime dateTime)
         {
             Id = 999;
             TourId = tour.Id;
             Date=dateTime;
+            VisitedKeypoints = tour.KeyPoints[0].Id;
+            ScheduleStatus = ScheduleStatus.Ready;
         }
 
         public string[] ToCSV()
         {
-            string[] ret = { Id.ToString(), TourId.ToString(), Date.ToString(),Guests.ToString()};
+            string[] ret = { Id.ToString(), TourId.ToString(), Date.ToString(),Guests.ToString(), VisitedKeypoints.ToString(),ScheduleStatus.ToString()};
             return ret;
         }
 
@@ -38,6 +42,8 @@ namespace BookingApp.Model
             TourId= Convert.ToInt32(values[1]);
             Date = Convert.ToDateTime(values[2]);
             Guests = Convert.ToInt32(values[3]);
+            VisitedKeypoints = Convert.ToInt32(values[4]);
+            ScheduleStatus = (ScheduleStatus)Enum.Parse(typeof(ScheduleStatus), values[5]);
         }
     }
 }

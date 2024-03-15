@@ -132,6 +132,11 @@
                 </Grid>
             </Grid>
         </Grid>
+        <Grid Grid.Row="4" Grid.Column="1" >
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock x:Name="ErrorCode" TextWrapping="Wrap" FontSize="15" Foreground="OrangeRed"/>
+            </StackPanel>
+        </Grid>
         <Grid Grid.Row="5" Grid.Column="0" >
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Cancel" Click="ClickCancelButton" FontWeight="Bold"/>
@@ -144,7 +149,7 @@
         </Grid>
         <Grid Grid.Row="2" Grid.Column="1" >
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Click="BtnSelectFiles_Click" FontWeight="Bold">Attach images</Button>
+                <Button x:Name="ImageBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Click="BtnSelectFiles_Click" FontWeight="Bold">Attach images</Button>
             </StackPanel>
         </Grid>
     </Grid>

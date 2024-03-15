@@ -37,6 +37,17 @@ namespace BookingApp.Repository.TourRepositories
             _serializer.ToCSV(FilePath, _tourPeople);
             return newTourPerson;
         }
+        public TourPerson? Update(TourPerson tourPerson)
+        {
+            TourPerson? oldTourPerson = GetById(tourPerson.Id);
+            if (oldTourPerson is null) return null;
+            oldTourPerson.KeyPointId= tourPerson.KeyPointId;
+            oldTourPerson.Surname= tourPerson.Surname;
+            oldTourPerson.Name= tourPerson.Name;
+            oldTourPerson.Age= tourPerson.Age;
+            _serializer.ToCSV(FilePath, _tourPeople);
+            return oldTourPerson;
+        }
         public List<TourPerson> GetAll()
         {
             return _serializer.FromCSV(FilePath);

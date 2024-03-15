@@ -10,4 +10,8 @@ namespace BookingApp.Model
     {
         Owner,Guest,Guide,Tourist
     }
+    public enum ScheduleStatus
+    {
+        Ready,Ongoing,Finished
+    }
 }
