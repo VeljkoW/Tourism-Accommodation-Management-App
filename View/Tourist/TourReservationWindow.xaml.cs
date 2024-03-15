@@ -88,12 +88,14 @@ namespace BookingApp.View.Tourist
         {
             if(!NumberOfPeopleTextBox.Text.Contains("Max") && (int.TryParse(NumberOfPeopleTextBox.Text, out int numberOfPeople)))
             {
-                TextBoxesPanel.Children.Clear();
 
                 if(numberOfPeople > Tour.MaxTourists)
                 {
                     numberOfPeople = Tour.MaxTourists;          // Caps off the text boxes generation,sets the limit to the max people on that tour to reduce lag | A TEMPORARY SOLUTION??
+                    NumberOfPeopleTextBox.Text = numberOfPeople.ToString();
                 }
+
+                TextBoxesPanel.Children.Clear();
 
                 for (int i = 0; i < numberOfPeople; i++)
                 {
@@ -276,14 +278,13 @@ namespace BookingApp.View.Tourist
                 tourReservationSuccessful.ShowDialog();
 
             }
-            else if(NumberOfPeopleTextBox.Text.Contains("Max") && string.IsNullOrEmpty(NumberOfPeopleTextBox.Text))
+            else if(NumberOfPeopleTextBox.Text.Contains("Max") || string.IsNullOrEmpty(NumberOfPeopleTextBox.Text))
             {
                 MessageBox.Show("You need to insert the amount of people going on the tour!");
                 return;
             }
             else// Opens the "There aren't enough free slots on the tour" window
             {
-
                 int FreeSlots = Tour.MaxTourists - tourSchedule.Guests;
                 TourReservationFailed tourReservationFailed = new TourReservationFailed(this,FreeSlots,Tour);
                 tourReservationFailed.Owner = this;

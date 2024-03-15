@@ -74,9 +74,9 @@ namespace BookingApp.View.Tourist
 
             List<Location> locations = new List<Location>();
             List<KeyPoint> keyPoints = new List<KeyPoint>();
-            List<KeyPoint> keyPointsForeward = new List<KeyPoint>();
+            List<KeyPoint> keyPointsForward = new List<KeyPoint>();
             List<Image> images = new List<Image>();
-            List<Image> imagesForeward = new List<Image>();
+            List<Image> imagesForward = new List<Image>();
             List<TourImage> tourImages = new List<TourImage>();
 
             locations = locationRepository.GetAll();
@@ -128,12 +128,12 @@ namespace BookingApp.View.Tourist
                                 keyPoint1.Point = keyPoint.Point;
                                 keyPoint1.IsVisited = keyPoint.IsVisited;
 
-                                keyPointsForeward.Add(keyPoint1);
+                                keyPointsForward.Add(keyPoint1);
                             }
                         }
 
-                        tour1.KeyPoints = keyPointsForeward;
-                        keyPointsForeward = new List<KeyPoint>();
+                        tour1.KeyPoints = keyPointsForward;
+                        keyPointsForward = new List<KeyPoint>();
 
                         //injecting images
                         foreach (TourImage tourImage in tourImages)
@@ -148,13 +148,13 @@ namespace BookingApp.View.Tourist
                                         image1.Id = image.Id;
                                         image1.Path = image.Path;
 
-                                        imagesForeward.Add(image1);
+                                        imagesForward.Add(image1);
                                     }
                                 }
                             }
                         }
-                        tour1.Images = imagesForeward;
-                        imagesForeward = new List<Image>();
+                        tour1.Images = imagesForward;
+                        imagesForward = new List<Image>();
 
                         ToursAll.Add(tour1);
                     }

@@ -32,7 +32,7 @@
             </Grid.ColumnDefinitions>
             
             <Border Grid.Column="0" Background="{StaticResource BorderColorBrush}">
-                <Image Source="{Binding ImagePaths}" Width="200" Height="150" Stretch="UniformToFill" Grid.Column="0"/>
+                <Image x:Name="ImageBox" Width="200" Height="150" Stretch="UniformToFill" Grid.Column="0"/>
             </Border>
 
             <Border Grid.Column="1" BorderThickness="6 12 6 6" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10 10 10 10" Background="{StaticResource BackgroundColorBrush}">
