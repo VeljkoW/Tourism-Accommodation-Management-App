@@ -26,10 +26,12 @@
                       Foreground="Gray" GotFocus="ReservationDays_Clicked" LostFocus="ReservationDays_NotClicked"></TextBox>
             <Button Grid.Row="1" Grid.Column="1" Width="100" Height="30" Click="ReservationSearchButton">Search</Button>
             <Label x:Name="ErrorLabel" Content="Invalid input!" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="25" Foreground="Red"></Label>
-            <ListBox x:Name="AvailableDates" Grid.Row="2" Grid.Column="0" Margin="10"></ListBox>
+            <ListBox x:Name="AvailableDates" Grid.Row="2" Grid.Column="0" Margin="10" SelectedValue="{Binding selectedDates}" SelectionChanged="AvailableDates_SelectionChanged" SelectedValuePath="PrintAvailableDate" DisplayMemberPath="PrintAvailableDate"></ListBox>
             <Button x:Name="ReservationButton" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Click="ReservationClickButton" VerticalAlignment="Bottom" Margin="0 0 0 20">Reservation</Button>
             <TextBox x:Name="GuestNumberTextBox" Grid.Row="2" Grid.Column="1" Width="300" Height="30" Foreground="Gray"
                          GotFocus="GuestNumber_Clicked" LostFocus="GuestNumber_NotClicked" ></TextBox>
+            <Label x:Name="ErrorSelect" Content="Select Date!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="25" Foreground="Red"></Label>
+            <Label x:Name="InvalidInput" Content="Invalid input!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="25" Foreground="Red"></Label>
         </Grid>
     </Grid>
 </Window>
