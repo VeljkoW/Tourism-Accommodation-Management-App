@@ -25,7 +25,7 @@
                     <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource NButtonColor3Text}" Text="{Binding TourName}" FontWeight="Bold" FontSize="18" Margin="0 0 0 5"/>
                 </Border>
                 <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" TextWrapping="Wrap" Width="509" HorizontalAlignment="Left"/>
-                <TextBlock x:Name="TourDate" Foreground="{StaticResource NButtonColor3Text}"   TextWrapping="Wrap"/>
+                <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding DateString}" TextWrapping="Wrap"/>
                 </StackPanel>
             <StackPanel Grid.Column="2" VerticalAlignment="Center">
                 <Button Click="MonitoringSelectedTour" Height="60" Width="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,-10,0,0" Background="{StaticResource NBackGroundColorLight}" BorderBrush="{StaticResource NButtonColor3}">

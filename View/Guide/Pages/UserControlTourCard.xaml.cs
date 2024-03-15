@@ -90,7 +90,6 @@ namespace BookingApp.View.Guide.Pages
             TourName =t.Name;
             DateString=t.DateTime.ToString();
             Description = t.Description;
-            TourDate.Text = Date.ToString();
             Image =t.Images[0];
             var converter = new ImageSourceConverter();
             MainImage.Source = (ImageSource)converter.ConvertFromString(Image.Path);

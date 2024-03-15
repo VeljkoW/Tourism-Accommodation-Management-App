@@ -55,7 +55,8 @@ namespace BookingApp.View.Guide.Pages
             {
                 if(schedule.Date.Date != DateTime.Now.Date)
                 {
-                    continue;
+                    //Showing only daily tours
+                    //continue;
                 }
                 Tour tour = new Tour();
                 tour = tourRepository.GetById(schedule.TourId);
