@@ -9,6 +9,29 @@
       Title="RateGuest">
 
     <Grid>
-        <Button Height="50" Width="500" Margin="150,316,150,84">AUISDBVASBVUIASBVUISA</Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Row="1" Grid.Column="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="150" Header="Indeks" Binding="{Binding Indeks}"/>
+                <DataGridTextColumn Width="150" Header="Ime" Binding="{Binding Ime}"/>
+                <DataGridTextColumn Width="150" Header="Prezime" Binding="{Binding Prezime}"/>
+                <DataGridTextColumn Width="150" Header="Godina studija" Binding="{Binding GodinaStudija}"/>
+                <DataGridTextColumn Width="150" Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Width="*" Header="Prosek" Binding="{Binding Prosek}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox Grid.Row="2" Grid.Column="1" Width="300" Height="100" Margin="110,83,1084,280"></ComboBox>
+        <ComboBox Grid.Row="2" Grid.Column="1" Width="300" Height="100" Margin="597,83,597,280"></ComboBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="300" Height="100" Margin="1065,83,129,280"></TextBox>
+        <Button Grid.Row="2" Grid.Column="1" Width="300" Height="100" Margin="597,284,597,79"></Button>
     </Grid>
 </Page>
