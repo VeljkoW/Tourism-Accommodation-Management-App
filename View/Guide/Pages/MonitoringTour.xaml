@@ -39,7 +39,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Margin="20" Width="300" Content="Finish tour" FontSize="22" FontWeight="Bold"/>
+            <Button Click ="ClickFinishTour"  Margin="20" Width="300" Content="Finish tour" FontSize="22" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </Page>
