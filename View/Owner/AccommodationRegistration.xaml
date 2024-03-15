@@ -57,7 +57,14 @@
             <ComboBox ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedLocation}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220" Height="32"
                       SelectedValuePath="Print" DisplayMemberPath="Print">
             </ComboBox>
-            <TextBox Text="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+            <ComboBox Text="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}"
+                      Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220" Height="32">
+                <ComboBoxItem Content="Apartment"></ComboBoxItem>
+                <ComboBoxItem Content="House"></ComboBoxItem>
+                <ComboBoxItem Content="Hut"></ComboBoxItem>
+            </ComboBox>
+
+            <!--<TextBox Text="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>-->
             <TextBox Text="{Binding Path=Accommodation.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
             <TextBox Text="{Binding Path=Accommodation.MinReservationDays, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
             <TextBox Text="{Binding Path=Accommodation.CancelationDaysLimit, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
