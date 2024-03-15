@@ -24,7 +24,12 @@
 		<None Remove="Resources\Images\eye.png" />
 		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
+		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
+		<None Remove="Resources\Images\Tour\BigBen.png" />
+		<None Remove="Resources\Images\Tour\giza.jpg" />
+		<None Remove="Resources\Images\Tour\PlitvickaJezera.jpg" />
+		<None Remove="Resources\Images\Tour\PlitvickaJezera2.jpg" />
 		<None Remove="Resources\Images\view.png" />
 	</ItemGroup>
 
@@ -68,6 +73,7 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Resource Include="Resources\Images\Guide\user.png" />
+		<Resource Include="Resources\Images\Tourist\person.png" />
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
