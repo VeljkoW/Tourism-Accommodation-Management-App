@@ -203,7 +203,7 @@ namespace BookingApp.View.Guest
                 GuestNumber = Convert.ToInt32(TextBoxGuestNumber.Text.Trim());
                 if (GuestNumber <= 0)
                 {
-                    MessageBox.Show("Greskaaa");
+                    return;
                 }
             }
             int ReservationDays = 0;
@@ -212,12 +212,20 @@ namespace BookingApp.View.Guest
                 ReservationDays = Convert.ToInt32(TextBoxReservationDays.Text.Trim());
                 if (ReservationDays <= 0)
                 {
-                    MessageBox.Show("Greskica");
+                    return;
                 }
             }
             List<Accommodation> searchResults = SearchAccommodation(Name, City, State,
                 accommodationType, GuestNumber, ReservationDays);
 
+            foreach (Accommodation accommodation in searchResults)
+            {
+                Image image = new Image();
+                image = accommodation.Images[0];
+                accommodation.Images.Clear();
+                accommodation.Images.Add(image);
+                Accommodations.Add(accommodation);
+            }
             accommodationItems.ItemsSource = searchResults;
         }
 
@@ -244,11 +252,6 @@ namespace BookingApp.View.Guest
             {
                 return false;
             }
-        }
-
-        private void ReservationButton(object sender, RoutedEventArgs e)
-        {
-
         }
 
         public void ClickedOnCard(object sender, RoutedEventArgs e)

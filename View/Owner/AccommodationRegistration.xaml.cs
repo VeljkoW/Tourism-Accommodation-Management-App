@@ -163,13 +163,13 @@ namespace BookingApp.View.Owner
                     // Forming relative path to the new Image
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
                     relativeImagePaths.Add(relativePath);
-                    if (relativeImagePaths.Count > 0)
-                    {
-                        SaveImageIntoCSV(relativeImagePaths);
-                    }
-                    ImagesListBox.ItemsSource = relativeImagePaths;
-                    ImagesListBox.Items.Refresh();
                 }
+                if (relativeImagePaths.Count > 0)
+                {
+                    SaveImageIntoCSV(relativeImagePaths);
+                }
+                ImagesListBox.ItemsSource = relativeImagePaths;
+                ImagesListBox.Items.Refresh();
             }
         }
         private void SaveImageIntoCSV(List<string> relativeImagePaths)
