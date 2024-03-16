@@ -31,6 +31,7 @@ namespace BookingApp.View.Guest
         public GuestReservation(Accommodation selectedAccommodation, User logUser)
         {
             InitializeComponent();
+            this.DataContext = this;
             accommodation = selectedAccommodation;
             user = logUser;
             reservedAccommodationRepository = new ReservedAccommodationRepository();
