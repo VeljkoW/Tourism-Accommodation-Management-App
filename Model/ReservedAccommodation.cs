@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
+using BookingApp.Repository;
 
 namespace BookingApp.Model
 {
@@ -51,6 +53,23 @@ namespace BookingApp.Model
             checkInDate = Convert.ToDateTime(values[2]);
             checkOutDate = Convert.ToDateTime(values[3]);
         }
-
+        public string Print
+        {
+            get
+            {
+                UserRepository userRepository = new UserRepository();
+                User user = new User();
+                user = userRepository.GetById(guestId);
+                return "Remaining "+ (5-(DateTime.Now - checkOutDate).Days) +" days to rate the user: " + user.Username;
+            }
+            set
+            {
+                if (value != Print)
+                {
+                    Print = value;
+                    OnPropertyChanged("Print");
+                }
+            }
+        }
     }
 }

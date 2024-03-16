@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Repository.AccommodationRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace BookingApp.View.Owner
         public Accommodation Accommodation { get; set; }
         public AccommodationRegistration AccommodationRegistration { get; set; }
         public RateGuest RateGuest { get; set; }
+        public ReservedAccommodationRepository ReservedAccommodationRepository { get; set; }
+        public List<ReservedAccommodation> ReservedAccommodations { get; set; }
         public OwnerMainWindow(User user)
         {
             InitializeComponent();
@@ -33,10 +36,22 @@ namespace BookingApp.View.Owner
 
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(Accommodation);
-            RateGuest = new RateGuest();
+            ReservedAccommodations = new List<ReservedAccommodation>();
+            RateGuest = new RateGuest(user);
+            ReservedAccommodationRepository = new ReservedAccommodationRepository();
 
             mainFrame.Navigate(AccommodationRegistration);
 
+            DateTime yesterday = DateTime.Now.AddDays(-1).Date;
+            foreach(ReservedAccommodation reservedAccommodation in ReservedAccommodationRepository.GetAll())
+            {
+                if ((DateTime.Now > reservedAccommodation.checkOutDate) &&
+                           (DateTime.Now - reservedAccommodation.checkOutDate).Days <= 5)
+                {
+                    ReservedAccommodations.Add(reservedAccommodation);
+                }
+            }
+            NotificationListBox.ItemsSource = ReservedAccommodations;
             //mainFrame.Navigate(new Uri("../../../View/Owner/AccommodationRegistration.xaml", UriKind.Relative));
         }
 
