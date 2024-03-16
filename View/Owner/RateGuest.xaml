@@ -38,8 +38,7 @@
         </DataGrid>
         <Label x:Name="CleanliniessLabel" Content="Cleanliness" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="15"></Label>
         <ComboBox Margin="0 50 0 0" x:Name="CleanlinessComboBox" Grid.Row="2" Grid.Column="1" Width="300" Height="80" 
-                  HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Text="{Binding Path=GuestRating.Cleanliness, UpdateSourceTrigger=PropertyChanged}">
+                  HorizontalAlignment="Left" VerticalAlignment="Top">
             <ComboBoxItem Content="1"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
@@ -47,8 +46,7 @@
             <ComboBoxItem Content="5"></ComboBoxItem>
         </ComboBox>
         <Label x:Name="FollowingGuidelinesLabel" Content="Following Guidelines" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="15"></Label>
-        <ComboBox Margin="0 50 0 0" x:Name="FollowingGuidelinesComboBox"  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="300" Height="80"
-                  Text="{Binding Path=GuestRating.FollowingGuidelines, UpdateSourceTrigger=PropertyChanged}">
+        <ComboBox Margin="0 50 0 0" x:Name="FollowingGuidelinesComboBox"  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="300" Height="80">
             <ComboBoxItem Content="1"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
@@ -57,7 +55,7 @@
         </ComboBox>
         <Label x:Name="CommentLabel" Content="Add comment" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="15"></Label>
         <TextBox Margin="0 50 0 0" x:Name="CommentTextBox" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top"></TextBox>
-        <Button Click="RateGuestClick" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Rate Guest" FontSize="25"></Button>
+        <Button x:Name="RateGuestButton" Click="RateGuestClick" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Rate Guest" FontSize="25"></Button>
         <Label x:Name="SelectErrorLabel" Content="Select Guest you want to rate!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"></Label>
         <Label x:Name="InvalidInputLabel" Content="Invalid input!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"/>
     </Grid>

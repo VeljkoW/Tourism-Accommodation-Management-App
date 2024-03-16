@@ -35,24 +35,18 @@ namespace BookingApp.View.Owner
             this.user = user;
 
             Accommodation = new Accommodation();
-            AccommodationRegistration = new AccommodationRegistration(Accommodation);
+            AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
             ReservedAccommodations = new List<ReservedAccommodation>();
-            RateGuest = new RateGuest(user);
+            RateGuest = new RateGuest(this, user);
             ReservedAccommodationRepository = new ReservedAccommodationRepository();
-
             mainFrame.Navigate(AccommodationRegistration);
+            NotificationListBox.ItemsSource = RateGuest.Update();
 
-            DateTime yesterday = DateTime.Now.AddDays(-1).Date;
-            foreach(ReservedAccommodation reservedAccommodation in ReservedAccommodationRepository.GetAll())
+            if(NotificationListBox.Items.Count == 0)
             {
-                if ((DateTime.Now > reservedAccommodation.checkOutDate) &&
-                           (DateTime.Now - reservedAccommodation.checkOutDate).Days <= 5)
-                {
-                    ReservedAccommodations.Add(reservedAccommodation);
-                }
+                NotificationListBox.BorderBrush = Brushes.Gray;
+                NotificationListBox.BorderThickness = new Thickness(1);
             }
-            NotificationListBox.ItemsSource = ReservedAccommodations;
-            //mainFrame.Navigate(new Uri("../../../View/Owner/AccommodationRegistration.xaml", UriKind.Relative));
         }
 
         private void AccommodationReservationClick(object sender, RoutedEventArgs e)
@@ -62,13 +56,15 @@ namespace BookingApp.View.Owner
 
         private void RateGuestClick(object sender, RoutedEventArgs e)
         {
+            NotificationListBox.BorderBrush = Brushes.Gray;
+            NotificationListBox.BorderThickness = new Thickness(1);
             mainFrame.Navigate(RateGuest);
         }
-
-
-        /*private void Button_Click(object sender, RoutedEventArgs e)
+        private void ListBoxItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            mainFrame.Navigate(new Uri("../../../View/Owner/RateGuest.xaml", UriKind.Relative));
-        }*/
+            NotificationListBox.BorderBrush = Brushes.Gray;
+            NotificationListBox.BorderThickness = new Thickness(1);
+            mainFrame.Navigate(RateGuest);
+        }
     }
 }

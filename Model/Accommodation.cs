@@ -1,4 +1,4 @@
-﻿using BookingApp.Repository;
+using BookingApp.Repository;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ namespace BookingApp.Model
     public class Accommodation : ISerializable, INotifyPropertyChanged
     {
          public int id { get; set; }
+         public int ownerId {  get; set; }
          public string name { get; set; }
          public Location? location { get; set; }
          public AccommodationType accommodationType {  get; set; }
@@ -24,8 +25,7 @@ namespace BookingApp.Model
        // public int ReservationDays { get; set; }
          public int cancelationDaysLimit {  get; set; }
          public List<Image> images { get; set; }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
             if (PropertyChanged != null)
@@ -45,6 +45,21 @@ namespace BookingApp.Model
                 {
                     id = value;
                     OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+        public int OwnerId
+        {
+            get
+            {
+                return ownerId;
+            }
+            set
+            {
+                if (value != ownerId)
+                {
+                    ownerId = value;
+                    OnPropertyChanged(nameof(ownerId));
                 }
             }
         }
@@ -173,9 +188,10 @@ namespace BookingApp.Model
             this.CancelationDaysLimit = 0;
             this.Images = new List<Image>();
         }
-        public Accommodation(string Name, Location Location, AccommodationType AccommodationType,
+        public Accommodation(int ownerId, string Name, Location Location, AccommodationType AccommodationType,
                             int MaxGuestNumber, int MinReservationDays, int CancelationDaysLimit, List<Image> Images)
         {
+            this.ownerId = ownerId;
             this.Name = Name;
             this.Location = Location;
             this.AccommodationType = AccommodationType;
@@ -188,6 +204,7 @@ namespace BookingApp.Model
         {
             string[] csvValues = { 
                 Id.ToString(),
+                OwnerId.ToString(),
                 Name, 
                 Location.Id.ToString(), 
                 AccommodationType.ToString(), 
@@ -201,16 +218,17 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Name = values[1];
+            OwnerId = Convert.ToInt32(values[1]);
+            Name = values[2];
             LocationRepository LocationRepository = new LocationRepository();
-            Location = LocationRepository.GetById(Convert.ToInt32(values[2]));
-            AccommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[3]);
-            MaxGuestNumber = Convert.ToInt32(values[4]);
-            MinReservationDays = Convert.ToInt32(values[5]);
-            CancelationDaysLimit = Convert.ToInt32(values[6]);
-            if (values[7].Length > 0)
+            Location = LocationRepository.GetById(Convert.ToInt32(values[3]));
+            AccommodationType = (AccommodationType)Enum.Parse(typeof(AccommodationType), values[4]);
+            MaxGuestNumber = Convert.ToInt32(values[5]);
+            MinReservationDays = Convert.ToInt32(values[6]);
+            CancelationDaysLimit = Convert.ToInt32(values[7]);
+            if (values[8].Length > 0)
             {
-                string[] ImageIds = values[7].Split(',');
+                string[] ImageIds = values[8].Split(',');
                 for (int i = 0; i < ImageIds.Length; i++)
                 {
                     Image image = new Image();
