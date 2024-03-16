@@ -138,6 +138,7 @@ namespace BookingApp.View.Guest
             }
             else
             {
+                ErrorLabel.Visibility = Visibility.Collapsed;
                 printDates.Clear();
                 AvailableDates.ItemsSource = printDates;
                 DateTime startDate = CheckInDatePicker.SelectedDate ?? DateTime.Now;
