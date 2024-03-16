@@ -1,0 +1,28 @@
+﻿<Window x:Class="BookingApp.View.Guest.ImageGallery"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Guest"
+        mc:Ignorable="d"
+        Title="ImageGallery" Height="450" Width="800">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl Name="Gallery">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Margin="50" Orientation="Horizontal">
+                            <ItemsControl ItemsSource="{Binding Path=Images}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Path=Path}" Stretch="UniformToFill" Width="100" Height="100" Margin="5"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>
