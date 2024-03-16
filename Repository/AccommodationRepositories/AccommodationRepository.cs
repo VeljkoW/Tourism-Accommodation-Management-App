@@ -44,5 +44,6 @@ namespace BookingApp.Repository.AccommodationRepositories
             _accommodations = _serializer.FromCSV(FilePath);
             return _accommodations.Find(c => c.Id == Id);
         }
+
     }
 }

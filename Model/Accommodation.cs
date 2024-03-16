@@ -210,7 +210,7 @@ namespace BookingApp.Model
             CancelationDaysLimit = Convert.ToInt32(values[6]);
             if (values[7].Length > 0)
             {
-                string[] ImageIds = values[6].Split(',');
+                string[] ImageIds = values[7].Split(',');
                 for (int i = 0; i < ImageIds.Length; i++)
                 {
                     Image image = new Image();
