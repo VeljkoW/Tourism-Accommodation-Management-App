@@ -46,5 +46,10 @@ namespace BookingApp.Repository.TourRepositories
             _tourReservations = _serializer.FromCSV(FilePath);
             return _tourReservations.Find(c => c.Id == Id);
         }
+        public TourReservation? GetByScheduleId(int Id)
+        {
+            _tourReservations = _serializer.FromCSV(FilePath);
+            return _tourReservations.Find(c => c.TourScheduleId == Id);
+        }
     }
 }

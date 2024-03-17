@@ -8,6 +8,26 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GuideMainPage">
 
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}" x:Name="border">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand">
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid Background="{StaticResource NBackGroundColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
