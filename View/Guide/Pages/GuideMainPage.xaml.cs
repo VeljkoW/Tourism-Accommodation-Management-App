@@ -45,7 +45,7 @@ namespace BookingApp.View.Guide.Pages
         }
         private void ClickCreateTour(object sender, RoutedEventArgs e)
         {
-            CreateTourForm createTourForm = new CreateTourForm();
+            CreateTourForm createTourForm = new CreateTourForm(User);
             NavigationService.Navigate(createTourForm);
             LoadTours();
         }
