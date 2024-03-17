@@ -169,6 +169,7 @@ namespace BookingApp.View.Guide.Pages
                 }
             }
         }
+        public User User { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -176,7 +177,7 @@ namespace BookingApp.View.Guide.Pages
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public CreateTourForm()
+        public CreateTourForm(User user)
         {
             InitializeComponent();
             DataContext = this;
@@ -188,6 +189,7 @@ namespace BookingApp.View.Guide.Pages
             States = new List<string>();
             Cities = new List<string>();
             datePicker.DisplayDateStart= DateTime.Now;
+            User = user;
             foreach (Location location in Locations)
             {
                 if (!States.Contains(location.State))
@@ -294,8 +296,9 @@ namespace BookingApp.View.Guide.Pages
                 MaxTourists = Convert.ToInt32(MaxTouristTextbox.Text.Trim()),
                 Duration = Convert.ToInt32(DurationTextbox.Text.Trim()),
                 DateTime = DateTime.Now,
-                Images =images,
-                KeyPoints = this.keyPoints
+                Images = images,
+                KeyPoints = this.keyPoints,
+                OwnerId = User.Id
             };
             newTour.LocationId = location.Id;
             try

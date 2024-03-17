@@ -22,7 +22,7 @@ namespace BookingApp.Model
         public List<Image> Images { get; set; } = new List<Image>();
         public DateTime DateTime { get; set; }
         public int OwnerId {  get; set; }
-         public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths,DateTime dateTime=new DateTime())
+         public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths,DateTime dateTime=new DateTime(),int ownerId=0)
         {
             Id = id;
             Name = name;
@@ -35,6 +35,7 @@ namespace BookingApp.Model
             Duration = duration;
             Images = imagePaths;
             DateTime = dateTime;
+            OwnerId = 0;
         }
         public Tour() { }
         public string[] ToCSV()
