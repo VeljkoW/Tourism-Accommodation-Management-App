@@ -7,7 +7,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="MonitoringTour">
-
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+        </Style>
+    </Page.Resources>
     <Grid Background="{StaticResource NBackGroundColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -20,9 +29,12 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <StackPanel>
-                <TextBlock FontSize="48" FontWeight="Bold">Tour monitoring</TextBlock>
-                <TextBlock FontSize="48" FontWeight="Bold" Text="{Binding TourName}"></TextBlock>
+                <TextBlock FontSize="48" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}">Tour monitoring</TextBlock>
+                <TextBlock FontSize="48" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}" Text="{Binding TourName}" ></TextBlock>
             </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Button Click ="ClickGoBack"  Margin="30" Width="300" Content="Go back" FontSize="22" FontWeight="Bold"/>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid>

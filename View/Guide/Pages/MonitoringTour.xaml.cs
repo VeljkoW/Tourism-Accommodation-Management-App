@@ -110,6 +110,7 @@ namespace BookingApp.View.Guide.Pages
             else
             {
                 CurrentKeypointId = Tour.KeyPoints[0].Id;
+                Schedule.ScheduleStatus = ScheduleStatus.Ongoing;
             }
             tourScheduleRepository = new TourScheduleRepository();
             Update();
@@ -139,16 +140,21 @@ namespace BookingApp.View.Guide.Pages
             TourReservationRepository reservationRepository = new TourReservationRepository();
             TourPersonRepository tourPersonRepository = new TourPersonRepository();
             List<TourReservation> reservations = reservationRepository.GetAll();
+            List<TourPerson> persons = tourPersonRepository.GetAll();
+            CreateTouristCards(reservations);
+        }
+
+        public void CreateTouristCards(List<TourReservation> reservations)
+        {
             foreach (TourReservation reservation in reservations)
             {
                 if (reservation.TourScheduleId == Schedule.Id)
                 {
-                    List<TourPerson> persons = tourPersonRepository.GetAll();
-                    foreach (TourPerson tourist in persons)
+                    foreach (TourPerson person in reservation.People)
                     {
-                        if (tourist.KeyPointId == -1)
+                        if (person.KeyPointId == -1)
                         {
-                            UserControlTourist userControlTourist = new UserControlTourist(tourist, CurrentKeypointId);
+                            UserControlTourist userControlTourist = new UserControlTourist(person, CurrentKeypointId);
                             ListOfTourists.Children.Add(userControlTourist);
                             userControlTourist.touristVisitedKeypoint += (s, e) => touristVisited();
                         }
@@ -200,6 +206,12 @@ namespace BookingApp.View.Guide.Pages
         private void RaiseEventHandler(object sender, RoutedEventArgs e)
         {
             OnFinishedTour?.Invoke(sender, e);
+        }
+        public EventHandler OnClickGoBack { get;set; }
+        private void ClickGoBack(object sender, RoutedEventArgs e)
+        {
+            OnClickGoBack?.Invoke(sender, e);
+            NavigationService.GoBack();
         }
     }
 }
