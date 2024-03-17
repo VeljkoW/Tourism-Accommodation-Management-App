@@ -1,0 +1,114 @@
+﻿<Window x:Class="BookingApp.View.Tourist.TourReservationSuccessful"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Tourist"
+        mc:Ignorable="d"
+        Loaded="LoadedFunctions"
+        Title="TourReservationSuccessful" Height="350" Width="510">
+    <Window.Resources>
+        <Color x:Key="BackgroundColor">#BD8E62</Color>
+        <Color x:Key="BorderColor">#9c734e</Color>
+        <Color x:Key="TextColor">#403022</Color>
+        <Color x:Key="TabColor">#ebd3bc</Color>
+        <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
+        <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
+        <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
+        <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Border Grid.Row="0" Background="{StaticResource BorderColorBrush}">
+            <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 6 6 0" BorderBrush="{StaticResource BorderColorBrush}">
+                <Border.CornerRadius>
+                    <CornerRadius TopRight="10" TopLeft="10"/>
+                </Border.CornerRadius>
+                <Border Background="{StaticResource TabColorBrush}" Margin="30 30 30 0" CornerRadius="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Margin="0 10 0 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Text="Successfully created a reservation for " Margin="10 5 0 5"/>
+                                <TextBlock Grid.Column="2" Foreground="Red" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="0 5 0 5" x:Name="NumberTextBlock"/>
+                                <TextBlock Grid.Column="3" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Text=" people" Margin="0 5 10 5"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Text="for the " Margin="10 5 0 5"/>
+                                <TextBlock Grid.Column="2" Foreground="Red" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="0 5 0 5" x:Name="TourNameTextBlock"/>
+                                <TextBlock Grid.Column="3" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="0 5 10 5" x:Name="TourTextBlock"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Text="The tour starts at: " Margin="10 5 0 5"/>
+                                <TextBlock Grid.Column="2" Foreground="Red" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="0 5 0 5" x:Name="TourDateTextBlock"/>
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Row="4">
+                            <TextBlock Grid.Column="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Text="Don't be late!" Margin="10 5 10 5"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Border>
+        </Border>
+
+        <Border Grid.Row="1" Background="{StaticResource BorderColorBrush}">
+            <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 0 6 6" CornerRadius="0 0 10 10" BorderBrush="{StaticResource BorderColorBrush}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="Close" Cursor="Hand">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="OK" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                    </Button>
+
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

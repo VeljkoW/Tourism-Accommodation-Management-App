@@ -1,5 +1,9 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guide;
+using BookingApp.View.Owner;
+using BookingApp.View.Guest;
+using BookingApp.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -47,12 +51,30 @@ namespace BookingApp.View
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if(user.Password == txtPassword.Password)
+                if (user.Password == txtPassword.Password)
                 {
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
+                    if (user.UserType == UserType.Tourist)
+                    {
+                        TouristMainWindow touristMainWindow = new TouristMainWindow(user);
+                        touristMainWindow.Show();
+                    }
+                    else if (user.UserType == UserType.Guide)
+                    {
+                        GuideMainWindow guideMainWindow = new GuideMainWindow(user);
+                        guideMainWindow.Show();
+                    }
+                    else if (user.UserType == UserType.Owner)
+                    {
+                        OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+                        ownerMainWindow.Show();
+                    }
+                    else if (user.UserType == UserType.Guest)
+                    {
+                        GuestMainWindow guestMainWindow = new GuestMainWindow(user);
+                        guestMainWindow.Show();
+                    }
                     Close();
-                } 
+                }
                 else
                 {
                     MessageBox.Show("Wrong password!");
@@ -62,7 +84,13 @@ namespace BookingApp.View
             {
                 MessageBox.Show("Wrong username!");
             }
-            
+
+        }
+        private void RegisterView(object sender, RoutedEventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Show();
+            Close();
         }
     }
 }
