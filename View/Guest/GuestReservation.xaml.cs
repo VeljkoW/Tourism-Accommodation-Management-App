@@ -129,9 +129,26 @@ namespace BookingApp.View.Guest
 
             return availableDates;
         }
+        public bool IsNumeric(string text)
+        {
+            try
+            {
+                int number = int.Parse(text);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private void ReservationSearchButton(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(ReservationDaysTextBox.Text) < accommodation.MinReservationDays) 
+            if (!IsNumeric(ReservationDaysTextBox.Text))
+            {
+                ErrorLabel.Visibility = Visibility.Visible;
+                return;
+            }
+            if (Convert.ToInt32(ReservationDaysTextBox.Text) < accommodation.MinReservationDays)
             {
                 ErrorLabel.Visibility = Visibility.Visible;
                 return;
@@ -216,7 +233,6 @@ namespace BookingApp.View.Guest
         {
             if (AvailableDates.SelectedItem != null)
             {
-                // Postavite selectedDates na vrednost odabrane stavke
                 selectedDates = AvailableDates.SelectedItem.ToString();
             }
         }
