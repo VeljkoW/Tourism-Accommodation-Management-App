@@ -158,7 +158,7 @@ namespace BookingApp.View.Owner
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
-                    SaveImageFile(filePath, destFilePath);
+                    fileName = SaveImageFile(filePath, destFilePath, fileName);
 
                     // Forming relative path to the new Image
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
@@ -182,21 +182,25 @@ namespace BookingApp.View.Owner
                 Images.Add(image);
             }
         }
-        private void SaveImageFile(string filePath, string destFilePath)
+        private string SaveImageFile(string filePath, string destFilePath, string fileName)
         {
             if (!File.Exists(destFilePath))
             {
                 File.Copy(filePath, destFilePath, false);
+                return fileName;
             }
             else
             {
+                string[] fileNameParts = fileName.Split(".");
                 while (File.Exists(destFilePath))
                 {
                     string[] name = destFilePath.Split(".");
                     name[0] = name[0] + "A";
                     destFilePath = name[0] + "." + name[1];
+                    fileNameParts[0] = fileNameParts[0] + "A";
                 }
                 File.Copy(filePath, destFilePath, false);
+                return fileNameParts[0] + "." + fileNameParts[1];
             }
         }
         private string GetBaseFolder(string path)
