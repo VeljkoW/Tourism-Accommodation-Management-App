@@ -35,10 +35,12 @@ namespace BookingApp.View.Tourist
             if(FreeSlots > 0)
             {
                 ExceededTheAmoutTextBlock.Text = "It looks like you have exceeded the amount of free slots on this tour!";
+                GoBackButtonGrid.Visibility = Visibility.Visible;
             }
             else
             {
                 ExceededTheAmoutTextBlock.Text = "It looks like there aren't any more free slots on this tour!";
+                GoBackButtonGrid.Visibility = Visibility.Collapsed;
             }
 
         }
@@ -79,6 +81,11 @@ namespace BookingApp.View.Tourist
 
         public void SearchSimilarTours(object sender, RoutedEventArgs e)
         {
+            if (PreviousWindow != null)
+            {
+                PreviousWindow.Close();
+            }
+
             Close();
             TourReservationSimilarTours tourReservationSimilarTours = new TourReservationSimilarTours(SelectedTour);
             tourReservationSimilarTours.ShowDialog();

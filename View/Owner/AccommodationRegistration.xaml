@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:BookingApp.View.Owner"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="AccommodationRegistration">
+      Title="AccommodationRegistration"
+      PreviewMouseDown="PreviewMouseDownEvent">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -33,41 +34,43 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Label x:Name="NameLabel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="108" VerticalAlignment="Top" Margin="10,21,0,0" Content="Name:"/>
-            <Label x:Name="LocationLabel" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="226" VerticalAlignment="Top" Margin="41,45,0,0" Content="Location(State - City) :" RenderTransformOrigin="0.5,0.5">
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.071"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Label.RenderTransform>
-            </Label>
-            <Label x:Name="AccommodationTypeLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="100" VerticalAlignment="Center" Height="41" Margin="14,0,0,0" Content="Type:"></Label>
-            <Label x:Name="MaxGuestNumberLabel1" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Height="41" Margin="0,11,0,0" Content="Max number"/>
-            <Label x:Name="MaxGuestNumberLabel2" Grid.Row="3" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="150" VerticalAlignment="Top" Height="41" Margin="10,35,0,0" Content="of guests:"/>
+            <Label x:Name="NameLabel" FontSize="18" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Name:"/>
+            <Label x:Name="LocationLabel" Grid.Row="1" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Location: "></Label>
+            <Label x:Name="AccommodationTypeLabel" Grid.Row="2" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Type:"></Label>
+            <Label x:Name="MaxGuestNumberLabel1" Grid.Row="3" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -30 0 0" Content="Max number"/>
+            <Label x:Name="MaxGuestNumberLabel2" Grid.Row="3" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 -30" Content="of guests:"/>
 
-            <Label x:Name="MinReservationDaysaLabel1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="145" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,14,0,0" Content="Min number of"/>
-            <Label x:Name="MinReservationDaysaLabel2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="98" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="18,43,0,0" Content="res. days:"/>
-            <Label x:Name="CancelationDaysLimitLabel1" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="132" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,10,0,0" Content="Cancelation"/>
-            <Label x:Name="CancelationDaysLimitLabel2" Grid.Row="1" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="132" VerticalAlignment="Top" Height="41" Grid.Column="2" Margin="10,35,0,0" Content="Days Limit:"/>
-            <Label x:Name="ImagesLabel" Grid.Row="2" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Width="82" VerticalAlignment="Center" Height="41" Grid.Column="2" Margin="10,0,0,0" Content="Images"/>
-            <TextBox Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-            <ComboBox ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedLocation}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220" Height="32"
+            <Label x:Name="MinReservationDaysaLabel1" Grid.Row="0" Grid.Column="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -30 0 0" Content="Min number of"/>
+            <Label x:Name="MinReservationDaysaLabel2" Grid.Row="0" Grid.Column="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 -30" Content="res. days:"/>
+            <Label x:Name="CancelationDaysLimitLabel1" Grid.Row="1" Grid.Column="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -30 0 0" Content="Cancelation"/>
+            <Label x:Name="CancelationDaysLimitLabel2" Grid.Row="1" Grid.Column="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 -30" Content="Days Limit:"/>
+            <Label x:Name="ImagesLabel" Grid.Row="2" Grid.Column="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Images:"/>
+            <TextBox x:Name="NameTextBox" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"/>
+            <ComboBox x:Name="LocationComboBox" ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedLocation}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"
                       SelectedValuePath="Print" DisplayMemberPath="Print">
             </ComboBox>
-            <TextBox Text="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-            <TextBox Text="{Binding Path=Accommodation.MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-            <TextBox Text="{Binding Path=Accommodation.MinReservationDays, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
-            <TextBox Text="{Binding Path=Accommodation.CancelationDaysLimit, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>
+            <ComboBox x:Name="AccommodationTypeComboBox"
+                      Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30">
+                <ComboBoxItem Content="Apartment"></ComboBoxItem>
+                <ComboBoxItem Content="House"></ComboBoxItem>
+                <ComboBoxItem Content="Hut"></ComboBoxItem>
+            </ComboBox>
 
+            <!--<TextBox Text="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" Height="32"/>-->
+            <TextBox x:Name="MaxGuestNumberTextBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"/>
+            <TextBox x:Name="MinResDaysTextBox" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"/>
+            <TextBox x:Name="CancelationDaysLimitTextBox" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"/>
+            <Button x:Name="AddImagesButton" Click="AddImagesClick" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30" FontSize="18" Content="Add Image"/>
 
-            <Button x:Name="AcceptButton" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Margin="96,25,0,0" Content="Accept" Click="AcceptButtonClick"/>
-            <Button x:Name="DeclineButton" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Height="42" Width="124" FontSize="22" FontWeight="Bold" Content="Decline" Margin="20,25,0,0"/>
-            <Button x:Name="AddImagesButton" Click="AddImagesClick" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" Height="42" Width="210" FontSize="22" FontWeight="Bold" Content="Add Image" Margin="10,0,0,0"/>
+            <Button x:Name="AcceptButton" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="150 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="150" FontSize="22" FontWeight="Bold" Content="Accept" Click="AcceptButtonClick"/>
 
+            <ListBox x:Name="ImagesListBox" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="350" Height="100" 
+                     VerticalAlignment="Center" HorizontalAlignment="Center"></ListBox>
 
+            <Label x:Name="InvalidInputLabel" Content="Invalid input!" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Red"/>
+            <Label x:Name="ImageErrorLabel" Content="Image is neccessary!" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Red"/>
+            <Label x:Name="NumberErrorLabel" Content="Number is required!" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Red"/>
+            <Label x:Name="SuccessLabel" Content="Successfully added!" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" Foreground="Green"/>
         </Grid>
     </Grid>
 

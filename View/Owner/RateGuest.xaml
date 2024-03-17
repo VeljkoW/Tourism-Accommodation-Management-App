@@ -3,12 +3,60 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:local="clr-namespace:BookingApp.View.Owner" 
+      xmlns:local1="clr-namespace:BookingApp.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="RateGuest">
-
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+    </Page.Resources>
     <Grid>
-        <Button Height="50" Width="500" Margin="150,316,150,84">AUISDBVASBVUIASBVUISA</Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="RatingGuestsTable"
+                  ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single" IsReadOnly="True" Grid.Row="1" Grid.Column="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding checkInDate}"/>
+                <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding checkOutDate}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="CleanliniessLabel" Content="Cleanliness" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="15"></Label>
+        <ComboBox Margin="0 50 0 0" x:Name="CleanlinessComboBox" Grid.Row="2" Grid.Column="1" Width="300" Height="80" 
+                  HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ComboBoxItem Content="1"></ComboBoxItem>
+            <ComboBoxItem Content="2"></ComboBoxItem>
+            <ComboBoxItem Content="3"></ComboBoxItem>
+            <ComboBoxItem Content="4"></ComboBoxItem>
+            <ComboBoxItem Content="5"></ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="FollowingGuidelinesLabel" Content="Following Guidelines" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="15"></Label>
+        <ComboBox Margin="0 50 0 0" x:Name="FollowingGuidelinesComboBox"  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="300" Height="80">
+            <ComboBoxItem Content="1"></ComboBoxItem>
+            <ComboBoxItem Content="2"></ComboBoxItem>
+            <ComboBoxItem Content="3"></ComboBoxItem>
+            <ComboBoxItem Content="4"></ComboBoxItem>
+            <ComboBoxItem Content="5"></ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="CommentLabel" Content="Add comment" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="15"></Label>
+        <TextBox Margin="0 50 0 0" x:Name="CommentTextBox" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top"></TextBox>
+        <Button x:Name="RateGuestButton" Click="RateGuestClick" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Rate Guest" FontSize="25"></Button>
+        <Label x:Name="SelectErrorLabel" Content="Select Guest you want to rate!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"></Label>
+        <Label x:Name="InvalidInputLabel" Content="Invalid input!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"/>
     </Grid>
 </Page>

@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Image = BookingApp.Model.Image;
 
 namespace BookingApp.View.Tourist
 {
@@ -34,6 +35,12 @@ namespace BookingApp.View.Tourist
             NameTextBlock.Text = Tour.Name;
             DescriptionTextBlock.Text = Tour.Description;
 
+            if (Tour.Images != null && Tour.Images.Count > 0)
+            {
+                Image Image = Tour.Images[0];
+                var converter = new ImageSourceConverter();
+                ImageBox.Source = (ImageSource)converter.ConvertFromString(Image.Path);
+            }
             if (Tour.Location != null)
             {
                 StateTextBlock.Text = Tour.Location.State;

@@ -25,19 +25,23 @@ namespace BookingApp.View.Guest
         public User user { get; set; }
         public Accommodation accommodation { get; set; }
         public ReservedAccommodationRepository reservedAccommodationRepository { get; set; }
-
         public ReservedAccommodation reservedAccommodation { get; set; }
-
+        public string? selectedDates { get; set; }
+        public List<AvailableDate> printDates { get; set; }
         public GuestReservation(Accommodation selectedAccommodation, User logUser)
         {
             InitializeComponent();
+            this.DataContext = this;
             accommodation = selectedAccommodation;
             user = logUser;
             reservedAccommodationRepository = new ReservedAccommodationRepository();
             reservedAccommodation = new ReservedAccommodation();
+            printDates = new List<AvailableDate>();
             GuestNumberTextBox.Text = "Max guest number " + accommodation.MaxGuestNumber;
             ReservationDaysTextBox.Text = "Min reservation days " + accommodation.MinReservationDays;
             ErrorLabel.Visibility = Visibility.Collapsed;
+            InvalidInput.Visibility = Visibility.Collapsed;
+            ErrorSelect.Visibility = Visibility.Collapsed;
             ReservationButton.IsEnabled = false;
             GuestNumberTextBox.IsEnabled = false;
             AvailableDates.IsEnabled = false;
@@ -58,20 +62,19 @@ namespace BookingApp.View.Guest
             }
 
             // Provera dostupnosti datuma
-            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            for (DateTime date = startDate; date <= startDate.AddDays(reservationDays); date = date.AddDays(1))
             {
                 foreach(ReservedAccommodation reservedAccommodation in reservedAccommodationRepository.GetAll()) 
                 {
                     if(accommodation.Id == reservedAccommodation.accommodationId)
                     {
-                        if(date >= reservedAccommodation.checkInDate && date <= reservedAccommodation.checkOutDate) 
+                        if(date > reservedAccommodation.checkInDate && date < reservedAccommodation.checkOutDate) 
                         {
-                            continue;
+                            return false;
                         }
                     }
                 }
             }
-
             // Ako prođemo sve prethodne provere, smatramo da su datumi dostupni
             return true;
         }
@@ -82,11 +85,12 @@ namespace BookingApp.View.Guest
             DateTime currentStartDate = startDate;
             DateTime currentEndDate = endDate;
 
+
             // Pretraga slobodnih datuma unutar izabranog opsega
-            while (currentStartDate <= currentEndDate)
+            while (currentStartDate <= currentEndDate.AddHours(2))
             {
                 // Provera dostupnosti datuma
-                if (AreDatesAvailable(currentStartDate, currentEndDate, reservationDays))
+                if (AreDatesAvailable(currentStartDate, currentEndDate.AddHours(2), reservationDays))
                 {
                     availableDates.Add(currentStartDate);
                 }
@@ -99,15 +103,15 @@ namespace BookingApp.View.Guest
             if (availableDates.Count == 0)
             {
                 currentStartDate = startDate;
-                currentEndDate = endDate;
+                currentEndDate = endDate.AddHours(2);
                 int counterDates = 0;
 
                 // Pretraga slobodnih datuma van izabranog opsega
                 while (true)
                 {
                     // Tražimo sledeći slobodan datum nakon izabranog opsega
-                    currentStartDate = currentEndDate.AddDays(1);
-                    currentEndDate = currentStartDate.AddDays(numberOfDays - 1);
+                    currentStartDate = currentStartDate.AddDays(1);
+                    currentEndDate = currentStartDate.AddDays(reservationDays);
 
                     if (counterDates == 5)
                     {
@@ -125,7 +129,6 @@ namespace BookingApp.View.Guest
 
             return availableDates;
         }
-
         private void ReservationSearchButton(object sender, RoutedEventArgs e)
         {
             if (Convert.ToInt32(ReservationDaysTextBox.Text) < accommodation.MinReservationDays) 
@@ -135,31 +138,42 @@ namespace BookingApp.View.Guest
             }
             else
             {
+                ErrorLabel.Visibility = Visibility.Collapsed;
+                printDates.Clear();
+                AvailableDates.ItemsSource = printDates;
                 DateTime startDate = CheckInDatePicker.SelectedDate ?? DateTime.Now;
                 DateTime endDate = CheckOutDatePicker.SelectedDate ?? DateTime.Now;
 
                 int numberOfDays = (endDate - startDate).Days;
+                startDate = startDate.AddHours(12);
+                endDate = endDate.AddHours(10);
                 int reservationDays = Convert.ToInt32(ReservationDaysTextBox.Text);
 
-                List<DateTime> availableDates = FindAvailableDates(startDate, endDate, numberOfDays, reservationDays);
+                List<DateTime> availableDates = new List<DateTime>();
+                availableDates = FindAvailableDates(startDate, endDate, numberOfDays, reservationDays);
 
-                if (availableDates.Count == 1)
+                ReservationButton.IsEnabled = true;
+                GuestNumberTextBox.IsEnabled = true;
+
+                if (availableDates.Count != 0)
                 {
                     AvailableDates.IsEnabled = true;
-                    ReservationButton.IsEnabled = true;
-                    ReservationDaysTextBox.IsEnabled = true;
-                }
-                else if(availableDates.Count > 1)
-                {
-                    AvailableDates.IsEnabled = true;
+                    AvailableDates.ItemsSource = availableDates;
+                    foreach (DateTime availableDate in availableDates)
+                    {
+                        AvailableDate dates = new AvailableDate();
+                        dates.checkInDate = availableDate;
+                        dates.checkOutDate = availableDate.AddDays(reservationDays - 1).AddHours(22);
+                        printDates.Add(dates);
+                    }
+                    AvailableDates.ItemsSource = printDates;
                 }
                 else
                 {
-                    MessageBox.Show("Nema datuma");
+                    AvailableDates.ItemsSource = "Nema datuma";
                 }
             }
         }
-
         private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -170,7 +184,6 @@ namespace BookingApp.View.Guest
             }
 
         }
-
         private void GuestNumber_NotClicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -180,7 +193,6 @@ namespace BookingApp.View.Guest
                 textBox.Foreground = Brushes.Gray;
             }
         }
-
         private void ReservationDays_Clicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -191,7 +203,6 @@ namespace BookingApp.View.Guest
             }
 
         }
-
         private void ReservationDays_NotClicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -201,15 +212,53 @@ namespace BookingApp.View.Guest
                 textBox.Foreground = Brushes.Gray;
             }
         }
+        private void AvailableDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AvailableDates.SelectedItem != null)
+            {
+                // Postavite selectedDates na vrednost odabrane stavke
+                selectedDates = AvailableDates.SelectedItem.ToString();
+            }
+        }
         private void ReservationClickButton(object sender, RoutedEventArgs e)
         {
-            ErrorLabel.Visibility = Visibility.Collapsed;
-
-            reservedAccommodation.checkInDate = CheckInDatePicker.SelectedDate ?? DateTime.Now;
-            reservedAccommodation.checkOutDate = CheckOutDatePicker.SelectedDate ?? DateTime.Now;
-            reservedAccommodation.accommodationId = accommodation.Id;
-            reservedAccommodation.guestId = user.Id;
-            reservedAccommodationRepository.Add(reservedAccommodation);
+            if (AvailableDates.SelectedValue == null)
+            {
+                InvalidInput.Visibility = Visibility.Collapsed;
+                ErrorSelect.Visibility = Visibility.Visible;
+                return;
+            }
+            else if (GuestNumberTextBox.Text.Equals("") || GuestNumberTextBox.Text.Equals("Max guest number " + accommodation.MaxGuestNumber))
+            {
+                ErrorSelect.Visibility = Visibility.Collapsed;
+                InvalidInput.Visibility = Visibility.Visible;
+                return;
+            }
+            else if(!int.TryParse(GuestNumberTextBox.Text, out int guestNumber) || guestNumber <= 0)
+            {
+                ErrorSelect.Visibility = Visibility.Collapsed;
+                InvalidInput.Visibility = Visibility.Visible;
+                return;
+            }
+            else if (Convert.ToInt32(GuestNumberTextBox.Text) > accommodation.MaxGuestNumber)
+            {
+                ErrorSelect.Visibility = Visibility.Collapsed;
+                InvalidInput.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                ErrorSelect.Visibility = Visibility.Collapsed;
+                InvalidInput.Visibility = Visibility.Collapsed;
+                string? selectedDate = AvailableDates.SelectedValue.ToString();
+                string[] dates = selectedDate.Split('-');
+                reservedAccommodation.checkInDate = Convert.ToDateTime(dates[0].Trim());
+                reservedAccommodation.checkOutDate = Convert.ToDateTime(dates[1].Trim());
+                reservedAccommodation.accommodationId = accommodation.Id;
+                reservedAccommodation.guestId = user.Id;
+                reservedAccommodationRepository.Add(reservedAccommodation);
+                Close();
+            }
         }
     }
 }
