@@ -282,35 +282,9 @@ namespace BookingApp.View.Guide.Pages
             City = CityBox.Text.Trim();
             Location location = new Location(State,City);
             location.Id = locationRepository.GetIdByStateCity(State,City);
-            if (images.Count == 0 || string.IsNullOrEmpty(TourNameTextbox.Text) || keyPoints.Count <2)
-            {
-                if(images.Count == 0) { 
-                ErrorCode.Text = "No Image selected";
-                }
-                if (string.IsNullOrEmpty(TourNameTextbox.Text))
-                {
-                    if (string.IsNullOrEmpty(ErrorCode.Text))
-                    {
-                        ErrorCode.Text = "Missing name";
-                    }
-                    else
-                    {
-                        ErrorCode.Text += ", missing name";
-                    }
-                }
-                if(keyPoints.Count < 2)
-                {
-                    if (string.IsNullOrEmpty(ErrorCode.Text))
-                    {
-                        ErrorCode.Text = "Missing keypoints";
-                    }
-                    else
-                    {
-                        ErrorCode.Text += ", missing keypoints";
-                    }
-                }
+             if (ValidateTextboxes() == false) {
                 return;
-            }
+             }
             Tour newTour = new Tour
             {
                 Name = TourNameTextbox.Text.Trim(),
@@ -352,11 +326,46 @@ namespace BookingApp.View.Guide.Pages
             }
             catch (Exception ex)
             {
-                // Handle any errors, perhaps logging them and showing a message to the user
                 MessageBox.Show($"Failed to create the tour. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             NavigationService.GoBack();
         }
+
+        private bool ValidateTextboxes()
+        {
+            if (relativeImagePaths.Count == 0 || string.IsNullOrEmpty(TourNameTextbox.Text) || keyPointStrings.Count < 2)
+            {
+                if (images.Count == 0)
+                {
+                    ErrorCode.Text = "No Image selected";
+                }
+                if (string.IsNullOrEmpty(TourNameTextbox.Text))
+                {
+                    if (string.IsNullOrEmpty(ErrorCode.Text))
+                    {
+                        ErrorCode.Text = "Missing name";
+                    }
+                    else
+                    {
+                        ErrorCode.Text += ", missing name";
+                    }
+                }
+                if (keyPointStrings.Count < 2)
+                {
+                    if (string.IsNullOrEmpty(ErrorCode.Text))
+                    {
+                        ErrorCode.Text = "Missing keypoints";
+                    }
+                    else
+                    {
+                        ErrorCode.Text += ", missing keypoints";
+                    }
+                }
+                return false;
+            }
+            return true;
+        }
+
         private void ClickCancelButton(object sender, RoutedEventArgs e)
         {
             dates.Clear();
@@ -367,11 +376,6 @@ namespace BookingApp.View.Guide.Pages
             keyPointStrings.Clear();
             Locations.Clear();
             NavigationService.GoBack();
-        }
-
-        private void MaxTouristTextbox_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-
         }
         private void ClickAddKeyPoint(object sender, RoutedEventArgs e)
         {

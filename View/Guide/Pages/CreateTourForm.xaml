@@ -12,6 +12,7 @@
     <Page.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
         </Style>
         <Style TargetType="Button">
             <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
@@ -34,7 +35,7 @@
         <Grid Grid.Row="0" Grid.Column="0" >
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="58,0,0,0">
                 <TextBlock FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"  Foreground="{StaticResource NButtonColor3Text}">Tour name:</TextBlock>
-                <TextBox x:Name="TourNameTextbox" Width="300" Height="30" HorizontalAlignment="Center"></TextBox>
+                <TextBox x:Name="TourNameTextbox" Width="300" Height="30" HorizontalAlignment="Center" Foreground="{StaticResource NButtonColor3Text}"></TextBox>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0" >
@@ -76,7 +77,7 @@
                         <TextBlock FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}">City:</TextBlock>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="1">
-                        <ComboBox x:Name="CityBox" Width="200" Height="30" HorizontalAlignment="Center" ItemsSource="{Binding Cities}" Margin="5" Foreground="{StaticResource NBackGroundColorLight}"/>
+                        <ComboBox x:Name="CityBox" Width="200" Height="30" HorizontalAlignment="Center" ItemsSource="{Binding Cities}" Margin="5" Foreground="{StaticResource NBackGroundColorLight}" IsEnabled="False"/>
                     </Grid>
                 </Grid>
             </StackPanel>

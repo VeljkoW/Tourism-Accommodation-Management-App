@@ -120,7 +120,14 @@ namespace BookingApp.View.Guide.Pages
             NavigationService.GetNavigationService(this).Navigate(monitoringTour);
             monitoringTour.OnFinishedTour += MonitoringTour_OnFinishedTour;
             monitoringTour.OnLastKeypoint += MonitoringTour_OnFinishedTour;
+            monitoringTour.OnClickGoBack += ClickGoBackMonitoringTour;
         }
+        public EventHandler OnClickedGoBackMonitoringTour { get; set; }
+        private void ClickGoBackMonitoringTour(object? sender, EventArgs e)
+        {
+            OnClickedGoBackMonitoringTour?.Invoke(this, e);
+        }
+
         public event EventHandler OnFinishedTour;
         private void MonitoringTour_OnFinishedTour(object? sender, EventArgs e)
         {

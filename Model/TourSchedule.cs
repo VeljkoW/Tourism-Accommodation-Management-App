@@ -20,7 +20,9 @@ namespace BookingApp.Model
         // status ture ready started finished
         public int VisitedKeypoints {  get; set; }
         public ScheduleStatus ScheduleStatus { get; set; }
-        public TourSchedule() { }
+        public TourSchedule() {
+            VisitedKeypoints = -1;
+        }
         public TourSchedule(Tour tour, DateTime dateTime)
         {
             Id = 999;

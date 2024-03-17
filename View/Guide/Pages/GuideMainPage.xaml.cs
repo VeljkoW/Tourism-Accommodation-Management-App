@@ -51,27 +51,26 @@ namespace BookingApp.View.Guide.Pages
         }
         public void LoadTours()
         {
-            List<TourSchedule> schedules = new List<TourSchedule>();
+            //List<TourSchedule> schedules = new List<TourSchedule>();
             List<KeyPoint> keypoints = keyPointRepository.GetAll();
-            List<Image> images = imageRepository.GetAll();
+            //List<Image> images = imageRepository.GetAll();
             List<TourImage> tourImages = tourImageRepository.GetAll();
-            schedules = scheduleRepository.GetAll();
+            List<TourSchedule> schedules = scheduleRepository.GetAll();
             Tours = new List<Tour>();
             Tours.Clear();
             ListOfTours.Children.Clear();
             foreach (TourSchedule schedule in schedules)
             {
-                if(schedule.ScheduleStatus == ScheduleStatus.Finished)
+                if(schedule.ScheduleStatus == ScheduleStatus.Finished || schedule.Date.Date != DateTime.Now.Date)
                 {
-                    continue;
-                }
-                if(schedule.Date.Date != DateTime.Now.Date)
-                {
-                    //Showing only daily tours
                     continue;
                 }
                 Tour tour = new Tour();
                 tour = tourRepository.GetById(schedule.TourId);
+                if(tour.OwnerId != User.Id)
+                {
+                    continue;
+                }
                 tour.DateTime = schedule.Date;
                 tour.Location = locationRepository.GetById(tour.LocationId);
                 foreach (KeyPoint kp in keypoints)
@@ -90,9 +89,7 @@ namespace BookingApp.View.Guide.Pages
                 }
                 Tours.Add(tour);
                 UserControlTourCard userControlTourCard = new UserControlTourCard(tour, User,schedule);
-                userControlTourCard.Margin = new Thickness(0, 0, 0, 15);
-                userControlTourCard.OnFinishedTour += UserControlTourCard_OnFinishedTour;
-                ListOfTours.Children.Add(userControlTourCard);
+                CreateTourCard(tour, schedule);
                 if (schedule.ScheduleStatus == ScheduleStatus.Ongoing)
                 {
                     Tours.Clear();
@@ -102,11 +99,26 @@ namespace BookingApp.View.Guide.Pages
                 }
             }
         }
+        private void CreateTourCard(Tour tour,TourSchedule schedule)
+        {
+            UserControlTourCard userControlTourCard = new UserControlTourCard(tour, User, schedule);
+            userControlTourCard.Margin = new Thickness(0, 0, 0, 15);
+            userControlTourCard.OnFinishedTour += UserControlTourCard_OnFinishedTour;
+            userControlTourCard.OnClickedGoBackMonitoringTour += UserControlTourCard_OnFinishedTour;
+            ListOfTours.Children.Add(userControlTourCard);
+        }
 
         private void UserControlTourCard_OnFinishedTour(object? sender, EventArgs e)
         {
             LoadTours();
         }
 
+        private void ClickLogout(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            OnLogoutHandler?.Invoke(sender, e);
+            signInForm.Show();
+        }
+        public EventHandler OnLogoutHandler { get; set; }
     }
 }
