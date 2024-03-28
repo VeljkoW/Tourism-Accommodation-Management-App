@@ -17,13 +17,15 @@ namespace BookingApp.Model
         public int Id { get; set; }
         public int UserId {  get; set; }
         public int TourScheduleId {  get; set; }    //Removed the TourId property because it can be accessed in TourSchedule
+        public int TourCouponId {  get; set; }
         public List<TourPerson> People { get; set; }
 
-        public TourReservation(int id,int userId,int tourScheduleId,List<TourPerson> people) 
+        public TourReservation(int id,int userId,int tourScheduleId,int tourCouponId,List<TourPerson> people) 
         {
             Id = id;
             UserId = userId;
             TourScheduleId = tourScheduleId;
+            TourCouponId = tourCouponId;
             People = people;
         }
         public TourReservation() 
@@ -31,6 +33,7 @@ namespace BookingApp.Model
             Id=0;
             UserId=0;
             TourScheduleId=0;
+            TourCouponId = -1;
             People = new List<TourPerson>();
         }
 
@@ -40,6 +43,7 @@ namespace BookingApp.Model
                 Id.ToString(),
                 UserId.ToString(),
                 TourScheduleId.ToString(),
+                TourCouponId.ToString(),
                 PersonIdToCSV()
             };
             return ret;
@@ -49,10 +53,11 @@ namespace BookingApp.Model
         {
             Id = Convert.ToInt32(values[0]);
             UserId = Convert.ToInt32(values[1]);
-            TourScheduleId = Convert.ToInt32(values[2]); 
-            if (values[3].Length > 0)
+            TourScheduleId = Convert.ToInt32(values[2]);
+            TourCouponId = Convert.ToInt32(values[3]);
+            if (values[4].Length > 0)
             {
-                string[] PeopleIds = values[3].Split(',');
+                string[] PeopleIds = values[4].Split(',');
                 for (int i = 0; i < PeopleIds.Length; i++)
                 {
                     TourPerson ?person = new TourPerson();

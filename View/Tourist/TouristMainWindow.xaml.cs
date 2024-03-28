@@ -28,14 +28,14 @@ namespace BookingApp.View.Tourist
     /// </summary>
     public partial class TouristMainWindow : Window, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         public List<Tour> IndividualTours { get; set; }
-        private List<Tour> tours {  get; set; }
+        private List<Tour> tours { get; set; }
         public List<Tour> Tours
         {
-            get 
-            { 
-                return tours; 
+            get
+            {
+                return tours;
             }
             set
             {
@@ -43,16 +43,57 @@ namespace BookingApp.View.Tourist
                 OnPropertyChanged(nameof(Tours));
             }
         }
-        public List<Tour> ToursAll {  get; set; }
+        private List<Tour> ongoingTours { get; set; }
+        public List<Tour> OngoingTours
+        {
+            get
+            {
+                return ongoingTours;
+            }
+            set
+            {
+                ongoingTours = value;
+                OnPropertyChanged(nameof(OngoingTours));
+            }
+        }
+        private List<Tour> reservedTours { get; set; }
+        public List<Tour> ReservedTours
+        {
+            get
+            {
+                return reservedTours;
+            }
+            set
+            {
+                reservedTours = value;
+                OnPropertyChanged(nameof(ReservedTours));
+            }
+        }
+        public List<Tour> ToursAll { get; set; }
+        private List<TourCoupon> coupons { get; set; }
+        public List<TourCoupon> Coupons
+        {
+            get
+            {
+                return coupons;
+            }
+            set
+            {
+                coupons = value;
+                OnPropertyChanged(nameof(Coupons));
+            }
+        }
         public List<TourSchedule> Schedules { get; set; }
         public TourRepository tourRepository { get; set; }
+        public TourCouponRepository tourCouponRepository { get; set; }
         public TourScheduleRepository tourScheduleRepository { get; set; }
+        public TourReservationRepository tourReservationRepository { get; set; }
         public LocationRepository locationRepository { get; set; }
         public KeyPointRepository keyPointRepository { get; set; }
         public TourImageRepository tourImageRepository { get; set; }
         public ImageRepository imageRepository { get; set; }
         public static User? User { get; set; }
-        public string Username {  get; set; }
+        public string Username { get; set; }
         public TouristMainWindow(User user)
         {
             InitializeComponent();
@@ -60,9 +101,9 @@ namespace BookingApp.View.Tourist
             User = user;
             Username = User.Username;
 
-            if(Username.Length > 10)
+            if (Username.Length > 10)
             {
-                Username = Username.Substring(0,10) + "...";    
+                Username = Username.Substring(0, 10) + "...";
             }
 
             tourRepository = new TourRepository();
@@ -71,6 +112,8 @@ namespace BookingApp.View.Tourist
             keyPointRepository = new KeyPointRepository();
             tourImageRepository = new TourImageRepository();
             imageRepository = new ImageRepository();
+            tourCouponRepository = new TourCouponRepository();
+            tourReservationRepository = new TourReservationRepository();
 
             List<Location> locations = new List<Location>();
             List<KeyPoint> keyPoints = new List<KeyPoint>();
@@ -86,15 +129,17 @@ namespace BookingApp.View.Tourist
 
             Tours = new List<Tour>();
             ToursAll = new List<Tour>();
+            OngoingTours = new List<Tour>();
+            ReservedTours = new List<Tour>();
 
             IndividualTours = tourRepository.GetAll();
             Schedules = tourScheduleRepository.GetAll();
-            
-            foreach(Tour tour in IndividualTours)
+
+            foreach (Tour tour in IndividualTours)
             {
-                foreach(TourSchedule tourSchedule in Schedules)
+                foreach (TourSchedule tourSchedule in Schedules)
                 {
-                    if(tour.Id == tourSchedule.TourId)
+                    if (tour.Id == tourSchedule.TourId)
                     {
                         Tour tour1 = new Tour();
 
@@ -118,9 +163,9 @@ namespace BookingApp.View.Tourist
                         }
 
                         //injecting keypoints
-                        foreach(KeyPoint keyPoint in keyPoints)
+                        foreach (KeyPoint keyPoint in keyPoints)
                         {
-                            if(keyPoint.TourId == tour1.Id)
+                            if (keyPoint.TourId == tour1.Id)
                             {
                                 KeyPoint keyPoint1 = new KeyPoint();
                                 keyPoint1.Id = keyPoint.Id;
@@ -138,11 +183,11 @@ namespace BookingApp.View.Tourist
                         //injecting images
                         foreach (TourImage tourImage in tourImages)
                         {
-                            if(tourImage.TourId == tour1.Id) 
+                            if (tourImage.TourId == tour1.Id)
                             {
-                                foreach(Image image in images)
+                                foreach (Image image in images)
                                 {
-                                    if(image.Id == tourImage.ImageId)
+                                    if (image.Id == tourImage.ImageId)
                                     {
                                         Image image1 = new Image();
                                         image1.Id = image.Id;
@@ -155,8 +200,41 @@ namespace BookingApp.View.Tourist
                         }
                         tour1.Images = imagesForward;
                         imagesForward = new List<Image>();
+                        if (tourSchedule.ScheduleStatus == ScheduleStatus.Ready)    // checks if the tour is not finished yet
+                        {
+                            ToursAll.Add(tour1);
+                        }
+                        else if(tourSchedule.ScheduleStatus == ScheduleStatus.Ongoing)
+                        {
+                            bool TourAdded = false;
 
-                        ToursAll.Add(tour1);
+                            foreach(TourReservation tourReservation in tourReservationRepository.GetAll())
+                            {
+                                if(tourSchedule.Id == tourReservation.TourScheduleId && tourReservation.UserId == User.Id)      //Makes sure that the user only sees the ongoing tours which he reserved
+                                { 
+                                    if (!TourAdded)
+                                    {
+                                        OngoingTours.Add(tour1);
+                                        TourAdded = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        //Inserting reserved Tours
+                        List<int> tourScheduleIds = new List<int>();
+
+                        foreach (TourReservation tr in tourReservationRepository.GetAll())
+                        {
+                            if (tr.TourScheduleId == tourSchedule.Id && tr.UserId == User.Id)
+                            {
+                                if (!tourScheduleIds.Contains(tr.TourScheduleId))
+                                {
+                                    ReservedTours.Add(tour1);                                           //shows only 1 of each tour schedule
+                                    tourScheduleIds.Add(tr.TourScheduleId);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -164,41 +242,62 @@ namespace BookingApp.View.Tourist
             Tours = ToursAll;
 
             List<String> States = new List<string>();
-            foreach(Location location in locations)
+            foreach (Location location in locations)
             {
                 bool Exists = false;
 
-                foreach(String s in States)
+                foreach (String s in States)
                 {
-                    if(s == location.State)
+                    if (s == location.State)
                     {
                         Exists = true;
                     }
                 }
-                if(!Exists)
+                if (!Exists)
                 {
                     States.Add(location.State);
                 }
             }
             StateComboBox.Items.Clear();
-            
-            foreach(String s in States)
+
+            foreach (String s in States)
             {
                 StateComboBox.Items.Add(s);
             }
             CityComboBox.IsEnabled = false;
 
+            List<TourCoupon> allTourCoupons = tourCouponRepository.GetAll();
+            Coupons = new List<TourCoupon>();
+
+
+            foreach (TourCoupon t in allTourCoupons)
+            {
+                DateTime expiryDate = t.AcquiredDate.AddMonths(t.ExpirationMonths);
+                t.ExpirationDate = expiryDate;
+                if (DateTime.Now > expiryDate && t.Status != CouponStatus.Expired)   //Checks if the coupon has expired and changes it's status inside of the csv file if it is
+                {
+                    t.Status = CouponStatus.Expired;
+                    tourCouponRepository.Update(t);
+                }
+
+                if (t.Status != CouponStatus.Expired)
+                {
+                    Coupons.Add(t);
+                }
+
+            }
+
             /*
-            Tours = new List<Tour>
+            Coupons = new List<TourCoupon>
             { 
-                new Tour(1,"Tour 1",new Location(),"descriptionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","lang",100,new List<KeyPoint>(),10,new List<Image>()),
-                new Tour(2,"Tour 2",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
-                new Tour(3,"Tour 3",new Location(),"description","lang",100,new List<KeyPoint>(),10,new List<Image>()),
-                new Tour(4,"Tour 4",new Location(),"description","lang",5,new List<KeyPoint>(),10,new List<Image>())
+                new TourCoupon(1,"Coupon #1","Reason",new DateTime(),5,CouponStatus.Valid),
+                new TourCoupon(2,"Coupon #2","Reason",new DateTime(),5,CouponStatus.Valid),
+                new TourCoupon(3,"Coupon #2","Reason",new DateTime(),5,CouponStatus.Valid)
             };
             */
 
-            
+
+
         }
 
         private void SearchBoxClicked(Object sender, RoutedEventArgs e)
@@ -216,10 +315,10 @@ namespace BookingApp.View.Tourist
         private void SearchBoxNotClicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            if(string.IsNullOrWhiteSpace(textBox.Text))
+            if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Text = "Search tours...";
-                textBox.Foreground= Brushes.Gray;
+                textBox.Foreground = Brushes.Gray;
             }
         }
         private void LogOut(object sender, RoutedEventArgs e)
@@ -230,16 +329,64 @@ namespace BookingApp.View.Tourist
         }
         private void ToursTabClick(object sender, RoutedEventArgs e)
         {
+            ToursTabHeader.Visibility = Visibility.Visible;
+            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            CouponsTabHeader.Visibility = Visibility.Collapsed;
             Tab.SelectedIndex = 0;
         }
-        private void ReservationTabClick(object sender, RoutedEventArgs e)
+        private void OngoingToursTabClick(object sender, RoutedEventArgs e)
         {
+            ToursTabHeader.Visibility = Visibility.Collapsed;
+            OngoingToursTabHeader.Visibility = Visibility.Visible;
+            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            CouponsTabHeader.Visibility = Visibility.Collapsed;
             Tab.SelectedIndex = 1;
         }
-        
-        private void SuggestionTabClick(object sender, RoutedEventArgs e)
+
+        private void FinishedToursTabClick(object sender, RoutedEventArgs e)
         {
+            ToursTabHeader.Visibility = Visibility.Collapsed;
+            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            FinishedToursTabHeader.Visibility = Visibility.Visible;
+            ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            CouponsTabHeader.Visibility = Visibility.Collapsed;
             Tab.SelectedIndex = 2;
+        }
+        private void ReservationsTabClick(object sender, RoutedEventArgs e)
+        {
+            ToursTabHeader.Visibility = Visibility.Collapsed;
+            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            ReservationsTabHeader.Visibility = Visibility.Visible;
+            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            CouponsTabHeader.Visibility = Visibility.Collapsed;
+            Tab.SelectedIndex = 3;
+        }
+        private void SuggestionsTabClick(object sender, RoutedEventArgs e)
+        {
+            ToursTabHeader.Visibility = Visibility.Collapsed;
+            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            SuggestionsTabHeader.Visibility = Visibility.Visible;
+            CouponsTabHeader.Visibility = Visibility.Collapsed;
+            Tab.SelectedIndex = 4;
+        }
+        private void CouponsTabClick(object sender, RoutedEventArgs e)
+        {
+            ToursTabHeader.Visibility = Visibility.Collapsed;
+            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            CouponsTabHeader.Visibility = Visibility.Visible;
+            Tab.SelectedIndex = 5;
         }
 
         private void LoadedFunctions(object sender, RoutedEventArgs e)
@@ -274,7 +421,7 @@ namespace BookingApp.View.Tourist
         {
             CityComboBox.Items.Clear();
 
-            if(StateComboBox.SelectedIndex == -1)
+            if (StateComboBox.SelectedIndex == -1)
             {
                 CityComboBox.IsEnabled = false;
             }
@@ -286,21 +433,21 @@ namespace BookingApp.View.Tourist
                 List<string> cities = new List<string>();
                 string selectedState = (string)StateComboBox.SelectedItem;
 
-                foreach(Location location in locations)
+                foreach (Location location in locations)
                 {
-                    if(location.State == selectedState)
+                    if (location.State == selectedState)
                     {
                         bool Exists = false;
 
-                        foreach(string c in cities)
+                        foreach (string c in cities)
                         {
-                            if(c == location.City)
+                            if (c == location.City)
                             {
                                 Exists = true;
                             }
                         }
 
-                        if(!Exists)
+                        if (!Exists)
                         {
                             cities.Add(location.City);
                         }
@@ -308,7 +455,7 @@ namespace BookingApp.View.Tourist
                     }
 
                 }
-                foreach(string city in cities)
+                foreach (string city in cities)
                 {
                     CityComboBox.Items.Add(city);
                 }
@@ -330,13 +477,13 @@ namespace BookingApp.View.Tourist
             string state = (string)StateComboBox.SelectedItem;
             string city = (string)CityComboBox.SelectedItem;
             int duration = 0;
-            if(!string.IsNullOrEmpty(DurationTextBox.Text))
+            if (!string.IsNullOrEmpty(DurationTextBox.Text))
             {
                 duration = Convert.ToInt32(DurationTextBox.Text);
             }
             string language = LanguageTextBox.Text;
             int people = 0;
-            if(!string.IsNullOrEmpty(PeopleTextBox.Text)) 
+            if (!string.IsNullOrEmpty(PeopleTextBox.Text))
             {
                 people = Convert.ToInt32(PeopleTextBox.Text);
             }
@@ -353,14 +500,14 @@ namespace BookingApp.View.Tourist
             {
                 SearchBarTextBox.Text = "";
 
-                if(!string.IsNullOrEmpty(state))
+                if (!string.IsNullOrEmpty(state))
                 {
                     SearchBarTextBox.Text = state;
                 }
 
-                if(!string.IsNullOrEmpty(city))
+                if (!string.IsNullOrEmpty(city))
                 {
-                    if(!string.IsNullOrEmpty(SearchBarTextBox.Text))
+                    if (!string.IsNullOrEmpty(SearchBarTextBox.Text))
                     {
                         SearchBarTextBox.Text += ", " + city;
                     }
@@ -410,9 +557,9 @@ namespace BookingApp.View.Tourist
 
         private List<Tour> searchTours(string state, string city, int duration, string language, int people)
         {
-            return ToursAll.Where( tour =>
+            return ToursAll.Where(tour =>
                 (string.IsNullOrEmpty(state) || tour.Location.State.Contains(state)) &&
-                (string.IsNullOrEmpty(city)  || tour.Location.City.Contains(city)) &&
+                (string.IsNullOrEmpty(city) || tour.Location.City.Contains(city)) &&
                 (duration <= 0 || tour.Duration == duration) &&
                 (string.IsNullOrEmpty(language) || tour.Language.Contains(language)) &&
                 (people <= 0 || tour.MaxTourists >= people)
@@ -427,6 +574,11 @@ namespace BookingApp.View.Tourist
         {
             Tours = ToursAll;
         }
-
+        private void NotificationButtonClick(object sender, RoutedEventArgs e)
+        {
+            NotificationWindow notificationWindow = new NotificationWindow();
+            notificationWindow.Owner = this;
+            notificationWindow.ShowDialog();
+        }
     }
 }

@@ -14,4 +14,9 @@ namespace BookingApp.Model
     {
         Ready,Ongoing,Finished
     }
+
+    public enum CouponStatus
+    {
+        Valid,Expired
+    }
 }
