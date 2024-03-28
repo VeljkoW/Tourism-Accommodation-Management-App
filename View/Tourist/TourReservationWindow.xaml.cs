@@ -23,6 +23,7 @@ namespace BookingApp.View.Tourist
     {
         public Tour Tour {  get; set; }
         public User User { get; set; }
+        public TourCouponRepository tourCouponRepository { get; set; }
         public TourPersonRepository tourPersonRepository { get; set; }
         public TourReservationRepository tourReservationRepository { get; set; }
         public TourScheduleRepository tourScheduleRepository { get; set; }
@@ -38,7 +39,32 @@ namespace BookingApp.View.Tourist
             tourPersonRepository = new TourPersonRepository();
             tourReservationRepository = new TourReservationRepository();
             tourScheduleRepository = new TourScheduleRepository();
+            tourCouponRepository = new TourCouponRepository();
             User = user;
+
+            List<string> CouponNames = new List<string>();
+            CouponNames.Add("");
+            foreach(TourCoupon tc in tourCouponRepository.GetAll())
+            {
+                DateTime expiryDate = tc.AcquiredDate.AddMonths(tc.ExpirationMonths);
+                if (DateTime.Now > expiryDate && tc.Status != CouponStatus.Expired)   //Checks if the coupon has expired and changes it's status inside of the csv file if it is
+                {
+                    tc.Status = CouponStatus.Expired;
+                    tourCouponRepository.Update(tc);
+                }
+
+                if (tc.Status != CouponStatus.Expired)
+                {
+                    CouponNames.Add(tc.Name);
+                }
+            }
+            foreach(string coupon in CouponNames)
+            {
+                CouponsComboBox.Items.Add(coupon);
+            }
+
+
+
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
@@ -258,6 +284,28 @@ namespace BookingApp.View.Tourist
                     tourPeople.Add(person);
                 }
 
+                string couponName = (string)CouponsComboBox.SelectedItem;
+                int couponId = -1;
+                if( couponName == "" ) 
+                {
+                    couponId = -1;
+                }
+                else
+                {
+                    foreach(TourCoupon tc in tourCouponRepository.GetAll())
+                    {
+                        if(tc.Name.Equals(couponName))
+                        {
+                            couponId = tc.Id;
+                            tc.Status = CouponStatus.Expired;
+                            tourCouponRepository.Update(tc);
+                            break;
+                        }
+
+                    }
+                }
+
+
                 foreach (TourPerson person in tourPeople)
                 {
                     tourPersonRepository.Add(person);
@@ -271,7 +319,7 @@ namespace BookingApp.View.Tourist
                 tourSchedule.Guests += Convert.ToInt32(NumberOfPeopleTextBox.Text);
                 tourScheduleRepository.Update(tourSchedule); 
 
-                TourReservation tourReservation = new TourReservation(0, User.Id, tourSchedule.Id, tourPeople);
+                TourReservation tourReservation = new TourReservation(0, User.Id, tourSchedule.Id,couponId, tourPeople);
                 tourReservationRepository.Add(tourReservation);
                 Close();
                 TourReservationSuccessful tourReservationSuccessful = new TourReservationSuccessful(Tour, tourReservation);

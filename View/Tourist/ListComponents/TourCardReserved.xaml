@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BookingApp.View.Tourist.ListComponents.TourCard"
+﻿<UserControl x:Class="BookingApp.View.Tourist.ListComponents.TourCardReserved"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:BookingApp.View.Tourist.ListComponents"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="1200">
-    
     <UserControl.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
@@ -36,7 +35,15 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="{StaticResource BorderColorBrush}">
-                    <TextBlock x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0 0 0 3"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0 0 0 3"/>
+                        <TextBlock Grid.Column="2" Foreground="Gray" Text="Resereved" FontWeight="Bold" FontSize="18" Margin="0 0 10 3"/>
+                    </Grid>
                 </Border>
                 <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" Text="{Binding Description}" TextWrapping="Wrap"/>
 
@@ -98,6 +105,4 @@
         </EventTrigger>
 
     </UserControl.Triggers>
-    
-    
 </UserControl>
