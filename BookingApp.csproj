@@ -69,10 +69,20 @@
       <Content Include="Resources\Images\Tourist\*.*">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Remove="Resources\Images\Tourist\bell.png" />
+      <Content Remove="Resources\Images\Tourist\coupon.png" />
+      <Content Remove="Resources\Images\Tourist\live.png" />
+      <Content Remove="Resources\Images\Tourist\location.png" />
+      <Content Remove="Resources\Images\Tourist\person.png" />
+      <Content Remove="Resources\Images\Tourist\search.png" />
 		<Content Include="Resources\Images\eye.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Resource Include="Resources\Images\Guide\user.png" />
+		<Resource Include="Resources\Images\Tourist\bell.png" />
+		<Resource Include="Resources\Images\Tourist\coupon.png" />
+		<Resource Include="Resources\Images\Tourist\live.png" />
+		<Resource Include="Resources\Images\Tourist\location.png" />
 		<Resource Include="Resources\Images\Tourist\person.png" />
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
