@@ -26,6 +26,7 @@ namespace BookingApp.View.Owner
         public Accommodation Accommodation { get; set; }
         public AccommodationRegistration AccommodationRegistration { get; set; }
         public RateGuest RateGuest { get; set; }
+        public GuestReviews GuestReviews { get; set; }
         public ReservedAccommodationRepository ReservedAccommodationRepository { get; set; }
         public List<ReservedAccommodation> ReservedAccommodations { get; set; }
         public OwnerMainWindow(User user)
@@ -38,6 +39,7 @@ namespace BookingApp.View.Owner
             AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
             ReservedAccommodations = new List<ReservedAccommodation>();
             RateGuest = new RateGuest(this, user);
+            GuestReviews = new GuestReviews();
             ReservedAccommodationRepository = new ReservedAccommodationRepository();
             mainFrame.Navigate(AccommodationRegistration);
             NotificationListBox.ItemsSource = RateGuest.Update();
@@ -65,6 +67,11 @@ namespace BookingApp.View.Owner
             NotificationListBox.BorderBrush = Brushes.Gray;
             NotificationListBox.BorderThickness = new Thickness(1);
             mainFrame.Navigate(RateGuest);
+        }
+
+        private void GuestReviewsClick(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(GuestReviews);
         }
     }
 }

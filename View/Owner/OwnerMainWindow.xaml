@@ -35,5 +35,7 @@
                FontSize="20" Content="Notifications"></Label>
         <ListBox x:Name="NotificationListBox" Grid.Row="0" Grid.Column="1" Width="350" Height="100" HorizontalAlignment="Right"
                  SelectedValuePath="Print" DisplayMemberPath="Print"></ListBox>
+        <Button x:Name="GuestReviewsButton" Width="150" Height="100" Grid.Row="1" Click="GuestReviewsClick" 
+            Content="Reserve Accommodation" Grid.Column="0" FontSize="20" HorizontalAlignment="Left" Margin="0,64,0,64"/>
     </Grid>
 </Window>
