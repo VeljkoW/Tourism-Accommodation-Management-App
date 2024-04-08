@@ -1,6 +1,7 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Image = BookingApp.Model.Image;
+using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Guide.Pages
 {
@@ -27,7 +28,7 @@ namespace BookingApp.View.Guide.Pages
         public TourRepository tourRepository = new TourRepository();
         public TourScheduleRepository scheduleRepository = new TourScheduleRepository();
         public TourImageRepository tourImageRepository = new TourImageRepository();
-        public ImageRepository imageRepository = new ImageRepository();
+        public ImageService imageService = ImageService.GetInstance();
         public KeyPointRepository keyPointRepository = new KeyPointRepository();
         public LocationRepository locationRepository = new LocationRepository();
         public EventHandler? ListUpdater {  get; set; }
@@ -49,6 +50,7 @@ namespace BookingApp.View.Guide.Pages
             NavigationService.Navigate(createTourForm);
             LoadTours();
         }
+        // ide u servis
         public void LoadTours()
         {
             //List<TourSchedule> schedules = new List<TourSchedule>();
@@ -84,7 +86,7 @@ namespace BookingApp.View.Guide.Pages
                 {
                     if(ti.TourId == schedule.TourId)
                     {
-                        tour.Images.Add(imageRepository.GetById(ti.ImageId));
+                        tour.Images.Add(imageService.GetById(ti.ImageId));
                     }
                 }
                 Tours.Add(tour);

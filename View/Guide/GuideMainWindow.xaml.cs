@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.View.Guide.Pages;
 using System;
 using System.Collections.Generic;
@@ -28,7 +28,6 @@ namespace BookingApp.View.Guide
         {
             InitializeComponent();
             User = user;
-            DataContext = this;
             GuideMainPage guideMainPage = new GuideMainPage(user);
             guideMainPage.OnLogoutHandler +=(s,e) => LogOut(s,e);
             MainFrame.Navigate(guideMainPage);

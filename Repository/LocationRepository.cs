@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace BookingApp.Repository
             }
             return _locations.Max(c => c.Id) + 1;
         }
-        internal void Add(Location newLocation)
+        public void Add(Location newLocation)
         {
             newLocation.Id = NextId();
             _locations.Add(newLocation);
@@ -46,6 +46,7 @@ namespace BookingApp.Repository
             return _locations.Find(c => c.Id == Id);
         }
         public int GetIdByStateCity(string State,string City) {
+            /*
             List<Location> locations = GetAll();
             foreach(Location location in locations)
             {
@@ -57,7 +58,8 @@ namespace BookingApp.Repository
                     }
                 }
             }
-            return -1;
+            return -1;*/
+            return GetAll().FirstOrDefault(location => location.City == City && location.State == State)?.Id ?? -1;
         }
     }
 }

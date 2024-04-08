@@ -1,4 +1,5 @@
-﻿using BookingApp.Repository;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace BookingApp.Model.Converters
+namespace BookingApp.Domain.Model.Converters
 {
     public class AccommodationIdToNameConverter : IValueConverter
     {

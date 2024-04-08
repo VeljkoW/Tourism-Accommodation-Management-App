@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class GuestRating : INotifyPropertyChanged, ISerializable
     {
@@ -123,11 +123,11 @@ namespace BookingApp.Model
         }
         public void FromCSV(string[] values)
         {
-            this.OwnerId = Convert.ToInt32(values[0]);
-            this.GuestId = Convert.ToInt32(values[1]);
-            this.Cleanliness = Convert.ToInt32(values[2]);
-            this.FollowingGuidelines = Convert.ToInt32(values[3]);
-            this.CommentId = Convert.ToInt32(values[4]);
+            OwnerId = Convert.ToInt32(values[0]);
+            GuestId = Convert.ToInt32(values[1]);
+            Cleanliness = Convert.ToInt32(values[2]);
+            FollowingGuidelines = Convert.ToInt32(values[3]);
+            CommentId = Convert.ToInt32(values[4]);
         }
         /*public string Print
         {

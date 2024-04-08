@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace BookingApp.Repository.TourRepositories
             _serializer = new Serializer<TourImage>();
             _tourImages = _serializer.FromCSV(FilePath);
         }
-        internal void Add(TourImage newTour)
+        public void Add(TourImage newTour)
         {
             _tourImages.Add(newTour);
             _serializer.ToCSV(FilePath, _tourImages);

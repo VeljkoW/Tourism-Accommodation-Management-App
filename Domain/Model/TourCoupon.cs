@@ -6,20 +6,20 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourCoupon : ISerializable
     {
         public int Id { get; set; }
-        public int UserId {  get; set; }
-        public string Name {  get; set; }
+        public int UserId { get; set; }
+        public string Name { get; set; }
         public string Reason { get; set; }
-        public DateTime AcquiredDate {  get; set; }
+        public DateTime AcquiredDate { get; set; }
         public CouponStatus Status { get; set; }
-        public int ExpirationMonths {  get; set; }
+        public int ExpirationMonths { get; set; }
         public DateTime ExpirationDate { get; set; }
 
-        public TourCoupon() 
+        public TourCoupon()
         {
             Id = 0;
             UserId = -1;
@@ -30,7 +30,7 @@ namespace BookingApp.Model
             ExpirationMonths = 0;
             ExpirationDate = AcquiredDate.AddMonths(ExpirationMonths);
         }
-        public TourCoupon(int id,int userId,string name,string reason,DateTime acquiredDate,int expirationMonths, CouponStatus status)
+        public TourCoupon(int id, int userId, string name, string reason, DateTime acquiredDate, int expirationMonths, CouponStatus status)
         {
             Id = id;
             UserId = userId;

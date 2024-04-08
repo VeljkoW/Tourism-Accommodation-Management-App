@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourPerson : ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int Age {  get; set; }
-        public int KeyPointId {  get; set; }
+        public int Age { get; set; }
+        public int KeyPointId { get; set; }
 
         public TourPerson(int id, string name, string surname, int age, int keyPointId)
         {
@@ -23,7 +23,7 @@ namespace BookingApp.Model
             Age = age;
             KeyPointId = keyPointId;
         }
-        public TourPerson() 
+        public TourPerson()
         {
             Name = string.Empty;
             Surname = string.Empty;

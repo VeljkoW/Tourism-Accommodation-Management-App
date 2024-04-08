@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace BookingApp.Repository
             }
             return _keypoints.Max(c => c.Id) + 1;
         }
-        internal KeyPoint Add(KeyPoint newKeyPoint)
+        public KeyPoint Add(KeyPoint newKeyPoint)
         {
             newKeyPoint.Id = NextId();
             _keypoints.Add(newKeyPoint);

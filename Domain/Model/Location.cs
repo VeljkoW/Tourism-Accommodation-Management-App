@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class Location : ISerializable, INotifyPropertyChanged
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -21,14 +21,15 @@ namespace BookingApp.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(str));
             }
         }
-        public Location() {
-            this.City = string.Empty;
-            this.State = string.Empty;
+        public Location()
+        {
+            City = string.Empty;
+            State = string.Empty;
         }
         public Location(string city, string state)
         {
-            this.City = city;
-            this.State = state;
+            City = city;
+            State = state;
         }
         public string Print
         {
