@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace BookingApp.Repository
             return _users.FirstOrDefault(u => u.Id == Id);
         }
 
-        internal void Add(User newUser)
+        public void Add(User newUser)
         {
             newUser.Id = NextId();
             _users.Add(newUser);

@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
-    public class Image: ISerializable, INotifyPropertyChanged
+    public class Image : ISerializable, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Path { get; set; }
@@ -22,13 +22,14 @@ namespace BookingApp.Model
             }
         }
         public Image() { }
-        public Image(int id, string path) {
-        Id = id;
-        Path = path;
+        public Image(int id, string path)
+        {
+            Id = id;
+            Path = path;
         }
         public string[] ToCSV()
         {
-            string[] csvValues = {Id.ToString(), Path.ToString()};
+            string[] csvValues = { Id.ToString(), Path.ToString() };
             return csvValues;
         }
 

@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace BookingApp.Repository.TourRepositories
             }
             return _tourSchedules.Max(c => c.Id) + 1;
         }
-        internal void Add(TourSchedule newSchedule)
+        public void Add(TourSchedule newSchedule)
         {
             newSchedule.Id = NextId();
             _tourSchedules.Add(newSchedule);

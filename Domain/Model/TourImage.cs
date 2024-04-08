@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourImage : ISerializable
     {
@@ -14,13 +14,13 @@ namespace BookingApp.Model
         public TourImage() { }
         public TourImage(int tourId, int imageId)
         {
-            TourId= tourId;
-            ImageId= imageId;
+            TourId = tourId;
+            ImageId = imageId;
         }
 
         public string[] ToCSV()
         {
-            string[] ret = { TourId.ToString(), ImageId.ToString()};
+            string[] ret = { TourId.ToString(), ImageId.ToString() };
             return ret;
         }
 

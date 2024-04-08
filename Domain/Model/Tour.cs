@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class Tour : ISerializable
     {
@@ -21,8 +21,8 @@ namespace BookingApp.Model
         public int Duration { get; set; }
         public List<Image> Images { get; set; } = new List<Image>();
         public DateTime DateTime { get; set; }
-        public int OwnerId {  get; set; }
-         public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths,DateTime dateTime=new DateTime(),int ownerId=0)
+        public int OwnerId { get; set; }
+        public Tour(int id, string name, Location location, string description, string language, int maxTourists, List<KeyPoint> keyPoints, int duration, List<Image> imagePaths, DateTime dateTime = new DateTime(), int ownerId = 0)
         {
             Id = id;
             Name = name;
@@ -40,7 +40,7 @@ namespace BookingApp.Model
         public Tour() { }
         public string[] ToCSV()
         {
-            string[] ret = {Id.ToString(),Name,LocationId.ToString(),Description,Language,MaxTourists.ToString(),Duration.ToString(),OwnerId.ToString()};
+            string[] ret = { Id.ToString(), Name, LocationId.ToString(), Description, Language, MaxTourists.ToString(), Duration.ToString(), OwnerId.ToString() };
             return ret;
         }
         public void FromCSV(string[] values)

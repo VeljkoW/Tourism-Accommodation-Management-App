@@ -1,4 +1,5 @@
-﻿using BookingApp.Repository;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace BookingApp.Model.Converters
+namespace BookingApp.Domain.Model.Converters
 {
     public class GuestIdToUsernameConverter : IValueConverter
     {

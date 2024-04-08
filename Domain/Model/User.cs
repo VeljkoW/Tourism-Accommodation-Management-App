@@ -1,7 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class User : ISerializable
     {
@@ -20,7 +20,7 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password,UserType.ToString() };
+            string[] csvValues = { Id.ToString(), Username, Password, UserType.ToString() };
             return csvValues;
         }
 
@@ -29,7 +29,7 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             Username = values[1];
             Password = values[2];
-            UserType = (UserType)Enum.Parse(typeof(UserType),values[3]);
+            UserType = (UserType)Enum.Parse(typeof(UserType), values[3]);
         }
     }
 }

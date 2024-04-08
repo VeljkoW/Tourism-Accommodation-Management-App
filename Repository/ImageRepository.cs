@@ -1,5 +1,7 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class ImageRepository
+    public class ImageRepository : IImageRepository
     {
+        public static ImageRepository GetInstance()
+        {
+            return App._serviceProvider.GetRequiredService<ImageRepository>();
+        }
         private const string FilePath = "../../../Resources/Data/images.csv";
 
         private readonly Serializer<Image> _serializer;
@@ -29,7 +35,7 @@ namespace BookingApp.Repository
             }
             return _images.Max(c => c.Id) + 1;
         }
-        internal Image? Add(Image newImage)
+        public Image? Add(Image newImage)
         {
             newImage.Id = NextId();
             _images.Add(newImage);

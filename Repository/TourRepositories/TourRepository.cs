@@ -1,16 +1,23 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.Repository.TourRepositories
 {
-    public class TourRepository
+    public class TourRepository : ITourRepository
     {
         private const string FilePath = "../../../Resources/Data/tours.csv";
+        public static TourRepository GetInstance()
+        {
+            return App._serviceProvider.GetRequiredService<TourRepository>();
+        }
 
         private readonly Serializer<Tour> _serializer;
 
@@ -30,7 +37,7 @@ namespace BookingApp.Repository.TourRepositories
             }
             return _tours.Max(c => c.Id) + 1;
         }
-        internal Tour Add(Tour newTour)
+        public Tour Add(Tour newTour)
         {
             newTour.Id = NextId();
             _tours.Add(newTour);

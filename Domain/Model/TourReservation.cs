@@ -10,17 +10,17 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class TourReservation : ISerializable
     {
         public int Id { get; set; }
-        public int UserId {  get; set; }
-        public int TourScheduleId {  get; set; }    //Removed the TourId property because it can be accessed in TourSchedule
-        public int TourCouponId {  get; set; }
+        public int UserId { get; set; }
+        public int TourScheduleId { get; set; }    //Removed the TourId property because it can be accessed in TourSchedule
+        public int TourCouponId { get; set; }
         public List<TourPerson> People { get; set; }
 
-        public TourReservation(int id,int userId,int tourScheduleId,int tourCouponId,List<TourPerson> people) 
+        public TourReservation(int id, int userId, int tourScheduleId, int tourCouponId, List<TourPerson> people)
         {
             Id = id;
             UserId = userId;
@@ -28,11 +28,11 @@ namespace BookingApp.Model
             TourCouponId = tourCouponId;
             People = people;
         }
-        public TourReservation() 
+        public TourReservation()
         {
-            Id=0;
-            UserId=0;
-            TourScheduleId=0;
+            Id = 0;
+            UserId = 0;
+            TourScheduleId = 0;
             TourCouponId = -1;
             People = new List<TourPerson>();
         }
@@ -60,7 +60,7 @@ namespace BookingApp.Model
                 string[] PeopleIds = values[4].Split(',');
                 for (int i = 0; i < PeopleIds.Length; i++)
                 {
-                    TourPerson ?person = new TourPerson();
+                    TourPerson? person = new TourPerson();
                     TourPersonRepository tourPersonRepository = new TourPersonRepository();
                     person = tourPersonRepository.GetById(Convert.ToInt32(PeopleIds[i]));
                     if (person != null)

@@ -9,23 +9,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 public enum AccommodationType { Apartment, House, Hut }
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
     public class Accommodation : ISerializable, INotifyPropertyChanged
     {
-         public int id { get; set; }
-         public int ownerId {  get; set; }
-         public string name { get; set; }
-         public Location? location { get; set; }
-         public AccommodationType accommodationType {  get; set; }
-        
-         public int maxGuestNumber {  get; set; }
-         //public int GuestNumber { get; set; }
-         public int minReservationDays {  get; set; }
-       // public int ReservationDays { get; set; }
-         public int cancelationDaysLimit {  get; set; }
-         public List<Image> images { get; set; }
-         public event PropertyChangedEventHandler? PropertyChanged;
+        public int id { get; set; }
+        public int ownerId { get; set; }
+        public string name { get; set; }
+        public Location? location { get; set; }
+        public AccommodationType accommodationType { get; set; }
+
+        public int maxGuestNumber { get; set; }
+        //public int GuestNumber { get; set; }
+        public int minReservationDays { get; set; }
+        // public int ReservationDays { get; set; }
+        public int cancelationDaysLimit { get; set; }
+        public List<Image> images { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
             if (PropertyChanged != null)
@@ -178,15 +178,15 @@ namespace BookingApp.Model
         }
         public Accommodation()
         {
-            this.Name = string.Empty;
-            this.Location = new Location();
-            this.AccommodationType = AccommodationType.Apartment;
-            this.MaxGuestNumber = 0;
+            Name = string.Empty;
+            Location = new Location();
+            AccommodationType = AccommodationType.Apartment;
+            MaxGuestNumber = 0;
             //this.GuestNumber = 0;
-            this.MinReservationDays = 0;
+            MinReservationDays = 0;
             //this.ReservationDays = 0;
-            this.CancelationDaysLimit = 0;
-            this.Images = new List<Image>();
+            CancelationDaysLimit = 0;
+            Images = new List<Image>();
         }
         public Accommodation(int ownerId, string Name, Location Location, AccommodationType AccommodationType,
                             int MaxGuestNumber, int MinReservationDays, int CancelationDaysLimit, List<Image> Images)
@@ -202,16 +202,16 @@ namespace BookingApp.Model
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { 
+            string[] csvValues = {
                 Id.ToString(),
                 OwnerId.ToString(),
-                Name, 
-                Location.Id.ToString(), 
-                AccommodationType.ToString(), 
-                MaxGuestNumber.ToString(), 
-                MinReservationDays.ToString(), 
-                CancelationDaysLimit.ToString(), 
-                ImagesIdToCSV() 
+                Name,
+                Location.Id.ToString(),
+                AccommodationType.ToString(),
+                MaxGuestNumber.ToString(),
+                MinReservationDays.ToString(),
+                CancelationDaysLimit.ToString(),
+                ImagesIdToCSV()
             };
             return csvValues;
         }
@@ -254,7 +254,7 @@ namespace BookingApp.Model
         {
             get
             {
-                return Name + ": " + Location.State + ", "+ Location.City+", "+AccommodationType+", "+MaxGuestNumber+", "+MinReservationDays;
+                return Name + ": " + Location.State + ", " + Location.City + ", " + AccommodationType + ", " + MaxGuestNumber + ", " + MinReservationDays;
             }
             set
             {

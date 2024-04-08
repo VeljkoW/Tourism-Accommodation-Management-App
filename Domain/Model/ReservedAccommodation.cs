@@ -9,16 +9,16 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using BookingApp.Repository;
 
-namespace BookingApp.Model
+namespace BookingApp.Domain.Model
 {
-    public class ReservedAccommodation: ISerializable, INotifyPropertyChanged
+    public class ReservedAccommodation : ISerializable, INotifyPropertyChanged
     {
         public int guestId { get; set; }
         public int accommodationId { get; set; }
         public DateTime checkInDate { get; set; }
         public DateTime checkOutDate { get; set; }
 
-        public ReservedAccommodation(){ }
+        public ReservedAccommodation() { }
 
         public ReservedAccommodation(int guestId, int accommodationId, DateTime checkInDate, DateTime checkOutDate)
         {
@@ -40,7 +40,7 @@ namespace BookingApp.Model
             string[] csvValues = {
                 accommodationId.ToString(),
                 guestId.ToString(),
-                checkInDate.ToString(), 
+                checkInDate.ToString(),
                 checkOutDate.ToString()
             };
             return csvValues;
@@ -60,7 +60,7 @@ namespace BookingApp.Model
                 UserRepository userRepository = new UserRepository();
                 User user = new User();
                 user = userRepository.GetById(guestId);
-                return "Remaining "+ (5-(DateTime.Now - checkOutDate).Days) +" days to rate the user: " + user.Username;
+                return "Remaining " + (5 - (DateTime.Now - checkOutDate).Days) + " days to rate the user: " + user.Username;
             }
             set
             {
