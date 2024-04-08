@@ -269,7 +269,7 @@ namespace BookingApp.View.Tourist
             List<TourCoupon> allTourCoupons = tourCouponRepository.GetAll();
             Coupons = new List<TourCoupon>();
 
-
+            
             foreach (TourCoupon t in allTourCoupons)
             {
                 DateTime expiryDate = t.AcquiredDate.AddMonths(t.ExpirationMonths);
@@ -280,9 +280,9 @@ namespace BookingApp.View.Tourist
                     tourCouponRepository.Update(t);
                 }
 
-                if (t.Status != CouponStatus.Expired)
+                if (t.Status != CouponStatus.Expired && t.UserId == User.Id)
                 {
-                    Coupons.Add(t);
+                    Coupons.Add(t);                                                             // This needs to update when I switch to the coupons tab
                 }
 
             }

@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,17 @@ namespace BookingApp.View.Tourist
         public Tour Tour { get; set; }
         public User User { get; set; }
         public List<KeyPoint> KeyPoints { get; set; }
+        public KeyPointRepository keyPointRepository { get; set; }
+        public TourScheduleRepository tourScheduleRepository { get; set; }
         public TourOngoingDetailed(Tour SelectedOngoingTour,User user)
         {
             InitializeComponent();
             DataContext = this;
             Tour = SelectedOngoingTour;
             User = user;
+            keyPointRepository = new KeyPointRepository();
+            tourScheduleRepository = new TourScheduleRepository();
+            KeyPoints = new List<KeyPoint>();
 
             NameTextBlock.Text = Tour.Name;
 
@@ -59,6 +65,23 @@ namespace BookingApp.View.Tourist
             DurationTextBlock.Text = Tour.Duration.ToString() + "h";
 
             MaxPeopleTextBlock.Text = Tour.MaxTourists.ToString();
+
+            foreach(TourSchedule tourSchedule in tourScheduleRepository.GetAll())
+            {
+                if(tourSchedule.TourId == Tour.Id && tourSchedule.Date == Tour.DateTime) 
+                {
+                    int CurrentKeyPoint = tourSchedule.VisitedKeypoints;
+
+                    foreach (KeyPoint keyPoint in Tour.KeyPoints)
+                    {
+                        if (keyPoint.Id <= CurrentKeyPoint)
+                        {
+                            keyPoint.IsVisited = true;
+                        }
+                    }
+                }
+            }
+
 
             KeyPoints = Tour.KeyPoints;
 

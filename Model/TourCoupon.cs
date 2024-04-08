@@ -11,6 +11,7 @@ namespace BookingApp.Model
     public class TourCoupon : ISerializable
     {
         public int Id { get; set; }
+        public int UserId {  get; set; }
         public string Name {  get; set; }
         public string Reason { get; set; }
         public DateTime AcquiredDate {  get; set; }
@@ -21,6 +22,7 @@ namespace BookingApp.Model
         public TourCoupon() 
         {
             Id = 0;
+            UserId = -1;
             Name = string.Empty;
             Reason = string.Empty;
             AcquiredDate = DateTime.MinValue;
@@ -28,9 +30,10 @@ namespace BookingApp.Model
             ExpirationMonths = 0;
             ExpirationDate = AcquiredDate.AddMonths(ExpirationMonths);
         }
-        public TourCoupon(int id,string name,string reason,DateTime acquiredDate,int expirationMonths, CouponStatus status)
+        public TourCoupon(int id,int userId,string name,string reason,DateTime acquiredDate,int expirationMonths, CouponStatus status)
         {
             Id = id;
+            UserId = userId;
             Name = name;
             Reason = reason;
             AcquiredDate = acquiredDate;
@@ -42,6 +45,7 @@ namespace BookingApp.Model
         public string[] ToCSV()
         {
             string[] ret = { Id.ToString(),
+                             UserId.ToString(),
                              Name,
                              Reason,
                              AcquiredDate.ToString(),
@@ -54,11 +58,12 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Name = values[1];
-            Reason = values[2];
-            AcquiredDate = Convert.ToDateTime(values[3]);
-            ExpirationMonths = Convert.ToInt32(values[4]);
-            Status = (CouponStatus)Enum.Parse(typeof(CouponStatus), values[5]);
+            UserId = Convert.ToInt32(values[1]);
+            Name = values[2];
+            Reason = values[3];
+            AcquiredDate = Convert.ToDateTime(values[4]);
+            ExpirationMonths = Convert.ToInt32(values[5]);
+            Status = (CouponStatus)Enum.Parse(typeof(CouponStatus), values[6]);
         }
 
 
