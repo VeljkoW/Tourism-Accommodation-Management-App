@@ -35,6 +35,70 @@ namespace BookingApp.Domain.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(str));
             }
         }
+        public DateTime CheckInDate
+        {
+            get
+            {
+                return checkInDate;
+            }
+            set
+            {
+                if (value != checkInDate)
+                {
+                    checkInDate = value;
+                    OnPropertyChanged(nameof(checkInDate));
+                }
+            }
+        }
+
+        public DateTime CheckOutDate
+        {
+            get
+            {
+                return checkOutDate;
+            }
+            set
+            {
+                if (value != checkOutDate)
+                {
+                    checkOutDate = value;
+                    OnPropertyChanged(nameof(checkOutDate));
+                }
+            }
+        }
+
+        public int GuestId
+        {
+            get
+            {
+                return guestId;
+            }
+            set
+            {
+                if (value != guestId)
+                {
+                    guestId = value;
+                    OnPropertyChanged(nameof(guestId));
+                }
+            }
+        }
+        public int AccommodationId
+        {
+            get
+            {
+                return accommodationId;
+            }
+            set
+            {
+                if (value != accommodationId)
+                {
+                    accommodationId = value;
+                    OnPropertyChanged(nameof(accommodationId));
+                }
+            }
+        }
+
+
         public string[] ToCSV()
         {
             string[] csvValues = {
