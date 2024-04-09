@@ -13,7 +13,7 @@ namespace BookingApp.Services
     {
         private TourCouponRepository tourCouponRepository = TourCouponRepository.GetInstance();
         public TourCouponService() { }
-        public TourCouponService GetInstance()
+        public static TourCouponService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourCouponService>();
         }

@@ -14,7 +14,7 @@ namespace BookingApp.Services
     {
         private TourImageRepository tourImageRepository = TourImageRepository.GetInstance();
         public TourImageService() { }
-        public TourImageService GetInstance()
+        public static TourImageService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourImageService>();
         }

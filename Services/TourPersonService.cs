@@ -15,7 +15,7 @@ namespace BookingApp.Services
     {
         private TourPersonRepository tourPersonRepository = TourPersonRepository.GetInstance();
         public TourPersonService() { }
-        public TourPersonService GetInstance()
+        public static TourPersonService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourPersonService>();
         }

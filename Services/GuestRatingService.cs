@@ -14,7 +14,7 @@ namespace BookingApp.Services
     {
         private GuestRatingRepository guestRatingRepository = GuestRatingRepository.GetInstance();
         public GuestRatingService() { }
-        public GuestRatingService GetInstance()
+        public static GuestRatingService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<GuestRatingService>();
         }

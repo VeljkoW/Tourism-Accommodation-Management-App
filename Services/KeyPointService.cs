@@ -14,7 +14,7 @@ namespace BookingApp.Services
     {
         private KeyPointRepository keyPointRepository = KeyPointRepository.GetInstance();
         public KeyPointService() { }
-        public KeyPointService GetInstance()
+        public static KeyPointService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<KeyPointService>();
         }
