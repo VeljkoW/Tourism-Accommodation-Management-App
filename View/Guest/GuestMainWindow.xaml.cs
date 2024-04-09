@@ -35,7 +35,7 @@ namespace BookingApp.View.Guest
             this.DataContext = this;
             this.user = user;
             GuestRate = new GuestRate();
-            GuestReservations = new GuestReservations(user);
+            //GuestReservations = new GuestReservations(user);
             Accommodations = new Accommodations(user);
             mainFrame.Navigate(Accommodations);
         }

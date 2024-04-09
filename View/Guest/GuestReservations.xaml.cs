@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
 using System;
@@ -33,7 +34,6 @@ namespace BookingApp.View.Guest
             InitializeComponent();
             DataContext = this;
             this.user = user;
-
 
         }
     }
