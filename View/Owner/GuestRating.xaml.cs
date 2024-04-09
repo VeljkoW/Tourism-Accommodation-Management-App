@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using GuestRatingModel = BookingApp.Model.GuestRating;
+using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 
 namespace BookingApp.View.Owner
 {
