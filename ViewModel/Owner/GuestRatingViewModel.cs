@@ -65,42 +65,6 @@ namespace BookingApp.ViewModel.Owner
             }
         }
 
-        public void RateGuestClick(object sender, RoutedEventArgs e)
-        {
-            if (SelectedReservedAccommodations == null)
-            {
-                GuestRatingPage.SelectErrorLabel.Visibility = Visibility.Visible;
-                GuestRatingPage.InvalidInputLabel.Visibility = Visibility.Collapsed;
-                return;
-            }
-            if (GuestRatingPage.CleanlinessComboBox.SelectedItem == null || 
-                GuestRatingPage.FollowingGuidelinesComboBox.SelectedItem == null ||
-                GuestRatingPage.CommentTextBox.Text.Equals(""))
-            {
-                GuestRatingPage.SelectErrorLabel.Visibility = Visibility.Collapsed;
-                GuestRatingPage.InvalidInputLabel.Visibility = Visibility.Visible;
-                return;
-            }
-            GuestRatingPage.SelectErrorLabel.Visibility = Visibility.Collapsed;
-            GuestRatingPage.InvalidInputLabel.Visibility = Visibility.Collapsed;
-            Comment comment = new Comment();
-            comment.Text = GuestRatingPage.CommentTextBox.Text;
-            comment.CreationTime = DateTime.Now;
-            comment.User = UserService.GetInstance().GetById(user.Id);
-            comment = CommentService.GetInstance().Save(comment);
-
-            GuestRatingModel GuestRatingModel = new GuestRatingModel();
-            GuestRatingModel.ownerId = user.Id;
-            GuestRatingModel.guestId = SelectedReservedAccommodations.guestId;
-            GuestRatingModel.CommentId = comment.Id;
-            GuestRatingModel.Cleanliness = Convert.ToInt32(GuestRatingPage.CleanlinessComboBox.SelectionBoxItem);
-            GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);
-            GuestRatingService.GetInstance().Add(GuestRatingModel);
-
-            SelectedReservedAccommodations = null;
-            Update();
-        }
-
         public ObservableCollection<ReservedAccommodation> Update()
         {
             ReservedAccommodations.Clear();
@@ -134,9 +98,6 @@ namespace BookingApp.ViewModel.Owner
                     }
                 }
             }
-            OwnerMainWindow.NotificationListBox.ItemsSource = ReservedAccommodations;
-            OwnerMainWindow.NotificationListBox.Items.Refresh();
-            GuestRatingPage.RatingGuestsTable.Items.Refresh();
             return ReservedAccommodations;
         }
         public void AvailableForRating(ReservedAccommodation ReservedAccommodation, ObservableCollection<ReservedAccommodation> ReservedAccommodations)

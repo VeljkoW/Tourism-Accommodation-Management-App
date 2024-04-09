@@ -59,11 +59,11 @@
             <TextBox x:Name="MaxGuestNumberTextBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"/>
             <TextBox x:Name="MinResDaysTextBox" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"/>
             <TextBox x:Name="CancelationDaysLimitTextBox" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30"/>
-            <Button x:Name="AddImagesButton" Click="AddImagesClick" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30" FontSize="18" Content="Add Image"/>
+            <Button x:Name="AddImagesButton" Command="{Binding AddImage}" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30" FontSize="18" Content="Add Image"/>
 
-            <Button x:Name="AcceptButton" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="150 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="150" FontSize="22" FontWeight="Bold" Content="Accept" Click="AcceptButtonClick"/>
+            <Button x:Name="AcceptButton" Command="{Binding Accept}" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="150 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="150" FontSize="22" FontWeight="Bold" Content="Accept"/>
 
-            <ListBox x:Name="ImagesListBox" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="350" Height="100" 
+            <ListBox x:Name="ImagesListBox" ItemsSource="{Binding RelativeImagePaths, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="350" Height="100" 
                      VerticalAlignment="Center" HorizontalAlignment="Center"></ListBox>
 
             <Label x:Name="InvalidInputLabel" Content="Invalid input!" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Red"/>
