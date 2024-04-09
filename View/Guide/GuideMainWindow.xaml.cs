@@ -32,7 +32,6 @@ namespace BookingApp.View.Guide
             guideMainPage.OnLogoutHandler +=(s,e) => LogOut(s,e);
             MainFrame.Navigate(guideMainPage);
         }
-
         public void LogOut(object s,EventArgs e)
         {
             Close();
