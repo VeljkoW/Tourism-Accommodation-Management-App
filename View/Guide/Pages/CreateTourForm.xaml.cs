@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using Microsoft.Win32;
@@ -21,7 +21,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xaml.Schema;
-using Image = BookingApp.Model.Image;
+using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Guide.Pages
 {

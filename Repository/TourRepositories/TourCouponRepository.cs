@@ -1,5 +1,7 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository.TourRepositories
 {
-    public class TourCouponRepository
+    public class TourCouponRepository : ITourCouponRepository
     {
+        public static TourCouponRepository GetInstance()
+        {
+            return App._serviceProvider.GetRequiredService<TourCouponRepository>();
+        }
         private const string FilePath = "../../../Resources/Data/tourcoupons.csv";
 
         private readonly Serializer<TourCoupon> _serializer;

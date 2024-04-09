@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
 using Microsoft.Win32;
@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
-using Image = BookingApp.Model.Image;
+using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Owner
 {
