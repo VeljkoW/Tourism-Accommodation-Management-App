@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,7 @@ namespace BookingApp.Services
 {
     public class CommentService
     {
-        private CommentRepository commentRepository = CommentRepository.GetInstance();
+        private ICommentRepository commentRepository = CommentRepository.GetInstance();
         public CommentService() { }
         public static CommentService GetInstance()
         {

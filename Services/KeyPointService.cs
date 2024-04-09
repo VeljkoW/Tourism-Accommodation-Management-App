@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ namespace BookingApp.Services
 {
     public class KeyPointService
     {
-        private KeyPointRepository keyPointRepository = KeyPointRepository.GetInstance();
+        private IKeyPointRepository keyPointRepository = KeyPointRepository.GetInstance();
         public KeyPointService() { }
         public static KeyPointService GetInstance()
         {

@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Serializer;
@@ -13,7 +14,7 @@ namespace BookingApp.Services
 {
     public class UserService
     {
-        private UserRepository userRepository = UserRepository.GetInstance();
+        private IUserRepository userRepository = UserRepository.GetInstance();
         public UserService() { }
         public static UserService GetInstance()
         {
