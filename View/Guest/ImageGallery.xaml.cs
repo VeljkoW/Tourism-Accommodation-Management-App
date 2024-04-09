@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,24 +31,27 @@ namespace BookingApp.View.Guest
         public Accommodation Accommodation { get; set; }
         public ImageRepository ImageRepository { get; set; }
         List<Accommodation> accommodations { get; set; }
+
+        public GuestGalleryViewModel GuestGalleryViewModel { get; set; }
         public ImageGallery(Accommodation selectedAccommodation)
         { 
             InitializeComponent();
-            this.DataContext = this;
-            this.user = user;
+            GuestGalleryViewModel = new GuestGalleryViewModel(this, selectedAccommodation);
+            this.DataContext = GuestGalleryViewModel;
+            /*this.user = user;
             Accommodation = new Accommodation();
             this.AccommodationRepository = new AccommodationRepository();
             ImageRepository = new ImageRepository();
             accommodations = new List<Accommodation>();
-            // PrintAccommodation.ItemsSource = AccommodationRepository.GetAll();
-            foreach(Accommodation accommodation in AccommodationRepository.GetAll())
+            PrintAccommodation.ItemsSource = AccommodationRepository.GetAll();*/
+            /*foreach(Accommodation accommodation in AccommodationRepository.GetAll())
             {
                 if(accommodation.Id == selectedAccommodation.Id)
                 {
                     accommodations.Add(AccommodationRepository.GetById(accommodation.Id));
                     Gallery.ItemsSource = accommodations;
                 }
-            }
+            }*/
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -22,6 +23,8 @@ namespace BookingApp.View.Guest
     /// </summary>
     public partial class GuestReservation : Window
     {
+
+        public GuestReservationViewModel GuestReservationViewModel { get; set; }
         public User user { get; set; }
         public Accommodation accommodation { get; set; }
         public ReservedAccommodationRepository reservedAccommodationRepository { get; set; }
@@ -31,23 +34,25 @@ namespace BookingApp.View.Guest
         public GuestReservation(Accommodation selectedAccommodation, User logUser)
         {
             InitializeComponent();
-            this.DataContext = this;
+            GuestReservationViewModel = new GuestReservationViewModel(this, selectedAccommodation, logUser);
+            this.DataContext = GuestReservationViewModel;
             accommodation = selectedAccommodation;
-            user = logUser;
+            /*user = logUser;
             reservedAccommodationRepository = new ReservedAccommodationRepository();
             reservedAccommodation = new ReservedAccommodation();
-            printDates = new List<AvailableDate>();
-            GuestNumberTextBox.Text = "Max guest number " + accommodation.MaxGuestNumber;
-            ReservationDaysTextBox.Text = "Min reservation days " + accommodation.MinReservationDays;
-            ErrorLabel.Visibility = Visibility.Collapsed;
+            printDates = new List<AvailableDate>();*/
+            //GuestNumberTextBox.Text = "Max guest number " + accommodation.MaxGuestNumber;
+            //ReservationDaysTextBox.Text = "Min reservation days " + accommodation.MinReservationDays;
+           
+            /*ErrorLabel.Visibility = Visibility.Collapsed;
             InvalidInput.Visibility = Visibility.Collapsed;
             ErrorSelect.Visibility = Visibility.Collapsed;
             ReservationButton.IsEnabled = false;
             GuestNumberTextBox.IsEnabled = false;
             AvailableDates.IsEnabled = false;
-            this.user = user;
+            this.user = user;*/
         }
-        private bool AreDatesAvailable(DateTime startDate, DateTime endDate, int reservationDays)
+        /*private bool AreDatesAvailable(DateTime startDate, DateTime endDate, int reservationDays)
         {
             // Provera da li je endDate nakon startDate
             if (endDate <= startDate)
@@ -77,8 +82,8 @@ namespace BookingApp.View.Guest
             }
             // Ako prođemo sve prethodne provere, smatramo da su datumi dostupni
             return true;
-        }
-        private List<DateTime> FindAvailableDates(DateTime startDate, DateTime endDate, int numberOfDays, int reservationDays)
+        }*/
+        /*private List<DateTime> FindAvailableDates(DateTime startDate, DateTime endDate, int numberOfDays, int reservationDays)
         {
             List<DateTime> availableDates = new List<DateTime>();
 
@@ -128,22 +133,11 @@ namespace BookingApp.View.Guest
             }
 
             return availableDates;
-        }
-        public bool IsNumeric(string text)
-        {
-            try
-            {
-                int number = int.Parse(text);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        } */
         private void ReservationSearchButton(object sender, RoutedEventArgs e)
         {
-            if (!IsNumeric(ReservationDaysTextBox.Text))
+            GuestReservationViewModel.ReservationSearchButton(sender, e);
+           /* if (!IsNumeric(ReservationDaysTextBox.Text))
             {
                 ErrorLabel.Visibility = Visibility.Visible;
                 return;
@@ -189,7 +183,7 @@ namespace BookingApp.View.Guest
                 {
                     AvailableDates.ItemsSource = "Nema datuma";
                 }
-            }
+            }*/
         }
         private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
         {
@@ -231,14 +225,12 @@ namespace BookingApp.View.Guest
         }
         private void AvailableDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (AvailableDates.SelectedItem != null)
-            {
-                selectedDates = AvailableDates.SelectedItem.ToString();
-            }
+            GuestReservationViewModel.AvailableDates_SelectionChanged(sender, e);
         }
         private void ReservationClickButton(object sender, RoutedEventArgs e)
         {
-            if (AvailableDates.SelectedValue == null)
+            GuestReservationViewModel.ReservationClickButton(sender, e);
+           /* if (AvailableDates.SelectedValue == null)
             {
                 InvalidInput.Visibility = Visibility.Collapsed;
                 ErrorSelect.Visibility = Visibility.Visible;
@@ -274,7 +266,7 @@ namespace BookingApp.View.Guest
                 reservedAccommodation.guestId = user.Id;
                 reservedAccommodationRepository.Add(reservedAccommodation);
                 Close();
-            }
+            }*/
         }
     }
 }
