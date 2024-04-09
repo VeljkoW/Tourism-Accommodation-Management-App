@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ namespace BookingApp.Services
 {
     public class TourImageService
     {
-        private TourImageRepository tourImageRepository = TourImageRepository.GetInstance();
+        private ITourImageRepository tourImageRepository = TourImageRepository.GetInstance();
         public TourImageService() { }
         public static TourImageService GetInstance()
         {

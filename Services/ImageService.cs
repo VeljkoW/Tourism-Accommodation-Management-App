@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,7 +14,7 @@ namespace BookingApp.Services
     public class ImageService
     {
         public ImageService(){}
-        private ImageRepository imageRepository = ImageRepository.GetInstance();
+        private IImageRepository imageRepository = ImageRepository.GetInstance();
         public static ImageService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<ImageService>();

@@ -12,7 +12,7 @@ namespace BookingApp.Services
 {
     public class TourService
     {
-        private TourRepository tourRepository = TourRepository.GetInstance();
+        private ITourRepository tourRepository = TourRepository.GetInstance();
         public TourService() { }
         public static TourService GetInstance()
         {

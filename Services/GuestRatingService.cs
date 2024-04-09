@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Repository.TourRepositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ namespace BookingApp.Services
 {
     public class GuestRatingService
     {
-        private GuestRatingRepository guestRatingRepository = GuestRatingRepository.GetInstance();
+        private IGuestRatingRepository guestRatingRepository = GuestRatingRepository.GetInstance();
         public GuestRatingService() { }
         public static GuestRatingService GetInstance()
         {

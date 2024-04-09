@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Serializer;
@@ -13,7 +14,7 @@ namespace BookingApp.Services
 {
     public class TourReservationService
     {
-        private TourReservationRepository tourReservationRepository = TourReservationRepository.GetInstance();
+        private ITourReservationRepository tourReservationRepository = TourReservationRepository.GetInstance();
         public TourReservationService() { }
         public static TourReservationService GetInstance()
         {

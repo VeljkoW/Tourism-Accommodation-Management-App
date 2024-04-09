@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Repository.TourRepositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -11,7 +12,7 @@ namespace BookingApp.Services
 {
     public class TourScheduleService
     {
-        private TourScheduleRepository tourScheduleRepository = TourScheduleRepository.GetInstance();
+        private ITourScheduleRepository tourScheduleRepository = TourScheduleRepository.GetInstance();
         public TourScheduleService() { }
         public static TourScheduleService GetInstance()
         {
