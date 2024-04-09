@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BookingApp.View;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.Repository.AccommodationRepositories;
 
 namespace BookingApp
 {
@@ -26,7 +27,30 @@ namespace BookingApp
             _services.AddSingleton<ImageRepository>();
             _services.AddSingleton<TourRepository>();
             _services.AddSingleton<TourService>();
-
+            _services.AddSingleton<UserRepository>();
+            _services.AddSingleton<UserService>();
+            _services.AddSingleton<LocationRepository>();
+            _services.AddSingleton<LocationService>();
+            _services.AddSingleton<CommentRepository>();
+            _services.AddSingleton<CommentService>();
+            _services.AddSingleton<KeyPointRepository>();
+            _services.AddSingleton<KeyPointService>();
+            _services.AddSingleton<TourScheduleRepository>();
+            _services.AddSingleton<TourScheduleService>();
+            _services.AddSingleton<TourReservationRepository>();
+            _services.AddSingleton<TourReservationService>();
+            _services.AddSingleton<TourPersonRepository>();
+            _services.AddSingleton<TourPersonService>();
+            _services.AddSingleton<TourImageRepository>();
+            _services.AddSingleton<TourImageService>();
+            _services.AddSingleton<TourCouponRepository>();
+            _services.AddSingleton<TourCouponService>();
+            _services.AddSingleton<ReservedAccommodationRepository>();
+            _services.AddSingleton<ReservedAccommodationService>();
+            _services.AddSingleton<GuestRatingRepository>();
+            _services.AddSingleton<GuestRatingService>();
+            _services.AddSingleton<AccommodationRepository>();
+            _services.AddSingleton<AccommodationService>();
 
 
             _serviceProvider = _services.BuildServiceProvider();

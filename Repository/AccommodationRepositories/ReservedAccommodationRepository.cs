@@ -1,5 +1,7 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository.AccommodationRepositories
 {
-    public class ReservedAccommodationRepository
+    public class ReservedAccommodationRepository : IReservedAccommodationRepository
     {
+        public static ReservedAccommodationRepository GetInstance()
+        {
+            return App._serviceProvider.GetRequiredService<ReservedAccommodationRepository>();
+        }
         private const string FilePath = "../../../Resources/Data/reservedAccommodation.csv";
 
         private readonly Serializer<ReservedAccommodation> _serializer;

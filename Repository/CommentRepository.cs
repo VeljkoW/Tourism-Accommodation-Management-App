@@ -1,13 +1,19 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository
 {
-    public class CommentRepository
+    public class CommentRepository : ICommentRepository
     {
 
+        public static CommentRepository GetInstance()
+        {
+            return App._serviceProvider.GetRequiredService<CommentRepository>();
+        }
         private const string FilePath = "../../../Resources/Data/comments.csv";
 
         private readonly Serializer<Comment> _serializer;
