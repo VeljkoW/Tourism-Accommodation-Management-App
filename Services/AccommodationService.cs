@@ -14,7 +14,7 @@ namespace BookingApp.Services
     {
         private AccommodationRepository accommodationRepository = AccommodationRepository.GetInstance();
         public AccommodationService() { }
-        public AccommodationService GetInstance()
+        public static AccommodationService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<AccommodationService>();
         }

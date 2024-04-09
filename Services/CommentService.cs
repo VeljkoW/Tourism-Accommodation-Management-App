@@ -16,7 +16,7 @@ namespace BookingApp.Services
     {
         private CommentRepository commentRepository = CommentRepository.GetInstance();
         public CommentService() { }
-        public CommentService GetInstance()
+        public static CommentService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<CommentService>();
         }

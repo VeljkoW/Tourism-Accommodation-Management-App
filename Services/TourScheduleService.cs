@@ -13,7 +13,7 @@ namespace BookingApp.Services
     {
         private TourScheduleRepository tourScheduleRepository = TourScheduleRepository.GetInstance();
         public TourScheduleService() { }
-        public TourScheduleService GetInstance()
+        public static TourScheduleService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourScheduleService>();
         }

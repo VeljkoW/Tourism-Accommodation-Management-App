@@ -14,7 +14,7 @@ namespace BookingApp.Services
     {
         private LocationRepository locationRepository = LocationRepository.GetInstance();
         public LocationService() { }
-        public LocationService GetInstance()
+        public static LocationService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<LocationService>();
         }

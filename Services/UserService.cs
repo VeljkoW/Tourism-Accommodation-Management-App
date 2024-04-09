@@ -15,7 +15,7 @@ namespace BookingApp.Services
     {
         private UserRepository userRepository = UserRepository.GetInstance();
         public UserService() { }
-        public UserService GetInstance()
+        public static UserService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<UserService>();
         }
