@@ -1,9 +1,8 @@
 ﻿using BookingApp.Model;
-using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,15 +16,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using GuestRatingModel = BookingApp.Model.GuestRating;
+
 namespace BookingApp.View.Owner
 {
     /// <summary>
-    /// Interaction logic for RateGuest.xaml
+    /// Interaction logic for GuestRating.xaml
     /// </summary>
-    public partial class RateGuest : Page
+    public partial class GuestRating : Page
     {
-        public OwnerMainWindow ownerMainWindow {  get; set; }
-        public User user {  get; set; }
+        public OwnerMainWindow ownerMainWindow { get; set; }
+        public User user { get; set; }
         public List<ReservedAccommodation> ReservedAccommodations { get; set; }
         public AccommodationRepository AccommodationRepository { get; set; }
         public ReservedAccommodationRepository ReservedAccommodationRepository { get; set; }
@@ -33,9 +34,9 @@ namespace BookingApp.View.Owner
         public CommentRepository CommentRepository { get; set; }
         public UserRepository UserRepository { get; set; }
         public GuestRatingRepository GuestRatingRepository { get; set; }
+        
         public ReservedAccommodation SelectedReservedAccommodations { get; set; }
-
-        public RateGuest(OwnerMainWindow ownerMainWindow, User user)
+        public GuestRating(OwnerMainWindow ownerMainWindow, User user)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -57,11 +58,11 @@ namespace BookingApp.View.Owner
         {
             if (SelectedReservedAccommodations == null)
             {
-                SelectErrorLabel.Visibility= Visibility.Visible;
+                SelectErrorLabel.Visibility = Visibility.Visible;
                 InvalidInputLabel.Visibility = Visibility.Collapsed;
                 return;
             }
-            if(CleanlinessComboBox.SelectedItem == null || FollowingGuidelinesComboBox.SelectedItem == null || CommentTextBox.Text.Equals(""))
+            if (CleanlinessComboBox.SelectedItem == null || FollowingGuidelinesComboBox.SelectedItem == null || CommentTextBox.Text.Equals(""))
             {
                 SelectErrorLabel.Visibility = Visibility.Collapsed;
                 InvalidInputLabel.Visibility = Visibility.Visible;
@@ -75,13 +76,13 @@ namespace BookingApp.View.Owner
             comment.User = UserRepository.GetById(user.Id);
             comment = CommentRepository.Save(comment);
 
-            GuestRating guestRating = new GuestRating();
-            guestRating.ownerId = user.Id;
-            guestRating.guestId = SelectedReservedAccommodations.guestId;
-            guestRating.CommentId = comment.Id;
-            guestRating.Cleanliness = Convert.ToInt32(CleanlinessComboBox.SelectionBoxItem);
-            guestRating.FollowingGuidelines = Convert.ToInt32(FollowingGuidelinesComboBox.SelectionBoxItem);
-            GuestRatingRepository.Add(guestRating);
+            GuestRatingModel GuestRatingModel = new GuestRatingModel();
+            GuestRatingModel.ownerId = user.Id;
+            GuestRatingModel.guestId = SelectedReservedAccommodations.guestId;
+            GuestRatingModel.CommentId = comment.Id;
+            GuestRatingModel.Cleanliness = Convert.ToInt32(CleanlinessComboBox.SelectionBoxItem);
+            GuestRatingModel.FollowingGuidelines = Convert.ToInt32(FollowingGuidelinesComboBox.SelectionBoxItem);
+            GuestRatingRepository.Add(GuestRatingModel);
 
             SelectedReservedAccommodations = null;
             Update();
@@ -94,7 +95,7 @@ namespace BookingApp.View.Owner
             {
                 foreach (Accommodation accommodation in AccommodationRepository.GetAll())
                 {
-                    if(tempReservedAccommodation.accommodationId == accommodation.Id && user.Id == accommodation.OwnerId)
+                    if (tempReservedAccommodation.accommodationId == accommodation.Id && user.Id == accommodation.OwnerId)
                     {
                         if (GuestRatingRepository.GetAll().Count == 0)
                         {
@@ -103,9 +104,9 @@ namespace BookingApp.View.Owner
                         else
                         {
                             bool alreadyRated = false;
-                            foreach (GuestRating guestRating in GuestRatingRepository.GetAll())
+                            foreach (GuestRatingModel GuestRatingModel in GuestRatingRepository.GetAll())
                             {
-                                if (guestRating.guestId == tempReservedAccommodation.guestId && guestRating.ownerId == user.Id)
+                                if (GuestRatingModel.guestId == tempReservedAccommodation.guestId && GuestRatingModel.ownerId == user.Id)
                                 {
                                     alreadyRated = true;
                                     break;
@@ -119,7 +120,7 @@ namespace BookingApp.View.Owner
                     }
                 }
             }
-            ownerMainWindow.NotificationListBox.ItemsSource = ReservedAccommodations; 
+            ownerMainWindow.NotificationListBox.ItemsSource = ReservedAccommodations;
             ownerMainWindow.NotificationListBox.Items.Refresh();
             RatingGuestsTable.Items.Refresh();
             return ReservedAccommodations;
