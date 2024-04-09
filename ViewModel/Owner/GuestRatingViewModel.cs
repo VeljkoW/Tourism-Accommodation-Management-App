@@ -1,0 +1,151 @@
+﻿using BookingApp.Domain.Model;
+using BookingApp.Repository;
+using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.Services;
+using BookingApp.View.Owner;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using BookingApp.ViewModel.Owner;
+using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
+using GuestRatingPage = BookingApp.View.Owner.GuestRating;
+
+namespace BookingApp.ViewModel.Owner
+{
+    public class GuestRatingViewModel
+    {
+        public RelayCommand RateGuest => new RelayCommand(execute => RateGuestExecute(), canExecute => RateGuestCanExecute());
+        public User user { get; set; }
+        public OwnerMainWindow OwnerMainWindow { get; set; }
+        public GuestRatingPage GuestRatingPage {  get; set; }
+        public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
+        public ReservedAccommodation SelectedReservedAccommodations { get; set; }
+        public GuestRatingViewModel(GuestRatingPage GuestRatingPage, OwnerMainWindow OwnerMainWindow, User user) 
+        {
+            this.user = user;
+            this.OwnerMainWindow = OwnerMainWindow;
+            this.GuestRatingPage = GuestRatingPage;
+            ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+        }
+        public void RateGuestExecute()
+        {
+            Comment comment = new Comment();
+            comment.Text = GuestRatingPage.CommentTextBox.Text;
+            comment.CreationTime = DateTime.Now;
+            comment.User = UserService.GetInstance().GetById(user.Id);
+            comment = CommentService.GetInstance().Save(comment);
+
+            GuestRatingModel GuestRatingModel = new GuestRatingModel();
+            GuestRatingModel.ownerId = user.Id;
+            GuestRatingModel.guestId = SelectedReservedAccommodations.guestId;
+            GuestRatingModel.CommentId = comment.Id;
+            GuestRatingModel.Cleanliness = Convert.ToInt32(GuestRatingPage.CleanlinessComboBox.SelectionBoxItem);
+            GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);
+            GuestRatingService.GetInstance().Add(GuestRatingModel);
+
+            //SelectedReservedAccommodations = null;
+            Update();
+        }
+        public bool RateGuestCanExecute()
+        {
+            if (SelectedReservedAccommodations == null || 
+                GuestRatingPage.CleanlinessComboBox.SelectedItem == null ||
+                GuestRatingPage.FollowingGuidelinesComboBox.SelectedItem == null ||
+                GuestRatingPage.CommentTextBox.Text.Equals(""))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void RateGuestClick(object sender, RoutedEventArgs e)
+        {
+            if (SelectedReservedAccommodations == null)
+            {
+                GuestRatingPage.SelectErrorLabel.Visibility = Visibility.Visible;
+                GuestRatingPage.InvalidInputLabel.Visibility = Visibility.Collapsed;
+                return;
+            }
+            if (GuestRatingPage.CleanlinessComboBox.SelectedItem == null || 
+                GuestRatingPage.FollowingGuidelinesComboBox.SelectedItem == null ||
+                GuestRatingPage.CommentTextBox.Text.Equals(""))
+            {
+                GuestRatingPage.SelectErrorLabel.Visibility = Visibility.Collapsed;
+                GuestRatingPage.InvalidInputLabel.Visibility = Visibility.Visible;
+                return;
+            }
+            GuestRatingPage.SelectErrorLabel.Visibility = Visibility.Collapsed;
+            GuestRatingPage.InvalidInputLabel.Visibility = Visibility.Collapsed;
+            Comment comment = new Comment();
+            comment.Text = GuestRatingPage.CommentTextBox.Text;
+            comment.CreationTime = DateTime.Now;
+            comment.User = UserService.GetInstance().GetById(user.Id);
+            comment = CommentService.GetInstance().Save(comment);
+
+            GuestRatingModel GuestRatingModel = new GuestRatingModel();
+            GuestRatingModel.ownerId = user.Id;
+            GuestRatingModel.guestId = SelectedReservedAccommodations.guestId;
+            GuestRatingModel.CommentId = comment.Id;
+            GuestRatingModel.Cleanliness = Convert.ToInt32(GuestRatingPage.CleanlinessComboBox.SelectionBoxItem);
+            GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);
+            GuestRatingService.GetInstance().Add(GuestRatingModel);
+
+            SelectedReservedAccommodations = null;
+            Update();
+        }
+
+        public ObservableCollection<ReservedAccommodation> Update()
+        {
+            ReservedAccommodations.Clear();
+            foreach (ReservedAccommodation tempReservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
+            {
+                foreach (Accommodation accommodation in AccommodationRepository.GetInstance().GetAll())
+                {
+                    //continue only if it's the logged-in owner's accommodation
+                    if (tempReservedAccommodation.accommodationId == accommodation.Id && user.Id == accommodation.OwnerId)
+                    {
+                        if (GuestRatingService.GetInstance().GetAll().Count == 0)
+                        {
+                            AvailableForRating(tempReservedAccommodation, ReservedAccommodations);
+                        }
+                        else
+                        {
+                            bool alreadyRated = false;
+                            foreach (GuestRatingModel GuestRatingModel in GuestRatingService.GetInstance().GetAll())
+                            {
+                                if (GuestRatingModel.guestId == tempReservedAccommodation.guestId && GuestRatingModel.ownerId == user.Id)
+                                {
+                                    alreadyRated = true;
+                                    break;
+                                }
+                            }
+                            if (!alreadyRated)
+                            {
+                                AvailableForRating(tempReservedAccommodation, ReservedAccommodations);
+                            }
+                        }
+                    }
+                }
+            }
+            OwnerMainWindow.NotificationListBox.ItemsSource = ReservedAccommodations;
+            OwnerMainWindow.NotificationListBox.Items.Refresh();
+            GuestRatingPage.RatingGuestsTable.Items.Refresh();
+            return ReservedAccommodations;
+        }
+        public void AvailableForRating(ReservedAccommodation ReservedAccommodation, ObservableCollection<ReservedAccommodation> ReservedAccommodations)
+        {
+            if ((DateTime.Now > ReservedAccommodation.checkOutDate) &&
+                (DateTime.Now - ReservedAccommodation.checkOutDate).Days <= 5)
+            {
+                ReservedAccommodations.Add(ReservedAccommodation);
+            }
+        }
+    }
+}

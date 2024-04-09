@@ -56,7 +56,7 @@ namespace BookingApp.View.Owner
             ReservedAccommodationRepository = new ReservedAccommodationRepository();
             mainFrame.Navigate(AccommodationRegistration);
             //NotificationListBox.ItemsSource = RateGuest.Update();
-            NotificationListBox.ItemsSource = GuestRatingPage.Update();
+            NotificationListBox.ItemsSource = GuestRatingPage.GuestRatingViewModel.Update();
 
             if (NotificationListBox.Items.Count == 0)
             {
