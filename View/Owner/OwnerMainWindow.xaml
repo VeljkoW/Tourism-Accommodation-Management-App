@@ -36,7 +36,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button x:Name="AccommodationReservationButton" Grid.Row="0" Grid.Column="0" Width="350" Height="100" Click="AccommodationReservationClick" 
-                Content="Reserve Accommodation" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                Content="Accommodation Management" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Width="350" Height="100" Click="AccommodationStatisticsClick" 
                 Content="Accommodation Statistics" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button x:Name="ReservationReschedulingButton" Grid.Row="2" Grid.Column="0" Width="350" Height="100" Click="ReservationReschedulingClick" 
@@ -53,7 +53,7 @@
         </Grid>
         <Label Margin="0 0 125 0" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" 
                FontSize="20" Content="Notifications"></Label>
-        <ListBox x:Name="NotificationListBox" Grid.Row="0" Grid.Column="1" Width="350" Height="100" HorizontalAlignment="Right"
+        <ListBox x:Name="NotificationListBox" ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Width="350" Height="100" HorizontalAlignment="Right"
                  SelectedValuePath="Print" DisplayMemberPath="Print"></ListBox>
     </Grid>
 </Window>

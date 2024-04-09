@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.IRepositories
 {
-    interface ITourScheduleRepository
+    public interface ITourScheduleRepository
     {
         List<TourSchedule> GetAll();
         TourSchedule? GetById(int Id);

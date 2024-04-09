@@ -94,7 +94,7 @@ namespace BookingApp.View.Guide.Pages
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        public UserControlTourCard() { }
         public UserControlTourCard(Tour t, User user,TourSchedule schedule)
         {
             InitializeComponent();
@@ -110,6 +110,10 @@ namespace BookingApp.View.Guide.Pages
             if (schedule.ScheduleStatus == ScheduleStatus.Ongoing)
             {
                 LiveIcon.Opacity = 1;
+            }
+            else
+            {
+                LiveIcon.Opacity=0;
             }
             var converter = new ImageSourceConverter();
             MainImage.Source = (ImageSource)converter.ConvertFromString(Image.Path);
