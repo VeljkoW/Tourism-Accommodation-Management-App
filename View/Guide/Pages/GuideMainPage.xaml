@@ -64,7 +64,7 @@
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <ScrollViewer Grid.Column="1">
-                <StackPanel x:Name="ListOfTours"></StackPanel>
+                <ItemsControl x:Name="ListOfTours" ItemsSource="{Binding TourList}"/>
             </ScrollViewer>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
