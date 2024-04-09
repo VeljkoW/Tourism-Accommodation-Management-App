@@ -1,5 +1,7 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,12 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class KeyPointRepository
+    public class KeyPointRepository : IKeyPointRepository
     {
-
+        public static KeyPointRepository GetInstance()
+        {
+            return App._serviceProvider.GetRequiredService<KeyPointRepository>();
+        }
         private const string FilePath = "../../../Resources/Data/keypoints.csv";
 
         private readonly Serializer<KeyPoint> _serializer;
@@ -30,7 +35,7 @@ namespace BookingApp.Repository
             }
             return _keypoints.Max(c => c.Id) + 1;
         }
-        internal KeyPoint Add(KeyPoint newKeyPoint)
+        public KeyPoint Add(KeyPoint newKeyPoint)
         {
             newKeyPoint.Id = NextId();
             _keypoints.Add(newKeyPoint);

@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Repository.TourRepositories;
@@ -19,7 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Image = BookingApp.Model.Image;
+using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Tourist
 {
@@ -269,7 +269,7 @@ namespace BookingApp.View.Tourist
             List<TourCoupon> allTourCoupons = tourCouponRepository.GetAll();
             Coupons = new List<TourCoupon>();
 
-
+            
             foreach (TourCoupon t in allTourCoupons)
             {
                 DateTime expiryDate = t.AcquiredDate.AddMonths(t.ExpirationMonths);
@@ -280,9 +280,9 @@ namespace BookingApp.View.Tourist
                     tourCouponRepository.Update(t);
                 }
 
-                if (t.Status != CouponStatus.Expired)
+                if (t.Status != CouponStatus.Expired && t.UserId == User.Id)
                 {
-                    Coupons.Add(t);
+                    Coupons.Add(t);                                                             // This needs to update when I switch to the coupons tab
                 }
 
             }

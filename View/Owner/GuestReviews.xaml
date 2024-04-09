@@ -5,30 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="GuestReviews">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="RatingGuestsTable"
-          AutoGenerateColumns="False"
-          SelectionMode="Single" IsReadOnly="True" Grid.Row="1" Grid.Column="1">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Username"/>
-                <DataGridTextColumn Width="*" Header="Accommodation Name"/>
-                <DataGridTextColumn Width="*" Header="Check-in Date"/>
-                <DataGridTextColumn Width="*" Header="Check-out Date"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="RatingGuestsTable"
+                        AutoGenerateColumns="False"
+                        SelectionMode="Single" IsReadOnly="True" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Username"/>
+                    <DataGridTextColumn Width="*" Header="Accommodation Name"/>
+                    <DataGridTextColumn Width="*" Header="Check-in Date"/>
+                    <DataGridTextColumn Width="*" Header="Check-out Date"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Page>
