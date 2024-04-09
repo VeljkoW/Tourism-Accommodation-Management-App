@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using BookingApp.Repository.AccommodationRepositories;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Image = BookingApp.Model.Image;
+using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Guest
 {
@@ -55,6 +56,7 @@ namespace BookingApp.View.Guest
             TextBoxGuestNumber.Text = "Guest Number";
             TextBoxReservationDays.Text = "Reservation Days";
         }
+
         private void AccommodationName_Clicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;

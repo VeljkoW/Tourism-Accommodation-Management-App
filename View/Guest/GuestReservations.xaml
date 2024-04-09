@@ -40,7 +40,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="0">
-                                        <ItemsControl ItemsSource="{Binding Path=Accommodation.Images}">
+                                        <ItemsControl ItemsSource="{Binding Path=Images}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Image Source="{Binding Path=Path}" Stretch="UniformToFill" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
@@ -50,11 +50,11 @@
                                     </Border>
                                     <Border Grid.Column="1" BorderThickness="0">
                                         <StackPanel Margin="5">
-                                            <TextBlock Text="{Binding Path=Accommodation.Name, Converter={StaticResource AccommodationConverter}}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock Text="{Binding Path=Accommodation.Location.City, Converter={StaticResource AccommodationConverter}}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Path=Accommodation.Location.State, Converter={StaticResource AccommodationConverter}}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Path=CheckInDate}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-                                            <TextBlock Text="{Binding Path=CheckOutDate}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                            <TextBlock  FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                            <TextBlock  TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <TextBlock  TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                                         </StackPanel>
                                     </Border>
                                 </Grid>
