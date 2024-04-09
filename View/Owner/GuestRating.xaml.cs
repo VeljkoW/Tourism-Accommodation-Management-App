@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
+using BookingApp.ViewModel.Owner;
 
 namespace BookingApp.View.Owner
 {
@@ -26,7 +27,9 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class GuestRating : Page
     {
-        public OwnerMainWindow ownerMainWindow { get; set; }
+        ///
+        public GuestRatingViewModel GuestRatingViewModel {  get; set; }
+        /*public OwnerMainWindow ownerMainWindow { get; set; }
         public User user { get; set; }
         public List<ReservedAccommodation> ReservedAccommodations { get; set; }
         public AccommodationRepository AccommodationRepository { get; set; }
@@ -36,12 +39,14 @@ namespace BookingApp.View.Owner
         public UserRepository UserRepository { get; set; }
         public GuestRatingRepository GuestRatingRepository { get; set; }
         
-        public ReservedAccommodation SelectedReservedAccommodations { get; set; }
+        public ReservedAccommodation SelectedReservedAccommodations { get; set; }*/
         public GuestRating(OwnerMainWindow ownerMainWindow, User user)
         {
             InitializeComponent();
-            this.DataContext = this;
-            this.user = user;
+            ///////
+            GuestRatingViewModel = new GuestRatingViewModel(this, ownerMainWindow, user);
+            this.DataContext = GuestRatingViewModel;
+            /*this.user = user;
             this.ownerMainWindow = ownerMainWindow;
             UserRepository = new UserRepository();
             AccommodationRepository = new AccommodationRepository();
@@ -49,15 +54,17 @@ namespace BookingApp.View.Owner
             GuestRatingRepository = new GuestRatingRepository();
             ReservedAccommodations = new List<ReservedAccommodation>();
             ReservedAccommodationRepository = new ReservedAccommodationRepository();
-            //GuestRating = new GuestRating();
+            Update();
+            //GuestRating = new GuestRating();*/
             SelectErrorLabel.Visibility = Visibility.Collapsed;
             InvalidInputLabel.Visibility = Visibility.Collapsed;
-            Update();
+            
         }
 
         private void RateGuestClick(object sender, RoutedEventArgs e)
         {
-            if (SelectedReservedAccommodations == null)
+            GuestRatingViewModel.RateGuestClick(sender, e);
+            /*if (SelectedReservedAccommodations == null)
             {
                 SelectErrorLabel.Visibility = Visibility.Visible;
                 InvalidInputLabel.Visibility = Visibility.Collapsed;
@@ -86,9 +93,9 @@ namespace BookingApp.View.Owner
             GuestRatingRepository.Add(GuestRatingModel);
 
             SelectedReservedAccommodations = null;
-            Update();
+            Update();*/
         }
-
+        /*
         public List<ReservedAccommodation> Update()
         {
             ReservedAccommodations.Clear();
@@ -133,6 +140,6 @@ namespace BookingApp.View.Owner
             {
                 ReservedAccommodations.Add(ReservedAccommodation);
             }
-        }
+        }*/
     }
 }

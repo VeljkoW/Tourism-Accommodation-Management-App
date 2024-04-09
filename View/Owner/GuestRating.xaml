@@ -58,7 +58,7 @@
             </ComboBox>
             <Label x:Name="CommentLabel" Content="Add comment" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="15"></Label>
             <TextBox Margin="0 50 0 0" x:Name="CommentTextBox" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top"></TextBox>
-            <Button x:Name="RateGuestButton" Margin="0 0 0 50" Click="RateGuestClick" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Rate Guest" FontSize="25"></Button>
+            <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Margin="0 0 0 50" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Rate Guest" FontSize="25"></Button>
             <Label x:Name="SelectErrorLabel" Content="Select Guest you want to rate!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"></Label>
             <Label x:Name="InvalidInputLabel" Content="Invalid input!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"/>
         </Grid>
