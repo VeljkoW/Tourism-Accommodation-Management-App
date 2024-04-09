@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Model;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,20 +25,15 @@ namespace BookingApp.View.Guest
     /// </summary>
     public partial class Accommodations : Page
     {
-        public User user { get; set; }
-        public Image image { get; set; }
-        public AccommodationRepository AccommodationRepository { get; set; }
-        public Accommodation Accommodation { get; set; }
+        public GuestAccommodationsViewModel GuestAccommodationsViewModel { get; set; }  
 
-        public List<Accommodation> accommodations { get; set; }
-
-        public GuestRate GuestRate { get; set; }
+        //public GuestRate GuestRate { get; set; }
         public Accommodations(User user)
         {
             InitializeComponent();
-            this.DataContext = this;
-            this.user = user;
-            Accommodation = new Accommodation();
+            GuestAccommodationsViewModel = new GuestAccommodationsViewModel(this, user);
+            this.DataContext = GuestAccommodationsViewModel;
+            /*Accommodation = new Accommodation();
             accommodations = new List<Accommodation>();
             GuestRate = new GuestRate();
             this.AccommodationRepository = new AccommodationRepository();
@@ -54,7 +50,7 @@ namespace BookingApp.View.Guest
             TextBoxState.Text = "State";
             TextBoxCity.Text = "City";
             TextBoxGuestNumber.Text = "Guest Number";
-            TextBoxReservationDays.Text = "Reservation Days";
+            TextBoxReservationDays.Text = "Reservation Days";*/
         }
 
         private void AccommodationName_Clicked(Object sender, RoutedEventArgs e)
@@ -156,6 +152,8 @@ namespace BookingApp.View.Guest
         }
         private void SearchButton(object sender, RoutedEventArgs e)
         {
+            GuestAccommodationsViewModel.SearchButton(sender, e);
+
             /* if (!string.IsNullOrEmpty(SearchBoxName.Text))
              {
                  foreach (Accommodation accommodation in AccommodationRepository.GetAll())
@@ -170,7 +168,7 @@ namespace BookingApp.View.Guest
 
                      }
                  }
-             }*/
+             }
             string Name = "";
             string State = "";
             string City = "";
@@ -256,25 +254,27 @@ namespace BookingApp.View.Guest
             catch
             {
                 return false;
-            }
+            }*/
         }
-
+       
         public void ClickedOnCard(object sender, RoutedEventArgs e)
         {
-            var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
+            GuestAccommodationsViewModel.ClickedOnCard(sender, e);
+           /* var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
             GuestReservation guestReservation = new GuestReservation(selectedCard, user);
            // guestReservation.Owner = this;
             guestReservation.Show();
-            guestReservation.Focus();
+            guestReservation.Focus();*/
         }
         public void Gallery(object sender, RoutedEventArgs e)
         {
-            var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
+            GuestAccommodationsViewModel.Gallery(sender, e);
+            /*var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
             ImageGallery imagegallery = new ImageGallery(selectedCard);
             //imagegallery.Owner = this;
-            imagegallery.Show();
+            imagegallery.Show();*/
         }
-
+       
     }
 }
 
