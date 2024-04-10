@@ -84,6 +84,7 @@ namespace BookingApp.ViewModel.Tourist
                     TourAttendenceNotifications.Add(tr);
                 }
             }
+            TourAttendenceNotifications = new ObservableCollection<TourAttendenceNotification>(TourAttendenceNotifications.Reverse());
         }
         public void Close(object sender, RoutedEventArgs e)
         {
