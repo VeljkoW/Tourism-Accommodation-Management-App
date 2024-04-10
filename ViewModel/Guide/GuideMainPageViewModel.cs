@@ -17,7 +17,6 @@ namespace BookingApp.ViewModel.Guide
     public class GuideMainPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public GuideComplexService guideComplexService = GuideComplexService.GetInstance();
         public User User { get; set; }
         public string UserName { get; set; }
         public List<Tour> Tours { get; set; }
@@ -42,7 +41,7 @@ namespace BookingApp.ViewModel.Guide
         public void Load()
         {
             TourList.Clear();
-            Dictionary<TourSchedule, Tour> t = GuideComplexService.GetInstance().LoadTours(User);
+            Dictionary<TourSchedule, Tour> t = TourService.GetInstance().LoadToursForGuide(User);
             foreach (var entry in t)
             {
                 CreateTourCard(entry.Value, entry.Key);
