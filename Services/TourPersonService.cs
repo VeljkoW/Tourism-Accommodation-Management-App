@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,10 @@ namespace BookingApp.Services
         public TourPerson Add(TourPerson newTourPerson)
         {
             return tourPersonRepository.Add(newTourPerson);
+        }
+        public int NextId()
+        {
+            return tourPersonRepository.NextId();
         }
 
         public TourPerson? GetById(int Id)

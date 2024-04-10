@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,69 +24,15 @@ namespace BookingApp.View.Tourist
     /// </summary>
     public partial class TourOngoingDetailed : Window
     {
-        public Tour Tour { get; set; }
-        public User User { get; set; }
-        public List<KeyPoint> KeyPoints { get; set; }
-        public KeyPointRepository keyPointRepository { get; set; }
-        public TourScheduleRepository tourScheduleRepository { get; set; }
+        public TourOngoingDetailedViewModel TourOngoingDetailedViewModel { get; set; }
         public TourOngoingDetailed(Tour SelectedOngoingTour,User user)
         {
             InitializeComponent();
-            DataContext = this;
-            Tour = SelectedOngoingTour;
-            User = user;
-            keyPointRepository = new KeyPointRepository();
-            tourScheduleRepository = new TourScheduleRepository();
-            KeyPoints = new List<KeyPoint>();
+            TourOngoingDetailedViewModel = new TourOngoingDetailedViewModel(this,SelectedOngoingTour,user);
 
-            NameTextBlock.Text = Tour.Name;
-
-            if (Tour.Images != null && Tour.Images.Count > 0)
-            {
-                Image Image = Tour.Images[0];
-                var converter = new ImageSourceConverter();
-                ImageBox.Source = (ImageSource)converter.ConvertFromString(Image.Path);
-            }
-            if (Tour.Location != null)
-            {
-                StateTextBlock.Text = Tour.Location.State;
-                if (!String.IsNullOrEmpty(Tour.Location.City))
-                {
-                    CityTextBlock.Text = ", " + Tour.Location.City;
-                }
-                else
-                {
-                    CityTextBlock.Text = Tour.Location.City;
-                }
-            }
-
-            LanguageTextBlock.Text = Tour.Language;
-            DateTextBlock.Text = Tour.DateTime.Date.ToString();
-
-            DurationTextBlock.Text = Tour.Duration.ToString() + "h";
-
-            MaxPeopleTextBlock.Text = Tour.MaxTourists.ToString();
-
-            foreach(TourSchedule tourSchedule in tourScheduleRepository.GetAll())
-            {
-                if(tourSchedule.TourId == Tour.Id && tourSchedule.Date == Tour.DateTime) 
-                {
-                    int CurrentKeyPoint = tourSchedule.VisitedKeypoints;
-
-                    foreach (KeyPoint keyPoint in Tour.KeyPoints)
-                    {
-                        if (keyPoint.Id <= CurrentKeyPoint)
-                        {
-                            keyPoint.IsVisited = true;
-                        }
-                    }
-                }
-            }
-
-
-            KeyPoints = Tour.KeyPoints;
-
+            DataContext = this.TourOngoingDetailedViewModel;
         }
+
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
             CenterWindow();
