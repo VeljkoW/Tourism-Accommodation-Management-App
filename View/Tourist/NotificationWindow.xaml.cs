@@ -1,4 +1,5 @@
-﻿using BookingApp.ViewModel.Tourist;
+﻿using BookingApp.Domain.Model;
+using BookingApp.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace BookingApp.View.Tourist
     public partial class NotificationWindow : Window
     {
         public NotificationWindowViewModel NotificationWindowViewModel { get; set; }
-        public NotificationWindow()
+        public NotificationWindow(User user)
         {
             InitializeComponent();
-            NotificationWindowViewModel = new NotificationWindowViewModel(this);
+            NotificationWindowViewModel = new NotificationWindowViewModel(this,user);
             this.DataContext = NotificationWindowViewModel;
         }
 

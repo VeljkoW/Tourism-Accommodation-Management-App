@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View.Tourist"
+        xmlns:local="clr-namespace:BookingApp.View.Tourist.ListComponents"
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
-        Title="NotificationWindow" Height="700" Width="500">
+        Title="NotificationWindow" Height="700" Width="510">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
@@ -46,10 +46,21 @@
                                 <TextBlock Grid.Column="1" Text="Notifications" FontSize="28" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                                 <Image Grid.Column="2" Source="../../Resources/Images/Tourist/bell.png" Width="25" Height="25" Margin="10 8 0 0"/>
                             </Grid>
-                            
-                            
-                            
                         </Border>
+                        <ScrollViewer Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding TourAttendenceNotifications}" Margin="10" HorizontalAlignment="Stretch">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:AttendenceNotification/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </Grid>
                 </Border>
             </Border>
