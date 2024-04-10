@@ -76,7 +76,7 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
         public List<TourSchedule> Schedules { get; set; }
-        public static User? User { get; set; }
+        public User User { get; set; }
         public string Username { get; set; }
         public TouristMainWindowViewModel(TouristMainWindow touristMainWindow,User user)
         {
@@ -411,6 +411,12 @@ namespace BookingApp.ViewModel.Tourist
                 (string.IsNullOrEmpty(language) || tour.Language.Contains(language)) &&
                 (people <= 0 || tour.MaxTourists >= people)
             ).ToList();
+        }
+        public void NotificationButtonClick(object sender, RoutedEventArgs e)
+        {
+            NotificationWindow notificationWindow = new NotificationWindow(User);
+            notificationWindow.Owner = TouristMainWindow;
+            notificationWindow.ShowDialog();
         }
     }
 }
