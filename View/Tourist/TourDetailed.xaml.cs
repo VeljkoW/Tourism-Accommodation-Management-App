@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,59 +23,13 @@ namespace BookingApp.View.Tourist
     /// </summary>
     public partial class TourDetailed : Window
     {
-        public Tour Tour { get; set; }
-        public User User {  get; set; }
-        //public LocationRepository LocationRepository = new LocationRepository();
-        //public List<Location> _locations {  get; set; }
+        public TourDetailedViewModel TourDetailedViewModel { get; set; }
         public TourDetailed(Tour selectedTour,User user)
         {
 
             InitializeComponent();
-            Tour = selectedTour;
-            User = user;
-            NameTextBlock.Text = Tour.Name;
-            DescriptionTextBlock.Text = Tour.Description;
-
-            if (Tour.Images != null && Tour.Images.Count > 0)
-            {
-                Image Image = Tour.Images[0];
-                var converter = new ImageSourceConverter();
-                ImageBox.Source = (ImageSource)converter.ConvertFromString(Image.Path);
-            }
-            if (Tour.Location != null)
-            {
-                StateTextBlock.Text = Tour.Location.State;
-                if (!String.IsNullOrEmpty(Tour.Location.City))
-                {
-                    CityTextBlock.Text = ", " + Tour.Location.City;
-                }
-                else
-                {
-                    CityTextBlock.Text = Tour.Location.City;
-                }
-            }
-
-            LanguageTextBlock.Text = Tour.Language;
-            DateTextBlock.Text = Tour.DateTime.Date.ToString();
-
-            DurationTextBlock.Text = Tour.Duration.ToString() + "h";
-
-            MaxPeopleTextBlock.Text = Tour.MaxTourists.ToString();
-
-
-            /*
-            _locations = LocationRepository.GetAll();
-            foreach(Location location in _locations)
-            {
-                if (location.Id == Tour.LocationId) 
-                {
-                    StateTextBlock.Text = location.State;
-                    CityTextBlock.Text = location.City;
-                }
-            }
-            */
-
-
+            TourDetailedViewModel = new TourDetailedViewModel(this,selectedTour,user);
+            this.DataContext = TourDetailedViewModel;
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
@@ -94,13 +49,11 @@ namespace BookingApp.View.Tourist
 
         public void GoBack(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            TourDetailedViewModel.GoBack(sender, e);
         }
         public void OpenReservationWindow(object sender, RoutedEventArgs e)
         {
-            Close();
-            TourReservationWindow tourReservation = new TourReservationWindow(Tour, User);
-            tourReservation.ShowDialog();
+            TourDetailedViewModel.OpenReservationWindow(sender, e);
         }
     }
 }

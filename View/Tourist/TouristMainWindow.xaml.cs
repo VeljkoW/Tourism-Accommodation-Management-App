@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +29,8 @@ namespace BookingApp.View.Tourist
     /// </summary>
     public partial class TouristMainWindow : Window, INotifyPropertyChanged
     {
+        public TouristMainWindowViewModel TouristMainWindowViewModel { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         public List<Tour> IndividualTours { get; set; }
         private List<Tour> tours { get; set; }

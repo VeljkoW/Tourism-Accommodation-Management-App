@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.ViewModel.Tourist;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,17 @@ namespace BookingApp.View.Tourist
     /// </summary>
     public partial class NotificationWindow : Window
     {
+        public NotificationWindowViewModel NotificationWindowViewModel { get; set; }
         public NotificationWindow()
         {
             InitializeComponent();
+            NotificationWindowViewModel = new NotificationWindowViewModel(this);
+            this.DataContext = NotificationWindowViewModel;
         }
 
         private void Close(object sender, RoutedEventArgs e)
         {
-            Close();
+            NotificationWindowViewModel.Close(sender, e);
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
