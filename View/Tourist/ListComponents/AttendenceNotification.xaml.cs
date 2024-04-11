@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,14 @@ namespace BookingApp.View.Tourist.ListComponents
         public void ConfirmAttendence(object sender,RoutedEventArgs e)
         {
             var SelectedNotification = DataContext as TourAttendenceNotification;
+
+            if (SelectedNotification != null)
+            {
+                SelectedNotification.ConfirmedAttendence = true;
+                TourAttendenceNotificationService.GetInstance().Update(SelectedNotification);
+                //Border.BorderBrush = new SolidColorBrush(Colors.DarkGray);
+                //Border.Background = new SolidColorBrush(Colors.Gray);
+            }
 
         }
     }

@@ -34,7 +34,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0">
-            <Button Click ="ClickGoBack"  Margin="30" Width="300" Content="Go back" FontSize="22" FontWeight="Bold"/>
+            <Button Command ="{Binding ClickGoBack}"  Margin="30" Width="300" Content="Go back" FontSize="22" FontWeight="Bold"/>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid>
@@ -51,7 +51,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Click ="ClickFinishTour"  Margin="20" Width="300" Content="Finish tour" FontSize="22" FontWeight="Bold"/>
+            <Button Command ="{Binding ClickFinishTour}"  Margin="20" Width="300" Content="Finish tour" FontSize="22" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </Page>

@@ -47,6 +47,10 @@ namespace BookingApp.ViewModel.Guide
                 CreateTourCard(entry.Value, entry.Key);
             }
         }
+        public static void Reload(GuideMainPageViewModel s)
+        {
+            s.Load();
+        }
         private void CreateTourCard(Tour tour, TourSchedule schedule)
         {
             UserControlTourCard userControlTourCard = new UserControlTourCard(tour, User, schedule);
@@ -55,7 +59,7 @@ namespace BookingApp.ViewModel.Guide
             userControlTourCard.OnClickedGoBackMonitoringTour += UserControlTourCard_OnFinishedTour;
             TourList.Add(userControlTourCard);
         }
-        private void UserControlTourCard_OnFinishedTour(object? sender, EventArgs e)
+        private void UserControlTourCard_OnFinishedTour()
         {
             Load();
         }

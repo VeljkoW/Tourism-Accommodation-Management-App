@@ -34,7 +34,7 @@ namespace BookingApp.Services
         }
         public TourCoupon? Update(TourCoupon tourCoupon)
         {
-            return tourCouponRepository.Add(tourCoupon);
+            return tourCouponRepository.Update(tourCoupon);
         }
     }
 }

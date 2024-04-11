@@ -55,6 +55,10 @@ namespace BookingApp
             _services.AddSingleton<TourAttendenceNotificationService>();
             _services.AddSingleton<GuestReschedulingRequestRepository>();
             _services.AddSingleton<GuestReschedulingRequestService>();
+            _services.AddSingleton<TourReviewRepository>();
+            _services.AddSingleton<TourReviewService>();
+            _services.AddSingleton<TourReviewImageRepository>();
+            _services.AddSingleton<TourReviewImageService>();
 
 
             _serviceProvider = _services.BuildServiceProvider();

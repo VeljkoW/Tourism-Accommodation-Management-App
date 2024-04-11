@@ -157,6 +157,20 @@ namespace BookingApp.ViewModel.Guide
         }
         private string _description;
         private CreateTourForm createTourForm;
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (value != _description)
+                {
+                    _description = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Action OnClickedGoBack { get; set; }
         public CreateTourFormViewModel() { }
         public CreateTourFormViewModel(CreateTourForm createTourForm, User user)
         {
@@ -177,19 +191,6 @@ namespace BookingApp.ViewModel.Guide
                 if (!States.Contains(location.State))
                 {
                     States.Add(location.State);
-                }
-            }
-        }
-
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                if (value != _description)
-                {
-                    _description = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -333,6 +334,7 @@ namespace BookingApp.ViewModel.Guide
             {
                 MessageBox.Show($"Failed to create the tour. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            OnClickedGoBack?.Invoke();
             createTourForm.NavigationService.GoBack();
         }
 
@@ -380,6 +382,7 @@ namespace BookingApp.ViewModel.Guide
             images.Clear();
             keyPointStrings.Clear();
             Locations.Clear();
+            OnClickedGoBack?.Invoke();
             createTourForm.NavigationService.GoBack();
         }
         public void ClickAddKeyPointExecute()
