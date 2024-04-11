@@ -10,13 +10,84 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Grid.Row="1" Content="ReservationRescheduling"></Button>
+        <Grid Grid.Column="1" Grid.Row="1" Margin="30 0 30 30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Select the reservation request you want to accept/decline:"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+            <DataGrid x:Name="RatingGuestsTable" Grid.Row="0" Margin="0 60 0 0"
+                      ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Guest Username" />
+                    <DataGridTextColumn Width="*" Header="Accommodation Name"/>
+                    <DataGridTextColumn Width="*" Header="Location"/>
+                    <DataGridTextColumn Width="*" Header="Check-in Date"/>
+                    <DataGridTextColumn Width="*" Header="Check-out Date"/>
+                    <DataGridTextColumn Width="50" Header="Free"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid Grid.Row="1" Margin="0 5 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Selected Guest:" Grid.Column="0"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 40 0 0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*" MinHeight="80"/>
+                            <RowDefinition Height="*" MinHeight="50"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <Label Content="Selected Guest:" FontSize="20"/>
+                            <Label Content="Username1" FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Grid.Row="1">
+                            <Label Content="Accommodation Name: " FontSize="20"/>
+                            <Label Content="Name1" FontSize="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="2">
+                            <Label Content="Location: " FontSize="20"/>
+                            <Label Content="State - City" FontSize="20"/>
+                        </StackPanel>
+                        <Label Content="Comment:" FontSize="20"  Grid.Row="3"/>
+
+                        <TextBox Grid.Row="4" Height="80" VerticalAlignment="Top" FontSize="20"></TextBox>
+                        <Grid Grid.Row="5" Margin="0 5 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MinWidth="220"/>
+                                <ColumnDefinition Width="*" MinWidth="220"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Decline" Grid.Column="0" Height="60" Width="200" FontSize="24"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Button Content="Accept" Grid.Column="1" Height="60" Width="200" FontSize="24"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+
+                <Label Content="Check Reservations:" Grid.Column="1"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
