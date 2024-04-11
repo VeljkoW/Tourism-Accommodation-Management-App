@@ -11,7 +11,7 @@ namespace BookingApp.ViewModel.Tourist
 {
     public class TourReservationFailedViewModel
     {
-        TourReservationFailed TourReservationFailed { get; set; }
+        public TourReservationFailed TourReservationFailed { get; set; }
         public int FreeSlots { get; set; }
         private TourReservationWindow PreviousWindow;
         public Tour SelectedTour { get; set; }

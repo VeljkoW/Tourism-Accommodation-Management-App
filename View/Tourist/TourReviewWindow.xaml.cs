@@ -51,9 +51,21 @@ namespace BookingApp.View.Tourist
         {
             TourReviewWindowViewModel.Submit(sender, e);
         }
-        public void Attach(object sender, RoutedEventArgs e)
+        public void BtnSelectFiles_ClickExecute(object sender, RoutedEventArgs e)
         {
-
+            TourReviewWindowViewModel.BtnSelectFiles_ClickExecute(sender,e);
+        }
+        public void StarMouseEnter(object sender, MouseEventArgs e)
+        {
+            TourReviewWindowViewModel.StarMouseEnter(sender, e);
+        }
+        public void StarMouseLeave(object sender, MouseEventArgs e)
+        {
+            TourReviewWindowViewModel.StarMouseLeave(sender, e);
+        }
+        public void StarClick(object sender, MouseEventArgs e)
+        {
+            TourReviewWindowViewModel.StarClick(sender, e);
         }
     }
 }
