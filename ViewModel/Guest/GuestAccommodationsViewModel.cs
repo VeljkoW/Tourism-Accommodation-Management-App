@@ -22,6 +22,8 @@ namespace BookingApp.ViewModel.Guest
         public GuestAccommodationsPage GuestAccommodationsPage { get; set; }
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
+
+        public RelayCommand SearchButtonClick => new RelayCommand(execute => SearchExecute());
         public GuestAccommodationsViewModel(GuestAccommodationsPage GuestAccommodationsPage, User user) 
         { 
             this.user = user;
@@ -43,24 +45,8 @@ namespace BookingApp.ViewModel.Guest
             GuestAccommodationsPage.TextBoxReservationDays.Text = "Reservation Days";
         }
 
-
-        public void SearchButton(object sender, RoutedEventArgs e)
+        public void SearchExecute()
         {
-            /* if (!string.IsNullOrEmpty(SearchBoxName.Text))
-             {
-                 foreach (Accommodation accommodation in AccommodationRepository.GetAll())
-                 {
-                     if (SearchBoxName.Text.ToLower().Equals(accommodation.Name.ToLower()))
-                     {
-                         Accommodation.Name = accommodation.Name.ToLower();
-                         Accommodation.Location = accommodation.Location;
-                         Accommodation.MaxGuestNumber = accommodation.MaxGuestNumber;
-                         Accommodation.MinReservationDays = accommodation.MinReservationDays;
-                         Accommodation.AccommodationType = accommodation.AccommodationType;
-
-                     }
-                 }
-             }*/
             string Name = "";
             string State = "";
             string City = "";
@@ -119,12 +105,11 @@ namespace BookingApp.ViewModel.Guest
                 image = accommodation.Images[0];
                 accommodation.Images.Clear();
                 accommodation.Images.Add(image);
-                AccommodationService.GetInstance().Add(accommodation);
+                Accommodations.Add(accommodation);
                 //accommodations.Add(accommodation);
             }
             GuestAccommodationsPage.accommodationItems.ItemsSource = searchResults;
         }
-
         private List<Accommodation> SearchAccommodation(string Name, string City, string State,
             AccommodationType? AccommodationType, int GuestNumber, int ReservationDays)
         {
