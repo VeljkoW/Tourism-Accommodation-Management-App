@@ -47,7 +47,7 @@
                                             <TextBlock Text="{Binding Path=CheckInDate}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <TextBlock Text="{Binding Path=CheckOutDate}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <Button Content="Rescheduling" HorizontalAlignment="Left" Width="70" Height="50" Click="ReschedulingClick"/>
-                                            <Button Content="Cancel" HorizontalAlignment="Left" Width="70" Height="50"/>
+                                            <Button Content="Cancel" HorizontalAlignment="Left" Width="70" Height="50" Click="CancelClick"/>
                                             <Button Content="Rate It" HorizontalAlignment="Left" Width="70" Height="50"/>
                                         </StackPanel>
                                     </Border>
