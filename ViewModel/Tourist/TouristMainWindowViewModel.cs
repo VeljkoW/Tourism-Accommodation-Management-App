@@ -19,7 +19,7 @@ namespace BookingApp.ViewModel.Tourist
 {
     public class TouristMainWindowViewModel : INotifyPropertyChanged
     {
-        TouristMainWindow TouristMainWindow { get; set; }
+        public TouristMainWindow TouristMainWindow { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public List<Tour> IndividualTours { get; set; }

@@ -15,7 +15,7 @@ namespace BookingApp.ViewModel.Tourist
 {
     public class TourReservationSimilarToursViewModel
     {
-        TourReservationSimilarTours TourReservationSimilarTours { get; set; }
+        public TourReservationSimilarTours TourReservationSimilarTours { get; set; }
         public Tour SelectedTour { get; set; }
         public List<Tour> Tours { get; set; }
         public TourReservationSimilarToursViewModel(TourReservationSimilarTours tourReservationSimilarTours,Tour selectedTour)

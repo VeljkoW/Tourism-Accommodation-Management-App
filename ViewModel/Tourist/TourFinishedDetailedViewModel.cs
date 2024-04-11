@@ -12,7 +12,7 @@ namespace BookingApp.ViewModel.Tourist
 {
     public class TourFinishedDetailedViewModel
     {
-        TourFinishedDetailed TourFinishedDetailed { get; set; }
+        public TourFinishedDetailed TourFinishedDetailed { get; set; }
         public Tour Tour { get; set; }
         public User User { get; set; }
         public TourFinishedDetailedViewModel(TourFinishedDetailed tourFinishedDetailed,Tour selectedTour,User user) 

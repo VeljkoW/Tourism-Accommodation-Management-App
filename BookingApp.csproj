@@ -81,6 +81,8 @@
       <Content Remove="Resources\Images\Tourist\location.png" />
       <Content Remove="Resources\Images\Tourist\person.png" />
       <Content Remove="Resources\Images\Tourist\search.png" />
+      <Content Remove="Resources\Images\Tourist\star.png" />
+      <Content Remove="Resources\Images\Tourist\star_empty.png" />
 		<Content Include="Resources\Images\eye.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
@@ -100,6 +102,8 @@
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
+		<Resource Include="Resources\Images\Tourist\star.png" />
+		<Resource Include="Resources\Images\Tourist\star_empty.png" />
   </ItemGroup>
 
 	<ItemGroup>
