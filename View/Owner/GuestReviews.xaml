@@ -10,28 +10,47 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <DataGrid x:Name="RatingGuestsTable"
                         AutoGenerateColumns="False"
-                        SelectionMode="Single" IsReadOnly="True" Grid.Column="0">
+                        SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Username"/>
+                    <DataGridTextColumn Width="*" Header="Guest Username"/>
                     <DataGridTextColumn Width="*" Header="Accommodation Name"/>
-                    <DataGridTextColumn Width="*" Header="Check-in Date"/>
-                    <DataGridTextColumn Width="*" Header="Check-out Date"/>
+                    <DataGridTextColumn Width="*" Header="Location"/>
+                    <DataGridTextColumn Width="*" Header="Cleanliness"/>
+                    <DataGridTextColumn Width="*" Header="Owner's integrity"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <StackPanel Grid.Column="1" Grid.Row="0" >
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="32" Content="Reviews number:"/>
+                    <Label FontSize="32" Content="53"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="32" Content="Average Grade:"/>
+                    <Label FontSize="32" Content="4.57"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 100 0 0">
+                    <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
+                    <Image Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
+                </StackPanel>
+                <Label FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <Label FontSize="18" 
+                       Content="In order to become a superowner, &#10;you must have more than 50 reviews &#10;and average grade of at least 4.5" 
+                       HorizontalAlignment="Center"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
