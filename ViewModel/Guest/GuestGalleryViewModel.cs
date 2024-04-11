@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GuestGallery = BookingApp.View.Guest.ImageGallery;
+using GuestGallery = BookingApp.View.Guest.Windows.ImageGallery;
 
 namespace BookingApp.ViewModel.Guest
 {

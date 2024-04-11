@@ -3,7 +3,6 @@ using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +15,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.Guest
+namespace BookingApp.View.Guest.Windows
 {
     /// <summary>
     /// Interaction logic for GuestReservation.xaml
     /// </summary>
     public partial class GuestReservation : Window
     {
-
         public GuestReservationViewModel GuestReservationViewModel { get; set; }
         public User user { get; set; }
         public Accommodation accommodation { get; set; }
@@ -43,14 +41,14 @@ namespace BookingApp.View.Guest
             printDates = new List<AvailableDate>();*/
             //GuestNumberTextBox.Text = "Max guest number " + accommodation.MaxGuestNumber;
             //ReservationDaysTextBox.Text = "Min reservation days " + accommodation.MinReservationDays;*/
-           
+
             ErrorLabel.Visibility = Visibility.Hidden;
             InvalidInput.Visibility = Visibility.Hidden;
             ErrorSelect.Visibility = Visibility.Hidden;
-           /* ReservationButton.IsEnabled = false;
-            GuestNumberTextBox.IsEnabled = false;
-            AvailableDates.IsEnabled = false;
-            this.user = user;*/
+            /* ReservationButton.IsEnabled = false;
+             GuestNumberTextBox.IsEnabled = false;
+             AvailableDates.IsEnabled = false;
+             this.user = user;*/
         }
         /*private bool AreDatesAvailable(DateTime startDate, DateTime endDate, int reservationDays)
         {
@@ -134,57 +132,57 @@ namespace BookingApp.View.Guest
 
             return availableDates;
         } */
-       /* private void ReservationSearchButton(object sender, RoutedEventArgs e)
-        {
-            GuestReservationViewModel.ReservationSearchButton(sender, e);
-           /* if (!IsNumeric(ReservationDaysTextBox.Text))
-            {
-                ErrorLabel.Visibility = Visibility.Visible;
-                return;
-            }
-            if (Convert.ToInt32(ReservationDaysTextBox.Text) < accommodation.MinReservationDays)
-            {
-                ErrorLabel.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                ErrorLabel.Visibility = Visibility.Collapsed;
-                printDates.Clear();
-                AvailableDates.ItemsSource = printDates;
-                DateTime startDate = CheckInDatePicker.SelectedDate ?? DateTime.Now;
-                DateTime endDate = CheckOutDatePicker.SelectedDate ?? DateTime.Now;
+        /* private void ReservationSearchButton(object sender, RoutedEventArgs e)
+         {
+             GuestReservationViewModel.ReservationSearchButton(sender, e);
+            /* if (!IsNumeric(ReservationDaysTextBox.Text))
+             {
+                 ErrorLabel.Visibility = Visibility.Visible;
+                 return;
+             }
+             if (Convert.ToInt32(ReservationDaysTextBox.Text) < accommodation.MinReservationDays)
+             {
+                 ErrorLabel.Visibility = Visibility.Visible;
+                 return;
+             }
+             else
+             {
+                 ErrorLabel.Visibility = Visibility.Collapsed;
+                 printDates.Clear();
+                 AvailableDates.ItemsSource = printDates;
+                 DateTime startDate = CheckInDatePicker.SelectedDate ?? DateTime.Now;
+                 DateTime endDate = CheckOutDatePicker.SelectedDate ?? DateTime.Now;
 
-                int numberOfDays = (endDate - startDate).Days;
-                startDate = startDate.AddHours(12);
-                endDate = endDate.AddHours(10);
-                int reservationDays = Convert.ToInt32(ReservationDaysTextBox.Text);
+                 int numberOfDays = (endDate - startDate).Days;
+                 startDate = startDate.AddHours(12);
+                 endDate = endDate.AddHours(10);
+                 int reservationDays = Convert.ToInt32(ReservationDaysTextBox.Text);
 
-                List<DateTime> availableDates = new List<DateTime>();
-                availableDates = FindAvailableDates(startDate, endDate, numberOfDays, reservationDays);
+                 List<DateTime> availableDates = new List<DateTime>();
+                 availableDates = FindAvailableDates(startDate, endDate, numberOfDays, reservationDays);
 
-                ReservationButton.IsEnabled = true;
-                GuestNumberTextBox.IsEnabled = true;
+                 ReservationButton.IsEnabled = true;
+                 GuestNumberTextBox.IsEnabled = true;
 
-                if (availableDates.Count != 0)
-                {
-                    AvailableDates.IsEnabled = true;
-                    AvailableDates.ItemsSource = availableDates;
-                    foreach (DateTime availableDate in availableDates)
-                    {
-                        AvailableDate dates = new AvailableDate();
-                        dates.checkInDate = availableDate;
-                        dates.checkOutDate = availableDate.AddDays(reservationDays - 1).AddHours(22);
-                        printDates.Add(dates);
-                    }
-                    AvailableDates.ItemsSource = printDates;
-                }
-                else
-                {
-                    AvailableDates.ItemsSource = "Nema datuma";
-                }
-            }
-        }*/
+                 if (availableDates.Count != 0)
+                 {
+                     AvailableDates.IsEnabled = true;
+                     AvailableDates.ItemsSource = availableDates;
+                     foreach (DateTime availableDate in availableDates)
+                     {
+                         AvailableDate dates = new AvailableDate();
+                         dates.checkInDate = availableDate;
+                         dates.checkOutDate = availableDate.AddDays(reservationDays - 1).AddHours(22);
+                         printDates.Add(dates);
+                     }
+                     AvailableDates.ItemsSource = printDates;
+                 }
+                 else
+                 {
+                     AvailableDates.ItemsSource = "Nema datuma";
+                 }
+             }
+         }*/
         private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -266,7 +264,7 @@ namespace BookingApp.View.Guest
                 reservedAccommodation.guestId = user.Id;
                 reservedAccommodationRepository.Add(reservedAccommodation);
                 Close();
-            
+
         }*/
     }
 }

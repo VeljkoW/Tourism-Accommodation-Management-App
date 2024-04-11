@@ -1,10 +1,7 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Model;
-using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,17 +12,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Image = BookingApp.Domain.Model.Image;
 
-namespace BookingApp.View.Guest
+namespace BookingApp.View.Guest.Pages
 {
     /// <summary>
     /// Interaction logic for Accommodations.xaml
     /// </summary>
     public partial class Accommodations : Page
     {
-        public GuestAccommodationsViewModel GuestAccommodationsViewModel { get; set; }  
+        public GuestAccommodationsViewModel GuestAccommodationsViewModel { get; set; }
 
         //public GuestRate GuestRate { get; set; }
         public Accommodations(User user)
@@ -256,15 +253,15 @@ namespace BookingApp.View.Guest
                 return false;
             }
         }*/
-       
+
         public void ClickedOnCard(object sender, RoutedEventArgs e)
         {
             GuestAccommodationsViewModel.ClickedOnCard(sender, e);
-           /* var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
-            GuestReservation guestReservation = new GuestReservation(selectedCard, user);
-           // guestReservation.Owner = this;
-            guestReservation.Show();
-            guestReservation.Focus();*/
+            /* var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
+             GuestReservation guestReservation = new GuestReservation(selectedCard, user);
+            // guestReservation.Owner = this;
+             guestReservation.Show();
+             guestReservation.Focus();*/
         }
         public void Gallery(object sender, RoutedEventArgs e)
         {
@@ -274,7 +271,6 @@ namespace BookingApp.View.Guest
             //imagegallery.Owner = this;
             imagegallery.Show();*/
         }
-       
+
     }
 }
-

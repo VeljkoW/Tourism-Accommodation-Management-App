@@ -53,6 +53,8 @@ namespace BookingApp
             _services.AddSingleton<AccommodationService>();
             _services.AddSingleton<TourAttendenceNotificationRepository>();
             _services.AddSingleton<TourAttendenceNotificationService>();
+            _services.AddSingleton<GuestReschedulingRequestRepository>();
+            _services.AddSingleton<GuestReschedulingRequestService>();
 
 
             _serviceProvider = _services.BuildServiceProvider();

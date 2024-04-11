@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using BookingApp.View.Guest.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,18 @@ namespace BookingApp.Repository.AccommodationRepositories
             _reservedAccommodations = _serializer.FromCSV(FilePath);
         }
 
+        public int NextId()
+        {
+            _reservedAccommodations = _serializer.FromCSV(FilePath);
+            if (_reservedAccommodations.Count < 1)
+            {
+                return 1;
+            }
+            return _reservedAccommodations.Max(c => c.Id) + 1;
+        }
         public void Add(ReservedAccommodation newReservedAccommodation)
         {
+            newReservedAccommodation.Id = NextId();
             _reservedAccommodations.Add(newReservedAccommodation);
             _serializer.ToCSV(FilePath, _reservedAccommodations);
         }

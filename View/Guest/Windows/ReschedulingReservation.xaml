@@ -1,0 +1,33 @@
+﻿<Window x:Class="BookingApp.View.Guest.Windows.ReschedulingReservation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="ReschedulingReservation" Height="400" Width="550" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*" MinHeight="60"/>
+            <RowDefinition Height="3*" MinHeight="180"/>
+            <RowDefinition Height="2*" MinHeight="120"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" x:Name="NameLabel" Content="Check new dates for " FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
+        <Label Grid.Row="0" x:Name="DatesLabel" FontSize="16" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
+        <Label Grid.Row="1" x:Name="MinDaysLabel" VerticalAlignment="Top" Content="*Min reservation days " Margin="43 0 0 0"></Label>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1.5" Margin="15 20 15 20" CornerRadius="40">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25 0 0 0">
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                    <Label Content="Check In Date:*" HorizontalAlignment="Left" FontSize="24"></Label>
+                    <DatePicker x:Name="checkInDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="24" Margin="120 0 0 0"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Check Out Date:*" HorizontalAlignment="Left" FontSize="24"></Label>
+                    <DatePicker x:Name="checkOutDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="24" Margin="100 0 0 0"></DatePicker>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Button Grid.Row="2" Width="115" Height="65" Content="Send" FontSize="24" Command="{Binding sendRequest}"></Button>
+    </Grid>
+</Window>
