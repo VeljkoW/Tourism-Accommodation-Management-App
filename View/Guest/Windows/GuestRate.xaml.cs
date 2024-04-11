@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.Guest
+namespace BookingApp.View.Guest.Windows
 {
     /// <summary>
     /// Interaction logic for GuestRate.xaml
