@@ -21,6 +21,8 @@ namespace BookingApp.ViewModel.Tourist
         public int GuideKnowledge { get; set; }
         public int GuideSpeech {  get; set; }
         public int TourEnjoyment {  get; set; }
+        public BitmapImage StarFilled = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+        public BitmapImage StarEmpty = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
         public List<String> RelativeImagePaths {  get; set; }
         public TourReviewWindowViewModel(TourReviewWindow tourReviewWindow, Tour tour, User user) 
         { 
@@ -105,7 +107,7 @@ namespace BookingApp.ViewModel.Tourist
         public void StarMouseEnter(object sender, MouseEventArgs e)
         {
             System.Windows.Controls.Image star = (System.Windows.Controls.Image)sender;
-            star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+            star.Source = StarFilled;
 
             SetPreviousStarsFilled(star);
         }
@@ -114,81 +116,93 @@ namespace BookingApp.ViewModel.Tourist
             System.Windows.Controls.Image star = (System.Windows.Controls.Image)sender;
             if ((string)star.Tag == "selected")
             {
-                star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                star.Source = StarFilled;
                 SetPreviousStarsFilled(star);
             }
             else
             {
-                star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                star.Source = StarEmpty;
             }
             SetUnselectedStarsEmpty();
         }
-        public void SetUnselectedStarsEmpty() //Fixes a bug where unselected stars keep staying filled
+        public void SetUnselectedStarsEmpty()
+        {
+            //Fixes a bug where unselected stars keep staying filled
+            SetUnselectedStarsEmptyKnowledge();
+            SetUnselectedStarsEmptySpeech();
+            SetUnselectedStarsEmptyEnjoyment();
+        }
+        public void SetUnselectedStarsEmptyKnowledge()
         {
             //Guide Knowledge
-            if((string)TourReviewWindow.GuideKnowledge5Star.Tag == "unselected")
+            if ((string)TourReviewWindow.GuideKnowledge5Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideKnowledge5Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideKnowledge5Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideKnowledge4Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideKnowledge4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideKnowledge4Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideKnowledge3Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideKnowledge3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideKnowledge3Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideKnowledge2Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideKnowledge2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideKnowledge2Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideKnowledge1Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideKnowledge1Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideKnowledge1Star.Source = StarEmpty;
             }
-
+        }
+        public void SetUnselectedStarsEmptySpeech()
+        {
             //Guide Speech
             if ((string)TourReviewWindow.GuideSpeech5Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideSpeech5Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideSpeech5Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideSpeech4Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideSpeech4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideSpeech4Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideSpeech3Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideSpeech3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideSpeech3Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideSpeech2Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideSpeech2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideSpeech2Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.GuideSpeech1Star.Tag == "unselected")
             {
-                TourReviewWindow.GuideSpeech1Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.GuideSpeech1Star.Source = StarEmpty;
             }
 
+        }
+        public void SetUnselectedStarsEmptyEnjoyment()
+        { 
             //Tour Enjoyment
             if ((string)TourReviewWindow.TourEnjoyment5Star.Tag == "unselected")
             {
-                TourReviewWindow.TourEnjoyment5Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.TourEnjoyment5Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.TourEnjoyment4Star.Tag == "unselected")
             {
-                TourReviewWindow.TourEnjoyment4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.TourEnjoyment4Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.TourEnjoyment3Star.Tag == "unselected")
             {
-                TourReviewWindow.TourEnjoyment3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.TourEnjoyment3Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.TourEnjoyment2Star.Tag == "unselected")
             {
-                TourReviewWindow.TourEnjoyment2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.TourEnjoyment2Star.Source = StarEmpty;
             }
             if ((string)TourReviewWindow.TourEnjoyment1Star.Tag == "unselected")
             {
-                TourReviewWindow.TourEnjoyment1Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                TourReviewWindow.TourEnjoyment1Star.Source = StarEmpty;
             }
         }
         public void StarClick(object sender, MouseEventArgs e)
@@ -196,7 +210,22 @@ namespace BookingApp.ViewModel.Tourist
             System.Windows.Controls.Image star = (System.Windows.Controls.Image)sender;
             star.Tag = "selected";
 
-            switch(star.Name)   //Sets the rating of the selected type
+            //Sets the rating of the selected type
+            SetGuideKnowledge(star);
+            SetGuideSpeech(star);
+            SetTourEnjoyment(star);
+
+            //Sets next and previous stars to empty and filled depending on the clicked star
+            SetPreviousStarsFilled(star);
+            SetNextStarsEmpty(star);
+
+            //Sets the tag of the next and previous stars to unselected and selected depending on the clicked star
+            SetPreviousStarsSelected(star);
+            SetNextStarsUnSelected(star);
+        }
+        public void SetGuideKnowledge(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
             {
                 //GuideKnowledge
                 case "GuideKnowledge5Star":
@@ -215,6 +244,12 @@ namespace BookingApp.ViewModel.Tourist
                     GuideKnowledge = 1;
                     break;
 
+            }
+        }
+        public void SetGuideSpeech(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name) 
+            {
                 //Guide Speech
                 case "GuideSpeech5Star":
                     GuideSpeech = 5;
@@ -232,6 +267,12 @@ namespace BookingApp.ViewModel.Tourist
                     GuideSpeech = 1;
                     break;
 
+            }
+        }
+        public void SetTourEnjoyment(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Tour Enjoyment
                 case "TourEnjoyment5Star":
                     TourEnjoyment = 5;
@@ -249,111 +290,148 @@ namespace BookingApp.ViewModel.Tourist
                     TourEnjoyment = 1;
                     break;
             }
-            SetPreviousStarsFilled(star);
-            SetNextStarsEmpty(star);
-            SetPreviousStarsSelected(star);
-            SetNextStarsUnSelected(star);
         }
         private void SetPreviousStarsFilled(System.Windows.Controls.Image currentStar)
         {
-            switch (currentStar.Name)   //checks what star was clicked and sets the previous stars to be filled
+            //checks what star was clicked and sets the previous stars to be filled
+            SetPreviousStarsFilledKnowledge(currentStar);
+            SetPreviousStarsFilledSpeech(currentStar);
+            SetPreviousStarsFilledEnjoyment(currentStar);
+        }
+        private void SetPreviousStarsFilledKnowledge(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
             {
                 //Guide Knowledge
                 case "GuideKnowledge5Star":
-                    TourReviewWindow.GuideKnowledge4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge4Star.Source = StarFilled;
                     goto case "GuideKnowledge4Star";
                 case "GuideKnowledge4Star":
-                    TourReviewWindow.GuideKnowledge3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge3Star.Source = StarFilled;
                     goto case "GuideKnowledge3Star";
                 case "GuideKnowledge3Star":
-                    TourReviewWindow.GuideKnowledge2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge2Star.Source = StarFilled;
                     goto case "GuideKnowledge2Star";
                 case "GuideKnowledge2Star":
-                    TourReviewWindow.GuideKnowledge1Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge1Star.Source = StarFilled;
                     break;
-
+            }
+        }
+        private void SetPreviousStarsFilledSpeech(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Guide Speech
                 case "GuideSpeech5Star":
-                    TourReviewWindow.GuideSpeech4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech4Star.Source = StarFilled;
                     goto case "GuideSpeech4Star";
                 case "GuideSpeech4Star":
-                    TourReviewWindow.GuideSpeech3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech3Star.Source = StarFilled;
                     goto case "GuideSpeech3Star";
                 case "GuideSpeech3Star":
-                    TourReviewWindow.GuideSpeech2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech2Star.Source = StarFilled;
                     goto case "GuideSpeech2Star";
                 case "GuideSpeech2Star":
-                    TourReviewWindow.GuideSpeech1Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech1Star.Source = StarFilled;
                     break;
-
+            }
+        }
+        private void SetPreviousStarsFilledEnjoyment(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Tour Enjoyment
                 case "TourEnjoyment5Star":
-                    TourReviewWindow.TourEnjoyment4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment4Star.Source = StarFilled;
                     goto case "TourEnjoyment4Star";
                 case "TourEnjoyment4Star":
-                    TourReviewWindow.TourEnjoyment3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment3Star.Source = StarFilled;
                     goto case "TourEnjoyment3Star";
                 case "TourEnjoyment3Star":
-                    TourReviewWindow.TourEnjoyment2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment2Star.Source = StarFilled;
                     goto case "TourEnjoyment2Star";
                 case "TourEnjoyment2Star":
-                    TourReviewWindow.TourEnjoyment1Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment1Star.Source = StarFilled;
                     break;
             }
         }
         private void SetNextStarsEmpty(System.Windows.Controls.Image currentStar)
         {
-            switch (currentStar.Name)   //checks what star was clicked and sets the mext stars to be empty (in case the user changes his rating) 
+            //checks what star was clicked and sets the mext stars to be empty (in case the user changes his rating) 
+            SetNextStarsEmptyKnowledge(currentStar);
+            SetNextStarsEmptySpeech(currentStar);
+            SetNextStarsEmptyEnjoyment(currentStar);
+        }
+
+        private void SetNextStarsEmptyKnowledge(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
             {
                 //Guide knowledge
                 case "GuideKnowledge1Star":
-                    TourReviewWindow.GuideKnowledge2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge2Star.Source = StarEmpty;
                     goto case "GuideKnowledge2Star";
                 case "GuideKnowledge2Star":
-                    TourReviewWindow.GuideKnowledge3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge3Star.Source = StarEmpty;
                     goto case "GuideKnowledge3Star";
                 case "GuideKnowledge3Star":
-                    TourReviewWindow.GuideKnowledge4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge4Star.Source = StarEmpty;
                     goto case "GuideKnowledge4Star";
                 case "GuideKnowledge4Star":
-                    TourReviewWindow.GuideKnowledge5Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideKnowledge5Star.Source = StarEmpty;
                     break;
-
+            }
+        }
+        private void SetNextStarsEmptySpeech(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Guide speech
                 case "GuideSpeech1Star":
-                    TourReviewWindow.GuideSpeech2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech2Star.Source = StarEmpty;
                     goto case "GuideSpeech2Star";
                 case "GuideSpeech2Star":
-                    TourReviewWindow.GuideSpeech3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech3Star.Source = StarEmpty;
                     goto case "GuideSpeech3Star";
                 case "GuideSpeech3Star":
-                    TourReviewWindow.GuideSpeech4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech4Star.Source = StarEmpty;
                     goto case "GuideSpeech4Star";
                 case "GuideSpeech4Star":
-                    TourReviewWindow.GuideSpeech5Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.GuideSpeech5Star.Source = StarEmpty;
                     break;
-                
+            }
+        }
+        private void SetNextStarsEmptyEnjoyment(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Tour Enjoyment
                 case "TourEnjoyment1Star":
-                    TourReviewWindow.TourEnjoyment2Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment2Star.Source = StarEmpty;
                     goto case "TourEnjoyment2Star";
                 case "TourEnjoyment2Star":
-                    TourReviewWindow.TourEnjoyment3Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment3Star.Source = StarEmpty;
                     goto case "TourEnjoyment3Star";
                 case "TourEnjoyment3Star":
-                    TourReviewWindow.TourEnjoyment4Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment4Star.Source = StarEmpty;
                     goto case "TourEnjoyment4Star";
                 case "TourEnjoyment4Star":
-                    TourReviewWindow.TourEnjoyment5Star.Source = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
+                    TourReviewWindow.TourEnjoyment5Star.Source = StarEmpty;
                     break;
                     
             }
         }
         private void SetPreviousStarsSelected(System.Windows.Controls.Image currentStar)
         {
-            switch (currentStar.Name) //Sets all the previous stars to be selected, so they dont turn empty once the mouse has left the image
+            //Sets all the previous stars to be selected, so they dont turn empty once the mouse has left the image
+            SetPreviousStarsSelectedKnowledge(currentStar);
+            SetPreviousStarsSelectedSpeech(currentStar);
+            SetPreviousStarsSelectedEnjoyment(currentStar);
+        }
+        private void SetPreviousStarsSelectedKnowledge(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
             {
-
                 //Guide Knowledge
                 case "GuideKnowledge5Star":
                     TourReviewWindow.GuideKnowledge4Star.Tag = "selected";
@@ -367,7 +445,12 @@ namespace BookingApp.ViewModel.Tourist
                 case "GuideKnowledge2Star":
                     TourReviewWindow.GuideKnowledge1Star.Tag = "selected";
                     break;
-
+            }
+        }
+        private void SetPreviousStarsSelectedSpeech(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Guide Speech
                 case "GuideSpeech5Star":
                     TourReviewWindow.GuideSpeech4Star.Tag = "selected";
@@ -381,7 +464,12 @@ namespace BookingApp.ViewModel.Tourist
                 case "GuideSpeech2Star":
                     TourReviewWindow.GuideSpeech1Star.Tag = "selected";
                     break;
-
+            }
+        }
+        private void SetPreviousStarsSelectedEnjoyment(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {        
                 //Tour Enjoyment
                 case "TourEnjoyment5Star":
                     TourReviewWindow.TourEnjoyment4Star.Tag = "selected";
@@ -399,7 +487,14 @@ namespace BookingApp.ViewModel.Tourist
         }
         private void SetNextStarsUnSelected(System.Windows.Controls.Image currentStar)
         {
-            switch (currentStar.Name) //checks what star was clicked and sets the mext stars to be unselected (in case the user changes his rating) 
+            //checks what star was clicked and sets the mext stars to be unselected (in case the user changes his rating) 
+            SetNextStarsUnSelectedKnowledge(currentStar);
+            SetNextStarsUnSelectedSpeech(currentStar);
+            SetNextStarsUnSelectedEnjoyment(currentStar);
+        }
+        private void SetNextStarsUnSelectedKnowledge(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
             {
                 //Guide Knowledge
                 case "GuideKnowledge1Star":
@@ -414,7 +509,12 @@ namespace BookingApp.ViewModel.Tourist
                 case "GuideKnowledge4Star":
                     TourReviewWindow.GuideKnowledge5Star.Tag = "unselected";
                     break;
-
+            }
+        }
+        private void SetNextStarsUnSelectedSpeech(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Guide Speech
                 case "GuideSpeech1Star":
                     TourReviewWindow.GuideSpeech2Star.Tag = "unselected";
@@ -428,7 +528,12 @@ namespace BookingApp.ViewModel.Tourist
                 case "GuideSpeech4Star":
                     TourReviewWindow.GuideSpeech5Star.Tag = "unselected";
                     break;
-
+            }
+        }
+        private void SetNextStarsUnSelectedEnjoyment(System.Windows.Controls.Image currentStar)
+        {
+            switch (currentStar.Name)
+            {
                 //Tour Enjoyment
                 case "TourEnjoyment1Star":
                     TourReviewWindow.TourEnjoyment2Star.Tag = "unselected";
