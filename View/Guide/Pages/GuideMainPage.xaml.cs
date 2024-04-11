@@ -42,8 +42,15 @@ namespace BookingApp.View.Guide.Pages
         private void ClickCreateTour(object sender, RoutedEventArgs e)
         {
             CreateTourForm createTourForm = new CreateTourForm(User);
+            createTourForm.RequestRefreshEvent += RequestRefreshEventAction;
             NavigationService.Navigate(createTourForm);
         }
+
+        private void RequestRefreshEventAction()
+        {
+            guideMainPageViewModel.Load();
+        }
+
         private void ClickLogout(object sender, RoutedEventArgs e)
         {
             SignInForm signInForm = new SignInForm();
