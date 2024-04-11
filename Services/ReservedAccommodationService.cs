@@ -24,6 +24,11 @@ namespace BookingApp.Services
             reservedAccommodationRepository.Add(newReservedAccommodation);
         }
 
+        public ReservedAccommodation? GetByAccommodationId(int Id)
+        {
+            return reservedAccommodationRepository.GetByAccommodationId(Id);
+        }
+
         public ReservedAccommodation? GetById(int Id)
         {
             return reservedAccommodationRepository.GetById(Id);
@@ -31,6 +36,11 @@ namespace BookingApp.Services
         public List<ReservedAccommodation> GetAll()
         {
             return reservedAccommodationRepository.GetAll();
+        }
+
+        public void Delete(ReservedAccommodation reservedAccommodation)
+        {
+            reservedAccommodationRepository.Delete(reservedAccommodation);
         }
     }
 }

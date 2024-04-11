@@ -10,7 +10,9 @@ using BookingApp.ViewModel.Guest;
 using BookingApp.Repository.AccommodationRepositories;
 using System.Windows.Controls.Primitives;
 using System.Windows;
-using GuestAccommodationsPage = BookingApp.View.Guest.Accommodations;
+using BookingApp.View.Guest.Pages;
+using BookingApp.View.Guest.Windows;
+using GuestAccommodationsPage = BookingApp.View.Guest.Pages.Accommodations;
 using System.Collections.ObjectModel;
 
 namespace BookingApp.ViewModel.Guest

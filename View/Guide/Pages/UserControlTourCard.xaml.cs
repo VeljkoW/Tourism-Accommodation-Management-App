@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.View.Owner;
 using BookingApp.View.Tourist;
+using BookingApp.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,115 +28,25 @@ namespace BookingApp.View.Guide.Pages
     /// </summary>
     public partial class UserControlTourCard : UserControl
     {
-        public event EventHandler TourSelected;
-        public Tour Tour { get; set; }
-        public User User { get; set; }
-        public DateTime Date { get; set; }
-        public Image Image {  get; set; }
-
-        private string _tourName;
-        public string TourName
-        {
-            get => _tourName;
-            set
-            {
-                if (value != _tourName)
-                {
-                    _tourName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _date;
-        public string DateString
-        {
-            get => _date;
-            set
-            {
-                if (value != _date)
-                {
-                    _date = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                if (value != _description)
-                {
-                    _description = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private int _scheduleId;
-        public int ScheduleId
-        {
-            get => _scheduleId;
-            set
-            {
-                if (value != _scheduleId)
-                {
-                    _scheduleId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public TourSchedule TourSchedule { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         public UserControlTourCard() { }
         public UserControlTourCard(Tour t, User user,TourSchedule schedule)
         {
             InitializeComponent();
-            DataContext = this;
-            Tour = t;
-            User = user;
-            TourName =t.Name;
-            DateString=t.DateTime.ToString();
-            Description = t.Description;
-            Image =t.Images[0];
-            ScheduleId = schedule.Id;
-            TourSchedule = schedule;
-            if (schedule.ScheduleStatus == ScheduleStatus.Ongoing)
-            {
-                LiveIcon.Opacity = 1;
-            }
-            else
-            {
-                LiveIcon.Opacity=0;
-            }
-            var converter = new ImageSourceConverter();
-            MainImage.Source = (ImageSource)converter.ConvertFromString(Image.Path);
+            UserControlTourCardViewModel userControlTourCardViewModel = new UserControlTourCardViewModel(this,t,user,schedule);
+            userControlTourCardViewModel.OnClickedGoBackMonitoringTour += ClickGoBackMonitoringTour;
+            userControlTourCardViewModel.OnFinishedTour += MonitoringTour_OnFinishedTour;
+            this.DataContext = userControlTourCardViewModel;
         }
-        private void MonitoringSelectedTour(object sender, RoutedEventArgs e)
+        public Action OnClickedGoBackMonitoringTour { get; set; }
+        private void ClickGoBackMonitoringTour()
         {
-            MonitoringTour monitoringTour = new MonitoringTour(Tour,User, TourSchedule);
-            NavigationService.GetNavigationService(this).Navigate(monitoringTour);
-            monitoringTour.OnFinishedTour += MonitoringTour_OnFinishedTour;
-            monitoringTour.OnLastKeypoint += MonitoringTour_OnFinishedTour;
-            monitoringTour.OnClickGoBack += ClickGoBackMonitoringTour;
-        }
-        public EventHandler OnClickedGoBackMonitoringTour { get; set; }
-        private void ClickGoBackMonitoringTour(object? sender, EventArgs e)
-        {
-            OnClickedGoBackMonitoringTour?.Invoke(this, e);
+            OnClickedGoBackMonitoringTour?.Invoke();
         }
 
-        public event EventHandler OnFinishedTour;
+        public event Action OnFinishedTour;
         private void MonitoringTour_OnFinishedTour(object? sender, EventArgs e)
         {
-            OnFinishedTour?.Invoke(this, e);
+            OnFinishedTour?.Invoke();
         }
     }
 }

@@ -34,29 +34,18 @@ namespace BookingApp.View.Guide.Pages
         public User User { get; set; }
         public GuideMainPage GuideMainPage { get; }
         public CreateTourFormViewModel CreateTourFormViewModel { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public CreateTourForm(User user)
         {
             InitializeComponent();
             CreateTourFormViewModel = new CreateTourFormViewModel(this,user);
+            CreateTourFormViewModel.OnClickedGoBack += RequestRefresh;
             this.DataContext = CreateTourFormViewModel;
         }
-
-        public CreateTourForm(GuideMainPage guideMainPage, User user)
+        public Action RequestRefreshEvent { get; set; }
+        private void RequestRefresh()
         {
-            CreateTourFormViewModel createTourFormViewModel = new CreateTourFormViewModel(this, user);
-            this.DataContext = createTourFormViewModel;
-            InitializeComponent();
-            GuideMainPage = guideMainPage;
-            User = user;
+            RequestRefreshEvent?.Invoke();
         }
-
         private void DatePicker_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = true;
