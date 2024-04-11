@@ -34,7 +34,7 @@ namespace BookingApp.Services
         }
         public TourAttendenceNotification? Update(TourAttendenceNotification tourAttendenceNotification)
         {
-            return tourAttendenceNotificationRepository.Add(tourAttendenceNotification);
+            return tourAttendenceNotificationRepository.Update(tourAttendenceNotification);
         }
     }
 }
