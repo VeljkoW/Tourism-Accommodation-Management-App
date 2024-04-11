@@ -38,5 +38,15 @@ namespace BookingApp.Services
         {
             return tourReservationRepository.GetByScheduleId(Id);
         }
+
+        public List<TourPerson>? GetTouristsByReservationId(int id)
+        {
+            TourReservation? t = GetById(id);
+            return t?.People;
+        }
+        public List<TourReservation> GetReservationsByScheduleId(int id)
+        {
+            return GetAll().Where(t => t.TourScheduleId == id).ToList();
+        }
     }
 }

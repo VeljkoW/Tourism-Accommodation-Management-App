@@ -30,9 +30,8 @@ namespace BookingApp.Domain.Model
             ExpirationMonths = 0;
             ExpirationDate = AcquiredDate.AddMonths(ExpirationMonths);
         }
-        public TourCoupon(int id, int userId, string name, string reason, DateTime acquiredDate, int expirationMonths, CouponStatus status)
+        public TourCoupon(int userId, string name, string reason, DateTime acquiredDate, int expirationMonths, CouponStatus status)
         {
-            Id = id;
             UserId = userId;
             Name = name;
             Reason = reason;
