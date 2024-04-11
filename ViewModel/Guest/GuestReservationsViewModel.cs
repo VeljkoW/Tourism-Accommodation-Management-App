@@ -7,24 +7,28 @@ using System.Threading.Tasks;
 using BookingApp.View.Guest.Pages;
 using System.Collections.ObjectModel;
 using BookingApp.Services;
+using Guests = BookingApp.View.Guest.Pages.GuestReservations;
+using System.Reflection.Metadata.Ecma335;
+using BookingApp.View.Guest.Windows;
+using System.Windows;
 
 namespace BookingApp.ViewModel.Guest
 {
     public class GuestReservationsViewModel
     {
-        public GuestReservations GuestReservations { get; set; }
+        public Guests guestReservations { get; set; }
 
         public ObservableCollection<ReservedAccommodation> reservedAccommodations { get; set; }
         public User user { get; set; }
-        public GuestReservationsViewModel(User user)
+        public GuestReservationsViewModel(Guests guestReservations, User user)
         {
             this.user = user;
             reservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            this.guestReservations = guestReservations;
             foreach (ReservedAccommodation reserved in ReservedAccommodationService.GetInstance().GetAll())
             {
                 reservedAccommodations.Add(reserved);
             }
         }
-
     }
 }
