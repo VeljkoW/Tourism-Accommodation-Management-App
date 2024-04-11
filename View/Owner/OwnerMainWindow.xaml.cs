@@ -60,7 +60,12 @@ namespace BookingApp.View.Owner
                 NotificationListBox.BorderThickness = new Thickness(1);
             }
         }
-
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            Close();
+        }
         private void AccommodationReservationClick(object sender, RoutedEventArgs e)
         { mainFrame.Navigate(AccommodationRegistration); }
 

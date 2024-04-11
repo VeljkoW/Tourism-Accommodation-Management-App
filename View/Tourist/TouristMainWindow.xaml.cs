@@ -184,9 +184,7 @@ namespace BookingApp.View.Tourist
         }
         private void NotificationButtonClick(object sender, RoutedEventArgs e)
         {
-            NotificationWindow notificationWindow = new NotificationWindow();
-            notificationWindow.Owner = this;
-            notificationWindow.ShowDialog();
+            TouristMainWindowViewModel.NotificationButtonClick(sender, e);
         }
     }
 }

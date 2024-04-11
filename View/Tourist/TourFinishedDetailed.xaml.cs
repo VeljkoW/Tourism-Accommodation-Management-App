@@ -17,21 +17,16 @@ using System.Windows.Shapes;
 namespace BookingApp.View.Tourist
 {
     /// <summary>
-    /// Interaction logic for NotificationWindow.xaml
+    /// Interaction logic for TourFinishedDetailed.xaml
     /// </summary>
-    public partial class NotificationWindow : Window
+    public partial class TourFinishedDetailed : Window
     {
-        public NotificationWindowViewModel NotificationWindowViewModel { get; set; }
-        public NotificationWindow(User user)
+        TourFinishedDetailedViewModel TourFinishedDetailedViewModel { get; set; }
+        public TourFinishedDetailed(Tour selectedTour, User user)
         {
             InitializeComponent();
-            NotificationWindowViewModel = new NotificationWindowViewModel(this,user);
-            this.DataContext = NotificationWindowViewModel;
-        }
-
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            NotificationWindowViewModel.Close(sender, e);
+            this.TourFinishedDetailedViewModel = new TourFinishedDetailedViewModel(this,selectedTour,user);
+            this.DataContext = TourFinishedDetailedViewModel;
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
@@ -47,6 +42,14 @@ namespace BookingApp.View.Tourist
 
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
+        }
+        public void GoBack(object sender, RoutedEventArgs e)
+        {
+            TourFinishedDetailedViewModel.GoBack(sender, e);
+        }
+        public void OpenReviewWindow(object sender, RoutedEventArgs e)
+        {
+            TourFinishedDetailedViewModel.OpenReviewWindow(sender, e);
         }
     }
 }
