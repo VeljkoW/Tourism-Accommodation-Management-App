@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -105,6 +106,23 @@ namespace BookingApp.View.Guide.Pages
         {
             Tourist.KeyPointId = CurrentKeypointId;
             tourPersonRepository.Update(Tourist);
+            int userId = -1;
+            foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
+            {
+                foreach (TourPerson tourPerson1 in tourReservation.People)
+                {
+                    if (tourPerson1.Id == Tourist.Id)
+                    {
+                        userId = tourReservation.UserId;
+                        break;
+                    }
+                }
+            }
+            if (userId != -1)
+            {
+                TourAttendenceNotification tourAttendenceNotification = new TourAttendenceNotification(userId, Tourist.Id, DateTime.Now, false);
+                TourAttendenceNotificationService.GetInstance().Add(tourAttendenceNotification);
+            }
             touristVisiting();
         }
         public EventHandler touristVisitedKeypoint { get; set; }
