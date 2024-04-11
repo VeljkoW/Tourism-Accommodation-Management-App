@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows;
+using BookingApp.Services;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -20,8 +21,36 @@ namespace BookingApp.ViewModel.Guide
         public User User { get; set; }
         public DateTime Date { get; set; }
         public Image Image { get; set; }
-        public RelayCommand MonitoringSelectedTour => new RelayCommand(execute => MonitoringSelectedTourExecute());
+        public RelayCommand MonitoringSelectedTour => new RelayCommand(execute => MonitoringSelectedTourExecute() ,canExecute => MonitoringSelectedTourCanExecute());
 
+        private bool MonitoringSelectedTourCanExecute()
+        {
+            if (Tour.DateTime.Day == DateTime.Now.Day)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool DeleteSelectedTourCanExecute()
+        {
+            if(Tour.DateTime> DateTime.Now.AddDays(2)) {
+                return true;
+            }
+            return false;
+        }
+
+        public RelayCommand DeleteSelectedTour => new RelayCommand(execute => DeleteSelectedTourExecute(),canExecute => DeleteSelectedTourCanExecute());
+
+        private void DeleteSelectedTourExecute()
+        {
+            var reply = MessageBox.Show("Are you sure you want to delete this tour", "Deleting tour",MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(reply == MessageBoxResult.Yes)
+            {
+                TourService.GetInstance().HandoutCoupons(ScheduleId);
+                OnFinishedTour?.Invoke(this, new EventArgs());
+            }
+        }
         private string _tourName;
         public string TourName
         {
@@ -63,6 +92,32 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        private string _location;
+        public string Location
+        {
+            get => _location;
+            set
+            {
+                if (value != _location)
+                {
+                    _location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _length;
+        public string Length
+        {
+            get => _length;
+            set
+            {
+                if (value != _length)
+                {
+                    _length = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private int _scheduleId;
         public int ScheduleId
         {
@@ -88,6 +143,8 @@ namespace BookingApp.ViewModel.Guide
         {
             UserControlTourCard = userControlTourCard;
             Tour = t;
+            this.Location = t?.Location?.State + " " + t?.Location?.City;
+            Length = t.Duration.ToString() + " Hours";
             User = user;
             TourName = t.Name;
             DateString = t.DateTime.ToString();
@@ -114,6 +171,7 @@ namespace BookingApp.ViewModel.Guide
             monitoringTour.OnLastKeypoint += MonitoringTour_OnFinishedTour;
             monitoringTour.OnClickGoBack += ClickGoBackMonitoringTour;
         }
+
         public Action OnClickedGoBackMonitoringTour { get; set; }
         private void ClickGoBackMonitoringTour()
         {
