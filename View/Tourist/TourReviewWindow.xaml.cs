@@ -51,5 +51,9 @@ namespace BookingApp.View.Tourist
         {
             TourReviewWindowViewModel.Submit(sender, e);
         }
+        public void Attach(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
