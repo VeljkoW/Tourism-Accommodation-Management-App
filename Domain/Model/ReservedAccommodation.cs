@@ -8,15 +8,25 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using BookingApp.Repository;
+using BookingApp.Services;
 
 namespace BookingApp.Domain.Model
 {
     public class ReservedAccommodation : ISerializable, INotifyPropertyChanged
     {
+        public int id { get; set; } 
         public int guestId { get; set; }
         public int accommodationId { get; set; }
         public DateTime checkInDate { get; set; }
         public DateTime checkOutDate { get; set; }
+
+        public string accommodationName { get; set; }
+
+        public Location location { get; set; }
+
+        public Image image { get; set; }
+        
+        public AccommodationType accommodationType { get; set; }
 
         public ReservedAccommodation() { }
 
@@ -66,6 +76,21 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(id));
+                }
+            }
+        }
 
         public int GuestId
         {
@@ -97,11 +122,72 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
+        public string AccommodationName
+        {
+            get
+            {
+                return accommodationName;
+            }
+            set
+            {
+                if (value != accommodationName)
+                {
+                    accommodationName = value;
+                    OnPropertyChanged(nameof(accommodationName));
+                }
+            }
+        }
+        public AccommodationType AccommodationType
+        {
+            get
+            {
+                return accommodationType;
+            }
+            set
+            {
+                if (value != accommodationType)
+                {
+                    accommodationType = value;
+                    OnPropertyChanged(nameof(accommodationType));
+                }
+            }
+        }
+        public Location Location
+        {
+            get
+            {
+                return location;
+            }
+            set
+            {
+                if (value != location)
+                {
+                    location = value;
+                    OnPropertyChanged(nameof(location));
+                }
+            }
+        }
+        public Image Image
+        {
+            get
+            {
+                return image;
+            }
+            set
+            {
+                if (value != image)
+                {
+                    image = value;
+                    OnPropertyChanged(nameof(image));
+                }
+            }
+        }
 
 
         public string[] ToCSV()
         {
             string[] csvValues = {
+                Id.ToString(),
                 accommodationId.ToString(),
                 guestId.ToString(),
                 checkInDate.ToString(),
@@ -112,10 +198,17 @@ namespace BookingApp.Domain.Model
 
         public void FromCSV(string[] values)
         {
-            accommodationId = Convert.ToInt32(values[0]);
-            guestId = Convert.ToInt32(values[1]);
-            checkInDate = Convert.ToDateTime(values[2]);
-            checkOutDate = Convert.ToDateTime(values[3]);
+            Id = Convert.ToInt32(values[0]);
+            accommodationId = Convert.ToInt32(values[1]);
+            guestId = Convert.ToInt32(values[2]);
+            checkInDate = Convert.ToDateTime(values[3]);
+            checkOutDate = Convert.ToDateTime(values[4]);
+            Accommodation accommodation = new Accommodation();
+            accommodation = AccommodationService.GetInstance().GetById(accommodationId);
+            accommodationName = accommodation.Name;
+            location = accommodation.location;
+            image = accommodation.Images[0];
+            accommodationType = accommodation.AccommodationType;
         }
         public string Print
         {
@@ -135,5 +228,6 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
+
     }
 }

@@ -14,7 +14,7 @@ namespace BookingApp.ViewModel.Tourist
     {
         public Tour Tour { get; set; }
         public User User { get; set; }
-        TourDetailed TourDetailed { get; set; }
+        public TourDetailed TourDetailed { get; set; }
         public TourDetailedViewModel(TourDetailed tourDetailed,Tour selectedTour,User user) 
         {
             Tour = selectedTour;

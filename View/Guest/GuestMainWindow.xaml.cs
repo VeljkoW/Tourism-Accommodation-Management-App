@@ -14,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.View.Guest.Pages;
+using BookingApp.View.Guest.Windows;
 using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Guest
@@ -34,8 +36,8 @@ namespace BookingApp.View.Guest
             InitializeComponent();
             this.DataContext = this;
             this.user = user;
-            GuestRate = new GuestRate();
-            //GuestReservations = new GuestReservations(user);
+            //GuestRate = new GuestRate(user, reservedAccommodation);
+            GuestReservations = new GuestReservations(user);
             Accommodations = new Accommodations(user);
             mainFrame.Navigate(Accommodations);
         }

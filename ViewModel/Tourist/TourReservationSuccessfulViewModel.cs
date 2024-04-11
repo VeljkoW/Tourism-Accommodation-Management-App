@@ -11,7 +11,7 @@ namespace BookingApp.ViewModel.Tourist
 {
     public class TourReservationSuccessfulViewModel
     {
-        TourReservationSuccessful TourReservationSuccessful { get; set; }
+        public TourReservationSuccessful TourReservationSuccessful { get; set; }
         public Tour Tour { get; set; }
         public TourReservation TourReservation { get; set; }
         public TourReservationSuccessfulViewModel(TourReservationSuccessful tourReservationSuccessful,Tour tour, TourReservation tourReservation)

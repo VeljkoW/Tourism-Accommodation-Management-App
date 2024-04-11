@@ -15,7 +15,7 @@ namespace BookingApp.ViewModel.Tourist
     {
         public NotificationWindow NotificationWindow { get; set; }
         public ObservableCollection<TourAttendenceNotification> TourAttendenceNotifications { get; set; }
-        User User { get; set; }
+        public User User { get; set; }
         public NotificationWindowViewModel(NotificationWindow notificationWindow,User user) 
         { 
             this.NotificationWindow = notificationWindow;
