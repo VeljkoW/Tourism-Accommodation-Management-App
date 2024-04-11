@@ -150,7 +150,7 @@ namespace BookingApp.View.Guest
                 textBox.Foreground = Brushes.Gray;
             }
         }
-        private void SearchButton(object sender, RoutedEventArgs e)
+        /*private void SearchButton(object sender, RoutedEventArgs e)
         {
             GuestAccommodationsViewModel.SearchButton(sender, e);
 
@@ -254,8 +254,8 @@ namespace BookingApp.View.Guest
             catch
             {
                 return false;
-            }*/
-        }
+            }
+        }*/
        
         public void ClickedOnCard(object sender, RoutedEventArgs e)
         {

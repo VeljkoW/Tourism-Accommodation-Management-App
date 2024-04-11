@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Search" Grid.Column="7" Grid.Row="0" Click="SearchButton" Height="40" Width="70"/>
+            <Button Content="Search" Grid.Column="7" Grid.Row="0" Command="{Binding SearchButtonClick}" Height="40" Width="70"/>
             <TextBox x:Name="TextBoxName" Grid.Column="1" Grid.Row="0" Height="25" Width="100" VerticalAlignment="Top" Foreground="Gray" GotFocus="AccommodationName_Clicked" LostFocus="AccommodationName_NotClicked"/>
             <TextBox x:Name="TextBoxState" Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" Height="25" Width="100" VerticalAlignment="Top" Foreground="Gray" GotFocus="AccommodationState_Clicked" LostFocus="AccommodationState_NotClicked"/>
             <TextBox x:Name="TextBoxCity" Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" Height="25" Width="100" VerticalAlignment="Top" Foreground="Gray" GotFocus="AccommodationCity_Clicked" LostFocus="AccommodationCity_NotClicked"/>
