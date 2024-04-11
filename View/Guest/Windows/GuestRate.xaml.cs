@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BookingApp.Domain.Model;
+using BookingApp.ViewModel.Guest;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Guest.Windows
 {
@@ -19,9 +23,13 @@ namespace BookingApp.View.Guest.Windows
     /// </summary>
     public partial class GuestRate : Window
     {
-        public GuestRate()
+        public ObservableCollection<Image> Images { get; set; }
+        public GuestRate(User user, ReservedAccommodation reservedAccommodation)
         {
             InitializeComponent();
+            Images = new ObservableCollection<Image>();
+            GuestRateViewModel guestRateViewModel = new GuestRateViewModel(this, user, reservedAccommodation, Images);
+            DataContext = guestRateViewModel;
         }
     }
 }
