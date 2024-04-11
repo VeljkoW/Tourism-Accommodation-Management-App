@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.View.Guest.Windows;
 using BookingApp.View.Owner;
 using BookingApp.ViewModel.Guest;
@@ -51,6 +52,27 @@ namespace BookingApp.View.Guest.Pages
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as ReservedAccommodation;
             reservedAccommodation = selectedCard;
+        }
+
+        private void CancelClick(object sender, RoutedEventArgs e)
+        {
+            
+            var selectedCard = ((FrameworkElement)sender).DataContext as ReservedAccommodation;
+            ReservedAccommodation? reserved = new ReservedAccommodation();
+            reserved = ReservedAccommodationService.GetInstance().GetById(selectedCard.Id);
+            Accommodation? accommodation = new Accommodation();
+            accommodation = AccommodationService.GetInstance().GetById(selectedCard.AccommodationId);
+            DateTime checkIn = reserved.CheckInDate;
+            if ((checkIn - DateTime.Now).Days > accommodation.CancelationDaysLimit)
+            {
+                GuestCancelReservation guestCancelReservation = new GuestCancelReservation(user, selectedCard);
+                guestCancelReservation.Show();
+                guestCancelReservation.Focus();
+            }
+            else
+            {
+                MessageBox.Show("The cancellation deadline has expired!");
+            }
         }
     }
 }
