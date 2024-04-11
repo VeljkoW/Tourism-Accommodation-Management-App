@@ -42,12 +42,12 @@ namespace BookingApp.View.Guest
             reservedAccommodation = new ReservedAccommodation();
             printDates = new List<AvailableDate>();*/
             //GuestNumberTextBox.Text = "Max guest number " + accommodation.MaxGuestNumber;
-            //ReservationDaysTextBox.Text = "Min reservation days " + accommodation.MinReservationDays;
+            //ReservationDaysTextBox.Text = "Min reservation days " + accommodation.MinReservationDays;*/
            
-            /*ErrorLabel.Visibility = Visibility.Collapsed;
-            InvalidInput.Visibility = Visibility.Collapsed;
-            ErrorSelect.Visibility = Visibility.Collapsed;
-            ReservationButton.IsEnabled = false;
+            ErrorLabel.Visibility = Visibility.Hidden;
+            InvalidInput.Visibility = Visibility.Hidden;
+            ErrorSelect.Visibility = Visibility.Hidden;
+           /* ReservationButton.IsEnabled = false;
             GuestNumberTextBox.IsEnabled = false;
             AvailableDates.IsEnabled = false;
             this.user = user;*/
@@ -134,7 +134,7 @@ namespace BookingApp.View.Guest
 
             return availableDates;
         } */
-        private void ReservationSearchButton(object sender, RoutedEventArgs e)
+       /* private void ReservationSearchButton(object sender, RoutedEventArgs e)
         {
             GuestReservationViewModel.ReservationSearchButton(sender, e);
            /* if (!IsNumeric(ReservationDaysTextBox.Text))
@@ -183,8 +183,8 @@ namespace BookingApp.View.Guest
                 {
                     AvailableDates.ItemsSource = "Nema datuma";
                 }
-            }*/
-        }
+            }
+        }*/
         private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -227,7 +227,7 @@ namespace BookingApp.View.Guest
         {
             GuestReservationViewModel.AvailableDates_SelectionChanged(sender, e);
         }
-        private void ReservationClickButton(object sender, RoutedEventArgs e)
+        /*private void ReservationClickButton(object sender, RoutedEventArgs e)
         {
             GuestReservationViewModel.ReservationClickButton(sender, e);
            /* if (AvailableDates.SelectedValue == null)
@@ -266,7 +266,7 @@ namespace BookingApp.View.Guest
                 reservedAccommodation.guestId = user.Id;
                 reservedAccommodationRepository.Add(reservedAccommodation);
                 Close();
-            }*/
-        }
+            
+        }*/
     }
 }

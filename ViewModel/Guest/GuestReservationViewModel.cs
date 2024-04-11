@@ -25,6 +25,10 @@ namespace BookingApp.ViewModel.Guest
 
         public Accommodation Accommodation { get; set; }
 
+        public RelayCommand ReservationSearchButton => new RelayCommand(execute => ReservationSearch(), canExecute => AvailableReservationSearch());
+        public RelayCommand ReservationClickButton => new RelayCommand(execute => ReservationClick(), canExecute => AvailableReservationClick());
+
+
         public GuestReservationViewModel(GuestReservations GuestReservations, Accommodation selectedAccommodation, User user) 
         {
             this.GuestReservations = GuestReservations;
@@ -129,7 +133,95 @@ namespace BookingApp.ViewModel.Guest
                 return false;
             }
         }
-        public void ReservationSearchButton(object sender, RoutedEventArgs e)
+
+        public bool AvailableReservationSearch() 
+        {
+            if (!IsNumeric(GuestReservations.ReservationDaysTextBox.Text))
+            {
+                return false;
+            }
+            if (Convert.ToInt32(GuestReservations.ReservationDaysTextBox.Text) < GuestReservations.accommodation.MinReservationDays)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void ReservationSearch()
+        {
+            printDates.Clear();
+            GuestReservations.AvailableDates.ItemsSource = printDates;
+            DateTime startDate = GuestReservations.CheckInDatePicker.SelectedDate ?? DateTime.Now;
+            DateTime endDate = GuestReservations.CheckOutDatePicker.SelectedDate ?? DateTime.Now;
+
+            int numberOfDays = (endDate - startDate).Days;
+            startDate = startDate.AddHours(12);
+            endDate = endDate.AddHours(10);
+            int reservationDays = Convert.ToInt32(GuestReservations.ReservationDaysTextBox.Text);
+
+            List<DateTime> availableDates = new List<DateTime>();
+            availableDates = FindAvailableDates(startDate, endDate, numberOfDays, reservationDays);
+
+            GuestReservations.ReservationButton.IsEnabled = true;
+            GuestReservations.GuestNumberTextBox.IsEnabled = true;
+
+            if (availableDates.Count != 0)
+            {
+                GuestReservations.AvailableDates.IsEnabled = true;
+                GuestReservations.AvailableDates.ItemsSource = availableDates;
+                foreach (DateTime availableDate in availableDates)
+                {
+                    AvailableDate dates = new AvailableDate();
+                    dates.checkInDate = availableDate;
+                    dates.checkOutDate = availableDate.AddDays(reservationDays - 1).AddHours(22);
+                    printDates.Add(dates);
+                }
+                GuestReservations.AvailableDates.ItemsSource = printDates;
+            }
+            else
+            {
+                GuestReservations.AvailableDates.ItemsSource = "Nema datuma";
+            }
+        }
+
+
+        public bool AvailableReservationClick()
+        {
+            if (GuestReservations.AvailableDates.SelectedValue == null)
+            {
+                return false;
+            }
+            else if (GuestReservations.GuestNumberTextBox.Text.Equals("") || GuestReservations.GuestNumberTextBox.Text.Equals("Max guest number " + Accommodation.MaxGuestNumber))
+            {
+                return false;
+            }
+            else if (!int.TryParse(GuestReservations.GuestNumberTextBox.Text, out int guestNumber) || guestNumber <= 0)
+            {
+                return false;
+            }
+            else if (Convert.ToInt32(GuestReservations.GuestNumberTextBox.Text) > Accommodation.MaxGuestNumber)
+            {
+                return false;
+            }
+            else 
+            {
+                return true;
+            }
+            
+        }
+        public void ReservationClick() 
+        {
+            string? selectedDate = GuestReservations.AvailableDates.SelectedValue.ToString();
+            string[] dates = selectedDate.Split('-');
+            reservedAccommodation.checkInDate = Convert.ToDateTime(dates[0].Trim());
+            reservedAccommodation.checkOutDate = Convert.ToDateTime(dates[1].Trim());
+            reservedAccommodation.accommodationId = Accommodation.Id;
+            reservedAccommodation.guestId = user.Id;
+            ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
+            GuestReservations.Close();
+        }
+       /* public void ReservationSearchButton(object sender, RoutedEventArgs e)
         {
             if (!IsNumeric(GuestReservations.ReservationDaysTextBox.Text))
             {
@@ -178,7 +270,7 @@ namespace BookingApp.ViewModel.Guest
                     GuestReservations.AvailableDates.ItemsSource = "Nema datuma";
                 }
             }
-        }
+        }*/
 
         public void AvailableDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -187,7 +279,7 @@ namespace BookingApp.ViewModel.Guest
                 GuestReservations.selectedDates = GuestReservations.AvailableDates.SelectedItem.ToString();
             }
         }
-        public void ReservationClickButton(object sender, RoutedEventArgs e)
+       /* public void ReservationClickButton(object sender, RoutedEventArgs e)
         {
             if (GuestReservations.AvailableDates.SelectedValue == null)
             {
@@ -226,6 +318,6 @@ namespace BookingApp.ViewModel.Guest
                 ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
                 GuestReservations.Close();
             }
-        }
+        }*/
     }
 }
