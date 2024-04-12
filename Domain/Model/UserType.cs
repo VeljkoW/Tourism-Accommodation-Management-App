@@ -19,4 +19,8 @@ namespace BookingApp.Domain.Model
     {
         Valid, Expired
     }
+    public enum ReviewStatus
+    {
+        Valid, Invalid
+    }
 }

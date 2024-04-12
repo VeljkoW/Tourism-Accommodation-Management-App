@@ -37,10 +37,12 @@ namespace BookingApp.View.Owner
         public Renovation Renovation { get; set; }
         public Forum Forum {  get; set; }
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
+        public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
         public OwnerMainWindow(User user)
         {
             InitializeComponent();
-            this.DataContext = this;
+            OwnerMainWindowViewModel = new OwnerMainWindowViewModel(this, user);
+            this.DataContext = OwnerMainWindowViewModel;
             this.user = user;
 
             Accommodation = new Accommodation();

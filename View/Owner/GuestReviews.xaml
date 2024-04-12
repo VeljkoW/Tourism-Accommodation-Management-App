@@ -54,18 +54,19 @@
             <StackPanel Grid.Column="1" Grid.Row="0" >
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="32" Content="Reviews number:"/>
-                    <Label FontSize="32" Content="53"/>
+                    <Label FontSize="32" Content="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="32" Content="Average Grade:"/>
-                    <Label FontSize="32" Content="4.57"/>
+                    <Label FontSize="32" Content="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 100 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 60 0 0">
                     <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
-                    <Image Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
+                    <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
                 </StackPanel>
-                <Label FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 20"/>
-                <Label FontSize="18" 
+                <Label x:Name="SuperownerLabel" FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 60"/>
+                <Label FontSize="20" Content="How to become a Superowner?" HorizontalAlignment="Center"/>
+                <Label FontSize="16" 
                        Content="In order to become a superowner, &#10;you must have more than 50 reviews &#10;and average grade of at least 4.5" 
                        HorizontalAlignment="Center"/>
             </StackPanel>
