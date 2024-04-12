@@ -26,11 +26,13 @@
 		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
 		<None Remove="Resources\Images\Owner\bell.png" />
+		<None Remove="Resources\Images\Owner\check-box.png" />
 		<None Remove="Resources\Images\Owner\serbia-flag.png" />
 		<None Remove="Resources\Images\Owner\star.png" />
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
 		<None Remove="Resources\Images\Owner\user.png" />
 		<None Remove="Resources\Images\Owner\user128x128.png" />
+		<None Remove="Resources\Images\Owner\x-box.png" />
 		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
 		<None Remove="Resources\Images\Tour\BigBen.png" />
@@ -90,11 +92,13 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<Resource Include="Resources\Images\Guide\user.png" />
 		<Resource Include="Resources\Images\Owner\bell.png" />
+		<Resource Include="Resources\Images\Owner\check-box.png" />
 		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
 		<Resource Include="Resources\Images\Owner\star.png" />
 		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
 		<Resource Include="Resources\Images\Owner\user.png" />
 		<Resource Include="Resources\Images\Owner\user128x128.png" />
+		<Resource Include="Resources\Images\Owner\x-box.png" />
 		<Resource Include="Resources\Images\Tourist\bell.png" />
 		<Resource Include="Resources\Images\Tourist\coupon.png" />
 		<Resource Include="Resources\Images\Tourist\live.png" />
