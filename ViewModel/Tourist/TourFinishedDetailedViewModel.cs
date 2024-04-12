@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.View.Tourist;
 using System;
 using System.Collections.Generic;
@@ -51,10 +52,25 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void OpenReviewWindow(object sender, RoutedEventArgs e)
         {
-            TourFinishedDetailed.Close();
-            TourReviewWindow tourReviewWindow = new TourReviewWindow(Tour,User);
-            tourReviewWindow.Show();
-            //Needs to check if the review already exists, if it does disable the button/make it do nothing
+            bool rated = false;
+            foreach(TourReview tourReview in TourReviewService.GetInstance().GetAll())
+            {
+                TourSchedule tourschedule = TourScheduleService.GetInstance().GetById(tourReview.TourScheduleId);
+                if(tourschedule.TourId == Tour.Id && tourschedule.Date == Tour.DateTime) 
+                {
+                    rated = true;
+                }
+            }
+            if (!rated)
+            {
+                TourFinishedDetailed.Close();
+                TourReviewWindow tourReviewWindow = new TourReviewWindow(Tour, User);
+                tourReviewWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Tour already rated");
+            }
         }
         public void GoBack(object sender, RoutedEventArgs e)
         {
