@@ -32,6 +32,7 @@ namespace BookingApp.ViewModel.Guest
             Images = images;
             RelativeImagePaths = new ObservableCollection<string>();
         }
+
         public void RateIt()
         {
             Comment comment = new Comment();
@@ -46,6 +47,7 @@ namespace BookingApp.ViewModel.Guest
             ownerRating.CommentId = comment.Id;
             ownerRating.Cleanliness = Convert.ToInt32(GuestRate.CleanlinessComboBox.SelectionBoxItem);
             ownerRating.OwnerIntegrity = Convert.ToInt32(GuestRate.IntegrityComboBox.SelectionBoxItem);
+            ownerRating.AccommodationId = accommodation.Id;
             foreach(Image image in Images)
             {
                 ownerRating.Images.Add(image);

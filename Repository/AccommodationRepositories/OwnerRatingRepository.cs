@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.View.Owner;
+using BookingApp.View.Guest.Pages;
 
 namespace BookingApp.Repository.AccommodationRepositories
 {
@@ -31,10 +32,24 @@ namespace BookingApp.Repository.AccommodationRepositories
         }
         public void Add(OwnerRating ownerRating)
         {
+            ownerRating.Id = NextId();
             _ownerRatings.Add(ownerRating);
             _serializer.ToCSV(FilePath, _ownerRatings);
         }
-
+        public int NextId()
+        {
+            _ownerRatings = _serializer.FromCSV(FilePath);
+            if (_ownerRatings.Count < 1)
+            {
+                return 1;
+            }
+            return _ownerRatings.Max(c => c.Id) + 1;
+        }
+        public OwnerRating? GetById(int Id)
+        {
+            _ownerRatings = _serializer.FromCSV(FilePath);
+            return _ownerRatings.Find(c => c.Id == Id);
+        }
         public List<OwnerRating> GetAll()
         {
             return _serializer.FromCSV(FilePath);
