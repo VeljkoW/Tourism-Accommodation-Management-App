@@ -47,7 +47,7 @@
                         </WrapPanel>
                     </Border>
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
-                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" TextWrapping="WrapWithOverflow" Width="480" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" TextWrapping="Wrap" Width="480" HorizontalAlignment="Left" Grid.Row="1"/>
                     </ScrollViewer>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>

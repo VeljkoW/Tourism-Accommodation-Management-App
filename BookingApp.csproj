@@ -31,6 +31,9 @@
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
 		<None Remove="Resources\Images\Owner\user.png" />
 		<None Remove="Resources\Images\Owner\user128x128.png" />
+		<None Remove="Resources\Images\ratetour.png" />
+		<None Remove="Resources\Images\report.png" />
+		<None Remove="Resources\Images\star.png" />
 		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
 		<None Remove="Resources\Images\Tour\BigBen.png" />
@@ -111,5 +114,11 @@
 	  <Compile Update="View\Guide\Pages\UserControlTourist.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Resources\Images\ratetour.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 </Project>

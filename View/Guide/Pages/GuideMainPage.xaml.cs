@@ -64,5 +64,11 @@ namespace BookingApp.View.Guide.Pages
             TourStatistics tourStatistics = new TourStatistics(User);
             NavigationService.Navigate(tourStatistics);
         }
+
+        private void ClickTourReviews(object sender, RoutedEventArgs e)
+        {
+            FinishedToursPage tourReviewsPage = new FinishedToursPage(this,User);
+            NavigationService.Navigate(tourReviewsPage);
+        }
     }
 }
