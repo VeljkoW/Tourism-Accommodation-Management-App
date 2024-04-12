@@ -2,10 +2,12 @@
 using BookingApp.Services;
 using BookingApp.View.Guest.Windows;
 using BookingApp.View.Owner;
+using BookingApp.ViewModel;
 using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,12 +32,16 @@ namespace BookingApp.View.Guest.Pages
         public GuestReservationsViewModel GuestReservationsViewModel { get; set; }
 
         public ReservedAccommodation reservedAccommodation;
+
+        public ReservedAccommodation selectedAccommodation;
+
         public GuestReservations(User user)
         {
             InitializeComponent();
             this.user = user;
-            GuestReservationsViewModel = new GuestReservationsViewModel(user);
+            GuestReservationsViewModel = new GuestReservationsViewModel(this, user);
             DataContext = GuestReservationsViewModel;
+            selectedAccommodation = new ReservedAccommodation();
 
         }
 
@@ -72,6 +78,23 @@ namespace BookingApp.View.Guest.Pages
             else
             {
                 MessageBox.Show("The cancellation deadline has expired!");
+            }
+        }
+
+        private void RateItClick(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as ReservedAccommodation;
+            ReservedAccommodation? reserved = new ReservedAccommodation();
+            reserved = ReservedAccommodationService.GetInstance().GetById(selectedCard.Id);
+            if ((DateTime.Now - reserved.CheckOutDate).Days <= 5  && reserved.CheckOutDate < DateTime.Now)
+            {
+                GuestRate guestRate = new GuestRate(user, selectedCard);
+                guestRate.Show();
+                guestRate.Focus();
+            }
+            else
+            {
+                MessageBox.Show("You can not rate the owner!!");
             }
         }
     }

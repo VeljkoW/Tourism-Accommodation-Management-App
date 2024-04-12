@@ -41,5 +41,17 @@ namespace BookingApp.Services
         {
             return tourPersonRepository.Update(tourPerson);
         }
+        public int GetUnderageCount(List<TourPerson> tourPersons)
+        {
+            return tourPersons.Where(person => person.Age < 18).Count();
+        }
+        public int GetAdultCount(List<TourPerson> tourPersons)
+        {
+            return tourPersons.Where(person => person.Age > 18 && person.Age < 50).Count();
+        }
+        public int GetElderlyCount(List<TourPerson> tourPersons)
+        {
+            return tourPersons.Where(person => person.Age > 50).Count();
+        }
     }
 }

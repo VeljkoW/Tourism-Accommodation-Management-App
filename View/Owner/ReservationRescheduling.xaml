@@ -36,6 +36,13 @@
                     <DataGridTextColumn Width="*" Header="Check-in Date"/>
                     <DataGridTextColumn Width="*" Header="Check-out Date"/>
                     <DataGridTextColumn Width="50" Header="Free"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

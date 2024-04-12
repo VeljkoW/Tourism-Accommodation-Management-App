@@ -23,7 +23,7 @@ namespace BookingApp.ViewModel.Owner
         public User user { get; set; }
         public List<Location> Locations { get; set; }
         public string? SelectedLocation { get; set; }
-        List<Image> Images { get; set; }
+        public List<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
         public AccommodationManagementViewModel(AccommodationRegistration AccommodationRegistration, User user)
         {
