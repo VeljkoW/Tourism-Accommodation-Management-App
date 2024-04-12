@@ -18,6 +18,7 @@ namespace BookingApp.Domain.Model
         public int GuideSpeech {  get; set; }
         public int TourEnjoyment {  get; set; }
         public string Comment {  get; set; }
+        public ReviewStatus Status { get; set; }
         public List<Image> Images { get; set; } = new List<Image>();
 
         public TourReview()
@@ -29,8 +30,9 @@ namespace BookingApp.Domain.Model
             GuideSpeech = 0;
             TourEnjoyment = 0;
             Comment = String.Empty;
+            Status = ReviewStatus.Invalid;
         }
-        public TourReview(int userId,int tourScheduleId,int guideKnowledge,int guideSpeech,int tourEnjoyment,string comment)
+        public TourReview(int userId,int tourScheduleId,int guideKnowledge,int guideSpeech,int tourEnjoyment,string comment,ReviewStatus reviewStatus)
         {
             UserId = userId;
             GuideKnowledge = guideKnowledge;
@@ -38,6 +40,7 @@ namespace BookingApp.Domain.Model
             GuideSpeech = guideSpeech;
             TourEnjoyment= tourEnjoyment;
             Comment = comment;
+            Status = reviewStatus;
         }
         public string[] ToCSV()
         {
@@ -47,7 +50,8 @@ namespace BookingApp.Domain.Model
                             GuideKnowledge.ToString(),
                             GuideSpeech.ToString(),
                             TourEnjoyment.ToString(),
-                            Comment
+                            Comment,
+                            Status.ToString()
                            };
             return ret;
         }
@@ -60,6 +64,7 @@ namespace BookingApp.Domain.Model
             GuideSpeech= Convert.ToInt32(values[4]);
             TourEnjoyment = Convert.ToInt32(values[5]);
             Comment = values[6];
+            Status = (ReviewStatus)Enum.Parse(typeof(ReviewStatus), values[7]);
         }
     }
 }

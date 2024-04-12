@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.View.Tourist;
 using System;
 using System.Collections.Generic;
@@ -51,10 +52,62 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void OpenReviewWindow(object sender, RoutedEventArgs e)
         {
-            TourFinishedDetailed.Close();
-            TourReviewWindow tourReviewWindow = new TourReviewWindow(Tour,User);
-            tourReviewWindow.Show();
-            //Needs to check if the review already exists, if it does disable the button/make it do nothing
+            bool AttendenceConfirmed = true;
+            bool Attended = false;
+            foreach (TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
+            {
+                foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
+                {
+                    if (tourReservation.TourScheduleId == tourSchedule.Id && tourSchedule.TourId == Tour.Id && tourSchedule.Date == Tour.DateTime)
+
+                    {
+                        foreach (TourPerson tourPerson in tourReservation.People)
+                        {
+                            foreach (TourAttendenceNotification tourAttendenceNotification in TourAttendenceNotificationService.GetInstance().GetAll())
+                            {
+                                if (tourPerson.Id == tourAttendenceNotification.TourPersonId)
+                                {
+                                    if (tourAttendenceNotification.ConfirmedAttendence == false)
+                                    {
+                                        AttendenceConfirmed = false;
+                                    }
+                                    Attended = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (AttendenceConfirmed && Attended)
+            {
+                bool rated = false;
+                foreach (TourReview tourReview in TourReviewService.GetInstance().GetAll())
+                {
+                    TourSchedule tourschedule = TourScheduleService.GetInstance().GetById(tourReview.TourScheduleId);
+                    if (tourschedule.TourId == Tour.Id && tourschedule.Date == Tour.DateTime)
+                    {
+                        rated = true;
+                    }
+                }
+                if (!rated)
+                {
+                    TourFinishedDetailed.Close();
+                    TourReviewWindow tourReviewWindow = new TourReviewWindow(Tour, User);
+                    tourReviewWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Tour already rated");
+                }
+            }
+            else if(!AttendenceConfirmed && Attended)
+            {
+                MessageBox.Show("You need to confirm the attendence in the notifications menu");
+            }
+            else
+            {
+                MessageBox.Show("No one from the reservation attended this tour!");
+            }
         }
         public void GoBack(object sender, RoutedEventArgs e)
         {

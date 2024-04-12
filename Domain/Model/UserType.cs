@@ -12,11 +12,15 @@ namespace BookingApp.Domain.Model
     }
     public enum ScheduleStatus
     {
-        Ready, Ongoing, Finished
+        Ready, Ongoing, Finished, Canceled
     }
 
     public enum CouponStatus
     {
         Valid, Expired
+    }
+    public enum ReviewStatus
+    {
+        Valid, Invalid
     }
 }

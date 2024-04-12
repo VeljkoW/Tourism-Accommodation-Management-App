@@ -41,7 +41,7 @@ namespace BookingApp.ViewModel.Tourist
             {
                 foreach (TourSchedule tourSchedule in Schedules)
                 {
-                    if (tour.Id == tourSchedule.TourId)
+                    if (tour.Id == tourSchedule.TourId && tourSchedule.ScheduleStatus == ScheduleStatus.Ready)
                     {
                         if (tour.Id == SelectedTour.Id && tourSchedule.Date == SelectedTour.DateTime)
                         {

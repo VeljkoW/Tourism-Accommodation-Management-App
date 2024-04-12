@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository.AccommodationRepositories
 {
@@ -55,6 +56,14 @@ namespace BookingApp.Repository.AccommodationRepositories
         {
             newGuestReschedulingRequest.Id = NextId();
             _guestReschedulingRequest.Add(newGuestReschedulingRequest);
+            _serializer.ToCSV(FilePath, _guestReschedulingRequest);
+        }
+
+        public void DeleteById(int Id)
+        {
+            _guestReschedulingRequest = _serializer.FromCSV(FilePath);
+            GuestReschedulingRequest? request = _guestReschedulingRequest.Find(c => c.Id == Id);
+            _guestReschedulingRequest.Remove(request);
             _serializer.ToCSV(FilePath, _guestReschedulingRequest);
         }
     }

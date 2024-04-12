@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.Services
 {
@@ -49,7 +50,7 @@ namespace BookingApp.Services
 
             foreach (TourSchedule schedule in schedules)
             {
-                if (schedule.ScheduleStatus == ScheduleStatus.Finished || schedule.Date.Date != DateTime.Now.Date)
+                if (schedule.ScheduleStatus == ScheduleStatus.Finished || schedule.ScheduleStatus == ScheduleStatus.Canceled || schedule.Date.Date < DateTime.Now.Date)
                 {
                     continue;
                 }
@@ -78,6 +79,51 @@ namespace BookingApp.Services
                 t.Add(schedule, tour);
             }
             return t;
+        }
+        public void HandoutCoupons(int scheduleId)
+        {
+            TourReservation? tr =TourReservationService.GetInstance().GetByScheduleId(scheduleId);
+            if(tr != null)
+            {
+                TourCoupon tourCoupon = new TourCoupon(tr.UserId, "FIX THIS PLS IN TOURCUPON ADD", "Coupon awarded because the guide has canelled the tour", DateTime.Now, 12, CouponStatus.Valid);
+                TourCouponService.GetInstance().Add(tourCoupon);
+                TourSchedule? t = TourScheduleService.GetInstance().GetById(scheduleId);
+                if(t != null)
+                {
+                t.ScheduleStatus = ScheduleStatus.Canceled;
+                TourScheduleService.GetInstance().Update(t);
+                }
+            }
+        }
+        //TODO: get data for statistics
+        public Dictionary<Tour,TourStatistics> GetTourStatistics(int year=0)
+        {
+            Dictionary < Tour,TourStatistics > ret=new Dictionary<Tour,TourStatistics >();
+
+            foreach (Tour tour in GetAll())
+            {
+                int underage = 0;
+                int adult = 0;
+                int elderly = 0;
+                List<TourSchedule> tourSchedules = TourScheduleService.GetInstance().GetScheduleByTourId(tour.Id).Where(t=> t.ScheduleStatus == ScheduleStatus.Finished).ToList();
+                if(year >0)
+                {
+                    tourSchedules = tourSchedules.Where(t=>t.Date.Year == year).ToList();
+                }
+                List<TourReservation> tourReservations =TourScheduleService.GetInstance().GetReservationsFromSchedules(tourSchedules);
+                foreach(TourReservation tourReservation in tourReservations)
+                {
+                    underage += TourPersonService.GetInstance().GetUnderageCount(tourReservation.People);
+                    adult += TourPersonService.GetInstance().GetAdultCount(tourReservation.People);
+                    elderly += TourPersonService.GetInstance().GetElderlyCount(tourReservation.People);
+                }
+                TourStatistics tourStatistics = new TourStatistics(underage, adult, elderly);
+                if (underage + adult + elderly > 0)
+                {
+                    ret.Add(tour, tourStatistics);
+                }
+            }
+            return ret;
         }
     }
 }

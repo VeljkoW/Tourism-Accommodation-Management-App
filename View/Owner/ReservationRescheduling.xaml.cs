@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.ViewModel.Owner;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.View.Owner
 {
@@ -20,9 +22,14 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class ReservationRescheduling : Page
     {
-        public ReservationRescheduling()
+        public User User { get; set; }
+        public ReservationReschedulingViewModel ReservationReschedulingViewModel { get; set; }
+        public ReservationRescheduling(User User)
         {
             InitializeComponent();
+            this.User = User;
+            ReservationReschedulingViewModel = new ReservationReschedulingViewModel(this, User);
+            DataContext = ReservationReschedulingViewModel;
         }
     }
 }

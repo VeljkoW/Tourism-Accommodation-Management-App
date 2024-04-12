@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.ViewModel.Owner;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,24 +33,26 @@ namespace BookingApp.View.Owner
         public AccommodationStatistics AccommodationStatistics {  get; set; }
         public ReservationRescheduling ReservationRescheduling { get; set; }
         public GuestRatingPage GuestRatingPage { get; set; }
-        public GuestReviews GuestReviews { get; set; }
+        //public GuestReviews GuestReviews { get; set; }
         public Renovation Renovation { get; set; }
         public Forum Forum {  get; set; }
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
+        public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
         public OwnerMainWindow(User user)
         {
             InitializeComponent();
-            this.DataContext = this;
+            OwnerMainWindowViewModel = new OwnerMainWindowViewModel(this, user);
+            this.DataContext = OwnerMainWindowViewModel;
             this.user = user;
 
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
             AccommodationStatistics = new AccommodationStatistics();
-            ReservationRescheduling = new ReservationRescheduling();
+            ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             GuestRatingPage = new GuestRatingPage(this, user);
             ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();
-            GuestReviews = new GuestReviews();
+            //GuestReviews = new GuestReviews(user);
             Renovation = new Renovation();
             Forum = new Forum();
             mainFrame.Navigate(AccommodationRegistration);
@@ -83,10 +86,15 @@ namespace BookingApp.View.Owner
         }
 
         private void GuestReviewsClick(object sender, RoutedEventArgs e)
-        { mainFrame.Navigate(GuestReviews); }
+        {
+            GuestReviews GuestReviews = new GuestReviews(user);
+            mainFrame.Navigate(GuestReviews);
+        }
 
         private void AccommodationStatisticsClick(object sender, RoutedEventArgs e)
-        { mainFrame.Navigate(AccommodationStatistics); }
+        { 
+            mainFrame.Navigate(AccommodationStatistics); 
+        }
 
         private void ReservationReschedulingClick(object sender, RoutedEventArgs e)
         { mainFrame.Navigate(ReservationRescheduling); }

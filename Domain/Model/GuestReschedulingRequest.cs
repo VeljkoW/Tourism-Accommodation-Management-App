@@ -12,11 +12,10 @@ namespace BookingApp.Domain.Model
     public class GuestReschedulingRequest : ISerializable, INotifyPropertyChanged
     {
         public int id {  get; set; }
+        public int reservedAccommodationId { get; set; }
         public int accommodationId { get; set; }
         public int guestId { get; set; }
-
         public DateTime checkInDate { get; set; }
-
         public DateTime checkOutDate { get; set; }
 
         public GuestReschedulingRequest() { }
@@ -41,6 +40,21 @@ namespace BookingApp.Domain.Model
                 {
                     id = value;
                     OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+        public int ReservedAccommodationId
+        {
+            get
+            {
+                return reservedAccommodationId;
+            }
+            set
+            {
+                if (value != reservedAccommodationId)
+                {
+                    reservedAccommodationId = value;
+                    OnPropertyChanged(nameof(reservedAccommodationId));
                 }
             }
         }
@@ -109,10 +123,11 @@ namespace BookingApp.Domain.Model
         {
             string[] csvValues = {
                 Id.ToString(),
-                accommodationId.ToString(),
-                guestId.ToString(),
-                checkInDate.ToString(),
-                checkOutDate.ToString()
+                ReservedAccommodationId.ToString(),
+                AccommodationId.ToString(),
+                GuestId.ToString(),
+                CheckInDate.ToString(),
+                CheckOutDate.ToString()
             };
             return csvValues;
         }
@@ -120,11 +135,30 @@ namespace BookingApp.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            accommodationId = Convert.ToInt32(values[1]);
-            guestId = Convert.ToInt32(values[2]);
-            checkInDate = Convert.ToDateTime(values[3]);
-            checkOutDate = Convert.ToDateTime(values[4]);
+            ReservedAccommodationId = Convert.ToInt32(values[1]);
+            AccommodationId = Convert.ToInt32(values[2]);
+            GuestId = Convert.ToInt32(values[3]);
+            CheckInDate = Convert.ToDateTime(values[4]);
+            CheckOutDate = Convert.ToDateTime(values[5]);
         }
 
+
+        //owner - accepting or declining the request
+        public string imagePath { get; set; }
+        public string ImagePath
+        {
+            get
+            {
+                return imagePath;
+            }
+            set
+            {
+                if (value != imagePath)
+                {
+                    imagePath = value;
+                    OnPropertyChanged(nameof(imagePath));
+                }
+            }
+        }
     }
 }

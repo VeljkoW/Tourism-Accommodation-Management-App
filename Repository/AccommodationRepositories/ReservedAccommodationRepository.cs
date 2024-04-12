@@ -71,5 +71,14 @@ namespace BookingApp.Repository.AccommodationRepositories
             _reservedAccommodations.RemoveAll(c => c.Id == reservedAccommodation.Id);
             _serializer.ToCSV(FilePath, _reservedAccommodations);
         }
+
+        public void UpdateDatesByReschedulingRequest(GuestReschedulingRequest GuestReschedulingRequest)
+        {
+            _reservedAccommodations = _serializer.FromCSV(FilePath);
+            ReservedAccommodation? reservedAccommodation = _reservedAccommodations.Find(c => c.Id == GuestReschedulingRequest.ReservedAccommodationId);
+            reservedAccommodation.CheckInDate = GuestReschedulingRequest.CheckInDate;
+            reservedAccommodation.CheckOutDate = GuestReschedulingRequest.CheckOutDate;
+            _serializer.ToCSV(FilePath, _reservedAccommodations);
+        }
     }
 }
