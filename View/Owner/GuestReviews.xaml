@@ -4,9 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="GuestReviews">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,11 +27,11 @@
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="RatingGuestsTable"
+            <DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
                         AutoGenerateColumns="False"
                         SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Guest Username"/>
+                    <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
                     <DataGridTextColumn Width="*" Header="Accommodation Name"/>
                     <DataGridTextColumn Width="*" Header="Location"/>
                     <DataGridTextColumn Width="*" Header="Cleanliness"/>

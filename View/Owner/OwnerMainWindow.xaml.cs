@@ -49,7 +49,7 @@ namespace BookingApp.View.Owner
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             GuestRatingPage = new GuestRatingPage(this, user);
             ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();
-            GuestReviews = new GuestReviews();
+            GuestReviews = new GuestReviews(user);
             Renovation = new Renovation();
             Forum = new Forum();
             mainFrame.Navigate(AccommodationRegistration);
