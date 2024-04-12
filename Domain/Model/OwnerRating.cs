@@ -11,11 +11,14 @@ namespace BookingApp.Domain.Model
 {
     public class OwnerRating : INotifyPropertyChanged, ISerializable
     {
+        public int id { get; set; }
         public int ownerId { get; set; }
         public int guestId { get; set; }
         public int cleanliness { get; set; }
         public int ownerIntegrity { get; set; }
         public int commentId { get; set; }
+
+        public int accommodationId { get; set; }
 
         public List<Image> images { get; set; }
 
@@ -32,7 +35,21 @@ namespace BookingApp.Domain.Model
         {
             images = new List<Image>();
         }
-
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if (value != id)
+                {
+                   id = value;
+                    OnPropertyChanged(nameof(id));
+                }
+            }
+        }
         public int OwnerId
         {
             get
@@ -45,6 +62,22 @@ namespace BookingApp.Domain.Model
                 {
                     ownerId = value;
                     OnPropertyChanged(nameof(ownerId));
+                }
+            }
+        }
+
+        public int AccommodationId
+        {
+            get
+            {
+                return accommodationId;
+            }
+            set
+            {
+                if (value != accommodationId)
+                {
+                    accommodationId = value;
+                    OnPropertyChanged(nameof(accommodationId));
                 }
             }
         }
@@ -143,8 +176,10 @@ namespace BookingApp.Domain.Model
         public string[] ToCSV()
         {
             string[] csvValues = {
+                Id.ToString(),
                 GuestId.ToString(),
                 OwnerId.ToString(),
+                AccommodationId.ToString(),
                 Cleanliness.ToString(),
                 OwnerIntegrity.ToString(),
                 CommentId.ToString(),
@@ -154,14 +189,16 @@ namespace BookingApp.Domain.Model
         }
         public void FromCSV(string[] values)
         {
-            GuestId = Convert.ToInt32(values[0]);
-            OwnerId = Convert.ToInt32(values[1]);
-            Cleanliness = Convert.ToInt32(values[2]);
-            OwnerIntegrity = Convert.ToInt32(values[3]);
-            CommentId = Convert.ToInt32(values[4]);
-            if (values[5].Length > 0)
+            Id = Convert.ToInt32(values[0]);
+            GuestId = Convert.ToInt32(values[1]);
+            OwnerId = Convert.ToInt32(values[2]);
+            AccommodationId = Convert.ToInt32(values[3]);
+            Cleanliness = Convert.ToInt32(values[4]);
+            OwnerIntegrity = Convert.ToInt32(values[5]);
+            CommentId = Convert.ToInt32(values[6]);
+            if (values[7].Length > 0)
             {
-                string[] ImageIds = values[5].Split(',');
+                string[] ImageIds = values[7].Split(',');
                 for (int i = 0; i < ImageIds.Length; i++)
                 {
                     Image image = new Image();

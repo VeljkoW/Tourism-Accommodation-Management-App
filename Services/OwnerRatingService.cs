@@ -29,5 +29,10 @@ namespace BookingApp.Services
             return ownerRatingRepository.GetAll();
         }
 
+        public OwnerRating? GetById(int Id)
+        {
+            return ownerRatingRepository.GetById(Id);
+        }
+
     }
 }
