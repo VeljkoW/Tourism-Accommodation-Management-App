@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookingApp.Domain.Model;
+using BookingApp.ViewModel.Guest;
+using BookingApp.ViewModel.Owner;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,15 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class GuestReviews : Page
     {
-        public GuestReviews()
+        public User User {  get; set; }
+        public GuestReviewsViewModel GuestReviewsViewModel {  get; set; }
+        public OwnerRating SelectedOwnerRating {  get; set; }
+        public GuestReviews(User User)
         {
             InitializeComponent();
+            this.User = User;
+            GuestReviewsViewModel = new GuestReviewsViewModel(User, SelectedOwnerRating);
+            DataContext = GuestReviewsViewModel;
         }
     }
 }

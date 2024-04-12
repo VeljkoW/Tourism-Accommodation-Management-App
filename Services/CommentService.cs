@@ -43,5 +43,9 @@ namespace BookingApp.Services
         {
             return commentRepository.GetByUser(user);
         }
+        public Comment? GetById(int id)
+        {
+            return commentRepository.GetById(id);
+        }
     }
 }

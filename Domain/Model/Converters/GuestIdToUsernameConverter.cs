@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,10 +16,9 @@ namespace BookingApp.Domain.Model.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int userId = (int)value;
-            UserRepository userRepository = new UserRepository();
-            User user = new User();
-            user = userRepository.GetById(userId);
-            return user.Username; // Vratite odgovarajuću vrednost korisničkog imena
+            User? user = new User();
+            user = UserService.GetInstance().GetById(userId);
+            return user.Username;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
