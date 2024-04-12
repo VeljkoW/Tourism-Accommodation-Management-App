@@ -23,12 +23,10 @@ namespace BookingApp.View.Guest.Windows
     /// </summary>
     public partial class GuestRate : Window
     {
-        public ObservableCollection<Image> Images { get; set; }
         public GuestRate(User user, ReservedAccommodation reservedAccommodation)
         {
             InitializeComponent();
-            Images = new ObservableCollection<Image>();
-            GuestRateViewModel guestRateViewModel = new GuestRateViewModel(this, user, reservedAccommodation, Images);
+            GuestRateViewModel guestRateViewModel = new GuestRateViewModel(this, user, reservedAccommodation);
             DataContext = guestRateViewModel;
         }
     }
