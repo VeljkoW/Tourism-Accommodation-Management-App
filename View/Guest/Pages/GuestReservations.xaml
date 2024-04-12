@@ -19,8 +19,10 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
+            <Button Grid.Row="0" Content="Reschedule" Width="150" Height="50" FontSize="20" Click="RescheduleClick" Grid.RowSpan="2" VerticalAlignment="Top"></Button>
             <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" VerticalScrollBarVisibility="Auto">
                 <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">
                     <ItemsControl.ItemTemplate>

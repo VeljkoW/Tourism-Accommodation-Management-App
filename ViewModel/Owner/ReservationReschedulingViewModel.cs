@@ -94,6 +94,8 @@ namespace BookingApp.ViewModel.Owner
             processedReschedulingRequest.AccommodationId = SelectedGuestReschedulingRequest.AccommodationId;
             processedReschedulingRequest.GuestId = SelectedGuestReschedulingRequest.GuestId;
             processedReschedulingRequest.IsAccepted = accepted;
+            processedReschedulingRequest.checkInDate = SelectedGuestReschedulingRequest.CheckInDate;
+            processedReschedulingRequest.checkOutDate = SelectedGuestReschedulingRequest.CheckOutDate;
             ProcessedReschedulingRequestService.GetInstance().Add(processedReschedulingRequest);
             GuestReschedulingRequestService.GetInstance().DeleteById(SelectedGuestReschedulingRequest.Id);
             if (accepted)
