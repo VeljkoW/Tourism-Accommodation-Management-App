@@ -39,6 +39,7 @@ namespace BookingApp.Repository.TourRepositories
         public TourCoupon Add(TourCoupon newTourCoupon)
         {
             newTourCoupon.Id = NextId();
+            newTourCoupon.Name = "Tour Coupon #" + newTourCoupon.Id.ToString();
             _tourCoupons.Add(newTourCoupon);
             _serializer.ToCSV(FilePath, _tourCoupons);
             return newTourCoupon;
