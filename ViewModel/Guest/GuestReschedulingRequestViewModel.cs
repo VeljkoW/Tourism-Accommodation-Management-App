@@ -41,8 +41,9 @@ namespace BookingApp.ViewModel.Guest
             GuestReschedulingRequest request = new GuestReschedulingRequest();
             request.accommodationId = reservedAccommodation.accommodationId;
             request.guestId = User.Id;
-            request.CheckInDate = checkIn;
-            request.CheckOutDate = checkOut;
+            request.CheckInDate = checkIn.AddHours(12);
+            request.CheckOutDate = checkOut.AddHours(10);
+            request.ReservedAccommodationId = reservedAccommodation.Id;
 
             GuestReschedulingRequestService.GetInstance().Add(request);
             reschedulingReservation.Close();

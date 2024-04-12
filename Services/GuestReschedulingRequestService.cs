@@ -32,5 +32,9 @@ namespace BookingApp.Services
         {
             return guestReschedulingRequestRepository.GetById(Id);
         }
+        public void DeleteById(int Id)
+        {
+            guestReschedulingRequestRepository.DeleteById(Id);
+        }
     }
 }
