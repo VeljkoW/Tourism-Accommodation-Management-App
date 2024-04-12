@@ -32,6 +32,7 @@ namespace BookingApp.ViewModel.Tourist
             this.Tour = tour;
             this.User = user;
             Images.Clear();
+            RelativeImagePaths.Clear();
             TourReviewWindow.NameTextBlock.Text = Tour.Name;
             GuideKnowledge = -1;
             GuideSpeech = -1;
@@ -48,7 +49,7 @@ namespace BookingApp.ViewModel.Tourist
                 // Get path to .exe file
                 string binPath = AppDomain.CurrentDomain.BaseDirectory;
                 // Position to the right folder
-                string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\Tour";
+                string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\TourReview";
 
                 // Make sure that the target folder exists
                 if (!Directory.Exists(targetFolderPath))
@@ -61,7 +62,7 @@ namespace BookingApp.ViewModel.Tourist
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
                     Images.Clear();
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
-                    string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
+                    string relativePath = System.IO.Path.Combine("../../../Resources/Images/TourReview/", fileName);
                     RelativeImagePaths.Add(relativePath);
                 }
             }
@@ -563,6 +564,12 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void Cancel(object sender, RoutedEventArgs e)
         {
+            foreach (string s in RelativeImagePaths)
+            {
+                File.Delete(s);
+            }
+            RelativeImagePaths.Clear();
+            Images.Clear();
             TourReviewWindow.Close();
             TourFinishedDetailed tourFinishedDetailed = new TourFinishedDetailed(Tour, User);
             tourFinishedDetailed.ShowDialog();
@@ -580,15 +587,27 @@ namespace BookingApp.ViewModel.Tourist
                     }
                 }
                 string comment = TourReviewWindow.DescriptionTextBox.Text;
-
-                TourReview tourReview = new TourReview(User.Id, tourscheduleId,GuideKnowledge,GuideSpeech,TourEnjoyment,comment,ReviewStatus.Valid);
+                TourReview tourReview = new TourReview(User.Id, tourscheduleId, GuideKnowledge, GuideSpeech, TourEnjoyment, comment, ReviewStatus.Valid);
                 TourReviewService.GetInstance().Add(tourReview);
-                //I NEED TO INJECT IMAGES!!!!!!!!!!!!!!!!!!!!!!!!
+
+                if (RelativeImagePaths != null && RelativeImagePaths.Count > 0)
+                {
+                    SaveImageIntoCSV(RelativeImagePaths);
+                    foreach (Image image in Images)
+                    {
+                        foreach (TourReview tourReview1 in TourReviewService.GetInstance().GetAll())
+                        {
+                            if (tourReview1.UserId == tourReview.UserId && tourReview1.TourScheduleId == tourReview.TourScheduleId)
+                            {
+                                TourReviewImage tourReviewImage = new TourReviewImage(tourReview1.Id, image.Id);
+                                TourReviewImageService.GetInstance().Add(tourReviewImage);
+                            }
+                        }
+                    }
+                }
                 TourReviewWindow.Close();
 
             }
-
-
         }
 
     }

@@ -93,7 +93,7 @@ namespace BookingApp.ViewModel.Tourist
                 {
                     TourFinishedDetailed.Close();
                     TourReviewWindow tourReviewWindow = new TourReviewWindow(Tour, User);
-                    tourReviewWindow.Show();
+                    tourReviewWindow.ShowDialog();
                 }
                 else
                 {
