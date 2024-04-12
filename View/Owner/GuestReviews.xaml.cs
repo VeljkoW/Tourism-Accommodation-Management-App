@@ -25,12 +25,12 @@ namespace BookingApp.View.Owner
     {
         public User User {  get; set; }
         public GuestReviewsViewModel GuestReviewsViewModel {  get; set; }
-        public OwnerRating SelectedOwnerRating {  get; set; }
+        public OwnerRating? SelectedOwnerRating {  get; set; }
         public GuestReviews(User User)
         {
             InitializeComponent();
             this.User = User;
-            GuestReviewsViewModel = new GuestReviewsViewModel(User, SelectedOwnerRating);
+            GuestReviewsViewModel = new GuestReviewsViewModel(this, User, SelectedOwnerRating);
             DataContext = GuestReviewsViewModel;
         }
     }
