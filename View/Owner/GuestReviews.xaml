@@ -11,6 +11,8 @@
     <Page.Resources>
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:CommentIdToComment x:Key="CommentIdToComment"/>
     </Page.Resources>
 
     <Grid>
@@ -28,15 +30,26 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
-                        AutoGenerateColumns="False"
-                        SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
+                      SelectedItem="{Binding SelectedOwnerRating, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="Accommodation Name"/>
-                    <DataGridTextColumn Width="*" Header="Location"/>
-                    <DataGridTextColumn Width="*" Header="Cleanliness"/>
-                    <DataGridTextColumn Width="*" Header="Owner's integrity"/>
+                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                    <DataGridTextColumn Width="*" Header="Cleanliness" Binding="{Binding cleanliness}"/>
+                    <DataGridTextColumn Width="*" Header="Integrity" Binding="{Binding ownerIntegrity}"/>
+                    <DataGridTextColumn Width="*" Header="Comment" Binding="{Binding commentId,Converter={StaticResource CommentIdToComment}}"/>
                 </DataGrid.Columns>
+                <DataGrid.ToolTip>
+                    <ToolTip>
+                        <!-- Prilagodite sadržaj ToolTip-a prema vašim potrebama -->
+                        <StackPanel>
+                            <TextBlock Text="{Binding SelectedOwnerRating.commentId, Converter={StaticResource CommentIdToComment}}" FontWeight="Bold"/>
+                            <!-- Dodajte ostale informacije koje želite prikazati -->
+                        </StackPanel>
+                    </ToolTip>
+                </DataGrid.ToolTip>
             </DataGrid>
             <StackPanel Grid.Column="1" Grid.Row="0" >
                 <StackPanel Orientation="Horizontal">
