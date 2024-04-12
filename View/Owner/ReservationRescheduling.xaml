@@ -4,9 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="ReservationRescheduling">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,21 +32,21 @@
             <Label Content="Select the reservation request you want to accept/decline:"
                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
             <DataGrid x:Name="RatingGuestsTable" Grid.Row="0" Margin="0 60 0 0"
-                      ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding GuestReschedulingRequests, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedGuestReschedulingRequest, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Guest Username" />
-                    <DataGridTextColumn Width="*" Header="Accommodation Name"/>
-                    <DataGridTextColumn Width="*" Header="Location"/>
-                    <DataGridTextColumn Width="*" Header="Check-in Date"/>
-                    <DataGridTextColumn Width="*" Header="Check-out Date"/>
-                    <DataGridTextColumn Width="50" Header="Free"/>
-                    <DataGridTemplateColumn>
+                    <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding checkInDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding checkOutDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTemplateColumn Width="50" Header="Free">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button></Button>
+                                <Image x:Name="isFreeImage" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"
+                                       Width="12"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -64,35 +71,36 @@
                             <RowDefinition Height="*" MinHeight="50"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <Label Content="Selected Guest:" FontSize="20"/>
-                            <Label Content="Username1" FontSize="20"/>
+                            <Label Content="Selected Guest" FontSize="20"/>
+                            <Label Content="{Binding SelectedGuestReschedulingRequest.guestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"  Grid.Row="1">
                             <Label Content="Accommodation Name: " FontSize="20"/>
-                            <Label Content="Name1" FontSize="20"/>
+                            <Label Content="{Binding SelectedGuestReschedulingRequest.accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="2">
                             <Label Content="Location: " FontSize="20"/>
-                            <Label Content="State - City" FontSize="20"/>
+                            <Label Content="{Binding SelectedGuestReschedulingRequest.accommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                         </StackPanel>
                         <Label Content="Comment:" FontSize="20"  Grid.Row="3"/>
 
-                        <TextBox Grid.Row="4" Height="80" VerticalAlignment="Top" FontSize="20"></TextBox>
+                        <TextBox x:Name="CommentTextBox" Grid.Row="4" Height="80" VerticalAlignment="Top" FontSize="20" TextWrapping="Wrap" AcceptsReturn="True"/>
+
                         <Grid Grid.Row="5" Margin="0 5 0 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MinWidth="220"/>
                                 <ColumnDefinition Width="*" MinWidth="220"/>
                             </Grid.ColumnDefinitions>
                             <Button Content="Decline" Grid.Column="0" Height="60" Width="200" FontSize="24"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Button Content="Accept" Grid.Column="1" Height="60" Width="200" FontSize="24"
+                                    HorizontalAlignment="Center" Command="{Binding DeclineClick}" VerticalAlignment="Center"/>
+                            <Button Content="Accept" Command="{Binding AcceptClick}" Grid.Column="1" Height="60" Width="200" FontSize="24"
                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
                     </Grid>
                 </Border>
 
 
-                <Label Content="Check Reservations:" Grid.Column="1"
+                <Label Content="Check Reservations:" Grid.Column="1" 
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
             </Grid>
         </Grid>

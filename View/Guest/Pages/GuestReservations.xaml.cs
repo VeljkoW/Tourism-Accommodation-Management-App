@@ -97,5 +97,12 @@ namespace BookingApp.View.Guest.Pages
                 MessageBox.Show("You can not rate the owner!!");
             }
         }
+
+        private void RescheduleClick(object sender, RoutedEventArgs e)
+        {
+            RescheduleStatus rescheduleStatus = new RescheduleStatus(user);
+            rescheduleStatus.Show();
+            rescheduleStatus.Focus();
+        }
     }
 }

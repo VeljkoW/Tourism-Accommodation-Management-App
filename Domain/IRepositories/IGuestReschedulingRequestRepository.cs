@@ -16,5 +16,6 @@ namespace BookingApp.Domain.IRepositories
         int NextId();
 
         void Add(GuestReschedulingRequest newGuestReschedulingRequest);
+        void DeleteById(int Id);
     }
 }

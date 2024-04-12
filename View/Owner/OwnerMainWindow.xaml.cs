@@ -48,7 +48,7 @@ namespace BookingApp.View.Owner
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
             AccommodationStatistics = new AccommodationStatistics();
-            ReservationRescheduling = new ReservationRescheduling();
+            ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             GuestRatingPage = new GuestRatingPage(this, user);
             ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();

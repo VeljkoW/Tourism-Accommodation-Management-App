@@ -125,6 +125,7 @@ namespace BookingApp.View.Tourist
             ReservationsTabHeader.Visibility = Visibility.Collapsed;
             SuggestionsTabHeader.Visibility = Visibility.Collapsed;
             CouponsTabHeader.Visibility = Visibility.Visible;
+            TouristMainWindowViewModel.UpdateCoupons();
             Tab.SelectedIndex = 5;
         }
 
