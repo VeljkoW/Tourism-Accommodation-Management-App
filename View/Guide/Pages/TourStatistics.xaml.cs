@@ -29,7 +29,7 @@ namespace BookingApp.View.Guide.Pages
         {
             InitializeComponent();
             User = user;
-            TourStatisticsViewModel tourStatisticsViewModel = new TourStatisticsViewModel(User);
+            TourStatisticsViewModel tourStatisticsViewModel = new TourStatisticsViewModel(this,User);
             DataContext = tourStatisticsViewModel;
         }
     }
