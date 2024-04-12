@@ -21,15 +21,18 @@ namespace BookingApp.ViewModel.Guest
         public ObservableCollection<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
 
+        public ObservableCollection<string> strings { get; set; }
+
         public GuestRate GuestRate { get; set; }
         public User User { get; set; }  
         public ReservedAccommodation ReservedAccommodation { get; set; }
-        public GuestRateViewModel(GuestRate guestRate, User user, ReservedAccommodation selectedAccommodation, ObservableCollection<Image> images)
+        public GuestRateViewModel(GuestRate guestRate, User user, ReservedAccommodation selectedAccommodation)
         { 
             GuestRate = guestRate;
             User = user;
             ReservedAccommodation = selectedAccommodation;
-            Images = images;
+            strings = new ObservableCollection<string>();
+            Images = new ObservableCollection<Image>();
             RelativeImagePaths = new ObservableCollection<string>();
         }
 
@@ -77,6 +80,7 @@ namespace BookingApp.ViewModel.Guest
         }
         public void AddImageExecute()
         {
+            RelativeImagePaths.Clear();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp;*.gif)|*.png;*.jpeg;*.jpg;*.bmp;*.gif";
             dlg.Multiselect = true;
@@ -94,6 +98,7 @@ namespace BookingApp.ViewModel.Guest
                 }
                 foreach (string filePath in dlg.FileNames)
                 {
+                    strings.Add(filePath);
                     string fileName = System.IO.Path.GetFileName(filePath);
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
