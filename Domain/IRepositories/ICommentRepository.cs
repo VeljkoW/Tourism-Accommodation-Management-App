@@ -15,5 +15,6 @@ namespace BookingApp.Domain.IRepositories
         void Delete(Comment comment);
         Comment Update(Comment comment);
         List<Comment> GetByUser(User user);
+        Comment? GetById(int id);
     }
 }

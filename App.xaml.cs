@@ -61,6 +61,8 @@ namespace BookingApp
             _services.AddSingleton<TourReviewImageService>();
             _services.AddSingleton<OwnerRatingRepository>();
             _services.AddSingleton<OwnerRatingService>();
+            _services.AddSingleton<ProcessedReschedulingRequestRepository>();
+            _services.AddSingleton<ProcessedReschedulingRequestService>();
 
 
             _serviceProvider = _services.BuildServiceProvider();

@@ -209,7 +209,19 @@ namespace BookingApp.ViewModel.Tourist
                                 }
                             }
                         }
-
+                        else if(tourSchedule.ScheduleStatus == ScheduleStatus.Finished)
+                        {
+                            foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
+                            {
+                                if (tourReservation.TourScheduleId == tourSchedule.Id && tourReservation.UserId == User.Id)
+                                {
+                                        if (!FinishedTours.Contains(tour1)) //safe measure because it can get repeated if there are multiple reservations of the tour
+                                        {
+                                            FinishedTours.Add(tour1);
+                                        }
+                                }
+                            }
+                        }
                         //Inserting reserved Tours
                         List<int> tourScheduleIds = new List<int>();
 
@@ -230,6 +242,13 @@ namespace BookingApp.ViewModel.Tourist
 
             Tours = ToursAll;
 
+            AddStatesToComboBox(locations);
+
+            Coupons = new List<TourCoupon>();
+            UpdateCoupons();
+        }
+        public void AddStatesToComboBox(List<Location> locations)
+        {
             List<String> States = new List<string>();
             foreach (Location location in locations)
             {
@@ -254,11 +273,11 @@ namespace BookingApp.ViewModel.Tourist
                 TouristMainWindow.StateComboBox.Items.Add(s);
             }
             TouristMainWindow.CityComboBox.IsEnabled = false;
-
+        }
+        public void UpdateCoupons()
+        {
             List<TourCoupon> allTourCoupons = TourCouponService.GetInstance().GetAll();
-            Coupons = new List<TourCoupon>();
-
-
+            Coupons.Clear();
             foreach (TourCoupon t in allTourCoupons)
             {
                 DateTime expiryDate = t.AcquiredDate.AddMonths(t.ExpirationMonths);
@@ -273,111 +292,7 @@ namespace BookingApp.ViewModel.Tourist
                 {
                     Coupons.Add(t);                                                             // This needs to update when I switch to the coupons tab
                 }
-
             }
-
-            foreach(Tour tour in TourService.GetInstance().GetAll()) 
-            { 
-                foreach(TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll()) 
-                { 
-                    if(tour.Id == tourSchedule.TourId && tourSchedule.ScheduleStatus == ScheduleStatus.Finished) 
-                    { 
-                        foreach(TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
-                        {
-                            if(tourReservation.TourScheduleId == tourSchedule.Id && tourReservation.UserId == User.Id)
-                            {
-                                bool AttendenceConfirmed = true;
-
-                                foreach (TourPerson tourPerson in tourReservation.People)
-                                {
-                                    foreach (TourAttendenceNotification tourAttendenceNotification in TourAttendenceNotificationService.GetInstance().GetAll())
-                                    {
-                                        if (tourPerson.Id == tourAttendenceNotification.TourPersonId)
-                                        {
-                                            if(tourAttendenceNotification.ConfirmedAttendence == false)
-                                            {
-                                                AttendenceConfirmed = false;
-                                            }
-                                        }
-                                    }
-                                }
-                                if(AttendenceConfirmed)
-                                {
-                                    Tour tour1 = new Tour();
-
-                                    tour1.DateTime = tourSchedule.Date;
-                                    tour1.OwnerId = tour.OwnerId;
-                                    tour1.Name = tour.Name;
-                                    tour1.Description = tour.Description;
-                                    tour1.Duration = tour.Duration;
-                                    tour1.Id = tour.Id;
-                                    tour1.LocationId = tour.LocationId;
-                                    tour1.Language = tour.Language;
-                                    tour1.MaxTourists = tour.MaxTourists;
-
-                                    //injecting locations
-                                    foreach (Location location in locations)
-                                    {
-                                        if (location.Id == tour1.LocationId)
-                                        {
-                                            tour1.Location = location;
-                                        }
-                                    }
-
-                                    //injecting keypoints
-                                    foreach (KeyPoint keyPoint in keyPoints)
-                                    {
-                                        if (keyPoint.TourId == tour1.Id)
-                                        {
-                                            KeyPoint keyPoint1 = new KeyPoint();
-                                            keyPoint1.Id = keyPoint.Id;
-                                            keyPoint1.TourId = keyPoint.TourId;
-                                            keyPoint1.Point = keyPoint.Point;
-                                            keyPoint1.IsVisited = keyPoint.IsVisited;
-
-                                            keyPointsForward.Add(keyPoint1);
-                                        }
-                                    }
-
-                                    tour1.KeyPoints = keyPointsForward;
-                                    keyPointsForward = new List<KeyPoint>();
-
-                                    //injecting images
-                                    foreach (TourImage tourImage in tourImages)
-                                    {
-                                        if (tourImage.TourId == tour1.Id)
-                                        {
-                                            foreach (Image image in images)
-                                            {
-                                                if (image.Id == tourImage.ImageId)
-                                                {
-                                                    Image image1 = new Image();
-                                                    image1.Id = image.Id;
-                                                    image1.Path = image.Path;
-
-                                                    imagesForward.Add(image1);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    tour1.Images = imagesForward;
-                                    imagesForward = new List<Image>();
-
-                                    if (!FinishedTours.Contains(tour1)) //safe measure because it can get repeated if there are multiple reservations of the tour
-                                    {
-                                        FinishedTours.Add(tour1);
-                                    }
-                                    //TourReservationService.GetInstance().Remove(tourReservation);     Needs to be uncommented later maybe????? prob not //fixed this at line 218
-                                }
-
-                            }
-
-                        }
-
-                    }                
-                }
-            }
-
         }
 
         private void OnPropertyChanged(string propertyName)

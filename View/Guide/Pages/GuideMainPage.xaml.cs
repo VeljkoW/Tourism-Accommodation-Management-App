@@ -58,5 +58,11 @@ namespace BookingApp.View.Guide.Pages
             signInForm.Show();
         }
         public EventHandler OnLogoutHandler { get; set; }
+
+        private void ClickTourStatistics(object sender, RoutedEventArgs e)
+        {
+            TourStatistics tourStatistics = new TourStatistics(User);
+            NavigationService.Navigate(tourStatistics);
+        }
     }
 }

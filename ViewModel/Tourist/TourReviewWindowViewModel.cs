@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.View.Tourist;
 using Microsoft.Win32;
 using System;
@@ -23,14 +24,15 @@ namespace BookingApp.ViewModel.Tourist
         public int TourEnjoyment {  get; set; }
         public BitmapImage StarFilled = new BitmapImage(new Uri("../../Resources/Images/Tourist/star.png", UriKind.Relative));
         public BitmapImage StarEmpty = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
-        public List<String> RelativeImagePaths {  get; set; }
+        public List<string> RelativeImagePaths = new List<string>();
+        private List<Image> Images = new List<Image>();
         public TourReviewWindowViewModel(TourReviewWindow tourReviewWindow, Tour tour, User user) 
         { 
             this.TourReviewWindow = tourReviewWindow;
             this.Tour = tour;
             this.User = user;
+            Images.Clear();
             TourReviewWindow.NameTextBlock.Text = Tour.Name;
-            RelativeImagePaths = new List<String>();
             GuideKnowledge = -1;
             GuideSpeech = -1;
             TourEnjoyment = -1;
@@ -57,7 +59,7 @@ namespace BookingApp.ViewModel.Tourist
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
-                    //images.Clear();
+                    Images.Clear();
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
                     RelativeImagePaths.Add(relativePath);
@@ -101,6 +103,15 @@ namespace BookingApp.ViewModel.Tourist
                 }
                 File.Copy(filePath, destFilePath, false);
                 return fileNameParts[0] + "." + fileNameParts[1];
+            }
+        }
+        public void SaveImageIntoCSV(List<string> relativeImagePaths)
+        {
+            foreach (string filePath in relativeImagePaths)
+            {
+                Image image = new Image(0, filePath);
+                image = ImageService.GetInstance().Add(image);
+                Images.Add(image);
             }
         }
 
@@ -558,10 +569,26 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void Submit(object sender, RoutedEventArgs e)
         {
+            if(TourEnjoyment != -1 && GuideKnowledge != -1 && GuideSpeech != -1 && !String.IsNullOrEmpty(TourReviewWindow.DescriptionTextBox.Text))
+            {
+                int tourscheduleId = -1;
+                foreach(TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
+                {
+                    if(tourSchedule.TourId == Tour.Id && tourSchedule.Date  == Tour.DateTime) 
+                    {
+                        tourscheduleId = tourSchedule.Id;
+                    }
+                }
+                string comment = TourReviewWindow.DescriptionTextBox.Text;
+
+                TourReview tourReview = new TourReview(User.Id, tourscheduleId,GuideKnowledge,GuideSpeech,TourEnjoyment,comment,ReviewStatus.Valid);
+                TourReviewService.GetInstance().Add(tourReview);
+                //I NEED TO INJECT IMAGES!!!!!!!!!!!!!!!!!!!!!!!!
+                TourReviewWindow.Close();
+
+            }
 
 
-
-            TourReviewWindow.Close();
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using BookingApp.View.Guest.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +74,12 @@ namespace BookingApp.Repository
         {
             _comments = _serializer.FromCSV(FilePath);
             return _comments.FindAll(c => c.User.Id == user.Id);
+        }
+
+        public Comment? GetById(int id)
+        {
+            _comments = _serializer.FromCSV(FilePath);
+            return _comments.Find(c => c.Id == id);
         }
     }
 }

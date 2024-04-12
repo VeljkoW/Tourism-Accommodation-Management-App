@@ -57,9 +57,9 @@
                 <Grid Grid.Column="0" Grid.Row="0">
                     <Button x:Name="CreateTour" Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickCreateTour" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2">Create tour</Button>
                 </Grid>
-                <!--<Grid Grid.Column="1" Grid.Row="0">
-                    <Button x:Name="MonitorTour" Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickMonitorTour" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2">Monitor tour</Button>
-                </Grid>-->
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Button Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickTourStatistics" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Tour Statistics"></Button>
+                </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">

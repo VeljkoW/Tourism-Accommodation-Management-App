@@ -201,7 +201,7 @@ namespace BookingApp.ViewModel.Guide
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        public Dictionary<string,string> imageDictionary { get; set; } = new Dictionary<string,string>();
         public void BtnSelectFiles_ClickExecute()
         {
             relativeImagePaths.Clear();
@@ -228,6 +228,7 @@ namespace BookingApp.ViewModel.Guide
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
                     relativeImagePaths.Add(relativePath);
+                    imageDictionary.Add(filePath, fileName);
                 }
             }
         }
@@ -378,6 +379,10 @@ namespace BookingApp.ViewModel.Guide
             dates.Clear();
             keyPoints.Clear();
             schedules.Clear();
+            foreach(string s in relativeImagePaths)
+            {
+                File.Delete(s);
+            }
             relativeImagePaths.Clear();
             images.Clear();
             keyPointStrings.Clear();

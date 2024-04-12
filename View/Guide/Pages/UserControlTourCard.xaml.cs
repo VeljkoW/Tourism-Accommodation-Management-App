@@ -42,7 +42,6 @@ namespace BookingApp.View.Guide.Pages
         {
             OnClickedGoBackMonitoringTour?.Invoke();
         }
-
         public event Action OnFinishedTour;
         private void MonitoringTour_OnFinishedTour(object? sender, EventArgs e)
         {
