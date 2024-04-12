@@ -42,5 +42,9 @@ namespace BookingApp.Services
         {
             reservedAccommodationRepository.Delete(reservedAccommodation);
         }
+        public void UpdateDatesByReschedulingRequest(GuestReschedulingRequest GuestReschedulingRequest)
+        {
+            reservedAccommodationRepository.UpdateDatesByReschedulingRequest(GuestReschedulingRequest);
+        }
     }
 }
