@@ -18,6 +18,7 @@ namespace BookingApp.ViewModel.Guide
         private string _language;
         private string _description;
         private string _date;
+        private string _imgPath;
         public RelayCommand CheckReviews => new RelayCommand(execute => CheckReviewsExecute());
 
         private void CheckReviewsExecute()
@@ -88,6 +89,18 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        public string ImgPath
+        {
+            get { return _imgPath; }
+            set
+            {
+                if (_imgPath != value)
+                {
+                    _imgPath = value;
+                    OnPropertyChanged(nameof(ImgPath));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -100,16 +113,22 @@ namespace BookingApp.ViewModel.Guide
         {
             UserControlTourCardForReview= userControlTourCardForReview;
             Schedule = schedule;
-            Reviews = TourReviewService.GetInstance().GetAll().Where(t => t.TourScheduleId == schedule.Id).ToList();
-            Tour tour = TourService.GetInstance().GetById(schedule.TourId);
+            Load();
+        }
+        public void Load()
+        {
+            Reviews = TourReviewService.GetInstance().GetAll().Where(t => t.TourScheduleId == Schedule.Id).ToList();
+            Tour tour = TourService.GetInstance().GetById(Schedule.TourId);
             Description = tour.Description;
             Language = tour.Language;
             TourName = tour.Name;
             Location location = LocationService.GetInstance().GetById(tour.LocationId);
-            Location = location.State+ " "+ location.City;
-            Date = schedule.Date.ToString();
+            Location = location.State + " " + location.City;
+            Date = Schedule.Date.ToString();
+            List<TourImage> tourImage = TourImageService.GetInstance().GetAll().Where(t=>t.TourId ==tour.Id).ToList();
+            ImgPath = ImageService.GetInstance().GetById(tourImage[0].ImageId).Path;
         }
-        public TourSchedule Schedule { get; }
-        public List<TourReview> Reviews { get; }
+        public TourSchedule Schedule { get; set; }
+        public List<TourReview> Reviews { get; set; }
     }
 }
