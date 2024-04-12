@@ -11,6 +11,8 @@ namespace BookingApp.Domain.IRepositories
     {
         void Add(OwnerRating ownerRating);
         List<OwnerRating> GetAll();
+        OwnerRating? GetById(int Id);
+        int NextId();
 
     }
 }
