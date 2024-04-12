@@ -32,5 +32,28 @@ namespace BookingApp.Services
         {
             return tourReviewRepository.GetById(Id);
         }
+        public TourReview? Update(TourReview t)
+        {
+            return tourReviewRepository.Update(t);
+        }
+
+        public static Dictionary<TourSchedule, List<TourReview>> LoadFinishedTours()
+        {
+            Dictionary<TourSchedule, List<TourReview>> ret = new Dictionary<TourSchedule, List<TourReview>>();
+            List<TourReview> tourReviews = GetInstance().GetAll();
+            List<int> reviewedTours = tourReviews.Select(t => t.TourScheduleId).ToList();
+            if (reviewedTours.Count == 0)
+            {
+                return ret;
+            }
+            List<TourSchedule> tourSchedules = TourScheduleService.GetInstance().GetAll();
+            tourSchedules = tourSchedules.Where(t => reviewedTours.Contains(t.Id)).ToList();
+            foreach (TourSchedule t in tourSchedules)
+            {
+                List<TourReview> reviews = tourReviews.Where(x => x.TourScheduleId == t.Id).ToList();
+                ret.Add(t,reviews);
+            }
+            return ret;
+        }
     }
 }

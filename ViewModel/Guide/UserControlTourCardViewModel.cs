@@ -22,7 +22,6 @@ namespace BookingApp.ViewModel.Guide
         public DateTime Date { get; set; }
         public Image Image { get; set; }
         public RelayCommand MonitoringSelectedTour => new RelayCommand(execute => MonitoringSelectedTourExecute() ,canExecute => MonitoringSelectedTourCanExecute());
-
         private bool MonitoringSelectedTourCanExecute()
         {
             if (Tour.DateTime.Day == DateTime.Now.Day)
