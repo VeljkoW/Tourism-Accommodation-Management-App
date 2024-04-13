@@ -25,10 +25,14 @@ namespace BookingApp.ViewModel.Owner
             GuestReschedulingRequests = new ObservableCollection<GuestReschedulingRequest>();
             Update();
         }
-
         public void Update()
         {
             GuestReschedulingRequests.Clear();
+            UpdateGuestReschedulingRequests();
+            GuestReschedulingRequestAvailability();
+        }
+        public void UpdateGuestReschedulingRequests()
+        {
             foreach (GuestReschedulingRequest guestReschedulingRequest in GuestReschedulingRequestService.GetInstance().GetAll())
             {
                 foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
@@ -39,38 +43,38 @@ namespace BookingApp.ViewModel.Owner
                     }
                 }
             }
+        }
+        public void GuestReschedulingRequestAvailability()
+        {
             foreach (GuestReschedulingRequest GuestReschedulingRequest in GuestReschedulingRequests)
             {
-                bool isFree = true;
-                for (DateTime date = GuestReschedulingRequest.checkInDate; date <= GuestReschedulingRequest.checkOutDate; date = date.AddDays(1))
-                {
-                    foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                    {
-                        if (GuestReschedulingRequest.accommodationId == reservedAccommodation.accommodationId &&
-                            reservedAccommodation.Id != GuestReschedulingRequest.ReservedAccommodationId)
-                        {
-                            if (date > reservedAccommodation.checkInDate && date < reservedAccommodation.checkOutDate)
-                            {
-                                GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/x-box.png";
-                                isFree = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (isFree)
+                if (isFreeSlot(GuestReschedulingRequest))
                     GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/check-box.png";
+                else
+                    GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/x-box.png";
+
             }
         }
+        public bool isFreeSlot(GuestReschedulingRequest GuestReschedulingRequest)
+        {
+            for (DateTime date = GuestReschedulingRequest.checkInDate; date <= GuestReschedulingRequest.checkOutDate; date = date.AddDays(1))
+            {
+                foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
+                {
+                    if (GuestReschedulingRequest.accommodationId == reservedAccommodation.accommodationId &&
+                        reservedAccommodation.Id != GuestReschedulingRequest.ReservedAccommodationId &&
+                        date > reservedAccommodation.checkInDate &&
+                        date < reservedAccommodation.checkOutDate)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
-        public void AcceptExecute()
-        {
-            ProcessReschedulingRequest(true);
-        }
-        public void DeclineExecute()
-        {
-            ProcessReschedulingRequest(false);
-        }
+        public void AcceptExecute() { ProcessReschedulingRequest(true); }
+        public void DeclineExecute() { ProcessReschedulingRequest(false); }
         public bool CanExecute()
         {
             if (SelectedGuestReschedulingRequest == null)
@@ -99,9 +103,7 @@ namespace BookingApp.ViewModel.Owner
             ProcessedReschedulingRequestService.GetInstance().Add(processedReschedulingRequest);
             GuestReschedulingRequestService.GetInstance().DeleteById(SelectedGuestReschedulingRequest.Id);
             if (accepted)
-            {
                 ReservedAccommodationService.GetInstance().UpdateDatesByReschedulingRequest(SelectedGuestReschedulingRequest);
-            }
             Update();
         }
     }

@@ -5,9 +5,6 @@ using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using BookingApp.View.Owner;
 using Microsoft.Win32;
@@ -35,17 +32,20 @@ namespace BookingApp.ViewModel.Owner
             Locations = LocationService.GetInstance().GetAll();
         }
         
+        public AccommodationType ReturnAccommodationType()
+        {
+            if (AccommodationRegistration.AccommodationTypeComboBox.SelectionBoxItem.Equals("Apartment"))
+                return AccommodationType.Apartment;
+            else if (AccommodationRegistration.AccommodationTypeComboBox.SelectionBoxItem.Equals("House"))
+                return AccommodationType.House;
+            else
+                return AccommodationType.Hut;
+        }
         public void AcceptExecute()
         {
             Accommodation Accommodation = new Accommodation();
             Accommodation.Name = AccommodationRegistration.NameTextBox.Text;
-            if (AccommodationRegistration.AccommodationTypeComboBox.SelectionBoxItem.Equals("Apartment"))
-                Accommodation.AccommodationType = AccommodationType.Apartment;
-            else if (AccommodationRegistration.AccommodationTypeComboBox.SelectionBoxItem.Equals("House"))
-                Accommodation.AccommodationType = AccommodationType.House;
-            else if (AccommodationRegistration.AccommodationTypeComboBox.SelectionBoxItem.Equals("Hut"))
-                Accommodation.AccommodationType = AccommodationType.Hut;
-
+            Accommodation.AccommodationType = ReturnAccommodationType();
             Accommodation.MaxGuestNumber = Convert.ToInt32(AccommodationRegistration.MaxGuestNumberTextBox.Text);
             Accommodation.MinReservationDays = Convert.ToInt32(AccommodationRegistration.MinResDaysTextBox.Text);
             Accommodation.CancelationDaysLimit = Convert.ToInt32(AccommodationRegistration.CancelationDaysLimitTextBox.Text);
@@ -60,29 +60,21 @@ namespace BookingApp.ViewModel.Owner
             AccommodationService.GetInstance().Add(Accommodation);
 
             ResetInputs();
-
             AccommodationRegistration.ErrorsVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed);
             AccommodationRegistration.SuccessLabel.Visibility = Visibility.Visible;
         }
         public bool AcceptCanExecute()
         {
-            if (string.IsNullOrEmpty(AccommodationRegistration.NameTextBox.Text) ||
-                AccommodationRegistration.LocationComboBox.SelectedItem == null ||
-                AccommodationRegistration.AccommodationTypeComboBox.SelectedItem == null || 
-                !IsNumeric(AccommodationRegistration.MaxGuestNumberTextBox.Text) ||
-                !IsNumeric(AccommodationRegistration.MinResDaysTextBox.Text) || 
-                !IsNumeric(AccommodationRegistration.CancelationDaysLimitTextBox.Text) ||
-                AccommodationRegistration.MinResDaysTextBox.Text.Equals("0") ||
-                AccommodationRegistration.MaxGuestNumberTextBox.Text.Equals("0") ||
-                AccommodationRegistration.CancelationDaysLimitTextBox.Text.Equals("0") ||
-                RelativeImagePaths.Count == 0)
+            //all the fields must be entered
+            if (string.IsNullOrEmpty(AccommodationRegistration.NameTextBox.Text) || AccommodationRegistration.LocationComboBox.SelectedItem == null ||
+                AccommodationRegistration.AccommodationTypeComboBox.SelectedItem == null || !IsNumeric(AccommodationRegistration.MaxGuestNumberTextBox.Text) ||
+                !IsNumeric(AccommodationRegistration.MinResDaysTextBox.Text) || !IsNumeric(AccommodationRegistration.CancelationDaysLimitTextBox.Text) ||
+                AccommodationRegistration.MinResDaysTextBox.Text.Equals("0") || AccommodationRegistration.MaxGuestNumberTextBox.Text.Equals("0") ||
+                AccommodationRegistration.CancelationDaysLimitTextBox.Text.Equals("0") || RelativeImagePaths.Count == 0)
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
 
         public void AddImageExecute()
@@ -92,30 +84,22 @@ namespace BookingApp.ViewModel.Owner
             dlg.Multiselect = true;
             if (dlg.ShowDialog() == true)
             {
-                // Get path to .exe file
                 string binPath = AppDomain.CurrentDomain.BaseDirectory;
-                // Position to the right folder
                 string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\Accommodation";
 
-                // Ensure the target folder exists
                 if (!Directory.Exists(targetFolderPath))
-                {
                     Directory.CreateDirectory(targetFolderPath);
-                }
                 foreach (string filePath in dlg.FileNames)
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
 
-                    // Forming relative path to the new Image
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
                     RelativeImagePaths.Add(relativePath);
                 }
                 if (RelativeImagePaths.Count > 0)
-                {
                     SaveImageIntoCSV(RelativeImagePaths);
-                }
             }
         }
 

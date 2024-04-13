@@ -1,15 +1,9 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Services;
 using BookingApp.View.Owner;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using BookingApp.ViewModel.Owner;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
@@ -47,7 +41,6 @@ namespace BookingApp.ViewModel.Owner
             GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);
             GuestRatingService.GetInstance().Add(GuestRatingModel);
 
-            //SelectedReservedAccommodations = null;
             Update();
         }
         public bool RateGuestCanExecute()
@@ -60,53 +53,38 @@ namespace BookingApp.ViewModel.Owner
                 return false;
             }
             else
-            {
                 return true;
-            }
         }
 
         public ObservableCollection<ReservedAccommodation> Update()
         {
             ReservedAccommodations.Clear();
             foreach (ReservedAccommodation tempReservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-            {
                 foreach (Accommodation accommodation in AccommodationRepository.GetInstance().GetAll())
-                {
-                    //continue only if it's the logged-in owner's accommodation
                     if (tempReservedAccommodation.accommodationId == accommodation.Id && user.Id == accommodation.OwnerId)
                     {
                         if (GuestRatingService.GetInstance().GetAll().Count == 0)
-                        {
                             AvailableForRating(tempReservedAccommodation, ReservedAccommodations);
-                        }
                         else
                         {
-                            bool alreadyRated = false;
-                            foreach (GuestRatingModel GuestRatingModel in GuestRatingService.GetInstance().GetAll())
-                            {
-                                if (GuestRatingModel.guestId == tempReservedAccommodation.guestId && GuestRatingModel.ownerId == user.Id)
-                                {
-                                    alreadyRated = true;
-                                    break;
-                                }
-                            }
-                            if (!alreadyRated)
-                            {
+                            if (!IsAlreadyRated(tempReservedAccommodation))
                                 AvailableForRating(tempReservedAccommodation, ReservedAccommodations);
-                            }
                         }
                     }
-                }
-            }
             return ReservedAccommodations;
+        }
+        public bool IsAlreadyRated(ReservedAccommodation tempReservedAccommodation)
+        {
+            foreach (GuestRatingModel GuestRatingModel in GuestRatingService.GetInstance().GetAll())
+                if (GuestRatingModel.guestId == tempReservedAccommodation.guestId && GuestRatingModel.ownerId == user.Id)
+                    return true;
+            return false;
         }
         public void AvailableForRating(ReservedAccommodation ReservedAccommodation, ObservableCollection<ReservedAccommodation> ReservedAccommodations)
         {
             if ((DateTime.Now > ReservedAccommodation.checkOutDate) &&
                 (DateTime.Now - ReservedAccommodation.checkOutDate).Days <= 5)
-            {
                 ReservedAccommodations.Add(ReservedAccommodation);
-            }
         }
     }
 }

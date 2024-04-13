@@ -53,5 +53,10 @@ namespace BookingApp.Repository
             _users.Add(newUser);
             _serializer.ToCSV(FilePath,_users);
         }
+
+        public List<User> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
     }
 }
