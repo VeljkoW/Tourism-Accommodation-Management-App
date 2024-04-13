@@ -38,7 +38,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="0">
-                                        <Image Source="{Binding Path=Image.Path}" Stretch="UniformToFill" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <Image Source="{Binding Path=Image.Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     </Border>
                                     <Border Grid.Column="1" BorderThickness="0">
                                         <StackPanel Margin="5">
@@ -48,9 +48,11 @@
                                             <TextBlock Text="{Binding Path=Location.City}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <TextBlock Text="{Binding Path=CheckInDate}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <TextBlock Text="{Binding Path=CheckOutDate}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                                            <Button Content="Rescheduling" HorizontalAlignment="Left" Width="70" Height="50" Click="ReschedulingClick"/>
-                                            <Button Content="Cancel" HorizontalAlignment="Left" Width="70" Height="50" Click="CancelClick"/>
-                                            <Button Content="Rate It" HorizontalAlignment="Left" Width="70" Height="50" Click="RateItClick"/>
+                                            <StackPanel Orientation="Horizontal">
+                                            <Button Content="Rescheduling" HorizontalAlignment="Left" Width="100" Height="50" Click="ReschedulingClick" Margin="200 0 0 0"/>
+                                            <Button Content="Cancel" HorizontalAlignment="Left" Width="100" Height="50" Click="CancelClick" Margin="20 0 0 0" />
+                                            <Button Content="Rate It" HorizontalAlignment="Left" Width="100" Height="50" Click="RateItClick" Margin="20 0 0 0"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </Border>
                                 </Grid>

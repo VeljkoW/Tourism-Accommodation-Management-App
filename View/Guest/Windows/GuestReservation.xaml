@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="GuestReservation" Height="450" Width="800">
+        Title="GuestReservation" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
