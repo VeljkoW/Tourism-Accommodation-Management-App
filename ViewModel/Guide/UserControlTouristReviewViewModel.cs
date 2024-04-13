@@ -17,6 +17,8 @@ namespace BookingApp.ViewModel.Guide
         private string _enjoyment;
         private string _description;
         private string _touristName;
+        private string _imgPath;
+        private string _joinedOn;
         public RelayCommand ReportReview => new RelayCommand(execute => ReportReviewExecute(), canExecute => ReportReviewCanExecute());
         private void ReportReviewExecute()
         {
@@ -93,6 +95,36 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        public string ImgPath
+        {
+            get { return _imgPath; }
+            set
+            {
+                if (_imgPath != value)
+                {
+                    _imgPath = value;
+                    OnPropertyChanged(nameof(ImgPath));
+                }
+            }
+        }
+        public string JoinedOn
+        {
+            get { 
+                if(_joinedOn == null)
+                {
+                    return string.Format("Didn't join");
+                }
+                return string.Format("Joined on: {0}", _joinedOn); 
+            }
+            set
+            {
+                if (_joinedOn != value)
+                {
+                    _joinedOn = value;
+                    OnPropertyChanged(nameof(JoinedOn));
+                }
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -111,7 +143,21 @@ namespace BookingApp.ViewModel.Guide
             Language = Review.GuideSpeech.ToString();
             Knowledge = Review.GuideKnowledge.ToString();
             TouristName = UserService.GetInstance().GetById(Review.UserId)?.Username ?? "Username";
-
+            ImgPath = ImageService.GetInstance().GetById(TourReviewImageService.GetInstance().GetAll().Where(t => t.TourReviewId == Review.Id).FirstOrDefault().ImageId).Path;
+            List<TourPerson> People = new List<TourPerson>();
+            foreach (var item in TourReservationService.GetInstance().GetAll().Where(t => t.UserId == Review.UserId).Where(t => t.TourScheduleId == Review.TourScheduleId))
+            {
+                foreach (var item1 in item.People)
+                {
+                    People.Add(item1);
+                }
+            }
+            People = People.Where(t => t.KeyPointId > -1).ToList();
+            if (People.Count > 0)
+            {
+            int KeypointId = People.First().KeyPointId;
+            JoinedOn = KeyPointService.GetInstance().GetById(KeypointId).Point;
+            }
         }
         public TourReview Review { get; }
     }

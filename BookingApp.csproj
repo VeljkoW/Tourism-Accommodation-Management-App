@@ -38,6 +38,8 @@
     <None Remove="Resources\Images\star.png" />
 		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
+		<None Remove="Resources\Images\TourReview\hqdefault.jpg" />
+		<None Remove="Resources\Images\TourReview\nenad.jpg" />
 		<None Remove="Resources\Images\Tour\BigBen.png" />
 		<None Remove="Resources\Images\Tour\giza.jpg" />
 		<None Remove="Resources\Images\Tour\PlitvickaJezera.jpg" />
@@ -112,6 +114,8 @@
 		</Resource>
 		<Resource Include="Resources\Images\Tourist\star.png" />
 		<Resource Include="Resources\Images\Tourist\star_empty.png" />
+		<Resource Include="Resources\Images\TourReview\hqdefault.jpg" />
+		<Resource Include="Resources\Images\TourReview\nenad.jpg" />
   </ItemGroup>
 
 	<ItemGroup>
