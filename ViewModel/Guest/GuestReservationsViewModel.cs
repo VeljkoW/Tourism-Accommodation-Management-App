@@ -27,7 +27,7 @@ namespace BookingApp.ViewModel.Guest
             this.guestReservations = guestReservations;
             foreach (ReservedAccommodation reserved in ReservedAccommodationService.GetInstance().GetAll())
             {
-                reservedAccommodations.Add(reserved);
+                if(user.Id == reserved.GuestId) reservedAccommodations.Add(reserved);
             }
         }
     }
