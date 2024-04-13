@@ -46,12 +46,8 @@ namespace BookingApp.ViewModel.Tourist
             dlg.Multiselect = true;
             if (dlg.ShowDialog() == true)
             {
-                // Get path to .exe file
                 string binPath = AppDomain.CurrentDomain.BaseDirectory;
-                // Position to the right folder
                 string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\TourReview";
-
-                // Make sure that the target folder exists
                 if (!Directory.Exists(targetFolderPath))
                 {
                     Directory.CreateDirectory(targetFolderPath);
@@ -138,15 +134,13 @@ namespace BookingApp.ViewModel.Tourist
             SetUnselectedStarsEmpty();
         }
         public void SetUnselectedStarsEmpty()
-        {
-            //Fixes a bug where unselected stars keep staying filled
+        {   //Fixes a bug where unselected stars keep staying filled
             SetUnselectedStarsEmptyKnowledge();
             SetUnselectedStarsEmptySpeech();
             SetUnselectedStarsEmptyEnjoyment();
         }
         public void SetUnselectedStarsEmptyKnowledge()
-        {
-            //Guide Knowledge
+        {   //Guide Knowledge
             if ((string)TourReviewWindow.GuideKnowledge5Star.Tag == "unselected")
             {
                 TourReviewWindow.GuideKnowledge5Star.Source = StarEmpty;
@@ -169,8 +163,7 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
         public void SetUnselectedStarsEmptySpeech()
-        {
-            //Guide Speech
+        {   //Guide Speech
             if ((string)TourReviewWindow.GuideSpeech5Star.Tag == "unselected")
             {
                 TourReviewWindow.GuideSpeech5Star.Source = StarEmpty;
@@ -194,8 +187,7 @@ namespace BookingApp.ViewModel.Tourist
 
         }
         public void SetUnselectedStarsEmptyEnjoyment()
-        { 
-            //Tour Enjoyment
+        {   //Tour Enjoyment
             if ((string)TourReviewWindow.TourEnjoyment5Star.Tag == "unselected")
             {
                 TourReviewWindow.TourEnjoyment5Star.Source = StarEmpty;
@@ -222,24 +214,20 @@ namespace BookingApp.ViewModel.Tourist
             System.Windows.Controls.Image star = (System.Windows.Controls.Image)sender;
             star.Tag = "selected";
 
-            //Sets the rating of the selected type
-            SetGuideKnowledge(star);
+            SetGuideKnowledge(star);    //Sets the rating of the selected type
             SetGuideSpeech(star);
             SetTourEnjoyment(star);
 
-            //Sets next and previous stars to empty and filled depending on the clicked star
-            SetPreviousStarsFilled(star);
+            SetPreviousStarsFilled(star);   //Sets next and previous stars to empty and filled depending on the clicked star
             SetNextStarsEmpty(star);
 
-            //Sets the tag of the next and previous stars to unselected and selected depending on the clicked star
-            SetPreviousStarsSelected(star);
+            SetPreviousStarsSelected(star); //Sets the tag of the next and previous stars to unselected and selected depending on the clicked star
             SetNextStarsUnSelected(star);
         }
         public void SetGuideKnowledge(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //GuideKnowledge
+            {   //GuideKnowledge
                 case "GuideKnowledge5Star":
                     GuideKnowledge = 5;
                     break;
@@ -260,9 +248,8 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void SetGuideSpeech(System.Windows.Controls.Image currentStar)
         {
-            switch (currentStar.Name) 
-            {
-                //Guide Speech
+            switch (currentStar.Name)
+            {   //Guide Speech
                 case "GuideSpeech5Star":
                     GuideSpeech = 5;
                     break;
@@ -284,8 +271,7 @@ namespace BookingApp.ViewModel.Tourist
         public void SetTourEnjoyment(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Tour Enjoyment
+            {   //Tour Enjoyment
                 case "TourEnjoyment5Star":
                     TourEnjoyment = 5;
                     break;
@@ -304,8 +290,7 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
         private void SetPreviousStarsFilled(System.Windows.Controls.Image currentStar)
-        {
-            //checks what star was clicked and sets the previous stars to be filled
+        {   //checks what star was clicked and sets the previous stars to be filled
             SetPreviousStarsFilledKnowledge(currentStar);
             SetPreviousStarsFilledSpeech(currentStar);
             SetPreviousStarsFilledEnjoyment(currentStar);
@@ -313,8 +298,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetPreviousStarsFilledKnowledge(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide Knowledge
+            {   //Guide Knowledge
                 case "GuideKnowledge5Star":
                     TourReviewWindow.GuideKnowledge4Star.Source = StarFilled;
                     goto case "GuideKnowledge4Star";
@@ -332,8 +316,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetPreviousStarsFilledSpeech(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide Speech
+            {   //Guide Speech
                 case "GuideSpeech5Star":
                     TourReviewWindow.GuideSpeech4Star.Source = StarFilled;
                     goto case "GuideSpeech4Star";
@@ -350,9 +333,8 @@ namespace BookingApp.ViewModel.Tourist
         }
         private void SetPreviousStarsFilledEnjoyment(System.Windows.Controls.Image currentStar)
         {
-            switch (currentStar.Name)
+            switch (currentStar.Name) //Tour Enjoyment
             {
-                //Tour Enjoyment
                 case "TourEnjoyment5Star":
                     TourReviewWindow.TourEnjoyment4Star.Source = StarFilled;
                     goto case "TourEnjoyment4Star";
@@ -368,8 +350,7 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
         private void SetNextStarsEmpty(System.Windows.Controls.Image currentStar)
-        {
-            //checks what star was clicked and sets the mext stars to be empty (in case the user changes his rating) 
+        {   //checks what star was clicked and sets the mext stars to be empty (in case the user changes his rating) 
             SetNextStarsEmptyKnowledge(currentStar);
             SetNextStarsEmptySpeech(currentStar);
             SetNextStarsEmptyEnjoyment(currentStar);
@@ -378,8 +359,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetNextStarsEmptyKnowledge(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide knowledge
+            {   //Guide knowledge
                 case "GuideKnowledge1Star":
                     TourReviewWindow.GuideKnowledge2Star.Source = StarEmpty;
                     goto case "GuideKnowledge2Star";
@@ -397,8 +377,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetNextStarsEmptySpeech(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide speech
+            {   //Guide speech
                 case "GuideSpeech1Star":
                     TourReviewWindow.GuideSpeech2Star.Source = StarEmpty;
                     goto case "GuideSpeech2Star";
@@ -416,8 +395,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetNextStarsEmptyEnjoyment(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Tour Enjoyment
+            {   //Tour Enjoyment
                 case "TourEnjoyment1Star":
                     TourReviewWindow.TourEnjoyment2Star.Source = StarEmpty;
                     goto case "TourEnjoyment2Star";
@@ -434,8 +412,7 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
         private void SetPreviousStarsSelected(System.Windows.Controls.Image currentStar)
-        {
-            //Sets all the previous stars to be selected, so they dont turn empty once the mouse has left the image
+        {   //Sets all the previous stars to be selected, so they dont turn empty once the mouse has left the image
             SetPreviousStarsSelectedKnowledge(currentStar);
             SetPreviousStarsSelectedSpeech(currentStar);
             SetPreviousStarsSelectedEnjoyment(currentStar);
@@ -443,8 +420,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetPreviousStarsSelectedKnowledge(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide Knowledge
+            {   //Guide Knowledge
                 case "GuideKnowledge5Star":
                     TourReviewWindow.GuideKnowledge4Star.Tag = "selected";
                     goto case "GuideKnowledge4Star";
@@ -462,8 +438,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetPreviousStarsSelectedSpeech(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide Speech
+            {   //Guide Speech
                 case "GuideSpeech5Star":
                     TourReviewWindow.GuideSpeech4Star.Tag = "selected";
                     goto case "GuideSpeech4Star";
@@ -481,8 +456,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetPreviousStarsSelectedEnjoyment(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {        
-                //Tour Enjoyment
+            {   //Tour Enjoyment
                 case "TourEnjoyment5Star":
                     TourReviewWindow.TourEnjoyment4Star.Tag = "selected";
                     goto case "TourEnjoyment4Star";
@@ -498,8 +472,7 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
         private void SetNextStarsUnSelected(System.Windows.Controls.Image currentStar)
-        {
-            //checks what star was clicked and sets the mext stars to be unselected (in case the user changes his rating) 
+        {   //checks what star was clicked and sets the mext stars to be unselected (in case the user changes his rating)
             SetNextStarsUnSelectedKnowledge(currentStar);
             SetNextStarsUnSelectedSpeech(currentStar);
             SetNextStarsUnSelectedEnjoyment(currentStar);
@@ -507,8 +480,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetNextStarsUnSelectedKnowledge(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide Knowledge
+            {   //Guide Knowledge
                 case "GuideKnowledge1Star":
                     TourReviewWindow.GuideKnowledge2Star.Tag = "unselected";
                     goto case "GuideKnowledge2Star";
@@ -526,8 +498,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetNextStarsUnSelectedSpeech(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Guide Speech
+            {   //Guide Speech
                 case "GuideSpeech1Star":
                     TourReviewWindow.GuideSpeech2Star.Tag = "unselected";
                     goto case "GuideSpeech2Star";
@@ -545,8 +516,7 @@ namespace BookingApp.ViewModel.Tourist
         private void SetNextStarsUnSelectedEnjoyment(System.Windows.Controls.Image currentStar)
         {
             switch (currentStar.Name)
-            {
-                //Tour Enjoyment
+            {   //Tour Enjoyment
                 case "TourEnjoyment1Star":
                     TourReviewWindow.TourEnjoyment2Star.Tag = "unselected";
                     goto case "TourEnjoyment2Star";
@@ -560,6 +530,24 @@ namespace BookingApp.ViewModel.Tourist
                     TourReviewWindow.TourEnjoyment5Star.Tag = "unselected";
                     break;
                     
+            }
+        }
+        public void SaveReviewImageIntoCSV(TourReview tourReview)
+        {
+            if (RelativeImagePaths != null && RelativeImagePaths.Count > 0)
+            {
+                SaveImageIntoCSV(RelativeImagePaths);
+                foreach (Image image in Images)
+                {
+                    foreach (TourReview tourReview1 in TourReviewService.GetInstance().GetAll())
+                    {
+                        if (tourReview1.UserId == tourReview.UserId && tourReview1.TourScheduleId == tourReview.TourScheduleId)
+                        {
+                            TourReviewImage tourReviewImage = new TourReviewImage(tourReview1.Id, image.Id);
+                            TourReviewImageService.GetInstance().Add(tourReviewImage);
+                        }
+                    }
+                }
             }
         }
         public void Cancel(object sender, RoutedEventArgs e)
@@ -589,22 +577,8 @@ namespace BookingApp.ViewModel.Tourist
                 string comment = TourReviewWindow.DescriptionTextBox.Text;
                 TourReview tourReview = new TourReview(User.Id, tourscheduleId, GuideKnowledge, GuideSpeech, TourEnjoyment, comment, ReviewStatus.Valid);
                 TourReviewService.GetInstance().Add(tourReview);
-
-                if (RelativeImagePaths != null && RelativeImagePaths.Count > 0)
-                {
-                    SaveImageIntoCSV(RelativeImagePaths);
-                    foreach (Image image in Images)
-                    {
-                        foreach (TourReview tourReview1 in TourReviewService.GetInstance().GetAll())
-                        {
-                            if (tourReview1.UserId == tourReview.UserId && tourReview1.TourScheduleId == tourReview.TourScheduleId)
-                            {
-                                TourReviewImage tourReviewImage = new TourReviewImage(tourReview1.Id, image.Id);
-                                TourReviewImageService.GetInstance().Add(tourReviewImage);
-                            }
-                        }
-                    }
-                }
+                SaveReviewImageIntoCSV(tourReview);
+                
                 TourReviewWindow.Close();
 
             }

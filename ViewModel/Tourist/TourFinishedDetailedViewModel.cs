@@ -16,6 +16,8 @@ namespace BookingApp.ViewModel.Tourist
         public TourFinishedDetailed TourFinishedDetailed { get; set; }
         public Tour Tour { get; set; }
         public User User { get; set; }
+        public bool AttendenceConfirmed;
+        public bool Attended;
         public TourFinishedDetailedViewModel(TourFinishedDetailed tourFinishedDetailed,Tour selectedTour,User user) 
         { 
             this.TourFinishedDetailed = tourFinishedDetailed;
@@ -52,32 +54,10 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void OpenReviewWindow(object sender, RoutedEventArgs e)
         {
-            bool AttendenceConfirmed = true;
-            bool Attended = false;
-            foreach (TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
-            {
-                foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
-                {
-                    if (tourReservation.TourScheduleId == tourSchedule.Id && tourSchedule.TourId == Tour.Id && tourSchedule.Date == Tour.DateTime)
+            AttendenceConfirmed = true;
+            Attended = false;
+            GetAttendence();
 
-                    {
-                        foreach (TourPerson tourPerson in tourReservation.People)
-                        {
-                            foreach (TourAttendenceNotification tourAttendenceNotification in TourAttendenceNotificationService.GetInstance().GetAll())
-                            {
-                                if (tourPerson.Id == tourAttendenceNotification.TourPersonId)
-                                {
-                                    if (tourAttendenceNotification.ConfirmedAttendence == false)
-                                    {
-                                        AttendenceConfirmed = false;
-                                    }
-                                    Attended = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
             if (AttendenceConfirmed && Attended)
             {
                 bool rated = false;
@@ -112,6 +92,34 @@ namespace BookingApp.ViewModel.Tourist
         public void GoBack(object sender, RoutedEventArgs e)
         {
             TourFinishedDetailed.Close();
+        }
+        public void GetAttendence()
+        {
+            foreach (TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
+            {
+                foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
+                {
+                    if (tourReservation.TourScheduleId == tourSchedule.Id && tourSchedule.TourId == Tour.Id && tourSchedule.Date == Tour.DateTime)
+
+                    {
+                        foreach (TourPerson tourPerson in tourReservation.People)
+                        {
+                            foreach (TourAttendenceNotification tourAttendenceNotification in TourAttendenceNotificationService.GetInstance().GetAll())
+                            {
+                                if (tourPerson.Id == tourAttendenceNotification.TourPersonId)
+                                {
+                                    if (tourAttendenceNotification.ConfirmedAttendence == false)
+                                    {
+                                        AttendenceConfirmed = false;
+                                    }
+                                    Attended = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

@@ -163,16 +163,14 @@ namespace BookingApp.ViewModel.Tourist
             TourDetailed tourDetailed = new TourDetailed(Tour, User);
             tourDetailed.ShowDialog();
         }
-        public void Reserve(object sender, RoutedEventArgs e)
+        public void Reserve(object sender, RoutedEventArgs e) //NEEDS TO BE SEPARATED A BIT XD
         {
 
             List<TourSchedule> tourSchedules = TourScheduleService.GetInstance().GetAll();
             TourSchedule tourSchedule = new TourSchedule();
             tourSchedule.Id = -1;
-            //tourSchedule.Guests = 4;  // temporary line
 
-            //finds the right schedule for the tour
-            foreach (TourSchedule tourScheduleI in tourSchedules)
+            foreach (TourSchedule tourScheduleI in tourSchedules) //finds the right schedule for the tour
             {
                 if (tourScheduleI.TourId == Tour.Id && tourScheduleI.Date == Tour.DateTime)
                 {
