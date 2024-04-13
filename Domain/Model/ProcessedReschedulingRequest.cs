@@ -5,6 +5,7 @@ using BookingApp.Serializer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Services;
 
 namespace BookingApp.Domain.Model
 {
@@ -15,6 +16,9 @@ namespace BookingApp.Domain.Model
         public int guestId { get; set; }
         public int commentId { get; set; }
         public bool isAccepted { get; set; }
+
+        public DateTime checkInDate { get; set; }
+        public DateTime checkOutDate { get; set; }
         public ProcessedReschedulingRequest() { }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -36,6 +40,36 @@ namespace BookingApp.Domain.Model
                 {
                     id = value;
                     OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+        public DateTime CheckInDate
+        {
+            get
+            {
+                return checkInDate;
+            }
+            set
+            {
+                if (value != checkInDate)
+                {
+                    checkInDate = value;
+                    OnPropertyChanged(nameof(checkInDate));
+                }
+            }
+        }
+        public DateTime CheckOutDate
+        {
+            get
+            {
+                return checkOutDate;
+            }
+            set
+            {
+                if (value != checkOutDate)
+                {
+                    checkOutDate = value;
+                    OnPropertyChanged(nameof(checkOutDate));
                 }
             }
         }
@@ -108,6 +142,8 @@ namespace BookingApp.Domain.Model
                 GuestId.ToString(),
                 CommentId.ToString(),
                 isAccepted.ToString(),
+                CheckInDate.ToString(),
+                CheckOutDate.ToString()
             };
             return csvValues;
         }
@@ -119,6 +155,35 @@ namespace BookingApp.Domain.Model
             GuestId = Convert.ToInt32(values[2]);
             CommentId = Convert.ToInt32(values[3]);
             IsAccepted = Convert.ToBoolean(values[4]);
+            CheckInDate = Convert.ToDateTime(values[5]);
+            CheckOutDate = Convert.ToDateTime(values[6]);
+        }
+
+        public string PrintNotifications
+        {
+            get
+            {
+                if(isAccepted == true)
+                {
+                    string str = "Your request for a change of reservation has been accepted.\n";
+                    str += AccommodationService.GetInstance().GetById(accommodationId).Name + "\t" + checkInDate.ToString() + " - " + checkOutDate.ToString() + "\n";
+                    return str;
+                }
+                else
+                {
+                    string str = "The request to reschedule the reservation has been declined.\n Please select new dates.\n";
+                    str += AccommodationService.GetInstance().GetById(accommodationId).Name + "\t" + checkInDate.ToString() + " - " + checkOutDate.ToString() + "\n";
+                    return str;
+                }
+            }
+            set
+            {
+                if (value != PrintNotifications)
+                {
+                    PrintNotifications = value;
+                    OnPropertyChanged("PrintNotifications");
+                }
+            }
         }
     }
 }

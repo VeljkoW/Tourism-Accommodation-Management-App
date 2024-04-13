@@ -18,11 +18,8 @@ namespace BookingApp.Domain.Model
         public string name { get; set; }
         public Location? location { get; set; }
         public AccommodationType accommodationType { get; set; }
-
         public int maxGuestNumber { get; set; }
-        //public int GuestNumber { get; set; }
         public int minReservationDays { get; set; }
-        // public int ReservationDays { get; set; }
         public int cancelationDaysLimit { get; set; }
         public List<Image> images { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -182,9 +179,7 @@ namespace BookingApp.Domain.Model
             Location = new Location();
             AccommodationType = AccommodationType.Apartment;
             MaxGuestNumber = 0;
-            //this.GuestNumber = 0;
             MinReservationDays = 0;
-            //this.ReservationDays = 0;
             CancelationDaysLimit = 0;
             Images = new List<Image>();
         }

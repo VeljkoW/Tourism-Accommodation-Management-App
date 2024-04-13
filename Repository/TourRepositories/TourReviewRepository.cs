@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace BookingApp.Repository.TourRepositories
 {
@@ -42,6 +43,21 @@ namespace BookingApp.Repository.TourRepositories
             _tourReviews.Add(newTourReview);
             _serializer.ToCSV(FilePath, _tourReviews);
             return newTourReview;
+        }
+        public TourReview? Update(TourReview newTourReview)
+        {
+            TourReview? oldTourReview = GetById(newTourReview.Id);
+            if (oldTourReview is null) return null;
+            oldTourReview.TourScheduleId = newTourReview.TourScheduleId;
+            oldTourReview.UserId = newTourReview.UserId;
+            oldTourReview.Status = newTourReview.Status;
+            oldTourReview.Comment = newTourReview.Comment;
+            oldTourReview.TourEnjoyment = newTourReview.TourEnjoyment;
+            oldTourReview.GuideKnowledge = newTourReview.GuideKnowledge;
+            oldTourReview.GuideSpeech = newTourReview.GuideSpeech;
+            oldTourReview.Images = newTourReview.Images;
+            _serializer.ToCSV(FilePath, _tourReviews);
+            return oldTourReview;
         }
         public List<TourReview> GetAll()
         {

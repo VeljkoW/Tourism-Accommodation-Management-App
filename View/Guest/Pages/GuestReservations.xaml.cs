@@ -62,7 +62,6 @@ namespace BookingApp.View.Guest.Pages
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
-            
             var selectedCard = ((FrameworkElement)sender).DataContext as ReservedAccommodation;
             ReservedAccommodation? reserved = new ReservedAccommodation();
             reserved = ReservedAccommodationService.GetInstance().GetById(selectedCard.Id);
@@ -75,10 +74,7 @@ namespace BookingApp.View.Guest.Pages
                 guestCancelReservation.Show();
                 guestCancelReservation.Focus();
             }
-            else
-            {
-                MessageBox.Show("The cancellation deadline has expired!");
-            }
+            else MessageBox.Show("The cancellation deadline has expired!");
         }
 
         private void RateItClick(object sender, RoutedEventArgs e)
@@ -96,6 +92,13 @@ namespace BookingApp.View.Guest.Pages
             {
                 MessageBox.Show("You can not rate the owner!!");
             }
+        }
+
+        private void RescheduleClick(object sender, RoutedEventArgs e)
+        {
+            RescheduleStatus rescheduleStatus = new RescheduleStatus(user);
+            rescheduleStatus.Show();
+            rescheduleStatus.Focus();
         }
     }
 }

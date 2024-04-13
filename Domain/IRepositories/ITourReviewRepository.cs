@@ -13,5 +13,6 @@ namespace BookingApp.Domain.IRepositories
         TourReview? GetById(int Id);
         int NextId();
         TourReview Add(TourReview newTourReview);
+        TourReview? Update(TourReview t);
     }
 }

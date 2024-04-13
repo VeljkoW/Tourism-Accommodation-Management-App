@@ -29,7 +29,6 @@ namespace BookingApp.ViewModel.Guide
             List<Image> images = ImageService.GetInstance().GetAll().Where(t=> tourImages.Contains(t.Id)).ToList();
             ImgPath = images[0].Path;
         }
-
         public UserControlTourStatisticsViewModel()
         {
         }
