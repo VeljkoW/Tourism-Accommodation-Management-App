@@ -43,7 +43,9 @@ namespace BookingApp.ViewModel.Guest
             comment.CreationTime = DateTime.Now;
             comment.User = UserService.GetInstance().GetById(User.Id);
             comment = CommentService.GetInstance().Save(comment);
+
             Accommodation? accommodation = AccommodationService.GetInstance().GetById(ReservedAccommodation.AccommodationId);
+
             OwnerRating ownerRating = new OwnerRating();
             ownerRating.ownerId = accommodation.OwnerId;
             ownerRating.guestId = User.Id;
@@ -51,10 +53,9 @@ namespace BookingApp.ViewModel.Guest
             ownerRating.Cleanliness = Convert.ToInt32(GuestRate.CleanlinessComboBox.SelectionBoxItem);
             ownerRating.OwnerIntegrity = Convert.ToInt32(GuestRate.IntegrityComboBox.SelectionBoxItem);
             ownerRating.AccommodationId = accommodation.Id;
-            foreach(Image image in Images)
-            {
-                ownerRating.Images.Add(image);
-            }
+
+            foreach(Image image in Images) ownerRating.Images.Add(image);
+
             foreach(OwnerRating owner in OwnerRatingService.GetInstance().GetAll())
             {
                 if(owner.OwnerId == accommodation.OwnerId && owner.GuestId == User.Id) 
@@ -86,16 +87,10 @@ namespace BookingApp.ViewModel.Guest
             dlg.Multiselect = true;
             if (dlg.ShowDialog() == true)
             {
-                // Get path to .exe file
                 string binPath = AppDomain.CurrentDomain.BaseDirectory;
-                // Position to the right folder
                 string targetFolderPath = GetBaseFolder(binPath) + "\\Resources\\Images\\Accommodation";
 
-                // Ensure the target folder exists
-                if (!Directory.Exists(targetFolderPath))
-                {
-                    Directory.CreateDirectory(targetFolderPath);
-                }
+                if (!Directory.Exists(targetFolderPath)) Directory.CreateDirectory(targetFolderPath);
                 foreach (string filePath in dlg.FileNames)
                 {
                     strings.Add(filePath);
@@ -103,14 +98,10 @@ namespace BookingApp.ViewModel.Guest
                     string destFilePath = System.IO.Path.Combine(targetFolderPath, fileName);
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
 
-                    // Forming relative path to the new Image
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
                     RelativeImagePaths.Add(relativePath);
                 }
-                if (RelativeImagePaths.Count > 0)
-                {
-                    SaveImageIntoCSV(RelativeImagePaths);
-                }
+                if (RelativeImagePaths.Count > 0) SaveImageIntoCSV(RelativeImagePaths);
             }
         }
 
