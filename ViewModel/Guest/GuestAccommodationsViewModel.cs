@@ -13,6 +13,7 @@ using System.Windows;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
 using GuestAccommodationsPage = BookingApp.View.Guest.Pages.Accommodations;
+using OwnerModel = BookingApp.Domain.Model.Owner;
 using System.Collections.ObjectModel;
 using System.DirectoryServices;
 
@@ -20,26 +21,33 @@ namespace BookingApp.ViewModel.Guest
 {
     public class GuestAccommodationsViewModel
     {
-        public User user {  get; set; }
+        public User user { get; set; }
 
         public GuestAccommodationsPage GuestAccommodationsPage { get; set; }
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
 
+        ObservableCollection<Accommodation> superOwnerAccommodations { get; set; }
+        ObservableCollection<Accommodation> noSuperOwnerAccommodations { get; set; }
+
         public RelayCommand SearchButtonClick => new RelayCommand(execute => SearchExecute());
-        public GuestAccommodationsViewModel(GuestAccommodationsPage GuestAccommodationsPage, User user) 
-        { 
+        public GuestAccommodationsViewModel(GuestAccommodationsPage GuestAccommodationsPage, User user)
+        {
             this.user = user;
             this.GuestAccommodationsPage = GuestAccommodationsPage;
             Accommodations = new ObservableCollection<Accommodation>();
+            superOwnerAccommodations = new ObservableCollection<Accommodation>();
+            noSuperOwnerAccommodations = new ObservableCollection<Accommodation>();
             foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             {
                 Image image = new Image();
                 image = accommodation.Images[0];
                 accommodation.Images.Clear();
                 accommodation.Images.Add(image);
-                Accommodations.Add(accommodation);
+                SuperOwnerAccommodation(accommodation);
+                //Accommodations.Add(accommodation);
             }
+            AddSortAccommodations();
             GuestAccommodationsPage.accommodationItems.ItemsSource = Accommodations;
             GuestAccommodationsPage.TextBoxName.Text = "Name";
             GuestAccommodationsPage.TextBoxState.Text = "State";
@@ -47,7 +55,26 @@ namespace BookingApp.ViewModel.Guest
             GuestAccommodationsPage.TextBoxGuestNumber.Text = "Guest Number";
             GuestAccommodationsPage.TextBoxReservationDays.Text = "Reservation Days";
         }
-
+        public void AddSortAccommodations()
+        {
+            foreach (Accommodation superAccommodation in superOwnerAccommodations)
+            {
+                superAccommodation.recommended = "Recommended Accommodation";
+                Accommodations.Add(superAccommodation);
+            }
+            foreach (Accommodation noSuperAccommodation in noSuperOwnerAccommodations) Accommodations.Add(noSuperAccommodation);
+        }
+        public void SuperOwnerAccommodation(Accommodation accommodation)
+        {
+            foreach (OwnerModel owner in OwnerService.GetInstance().GetAll())
+            {
+                if(accommodation.OwnerId == owner.Id)
+                {
+                    if (owner.IsSuperOwner == true) superOwnerAccommodations.Add(accommodation);
+                    else if (owner.IsSuperOwner == false) noSuperOwnerAccommodations.Add(accommodation);
+                }
+            }
+        }
         public AccommodationType ReturnType() 
         {
             if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("Apartment")) return AccommodationType.Apartment;
@@ -69,7 +96,7 @@ namespace BookingApp.ViewModel.Guest
             if (!GuestAccommodationsPage.TextBoxCity.Text.Trim().Equals("City")) City = GuestAccommodationsPage.TextBoxCity.Text.Trim();
             
             AccommodationType? accommodationType = null;
-            if (GuestAccommodationsPage.ComboBoxType.SelectedItem != null) accommodationType = ReturnType();
+            if (GuestAccommodationsPage.ComboBoxType.SelectedItem != null && !GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("")) accommodationType = ReturnType();
 
             int GuestNumber = 0;
             if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxGuestNumber.Text) && !GuestAccommodationsPage.TextBoxGuestNumber.Text.Equals("Guest Number") && IsNumeric(GuestAccommodationsPage.TextBoxGuestNumber.Text))
@@ -86,19 +113,24 @@ namespace BookingApp.ViewModel.Guest
             List<Accommodation> searchResults = SearchAccommodation(Name, City, State, accommodationType, GuestNumber, ReservationDays);
 
             SearchResults(searchResults);
+
         }
 
         public void SearchResults(List<Accommodation> searchResults)
         {
             Accommodations.Clear();
+            superOwnerAccommodations.Clear();
+            noSuperOwnerAccommodations.Clear();
             foreach (Accommodation accommodation in searchResults)
             {
                 Image image = new Image();
                 image = accommodation.Images[0];
                 accommodation.Images.Clear();
                 accommodation.Images.Add(image);
-                Accommodations.Add(accommodation);
+                SuperOwnerAccommodation(accommodation);
+                //Accommodations.Add(accommodation);
             }
+            AddSortAccommodations();
         }
         private List<Accommodation> SearchAccommodation(string Name, string City, string State,
             AccommodationType? AccommodationType, int GuestNumber, int ReservationDays)
