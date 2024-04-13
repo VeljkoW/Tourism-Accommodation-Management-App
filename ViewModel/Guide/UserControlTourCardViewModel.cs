@@ -26,7 +26,14 @@ namespace BookingApp.ViewModel.Guide
         {
             if (Tour.DateTime.Day == DateTime.Now.Day)
             {
+                if(TourScheduleService.GetInstance().GetAll().Where(t=>t.ScheduleStatus==ScheduleStatus.Ongoing).Count() == 0)
+                {
+                    return true;
+                }
+                if(TourScheduleService.GetInstance().GetById(TourSchedule.Id).ScheduleStatus == ScheduleStatus.Ongoing)
+                {
                 return true;
+                }
             }
             return false;
         }

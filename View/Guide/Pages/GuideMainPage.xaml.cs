@@ -28,7 +28,7 @@ namespace BookingApp.View.Guide.Pages
     public partial class GuideMainPage : Page
     {
         public EventHandler? ListUpdater {  get; set; }
-        public GuideMainPageViewModel guideMainPageViewModel { get;set; }
+        public GuideMainPageViewModel GuideMainPageViewModel { get;set; }
         public User User { get; set; }
         public string UserName { get; set; }
         public GuideMainPage(User user)
@@ -36,8 +36,8 @@ namespace BookingApp.View.Guide.Pages
             InitializeComponent();
             User = user;
             UserName = User.Username;
-            guideMainPageViewModel = new GuideMainPageViewModel(user);
-            this.DataContext = guideMainPageViewModel;
+            GuideMainPageViewModel = new GuideMainPageViewModel(user);
+            this.DataContext = GuideMainPageViewModel;
         }
         private void ClickCreateTour(object sender, RoutedEventArgs e)
         {
@@ -48,7 +48,7 @@ namespace BookingApp.View.Guide.Pages
 
         private void RequestRefreshEventAction()
         {
-            guideMainPageViewModel.Load();
+            GuideMainPageViewModel.Load();
         }
 
         private void ClickLogout(object sender, RoutedEventArgs e)

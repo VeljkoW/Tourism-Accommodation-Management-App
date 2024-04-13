@@ -10,13 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Windows;
+using BookingApp.Services;
 
 namespace BookingApp.ViewModel.Guide
 {
     public class MonitoringTourViewModel
     {
-
-        TourScheduleRepository tourScheduleRepository { get; set; }
         public List<KeyPoint> KeyPoints { get; set; }
         public Tour Tour { get; set; }
         public User User { get; set; }
@@ -106,7 +105,6 @@ namespace BookingApp.ViewModel.Guide
                 CurrentKeypointId = Tour.KeyPoints[0].Id;
                 Schedule.ScheduleStatus = ScheduleStatus.Ongoing;
             }
-            tourScheduleRepository = new TourScheduleRepository();
             Update();
         }
         private void Update()
@@ -129,12 +127,10 @@ namespace BookingApp.ViewModel.Guide
             if (Schedule.VisitedKeypoints == -1)
             {
                 Schedule.VisitedKeypoints = Tour.KeyPoints[0].Id;
-                tourScheduleRepository.Update(Schedule);
+                TourScheduleService.GetInstance().Update(Schedule);
             }
-            TourReservationRepository reservationRepository = new TourReservationRepository();
-            TourPersonRepository tourPersonRepository = new TourPersonRepository();
-            List<TourReservation> reservations = reservationRepository.GetAll();
-            List<TourPerson> persons = tourPersonRepository.GetAll();
+            List<TourReservation> reservations = TourReservationService.GetInstance().GetAll();
+            List<TourPerson> persons = TourPersonService.GetInstance().GetAll();
             CreateTouristCards(reservations);
         }
 
@@ -174,26 +170,30 @@ namespace BookingApp.ViewModel.Guide
             if (Schedule.VisitedKeypoints == KeyPoints[KeyPoints.Count() - 1].Id)
             {
                 Schedule.ScheduleStatus = ScheduleStatus.Finished;
-                tourScheduleRepository.Update(Schedule);
+                TourScheduleService.GetInstance().Update(Schedule);
+                OnFinishedTour?.Invoke();
+                OnClickGoBack?.Invoke();
                 FinishTour();
             }
             else
             {
-                tourScheduleRepository.Update(Schedule);
+                TourScheduleService.GetInstance().Update(Schedule);
                 Update();
             }
         }
         private void ClickFinishTourExecute()
         {
             Schedule.ScheduleStatus = ScheduleStatus.Finished;
-            tourScheduleRepository.Update(Schedule);
+            TourScheduleService.GetInstance().Update(Schedule);
             FinishTour();
+            OnFinishedTour?.Invoke();
+            OnClickGoBack?.Invoke();
             RaiseEventHandler();
         }
         private void FinishTour()
         {
             Schedule.ScheduleStatus = ScheduleStatus.Finished;
-            tourScheduleRepository.Update(Schedule);
+            TourScheduleService.GetInstance().Update(Schedule);
             Update();
             MonitoringTour.NavigationService.GoBack();
         }
