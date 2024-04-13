@@ -38,17 +38,13 @@ namespace BookingApp.ViewModel.Guest
             foreach (GuestReschedulingRequest guestReschedulingRequest in GuestReschedulingRequestService.GetInstance().GetAll())
             {
                 if(guestReschedulingRequest.GuestId == user.Id)
-                {
-                    guestReschedulingRequests.Add(guestReschedulingRequest);
-                }
+                   guestReschedulingRequests.Add(guestReschedulingRequest);
             }
 
             foreach (ProcessedReschedulingRequest processedReschedulingRequest in ProcessedReschedulingRequestService.GetInstance().GetAll())
             {
                 if (processedReschedulingRequest.GuestId == user.Id)
-                {
-                     processedReschedulingRequests.Add(processedReschedulingRequest);
-                }
+                   processedReschedulingRequests.Add(processedReschedulingRequest);
             }
         }
     }

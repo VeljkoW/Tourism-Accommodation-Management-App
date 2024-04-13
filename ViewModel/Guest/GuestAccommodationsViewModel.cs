@@ -14,6 +14,7 @@ using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
 using GuestAccommodationsPage = BookingApp.View.Guest.Pages.Accommodations;
 using System.Collections.ObjectModel;
+using System.DirectoryServices;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -47,60 +48,48 @@ namespace BookingApp.ViewModel.Guest
             GuestAccommodationsPage.TextBoxReservationDays.Text = "Reservation Days";
         }
 
+        public AccommodationType ReturnType() 
+        {
+            if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("Apartment")) return AccommodationType.Apartment;
+
+            else if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("House")) return AccommodationType.House;
+
+            else return AccommodationType.Hut;
+        }
+
         public void SearchExecute()
         {
             string Name = "";
             string State = "";
             string City = "";
-            if (!GuestAccommodationsPage.TextBoxName.Text.Trim().Equals("Name"))
-            {
-                Name = GuestAccommodationsPage.TextBoxName.Text.Trim();
-            }
-            if (!GuestAccommodationsPage.TextBoxState.Text.Trim().Equals("State"))
-            {
-                State = GuestAccommodationsPage.TextBoxState.Text.Trim();
-            }
-            if (!GuestAccommodationsPage.TextBoxCity.Text.Trim().Equals("City"))
-            {
-                City = GuestAccommodationsPage.TextBoxCity.Text.Trim();
-            }
+            if (!GuestAccommodationsPage.TextBoxName.Text.Trim().Equals("Name")) Name = GuestAccommodationsPage.TextBoxName.Text.Trim();
+
+            if (!GuestAccommodationsPage.TextBoxState.Text.Trim().Equals("State")) State = GuestAccommodationsPage.TextBoxState.Text.Trim();
+
+            if (!GuestAccommodationsPage.TextBoxCity.Text.Trim().Equals("City")) City = GuestAccommodationsPage.TextBoxCity.Text.Trim();
+            
             AccommodationType? accommodationType = null;
-            if (GuestAccommodationsPage.ComboBoxType.SelectedItem != null)
-            {
-                if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("Apartment"))
-                {
-                    accommodationType = AccommodationType.Apartment;
-                }
-                else if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("House"))
-                {
-                    accommodationType = AccommodationType.House;
-                }
-                else if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("Hut"))
-                {
-                    accommodationType = AccommodationType.Hut;
-                }
-            }
+            if (GuestAccommodationsPage.ComboBoxType.SelectedItem != null) accommodationType = ReturnType();
+
             int GuestNumber = 0;
             if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxGuestNumber.Text) && !GuestAccommodationsPage.TextBoxGuestNumber.Text.Equals("Guest Number") && IsNumeric(GuestAccommodationsPage.TextBoxGuestNumber.Text))
             {
                 GuestNumber = Convert.ToInt32(GuestAccommodationsPage.TextBoxGuestNumber.Text.Trim());
-                if (GuestNumber <= 0)
-                {
-                    return;
-                }
+                if (GuestNumber <= 0) return;
             }
             int ReservationDays = 0;
             if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxReservationDays.Text) && !GuestAccommodationsPage.TextBoxReservationDays.Text.Equals("Reservation Days") && IsNumeric(GuestAccommodationsPage.TextBoxReservationDays.Text))
             {
                 ReservationDays = Convert.ToInt32(GuestAccommodationsPage.TextBoxReservationDays.Text.Trim());
-                if (ReservationDays <= 0)
-                {
-                    return;
-                }
+                if (ReservationDays <= 0) return;
             }
-            List<Accommodation> searchResults = SearchAccommodation(Name, City, State,
-                accommodationType, GuestNumber, ReservationDays);
+            List<Accommodation> searchResults = SearchAccommodation(Name, City, State, accommodationType, GuestNumber, ReservationDays);
 
+            SearchResults(searchResults);
+        }
+
+        public void SearchResults(List<Accommodation> searchResults)
+        {
             foreach (Accommodation accommodation in searchResults)
             {
                 Image image = new Image();
@@ -108,9 +97,7 @@ namespace BookingApp.ViewModel.Guest
                 accommodation.Images.Clear();
                 accommodation.Images.Add(image);
                 Accommodations.Add(accommodation);
-                //accommodations.Add(accommodation);
             }
-            GuestAccommodationsPage.accommodationItems.ItemsSource = searchResults;
         }
         private List<Accommodation> SearchAccommodation(string Name, string City, string State,
             AccommodationType? AccommodationType, int GuestNumber, int ReservationDays)
@@ -136,7 +123,6 @@ namespace BookingApp.ViewModel.Guest
                 return false;
             }
         }
-
         public void ClickedOnCard(object sender, RoutedEventArgs e)
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
