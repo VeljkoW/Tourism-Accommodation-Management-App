@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.IRepositories
 {
-    public interface IUserRepository
+    public interface IOwnerRepository
     {
-        List<User> GetAll();
-        void Add(User user);
-        User? GetById(int Id);
-        int NextId();
-        User GetByUsername(string username);
+        List<Owner> GetAll();
+        Owner? GetById(int Id);
+        void Add(Owner newOwner);
+        void Update(int Id, bool IsSuperOwner);
     }
 }

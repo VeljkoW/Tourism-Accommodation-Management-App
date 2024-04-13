@@ -25,23 +25,28 @@ namespace BookingApp.ViewModel.Owner
             this.User = User;
             this.SelectedOwnerRating = SelectedOwnerRating;
             this.GuestReviews = GuestReviews;
+            AverageGrade = 0;
             OwnerRatings = new ObservableCollection<OwnerRating>();
             //Update(); already in use in IsSuperOwner() method
             IsSuperOwner();
         }
         public void IsSuperOwner()
         {
-            ObservableCollection<OwnerRating> OwnerRatings = Update();
-            double averageGrade = 0;
+            OwnerRatings = Update();
+            AverageGrade = 0;
             foreach (OwnerRating ownerRating in OwnerRatings)
             {
-                averageGrade += (double)(ownerRating.Cleanliness + ownerRating.OwnerIntegrity) / 2;
-            }
-            averageGrade /= OwnerRatings.Count;
-
-            AverageGrade = averageGrade;
+                if(ownerRating.ownerId == User.Id)
+                {
+                    AverageGrade += (double)(ownerRating.Cleanliness + ownerRating.OwnerIntegrity) / 2;
+                }
+            }//IZMENI OWNER RATING COUNT NA SAMO TOG VLASNIKA
+            AverageGrade /= OwnerRatings.Count;
             NumberOfReviews = OwnerRatings.Count;
-
+            DisplaySuperOwner(AverageGrade);
+        }
+        public void DisplaySuperOwner(double averageGrade)
+        {
             if (OwnerRatings.Count >= 50 && averageGrade >= 4.5)
             {
                 GuestReviews.SuperownerLabel.Content = "You are a Superowner!";
@@ -60,38 +65,20 @@ namespace BookingApp.ViewModel.Owner
             {
                 if (User.Id == ownerRating.ownerId)
                 {
-                    foreach (GuestRatingModel guestRating in GuestRatingService.GetInstance().GetAll())
-                    {
-                        if (guestRating.ownerId == User.Id && guestRating.guestId == ownerRating.guestId)
-                        {
-                            OwnerRatings.Add(ownerRating);
-                        }
-                    }
+                    AddRatedGuest(ownerRating);
                 }
             }
             return OwnerRatings;
         }
-
-        ////////////////////////////////MAIN WINDOW CODE////////////////////////////////
-        public GuestReviewsViewModel(User User)
+        public void AddRatedGuest(OwnerRating ownerRating)
         {
-            this.User = User;
-            OwnerRatings = new ObservableCollection<OwnerRating>();
-        }
-        public bool MainWindowIsSuperOwner()
-        {
-            ObservableCollection<OwnerRating> OwnerRatings = Update();
-            double averageGrade = 0;
-            foreach (OwnerRating ownerRating in OwnerRatings)
+            foreach (GuestRatingModel guestRating in GuestRatingService.GetInstance().GetAll())
             {
-                averageGrade += (double)(ownerRating.Cleanliness + ownerRating.OwnerIntegrity) / 2;
+                if (guestRating.ownerId == User.Id && guestRating.guestId == ownerRating.guestId)
+                {
+                    OwnerRatings.Add(ownerRating);
+                }
             }
-            averageGrade /= OwnerRatings.Count;
-            if (OwnerRatings.Count >= 50 && averageGrade >= 4.5)
-                return true;
-            else
-                return false;
         }
-        ///////////////////////////////////////////////////////////////////////////////
     }
 }

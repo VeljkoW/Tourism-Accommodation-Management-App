@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Repository.AccommodationRepositories;
 
 namespace BookingApp.Services
 {
@@ -32,6 +33,10 @@ namespace BookingApp.Services
         public User GetByUsername(string username)
         {
             return userRepository.GetByUsername(username);
+        }
+        public List<User> GetAll()
+        {
+            return userRepository.GetAll();
         }
     }
 }
