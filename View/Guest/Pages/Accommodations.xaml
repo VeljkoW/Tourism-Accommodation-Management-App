@@ -50,7 +50,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="ClickedOnCard" MouseRightButtonDown="Gallery">
+                                HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="ClickedOnCard" MouseRightButtonDown="Gallery">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
@@ -70,7 +70,14 @@
                                     </Border>
                                     <Border Grid.Column="1" BorderThickness="0">
                                         <StackPanel Margin="5">
-                                            <TextBlock Text="{Binding Path=Name}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding Path=Name}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="recommended" Content="{Binding Path=Recommended}" FontSize="17.5"></Label>
+                                            </Grid>
                                             <TextBlock Text="{Binding Path=AccommodationType}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                             <TextBlock Text="{Binding Path=Location.City}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                             <TextBlock Text="{Binding Path=Location.State}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
