@@ -80,7 +80,6 @@ namespace BookingApp.View.Guest
         {
             GuestNotifications guestNotifications = new GuestNotifications(user);
             guestNotifications.Show();
-            Close();
         }
     }
 }

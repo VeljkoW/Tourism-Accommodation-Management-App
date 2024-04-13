@@ -17,14 +17,13 @@
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Height="64" Click="NotificationsClick" Background="Transparent" Width="64" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 100 0">
+        <Button Grid.Column="1" Grid.Row="0" Height="64" Click="NotificationsClick" Background="Transparent" Width="64" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 100 0">
             <Button.Content>
-            <Image Source="../../Resources/Images/Owner/bell.png"></Image>
+                <Image Source="../../Resources/Images/Owner/bell.png"></Image>
             </Button.Content>
         </Button>
-        
-        <Label Grid.Column="1" Content="Notifications"
-       FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 75 70"/>
+        <Label Grid.Column="1" Grid.Row="0" Content="Notifications"
+        FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 75 20"/>
         <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Hyperlink Click="LogOut">
                     <TextBlock>Log out</TextBlock>

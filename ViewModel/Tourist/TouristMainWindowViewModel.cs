@@ -311,33 +311,12 @@ namespace BookingApp.ViewModel.Tourist
             else
             {
                 TouristMainWindow.CityComboBox.IsEnabled = true;
-                List<Location> locations = LocationService.GetInstance().GetAll();
 
                 List<string> cities = new List<string>();
                 string selectedState = (string)TouristMainWindow.StateComboBox.SelectedItem;
 
-                foreach (Location location in locations)
-                {
-                    if (location.State == selectedState)
-                    {
-                        bool Exists = false;
-
-                        foreach (string c in cities)
-                        {
-                            if (c == location.City)
-                            {
-                                Exists = true;
-                            }
-                        }
-
-                        if (!Exists)
-                        {
-                            cities.Add(location.City);
-                        }
-
-                    }
-
-                }
+                cities = findCities(cities, selectedState);
+                
                 foreach (string city in cities)
                 {
                     TouristMainWindow.CityComboBox.Items.Add(city);
@@ -345,7 +324,30 @@ namespace BookingApp.ViewModel.Tourist
 
             }
         }
+        public List<string> findCities(List<string> cities,string selectedState)
+        {
+            foreach (Location location in LocationService.GetInstance().GetAll())
+            {
+                if (location.State == selectedState)
+                {
+                    bool Exists = false;
 
+                    foreach (string c in cities)
+                    {
+                        if (c == location.City)
+                        {
+                            Exists = true;
+                        }
+                    }
+
+                    if (!Exists)
+                    {
+                        cities.Add(location.City);
+                    }
+                }
+            }
+            return cities;
+        }
         public void SearchTours(object sender, RoutedEventArgs e)
         {
 
