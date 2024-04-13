@@ -90,6 +90,7 @@ namespace BookingApp.ViewModel.Guest
 
         public void SearchResults(List<Accommodation> searchResults)
         {
+            Accommodations.Clear();
             foreach (Accommodation accommodation in searchResults)
             {
                 Image image = new Image();

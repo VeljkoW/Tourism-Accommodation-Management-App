@@ -60,24 +60,24 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="0">
-                                        <ItemsControl ItemsSource="{Binding Path=Images}">
+                                        <ItemsControl ItemsSource="{Binding Path=Images}"  Width="200" Height="200">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Image Source="{Binding Path=Path}" Stretch="UniformToFill" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                    <Image Source="{Binding Path=Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
                                     </Border>
                                     <Border Grid.Column="1" BorderThickness="0">
                                         <StackPanel Margin="5">
-                                            <TextBlock Text="{Binding Path=Name}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock Text="{Binding Path=AccommodationType}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock Text="{Binding Path=Location.City}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Path=Location.State}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom">Max Guest Number</Label>
-                                            <TextBlock Text="{Binding Path=MaxGuestNumber}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                                            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom">Min Reservation Days</Label>
-                                            <TextBlock Text="{Binding Path=MinReservationDays}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                                            <TextBlock Text="{Binding Path=Name}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                            <TextBlock Text="{Binding Path=AccommodationType}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                            <TextBlock Text="{Binding Path=Location.City}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Path=Location.State}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="15">Max Guest Number</Label>
+                                            <TextBlock Text="{Binding Path=MaxGuestNumber}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                                            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="15">Min Reservation Days</Label>
+                                            <TextBlock Text="{Binding Path=MinReservationDays}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                         </StackPanel>
                                     </Border>
                                 </Grid>
