@@ -70,7 +70,7 @@ namespace BookingApp.View.Guest.Pages
             DateTime checkIn = reserved.CheckInDate;
             if ((checkIn - DateTime.Now).Days > accommodation.CancelationDaysLimit)
             {
-                GuestCancelReservation guestCancelReservation = new GuestCancelReservation(user, selectedCard);
+                GuestCancelReservation guestCancelReservation = new GuestCancelReservation(selectedCard, GuestReservationsViewModel);
                 guestCancelReservation.Show();
                 guestCancelReservation.Focus();
             }
