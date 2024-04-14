@@ -143,7 +143,15 @@ namespace BookingApp.ViewModel.Guide
             Language = Review.GuideSpeech.ToString();
             Knowledge = Review.GuideKnowledge.ToString();
             TouristName = UserService.GetInstance().GetById(Review.UserId)?.Username ?? "Username";
-            ImgPath = ImageService.GetInstance().GetById(TourReviewImageService.GetInstance().GetAll().Where(t => t.TourReviewId == Review.Id).FirstOrDefault().ImageId).Path;
+            TourReviewImage tourReviewImage = TourReviewImageService.GetInstance().GetAll().Where(t => t.TourReviewId == Review.Id).FirstOrDefault();
+            if(tourReviewImage != null)
+            {
+            ImgPath = ImageService.GetInstance().GetById(tourReviewImage.ImageId).Path;
+            }
+            else
+            {
+                ImgPath = "../../../Resources/Images/No-Image-Placeholder.png";
+            }
             List<TourPerson> People = new List<TourPerson>();
             foreach (var item in TourReservationService.GetInstance().GetAll().Where(t => t.UserId == Review.UserId).Where(t => t.TourScheduleId == Review.TourScheduleId))
             {
