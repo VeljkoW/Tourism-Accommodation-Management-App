@@ -1,0 +1,75 @@
+﻿<Page x:Class="BookingApp.View.Owner.GuestReviews"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="GuestReviews">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedOwnerRating, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                    <DataGridTextColumn Width="*" Header="Cleanliness" Binding="{Binding cleanliness}"/>
+                    <DataGridTextColumn Width="*" Header="Integrity" Binding="{Binding ownerIntegrity}"/>
+                    <DataGridTextColumn Width="*" Header="Comment" Binding="{Binding commentId,Converter={StaticResource CommentIdToComment}}"/>
+                </DataGrid.Columns>
+                <DataGrid.ToolTip>
+                    <ToolTip>
+                        <!-- Prilagodite sadržaj ToolTip-a prema vašim potrebama -->
+                        <StackPanel>
+                            <TextBlock Text="{Binding SelectedOwnerRating.commentId, Converter={StaticResource CommentIdToComment}}" FontWeight="Bold"/>
+                            <!-- Dodajte ostale informacije koje želite prikazati -->
+                        </StackPanel>
+                    </ToolTip>
+                </DataGrid.ToolTip>
+            </DataGrid>
+            <StackPanel Grid.Column="1" Grid.Row="0" >
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="32" Content="Reviews number:"/>
+                    <Label FontSize="32" Content="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="32" Content="Average Grade:"/>
+                    <Label FontSize="32" Content="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 60 0 0">
+                    <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
+                    <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
+                </StackPanel>
+                <Label x:Name="SuperownerLabel" FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 60"/>
+                <Label FontSize="20" Content="How to become a Superowner?" HorizontalAlignment="Center"/>
+                <Label FontSize="16" 
+                       Content="In order to become a superowner, &#10;you must have more than 50 reviews &#10;and average grade of at least 4.5" 
+                       HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

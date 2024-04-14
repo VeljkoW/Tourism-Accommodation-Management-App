@@ -16,7 +16,22 @@
         <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
         <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
         <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="87"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}"/>
+            
+            
+        </Style>
+        
+        
     </Window.Resources>
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -26,9 +41,11 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" BorderThickness="0,1,5,1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="0,10,10,0">
@@ -40,7 +57,7 @@
                     </TextBlock>
                 </Border>
 
-                <Border Grid.Column="2" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10">
+                <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10" x:Name="ToursTabHeader" Visibility="Visible">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -49,12 +66,70 @@
                         <TextBox Width="200" Height="25" Margin="30 30 0 30" HorizontalAlignment="Center" 
                          Text="Search tours..." Foreground="Gray" x:Name="SearchBarTextBox"
                          GotFocus="SearchBoxClicked" LostFocus="SearchBoxNotClicked" VerticalContentAlignment="Center" IsReadOnly="True"/>
-                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand" Click="SearchTours">
+                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand" Click="SearchTours" x:Name="SearchBarButton">
                             <Image Source="pack://application:,,,/Resources/Images/Tourist/search.png" Width="17" Height="17"/>
                         </Button>
                     </Grid>
                 </Border>
-                <Border Grid.Column="4" BorderThickness="1,1,0,1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10,0,0,10">
+                <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10" x:Name="OngoingToursTabHeader" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="290"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="Ongoing Tours" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10" x:Name="FinishedToursTabHeader" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="290"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="Finished Tours" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10" x:Name="ReservationsTabHeader" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="290"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="Reservations" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10" x:Name="SuggestionsTabHeader" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="290"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="Suggestions" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10" x:Name="CouponsTabHeader" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="290"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="Coupons" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+
+                <Button Grid.Column="5" Height="40" Width="40" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="NotificationButtonClick" Cursor="Hand">
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                    </Button.Effect>
+                    <Image Source="../../Resources/Images/Tourist/bell.png" Width="23" Height="23"/>
+                </Button>
+
+                <Border Grid.Column="6" BorderThickness="1,1,0,1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10,0,0,10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -84,39 +159,53 @@
             <Border Background="{StaticResource BackgroundColorBrush}" Grid.Column="0" BorderThickness="0 0 6 0" BorderBrush="{StaticResource BorderColorBrush}">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top">
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ToursTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ToursTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <TextBlock Text="Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ReservationTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="OngoingToursTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="My reservations" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <TextBlock Text="My Ongoing Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="SuggestionTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="FinishedToursTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="Suggest tour" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <TextBlock Text="My Finished Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ReservationsTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <TextBlock Text="My Reservations" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="90" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="SuggestionsTabClick" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <TextBlock Text="My Suggestions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                    </Button>
+
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="CouponsTabClick" Cursor="Hand">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="My Coupons" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                    </Button>
+
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="Demo" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
                 </StackPanel>
@@ -240,8 +329,20 @@
                             </TransformGroup>
                         </TabItem.RenderTransform>
 
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"> Reservation TAB</TextBlock>
-
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding OngoingTours}" Margin="10" HorizontalAlignment="Stretch">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:TourCardOngoing/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </TabItem>
 
                     <TabItem Margin="-2,-10,0,14" RenderTransformOrigin="0,0">
@@ -253,10 +354,88 @@
                                 <TranslateTransform/>
                             </TransformGroup>
                         </TabItem.RenderTransform>
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding FinishedTours}" Margin="10" HorizontalAlignment="Stretch">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:TourCardFinished/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </TabItem>
 
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30">Suggestions TAB</TextBlock>
+                    <TabItem Margin="-1,-13,-1,17" RenderTransformOrigin="0,0">
+                        <TabItem.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TabItem.RenderTransform>
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding ReservedTours}" Margin="10" HorizontalAlignment="Stretch">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:TourCardReserved/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <TabItem Margin="-1,-16,-1,20" RenderTransformOrigin="0,0">
+                        <TabItem.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TabItem.RenderTransform>
+
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"> Suggestions TAB</TextBlock>
 
                     </TabItem>
+
+                    <TabItem Margin="-1,-20,-1,24" RenderTransformOrigin="0,0">
+                        <TabItem.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TabItem.RenderTransform>
+
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding Coupons}" Margin="10" HorizontalAlignment="Stretch">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:TourCoupon/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                    </TabItem>
+
                 </TabControl>
             </Border>
         </Grid>

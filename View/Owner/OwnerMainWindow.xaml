@@ -17,23 +17,94 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
-        <Button x:Name="AccommodationReservationButton" Width="350" Height="100" Grid.Row="0" Click="AccommodationReservationClick" 
-                Content="Reserve Accommodation" Grid.Column="1" FontSize="20" HorizontalAlignment="Left"/>
-        <Button x:Name="RateGuestButton" Width="350" Height="100"  Grid.Row="0" Click="RateGuestClick"
-                Content="Rate Guest" Grid.Column="1" FontSize="20"/>
-        <Label Margin="0 0 125 0" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" 
-               FontSize="20" Content="Notifications"></Label>
-        <ListBox x:Name="NotificationListBox" Grid.Row="0" Grid.Column="1" Width="350" Height="100" HorizontalAlignment="Right"
-                 SelectedValuePath="Print" DisplayMemberPath="Print"></ListBox>
+        <!-- <Rectangle Grid.Column="1"></Rectangle> -->
+        <Border BorderThickness="0 0 0 1" BorderBrush="Black"/>
+        <Border Grid.Column="1" BorderThickness="0 0 0 1" BorderBrush="Black">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" MinWidth="150"/>
+                    <ColumnDefinition Width="3*" MinWidth="120"/>
+                    <ColumnDefinition Width="10*" MinWidth="400"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 20 0 0">
+                    <Button Content="ENG" Width="64" Height="64" FontSize="20">
+                        <!-- <Button.Background>
+                            <ImageBrush ImageSource="../../Resources/Images/Owner/united-kingdom-flag.png" />
+                        </Button.Background> -->
+                    </Button>
+                    <Button Content="SRB" Width="64" Height="64" FontSize="20">
+                        <!-- <Button.Background>
+                            <ImageBrush ImageSource="../../Resources/Images/Owner/serbia-flag.png" />
+                        </Button.Background> -->
+                    </Button>
+                </StackPanel>
+                <Label Grid.Column="0" Content="Language"
+                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+
+                <Label Grid.Column="1" Content="Theme"
+                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+
+                <ListBox x:Name="NotificationListBox" ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}" 
+                         Grid.Row="0" Grid.Column="2" Width="350" Height="100" HorizontalAlignment="Right" VerticalAlignment="Center"
+                         SelectedValuePath="Print" DisplayMemberPath="Print"></ListBox>
+            
+                <Image Source="../../Resources/Images/Owner/bell.png" Grid.Column="3" Height="64" Width="64" 
+                       HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 20 0 0"></Image>
+                <Label Grid.Column="3" Content="Notifications"
+                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+
+                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
+                    <Image Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
+                           VerticalAlignment="Top"></Image>
+                    <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="32" Width="32" 
+                           VerticalAlignment="Top"></Image>
+                </StackPanel>
+                <Label Grid.Column="4" Content="{Binding user.Username, UpdateSourceTrigger=PropertyChanged}"
+                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+                <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16" Margin="0 0 0 10">
+                    <Hyperlink Click="LogOut">
+                        <TextBlock>Log out</TextBlock>
+                    </Hyperlink>
+                </TextBlock>
+            </Grid>
+        </Border>
+        
+        <Grid x:Name="NavigationBar" Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" MinHeight="40"/>
+                <RowDefinition Height="*" MinHeight="40"/>
+                <RowDefinition Height="*" MinHeight="40"/>
+                <RowDefinition Height="*" MinHeight="40"/>
+                <RowDefinition Height="*" MinHeight="40"/>
+                <RowDefinition Height="*" MinHeight="40"/>
+                <RowDefinition Height="*" MinHeight="40"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="AccommodationReservationButton" Grid.Row="0" Grid.Column="0" Click="AccommodationReservationClick" 
+                Content="Accommodation Management" FontSize="20"/>
+            <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Click="AccommodationStatisticsClick" 
+                Content="Accommodation Statistics" FontSize="20"/>
+            <Button x:Name="ReservationReschedulingButton" Grid.Row="2" Grid.Column="0" Click="ReservationReschedulingClick" 
+                Content="Reservation Rescheduling" FontSize="20"/>
+            <Button x:Name="GuestRatingButton" Grid.Row="3" Grid.Column="0" Click="GuestRatingClick"
+                Content="Guest Rating" FontSize="20"/>
+            <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick" 
+            Content="Guest Reviews" FontSize="20"/>
+            <Button x:Name="RenovationButton" Grid.Row="5" Grid.Column="0" Click="RenovationClick" 
+            Content="Renovation" FontSize="20"/>
+            <Button x:Name="ForumButton" Grid.Row="6" Grid.Column="0" Click="ForumClick" 
+            Content="Forum" FontSize="20"/>
+
+        </Grid>
     </Grid>
 </Window>

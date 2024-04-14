@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.Tourist.ListComponents"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="800">
+             d:DesignHeight="150" d:DesignWidth="1200">
     
     <UserControl.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
@@ -24,18 +24,49 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1000"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Background="{StaticResource BorderColorBrush}">
                 <Image Source="{Binding Images[0].Path}" Width="200" Height="150" Stretch="UniformToFill" Grid.Column="0"/>
             </Border>
-            <StackPanel Grid.Column="1" Margin="5" HorizontalAlignment="Stretch">
-                <Border BorderThickness="0,0,0,2" BorderBrush="{StaticResource BorderColorBrush}">
-                    <TextBlock x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0 0 0 5"/>
+            <Grid Grid.Column="1" Margin="5" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="87"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="{StaticResource BorderColorBrush}">
+                    <TextBlock x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0 0 0 3"/>
                 </Border>
-                <TextBlock Foreground="{StaticResource TextColorBrush}" Text="{Binding Description}" TextWrapping="Wrap"/>
-                <TextBlock Foreground="{StaticResource TextColorBrush}" Text="{Binding DateTime}" TextWrapping="Wrap"/>
-            </StackPanel>
+                <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" Text="{Binding Description}" TextWrapping="Wrap"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image  Grid.Column="0" Source="../../../Resources/Images/Tourist/location.png" Height="25" Width="25" HorizontalAlignment="Center" Margin="0 0 0 0"></Image>
+                    <TextBlock Grid.Column="1" Foreground="{StaticResource TextColorBrush}" Text="{Binding Location.State}" TextWrapping="Wrap" Margin="0 3 0 0"/>
+                    <TextBlock Grid.Column="2" Foreground="{StaticResource TextColorBrush}" Text=", " TextWrapping="Wrap" Margin="0 3 0 0"/>
+                    <TextBlock Grid.Column="3" Foreground="{StaticResource TextColorBrush}" Text="{Binding Location.City}" TextWrapping="Wrap" Margin="0 3 0 0"/>
+
+
+                    <TextBlock Grid.Column="5" Foreground="{StaticResource TextColorBrush}" Text="Max Tourists : " TextWrapping="Wrap" Margin="0 3 0 0"/>
+                    <TextBlock Grid.Column="6" Foreground="{StaticResource TextColorBrush}" Text="{Binding MaxTourists}" TextWrapping="Wrap" Margin="0 3 0 0"/>
+                    <Image  Grid.Column="7" Source="../../../Resources/Images/Tourist/person.png" Height="25" Width="25" HorizontalAlignment="Center"></Image>
+
+                    <TextBlock Grid.Column="9" Foreground="{StaticResource TextColorBrush}" Text="{Binding DateTime}" TextWrapping="Wrap" Margin="0 3 10 0"/>
+                </Grid>
+            </Grid>
         </Grid>
     </Border>
 
@@ -44,8 +75,8 @@
             <BeginStoryboard>
                 <Storyboard>
 
-                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:0.2"/>
-                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:0.2"/>
+                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:0.2"/>
+                    <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:0.2"/>
 
                     <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="{StaticResource HoverColor}" Duration="0:0:0.2"/>
 

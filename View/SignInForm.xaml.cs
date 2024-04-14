@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using BookingApp.View.Guide;
 using BookingApp.View.Owner;
 using BookingApp.View.Guest;
@@ -7,6 +6,7 @@ using BookingApp.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.View
 {

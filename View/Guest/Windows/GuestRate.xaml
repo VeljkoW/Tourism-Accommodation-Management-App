@@ -1,0 +1,60 @@
+﻿<Window x:Class="BookingApp.View.Guest.Windows.GuestRate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
+        xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
+        mc:Ignorable="d"
+        Title="GuestRate" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local1:ImagePathToImage x:Key="ImagePathToImage"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+        <Label Grid.Row="1" Grid.Column="0" Height="35" Width="110" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left">Clealiness:*</Label>
+        <ComboBox x:Name="CleanlinessComboBox" Grid.Row="1" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <ComboBoxItem Content="1"></ComboBoxItem>
+            <ComboBoxItem Content="2"></ComboBoxItem>
+            <ComboBoxItem Content="3"></ComboBoxItem>
+            <ComboBoxItem Content="4"></ComboBoxItem>
+            <ComboBoxItem Content="5"></ComboBoxItem>
+        </ComboBox>
+        <Label Grid.Row="2" Grid.Column="0" Height="36" Width="170" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left">Owner integrity:*</Label>
+        <ComboBox x:Name="IntegrityComboBox" Grid.Row="2" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <ComboBoxItem Content="1"></ComboBoxItem>
+            <ComboBoxItem Content="2"></ComboBoxItem>
+            <ComboBoxItem Content="3"></ComboBoxItem>
+            <ComboBoxItem Content="4"></ComboBoxItem>
+            <ComboBoxItem Content="5"></ComboBoxItem>
+        </ComboBox>
+        <Button Grid.Row="1" Grid.Column="1" Content="Attach" FontSize="20" Height="35" Width="380" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding attachImage}"></Button>
+        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ImageCarousel" ItemsSource="{Binding Path=strings}" Grid.Row="2" Grid.RowSpan="4" Grid.Column="1" Width="380" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Converter={StaticResource ImagePathToImage}}" Stretch="Uniform" Width="360" Height="300"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Label Grid.Row="3" Grid.Column="0" Height="35" Width="170" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">Add comment*</Label>
+        <TextBox x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" ></TextBox>
+        <Button Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Renovation"></Button>
+        <Button Grid.Row="6" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Rate It" Command="{Binding rateIt}"></Button>
+    </Grid>
+</Window>

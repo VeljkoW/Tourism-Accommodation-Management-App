@@ -1,0 +1,165 @@
+﻿<Window x:Class="BookingApp.View.Tourist.TourReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Tourist"
+        mc:Ignorable="d"
+        Loaded="LoadedFunctions"
+        Title="TourReviewWindow" Height="700" Width="500">
+    <Window.Resources>
+        <Color x:Key="BackgroundColor">#BD8E62</Color>
+        <Color x:Key="BorderColor">#9c734e</Color>
+        <Color x:Key="TextColor">#403022</Color>
+        <Color x:Key="TabColor">#ebd3bc</Color>
+        <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
+        <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
+        <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
+        <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <Border Grid.Row="0" Background="{StaticResource BorderColorBrush}">
+            <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 6 6 0" BorderBrush="{StaticResource BorderColorBrush}">
+                <Border.CornerRadius>
+                    <CornerRadius TopRight="10" TopLeft="10"/>
+                </Border.CornerRadius>
+                <Border Background="{StaticResource TabColorBrush}" Margin="30 30 30 0" CornerRadius="10">
+                    <Grid Margin="20 20 20 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" x:Name="NameTextBlock" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0 5 0 0"/>
+                                <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Text="Review" Margin="0 0 0 5"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="1" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Margin="19 21 0 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="20" Text="Guide Knowledge :" Margin="0 0 0 19"/>
+                                        <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="20" Text="Guide Speech        :" Margin="0 0 0 18"/>
+                                        <TextBlock Grid.Row="2" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="20" Text="Tour Enjoyment    :" Margin="0 0 0 10"/>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1" Margin="5 20 19 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="GuideKnowledge1Star" Grid.Row="0" Grid.Column="0" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideKnowledge2Star" Grid.Row="0" Grid.Column="1" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideKnowledge3Star" Grid.Row="0" Grid.Column="2" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideKnowledge4Star" Grid.Row="0" Grid.Column="3" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideKnowledge5Star" Grid.Row="0" Grid.Column="4" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+
+                                        <Image x:Name="GuideSpeech1Star" Grid.Row="1" Grid.Column="0" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideSpeech2Star" Grid.Row="1" Grid.Column="1" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideSpeech3Star" Grid.Row="1" Grid.Column="2" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideSpeech4Star" Grid.Row="1" Grid.Column="3" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="GuideSpeech5Star" Grid.Row="1" Grid.Column="4" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Margin="0 0 0 15" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+
+                                        <Image x:Name="TourEnjoyment1Star" Grid.Row="2" Grid.Column="0" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="TourEnjoyment2Star" Grid.Row="2" Grid.Column="1" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="TourEnjoyment3Star" Grid.Row="2" Grid.Column="2" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="TourEnjoyment4Star" Grid.Row="2" Grid.Column="3" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                        <Image x:Name="TourEnjoyment5Star" Grid.Row="2" Grid.Column="4" Source="../../Resources/Images/Tourist/star_empty.png" Width="30" Height="30" Cursor="Hand" MouseEnter="StarMouseEnter" MouseLeave="StarMouseLeave" MouseLeftButtonDown="StarClick" Tag="unselected"></Image>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="12" Text="Description:" Margin="19 10 0 3"/>
+                                    <TextBox Grid.Row="1" x:Name="DescriptionTextBox" Margin="19 0 19 0" Height="95"/>
+                                </Grid>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" Height="30" Width="100" Background="{StaticResource BackgroundColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="BtnSelectFiles_ClickExecute" Cursor="Hand">
+                                        <Button.Effect>
+                                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                                        </Button.Effect>
+                                        <TextBlock Text="Attach" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                                    </Button>
+
+
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Border>
+        </Border>
+
+        <Border Grid.Row="1" Background="{StaticResource BorderColorBrush}">
+            <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 0 6 6" CornerRadius="0 0 10 10" BorderBrush="{StaticResource BorderColorBrush}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="Cancel" Cursor="Hand">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                    </Button>
+
+                    <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="Submit" Cursor="Hand">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="Submit" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                    </Button>
+
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>
+
+

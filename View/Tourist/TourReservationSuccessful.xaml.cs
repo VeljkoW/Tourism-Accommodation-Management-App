@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,27 +21,12 @@ namespace BookingApp.View.Tourist
     /// </summary>
     public partial class TourReservationSuccessful : Window
     {
-        public Tour Tour {  get; set; }
-        public TourReservation TourReservation { get; set; }
+        TourReservationSuccessfulViewModel TourReservationSuccessfulViewModel { get; set; }
         public TourReservationSuccessful(Tour tour,TourReservation tourReservation)
         {
             InitializeComponent();
-            Tour = tour;
-            TourReservation = tourReservation;
-            NumberTextBlock.Text = TourReservation.People.Count().ToString();
-            TourNameTextBlock.Text = "\"" + Tour.Name + "\"";
-            
-            //if(!Tour.Name.Contains("Tour") && !Tour.Name.Contains("tour"))
-            //{
-                TourTextBlock.Text = " tour.";
-            //}
-            //else
-            //{
-            //    TourTextBlock.Text = ".";
-            //}
-
-            TourDateTextBlock.Text = Tour.DateTime.ToString();
-
+            TourReservationSuccessfulViewModel = new TourReservationSuccessfulViewModel(this,tour,tourReservation);
+            this.DataContext = TourReservationSuccessfulViewModel;
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
@@ -60,7 +46,7 @@ namespace BookingApp.View.Tourist
 
         public void Close(object sender, RoutedEventArgs e)
         {
-            Close();
+            TourReservationSuccessfulViewModel.Close(sender, e);
         }
     }
 }

@@ -5,82 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest"
         mc:Ignorable="d"
-        Title="GuestMainWindow" Height="450" Width="800">
+        Title="GuestMainWindow" Height="1080" Width="1920">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Button Grid.Column="1" Grid.Row="0" Height="64" Click="NotificationsClick" Background="Transparent" Width="64" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 100 0">
+            <Button.Content>
+                <Image Source="../../Resources/Images/Owner/bell.png"></Image>
+            </Button.Content>
+        </Button>
+        <Label Grid.Column="1" Grid.Row="0" Content="Notifications"
+        FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 75 20"/>
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3" ></Frame>
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Button Content="Search" Grid.Column="3" Grid.Row="0" Click="SearchButton" Height="40" Width="70"/>
-            <TextBox x:Name="TextBoxName" Grid.Column="0" Grid.Row="0" Height="25"  VerticalAlignment="Top" Foreground="Gray" GotFocus="AccommodationName_Clicked" LostFocus="AccommodationName_NotClicked"/>
-            <TextBox x:Name="TextBoxState" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Height="25" VerticalAlignment="Top" Foreground="Gray" GotFocus="AccommodationState_Clicked" LostFocus="AccommodationState_NotClicked"/>
-            <TextBox x:Name="TextBoxCity" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Height="25" VerticalAlignment="Bottom" Foreground="Gray" GotFocus="AccommodationCity_Clicked" LostFocus="AccommodationCity_NotClicked"/>
-            <ComboBox x:Name="ComboBoxType" Grid.Column="0" Grid.Row="0" Height="25" VerticalAlignment="Bottom">
-                <ComboBoxItem Content=""></ComboBoxItem>
-                <ComboBoxItem Content= "Apartment"></ComboBoxItem>
-                <ComboBoxItem Content= "House"></ComboBoxItem>
-                <ComboBoxItem Content= "Hut"></ComboBoxItem>
-            </ComboBox>
-            <TextBox x:Name="TextBoxGuestNumber" Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" Height="25" VerticalAlignment="Top" Foreground="Gray" GotFocus="GuestNumber_Clicked" LostFocus="GuestNumber_NotClicked"/>
-            <TextBox x:Name="TextBoxReservationDays" Grid.Column="2" Grid.Row="0" Height="25" VerticalAlignment="Bottom" Foreground="Gray" GotFocus="ReservationDays_Clicked" LostFocus="ReservationDays_NotClicked"/>
+            <Button Grid.Row="0" Height="150" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AccommodationsClick" Content="Accommodations" FontSize="30"/>
+            <Button Grid.Row="1" Height="150" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReservationClick" Content="Reservations" FontSize="30"/>
+            <Button Grid.Row="2" Height="150" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReviewsClick" Content="Reviews" FontSize="30"/>
+            <Button Grid.Row="3" Height="150" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ForumClick" Content="Forum" FontSize="30" />
+            <Grid Grid.Row="4" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Click="LogOutClick" Content="Log Out" FontSize="20" Height="60" Width="150"></Button>
+                <Button Grid.Column="1" Click="TutorialClick" Content="Tutorial" FontSize="20" Height="60" Width="150" ></Button>
+            </Grid>
         </Grid>
-        <ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Auto">
-            <ItemsControl Name="accommodationItems" Grid.Row="2" Grid.Column="1">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
-                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="ClickedOnCard" MouseRightButtonDown="Gallery">
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
-                            </Border.Effect>
-                            <Grid Margin="50">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0" BorderThickness="0">
-                                    <ItemsControl ItemsSource="{Binding Path=Images}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding Path=Path}" Stretch="UniformToFill" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </Border>
-                                <Border Grid.Column="1" BorderThickness="0">
-                                    <StackPanel Margin="5">
-                                        <TextBlock Text="{Binding Path=Name}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                        <TextBlock Text="{Binding Path=AccommodationType}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                        <TextBlock Text="{Binding Path=Location.City}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding Path=Location.State}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                        <Label HorizontalAlignment="Right" VerticalAlignment="Bottom">Max Guest Number</Label>
-                                        <TextBlock Text="{Binding Path=MaxGuestNumber}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                                        <Label HorizontalAlignment="Right" VerticalAlignment="Bottom">Min Reservation Days</Label>
-                                        <TextBlock Text="{Binding Path=MinReservationDays}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
     </Grid>
 </Window>

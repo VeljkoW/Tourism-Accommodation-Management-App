@@ -1,5 +1,6 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OwnerModel = BookingApp.Domain.Model.Owner;
 
 namespace BookingApp.View
 {
@@ -105,6 +107,14 @@ namespace BookingApp.View
                         NewUser.Password = confirmPassword.Password;
                         NewUser.UserType = userType;
                         _repository.Add(NewUser);
+                        if(NewUser.UserType == UserType.Owner)
+                        {
+                            OwnerModel owner = new OwnerModel();
+                            owner.Id = NewUser.Id;
+                            owner.IsSuperOwner = false;
+                            OwnerService.GetInstance().Add(owner);
+                        }
+
 
                         SignInForm signInForm = new SignInForm();
                         signInForm.Show();

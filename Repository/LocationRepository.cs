@@ -1,5 +1,7 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,12 @@ using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class LocationRepository
+    public class LocationRepository : ILocationRepository
     {
+        public static LocationRepository GetInstance()
+        {
+            return App._serviceProvider.GetRequiredService<LocationRepository>();
+        }
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
         private readonly Serializer<Location> _serializer;
@@ -30,7 +36,7 @@ namespace BookingApp.Repository
             }
             return _locations.Max(c => c.Id) + 1;
         }
-        internal void Add(Location newLocation)
+        public void Add(Location newLocation)
         {
             newLocation.Id = NextId();
             _locations.Add(newLocation);
@@ -46,18 +52,7 @@ namespace BookingApp.Repository
             return _locations.Find(c => c.Id == Id);
         }
         public int GetIdByStateCity(string State,string City) {
-            List<Location> locations = GetAll();
-            foreach(Location location in locations)
-            {
-                if(location.City == City)
-                {
-                    if(location.State==State)
-                    {
-                        return location.Id;
-                    }
-                }
-            }
-            return -1;
+            return GetAll().FirstOrDefault(location => location.City == City && location.State == State)?.Id ?? -1;
         }
     }
 }

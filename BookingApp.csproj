@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
@@ -19,13 +19,30 @@
 		<None Remove="Resources\Images\Accommodation\_cc371cd9-38b7-47c7-bab4-501071fa003fA.jpg" />
 		<None Remove="Resources\Images\Accommodation\_cc371cd9-38b7-47c7-bab4-501071fa003fAA.jpg" />
 		<None Remove="Resources\Images\add.png" />
+		<None Remove="Resources\Images\bin.png" />
 		<None Remove="Resources\Images\delete.png" />
 		<None Remove="Resources\Images\edit.png" />
 		<None Remove="Resources\Images\eye.png" />
 		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
+		<None Remove="Resources\Images\No-Image-Placeholder.png" />
+		<None Remove="Resources\Images\Owner\bell.png" />
+		<None Remove="Resources\Images\Owner\check-box.png" />
+		<None Remove="Resources\Images\Owner\serbia-flag.png" />
+		<None Remove="Resources\Images\Owner\star.png" />
+		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
+		<None Remove="Resources\Images\Owner\user.png" />
+		<None Remove="Resources\Images\Owner\user128x128.png" />
+		<None Remove="Resources\Images\Owner\x-box.png" />
+    <None Remove="Resources\Images\ratetour.png" />
+    <None Remove="Resources\Images\report.png" />
+    <None Remove="Resources\Images\star.png" />
 		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
+		<None Remove="Resources\Images\TourReview\hqdefault.jpg" />
+		<None Remove="Resources\Images\TourReview\nenad.jpg" />
+		<None Remove="Resources\Images\TourReview\stock-photo-happy-funny-bearded-man-taking-selfie-and-showing-thumbs-up-in-manhattan-hipster-tourist-posing-523994248.jpg" />
+		<None Remove="Resources\Images\TourReview\tourist.jpg" />
 		<None Remove="Resources\Images\Tour\BigBen.png" />
 		<None Remove="Resources\Images\Tour\giza.jpg" />
 		<None Remove="Resources\Images\Tour\PlitvickaJezera.jpg" />
@@ -69,19 +86,57 @@
       <Content Include="Resources\Images\Tourist\*.*">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-		<Content Include="Resources\Images\eye.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		<Content Include="Resources\Images\TourReview\*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+      <Content Remove="Resources\Images\Tourist\bell.png" />
+      <Content Remove="Resources\Images\Tourist\coupon.png" />
+      <Content Remove="Resources\Images\Tourist\live.png" />
+      <Content Remove="Resources\Images\Tourist\location.png" />
+      <Content Remove="Resources\Images\Tourist\person.png" />
+      <Content Remove="Resources\Images\Tourist\search.png" />
+      <Content Remove="Resources\Images\Tourist\star.png" />
+      <Content Remove="Resources\Images\Tourist\star_empty.png" />
+      <Content Remove="Resources\Images\Tour\613a18aa2534ab00185376eb.jpg" />
+		<Content Include="Resources\Images\eye.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<Resource Include="Resources\Images\Guide\user.png" />
+		<Resource Include="Resources\Images\Owner\bell.png" />
+		<Resource Include="Resources\Images\Owner\check-box.png" />
+		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
+		<Resource Include="Resources\Images\Owner\star.png" />
+		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
+		<Resource Include="Resources\Images\Owner\user.png" />
+		<Resource Include="Resources\Images\Owner\user128x128.png" />
+		<Resource Include="Resources\Images\Owner\x-box.png" />
+		<Resource Include="Resources\Images\Tourist\bell.png" />
+		<Resource Include="Resources\Images\Tourist\coupon.png" />
+		<Resource Include="Resources\Images\Tourist\live.png" />
+		<Resource Include="Resources\Images\Tourist\location.png" />
 		<Resource Include="Resources\Images\Tourist\person.png" />
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
+		<Resource Include="Resources\Images\Tourist\star.png" />
+		<Resource Include="Resources\Images\Tourist\star_empty.png" />
+		<Resource Include="Resources\Images\TourReview\hqdefault.jpg" />
+		<Resource Include="Resources\Images\TourReview\nenad.jpg" />
+		<Resource Include="Resources\Images\TourReview\stock-photo-happy-funny-bearded-man-taking-selfie-and-showing-thumbs-up-in-manhattan-hipster-tourist-posing-523994248.jpg" />
+		<Resource Include="Resources\Images\TourReview\tourist.jpg" />
+		<Resource Include="Resources\Images\Tour\613a18aa2534ab00185376eb.jpg" />
   </ItemGroup>
 
 	<ItemGroup>
 	  <Compile Update="View\Guide\Pages\UserControlTourist.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Resources\Images\ratetour.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 </Project>
