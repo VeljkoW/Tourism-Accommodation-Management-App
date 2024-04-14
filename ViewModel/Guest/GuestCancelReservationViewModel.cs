@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
+using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
 using System;
 using System.Collections.Generic;
@@ -11,19 +12,20 @@ namespace BookingApp.ViewModel.Guest
 {
     public class GuestCancelReservationViewModel
     {
-        public User User { get; set; }
         public ReservedAccommodation reservedAccommodation { get; set; }
 
         public GuestCancelReservation GuestCancelReservation { get; set; }
 
+        public GuestReservationsViewModel GuestReservationsViewModel { get; set; }
+
         public RelayCommand cancelReservation => new RelayCommand(execute => CancelReservation());
 
         public RelayCommand closeWindow => new RelayCommand(execute => CloseWindow());
-        public GuestCancelReservationViewModel(User user, ReservedAccommodation selectedReservedAccommodation, GuestCancelReservation guestCancelReservation) 
+        public GuestCancelReservationViewModel(ReservedAccommodation selectedReservedAccommodation, GuestCancelReservation guestCancelReservation, GuestReservationsViewModel guestReservationsViewModel) 
         { 
-            User = user;
             reservedAccommodation = selectedReservedAccommodation;
             GuestCancelReservation = guestCancelReservation;
+            GuestReservationsViewModel = guestReservationsViewModel;
         }
 
         public void CloseWindow()
@@ -34,7 +36,11 @@ namespace BookingApp.ViewModel.Guest
         public void CancelReservation()
         {
             ReservedAccommodationService.GetInstance().Delete(reservedAccommodation);
+            GuestReservationsViewModel.reservedAccommodations.Clear();
+            foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().Update(GuestReservationsViewModel.user))
+                GuestReservationsViewModel.reservedAccommodations.Add(reservedAccommodation);
             GuestCancelReservation.Close();
+            
         }
     }
 }

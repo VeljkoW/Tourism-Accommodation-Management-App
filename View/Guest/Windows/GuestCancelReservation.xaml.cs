@@ -22,10 +22,10 @@ namespace BookingApp.View.Guest.Windows
     public partial class GuestCancelReservation : Window
     {
         public GuestCancelReservationViewModel GuestCancelReservationViewModel { get; set; }
-        public GuestCancelReservation(User user, ReservedAccommodation reservedAccommodation)
+        public GuestCancelReservation(ReservedAccommodation reservedAccommodation, GuestReservationsViewModel guestReservationsViewModel)
         {
             InitializeComponent();
-            GuestCancelReservationViewModel = new GuestCancelReservationViewModel(user, reservedAccommodation, this);
+            GuestCancelReservationViewModel = new GuestCancelReservationViewModel(reservedAccommodation, this, guestReservationsViewModel);
             DataContext = GuestCancelReservationViewModel;
         }
     }

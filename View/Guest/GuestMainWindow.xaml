@@ -24,11 +24,6 @@
         </Button>
         <Label Grid.Column="1" Grid.Row="0" Content="Notifications"
         FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 75 20"/>
-        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Hyperlink Click="LogOut">
-                    <TextBlock>Log out</TextBlock>
-                </Hyperlink>
-            </TextBlock>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3" ></Frame>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>

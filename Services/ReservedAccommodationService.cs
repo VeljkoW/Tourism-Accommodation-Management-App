@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace BookingApp.Services
 {
@@ -45,6 +46,16 @@ namespace BookingApp.Services
         public void UpdateDatesByReschedulingRequest(GuestReschedulingRequest GuestReschedulingRequest)
         {
             reservedAccommodationRepository.UpdateDatesByReschedulingRequest(GuestReschedulingRequest);
+        }
+
+        public ObservableCollection<ReservedAccommodation> Update(User user)
+        {
+            ObservableCollection<ReservedAccommodation> reservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            foreach (ReservedAccommodation reserved in GetAll())
+            {
+                if (user.Id == reserved.GuestId) reservedAccommodations.Add(reserved);
+            }
+            return reservedAccommodations;
         }
     }
 }
