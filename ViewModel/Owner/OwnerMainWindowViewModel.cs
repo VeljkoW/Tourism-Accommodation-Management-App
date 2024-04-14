@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
 using System.Windows.Media;
+using BookingApp.Services;
 
 namespace BookingApp.ViewModel.Owner
 {
@@ -17,16 +18,16 @@ namespace BookingApp.ViewModel.Owner
     {
         public User user { get; set; }
         public OwnerMainWindow OwnerMainWindow { get; set; }
-        public GuestReviewsViewModel GuestReviewsViewModel { get; set; }
+        //public GuestReviewsViewModel GuestReviewsViewModel { get; set; }
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
         public GuestRatingPage GuestRatingPage { get; set; }
         public OwnerMainWindowViewModel(OwnerMainWindow OwnerMainWindow, User User)
         {
             this.user = User;
             this.OwnerMainWindow = OwnerMainWindow;
-            GuestReviewsViewModel = new GuestReviewsViewModel(User);
             GuestRatingPage = new GuestRatingPage(OwnerMainWindow, user);
             ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();
+            OwnerService.GetInstance().UpdateAll();
 
 
             if (ReservedAccommodations.Count == 0)
@@ -35,7 +36,7 @@ namespace BookingApp.ViewModel.Owner
                 OwnerMainWindow.NotificationListBox.BorderThickness = new Thickness(1);
             }
 
-            if (GuestReviewsViewModel.MainWindowIsSuperOwner())
+            if (OwnerService.GetInstance().isSuperOwner(user.Id))
             {
                 OwnerMainWindow.starImage.Visibility = Visibility.Visible;
             }

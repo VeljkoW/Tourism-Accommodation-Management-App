@@ -228,6 +228,5 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
-
     }
 }

@@ -9,6 +9,7 @@ namespace BookingApp.Domain.IRepositories
 {
     public interface IUserRepository
     {
+        List<User> GetAll();
         void Add(User user);
         User? GetById(int Id);
         int NextId();

@@ -84,12 +84,13 @@
                         </Grid>
                     </Border>
                     <StackPanel Grid.Row="1" Grid.Column="2">
-                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" TextWrapping="Wrap" Width="500" Height="150" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" TextWrapping="Wrap" Width="500" Height="130" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding JoinedOn}" TextWrapping="Wrap" Width="500" Height="20" HorizontalAlignment="Left" Grid.Row="1"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Column="3">
-                <Image x:Name="MainImage"  Width="180" Height="180" Grid.Column="0"/>
+                <Image x:Name="MainImage" Source="{Binding ImgPath}"  Width="180" Height="180" Grid.Column="0"/>
             </StackPanel>
         </Grid>
     </Border>

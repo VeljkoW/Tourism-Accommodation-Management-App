@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
         mc:Ignorable="d"
-        Title="RescheduleStatus" Height="450" Width="800">
+        Title="RescheduleStatus" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>

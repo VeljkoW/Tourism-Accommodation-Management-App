@@ -287,10 +287,6 @@ namespace BookingApp.ViewModel.Guide
             City = createTourForm.CityBox.Text.Trim();
             Location location = new Location(State, City);
             location.Id = LocationService.GetInstance().GetIdByStateCity(State, City);
-            if (ValidateTextboxes() == false)
-            {
-                return;
-            }
             Tour newTour = new Tour
             {
                 Name = createTourForm.TourNameTextbox.Text.Trim(),
@@ -337,41 +333,6 @@ namespace BookingApp.ViewModel.Guide
             }
             OnClickedGoBack?.Invoke();
             createTourForm.NavigationService.GoBack();
-        }
-
-        public bool ValidateTextboxes()
-        {
-            if (relativeImagePaths.Count == 0 || string.IsNullOrEmpty(createTourForm.TourNameTextbox.Text) || keyPointStrings.Count < 2)
-            {
-                if (images.Count == 0)
-                {
-                    createTourForm.ErrorCode.Text = "No Image selected";
-                }
-                if (string.IsNullOrEmpty(createTourForm.TourNameTextbox.Text))
-                {
-                    if (string.IsNullOrEmpty(createTourForm.ErrorCode.Text))
-                    {
-                        createTourForm.ErrorCode.Text = "Missing name";
-                    }
-                    else
-                    {
-                        createTourForm.ErrorCode.Text += ", missing name";
-                    }
-                }
-                if (keyPointStrings.Count < 2)
-                {
-                    if (string.IsNullOrEmpty(createTourForm.ErrorCode.Text))
-                    {
-                        createTourForm.ErrorCode.Text = "Missing keypoints";
-                    }
-                    else
-                    {
-                        createTourForm.ErrorCode.Text += ", missing keypoints";
-                    }
-                }
-                return false;
-            }
-            return true;
         }
 
         public void ClickCancelButtonExecute()
@@ -444,6 +405,7 @@ namespace BookingApp.ViewModel.Guide
             createTourForm.CityBox.ItemsSource = null;
             createTourForm.CityBox.ItemsSource = Cities;
             createTourForm.CityBox.IsEnabled = createTourForm.StateBox.SelectedItem != null;
+            createTourForm.CityBox.SelectedItem = Cities[0];
         }
     }
 }

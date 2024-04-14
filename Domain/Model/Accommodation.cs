@@ -22,6 +22,8 @@ namespace BookingApp.Domain.Model
         public int minReservationDays { get; set; }
         public int cancelationDaysLimit { get; set; }
         public List<Image> images { get; set; }
+
+        public string recommended { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
@@ -42,6 +44,21 @@ namespace BookingApp.Domain.Model
                 {
                     id = value;
                     OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+        public string Recommended
+        {
+            get
+            {
+                return recommended;
+            }
+            set
+            {
+                if (value != recommended)
+                {
+                    recommended = value;
+                    OnPropertyChanged(nameof(recommended));
                 }
             }
         }

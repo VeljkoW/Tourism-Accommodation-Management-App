@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
         mc:Ignorable="d"
-        Title="GuestRate" Height="450" Width="800">
+        Title="GuestRate" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local1:ImagePathToImage x:Key="ImagePathToImage"/>
     </Window.Resources>
@@ -43,18 +43,15 @@
             <ComboBoxItem Content="5"></ComboBoxItem>
         </ComboBox>
         <Button Grid.Row="1" Grid.Column="1" Content="Attach" FontSize="20" Height="35" Width="380" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding attachImage}"></Button>
-        <ItemsControl x:Name="ImageCarousel" ItemsSource="{Binding Path=strings}" Grid.Row="2" Grid.RowSpan="4" Grid.Column="1" Width="380" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Image Source="{Binding Converter={StaticResource ImagePathToImage}}" Stretch="Uniform" Width="200" Height="300"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ImageCarousel" ItemsSource="{Binding Path=strings}" Grid.Row="2" Grid.RowSpan="4" Grid.Column="1" Width="380" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Converter={StaticResource ImagePathToImage}}" Stretch="Uniform" Width="360" Height="300"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <Label Grid.Row="3" Grid.Column="0" Height="35" Width="170" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">Add comment*</Label>
         <TextBox x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" ></TextBox>
         <Button Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Renovation"></Button>
