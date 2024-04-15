@@ -12,29 +12,31 @@ namespace BookingApp.Services
 {
     public class TourReviewService
     {
-        private ITourReviewRepository tourReviewRepository = TourReviewRepository.GetInstance();
-        public TourReviewService() { }
+        private ITourReviewRepository TourReviewRepository { get; set; }
+        public TourReviewService(ITourReviewRepository tourReviewRepository) {
+            TourReviewRepository = tourReviewRepository;
+        }
         public static TourReviewService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourReviewService>();
         }
         public TourReview Add(TourReview newTourReview)
         {
-            return tourReviewRepository.Add(newTourReview);
+            return TourReviewRepository.Add(newTourReview);
         }
 
         public List<TourReview> GetAll()
         {
-            return tourReviewRepository.GetAll();
+            return TourReviewRepository.GetAll();
         }
 
         public TourReview? GetById(int Id)
         {
-            return tourReviewRepository.GetById(Id);
+            return TourReviewRepository.GetById(Id);
         }
         public TourReview? Update(TourReview t)
         {
-            return tourReviewRepository.Update(t);
+            return TourReviewRepository.Update(t);
         }
 
         public static Dictionary<TourSchedule, List<TourReview>> LoadFinishedTours()

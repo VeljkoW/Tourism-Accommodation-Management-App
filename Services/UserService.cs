@@ -15,28 +15,30 @@ namespace BookingApp.Services
 {
     public class UserService
     {
-        private IUserRepository userRepository = UserRepository.GetInstance();
-        public UserService() { }
+        public IUserRepository UserRepository {get;set;}
+        public UserService(IUserRepository userRepository) {
+            UserRepository = userRepository;
+            }
         public static UserService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<UserService>();
         }
         public void Add(User newUser)
         {
-            userRepository.Add(newUser);
+            UserRepository.Add(newUser);
         }
 
         public User? GetById(int Id)
         {
-            return userRepository.GetById(Id);
+            return UserRepository.GetById(Id);
         }
         public User GetByUsername(string username)
         {
-            return userRepository.GetByUsername(username);
+            return UserRepository.GetByUsername(username);
         }
         public List<User> GetAll()
         {
-            return userRepository.GetAll();
+            return UserRepository.GetAll();
         }
     }
 }

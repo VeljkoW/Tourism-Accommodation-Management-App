@@ -13,8 +13,8 @@ namespace BookingApp.Services
     // IImageRepository za inverziju zavisnosti
     public class ImageService
     {
-        public ImageService(){}
-        private IImageRepository imageRepository = ImageRepository.GetInstance();
+        public ImageService(IImageRepository imageRepository) { ImageRepository = imageRepository; }
+        public IImageRepository ImageRepository { get;set; }
         public static ImageService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<ImageService>();
@@ -22,15 +22,15 @@ namespace BookingApp.Services
 
         public Image Add(Image image)
         {
-            return imageRepository.Add(image);
+            return ImageRepository.Add(image);
         }
         public List<Image> GetAll()
         {
-            return imageRepository.GetAll();
+            return ImageRepository.GetAll();
         }
         public Image? GetById(int id)
         {
-            return imageRepository.GetById(id);
+            return ImageRepository.GetById(id);
         }
     }
 }

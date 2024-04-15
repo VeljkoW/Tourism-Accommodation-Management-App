@@ -13,20 +13,20 @@ namespace BookingApp.Services
 {
     public class GuestRatingService
     {
-        private IGuestRatingRepository guestRatingRepository = GuestRatingRepository.GetInstance();
-        public GuestRatingService() { }
+        private IGuestRatingRepository GuestRatingRepository { get; set; }
+        public GuestRatingService(IGuestRatingRepository guestRatingRepository) { GuestRatingRepository = guestRatingRepository; }
         public static GuestRatingService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<GuestRatingService>();
         }
         public void Add(GuestRating newGuestRating)
         {
-            guestRatingRepository.Add(newGuestRating);
+            GuestRatingRepository.Add(newGuestRating);
         }
 
         public List<GuestRating> GetAll()
         {
-            return guestRatingRepository.GetAll();
+            return GuestRatingRepository.GetAll();
         }
     }
 }

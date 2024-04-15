@@ -12,19 +12,21 @@ namespace BookingApp.Services
 {
     public class TourReviewImageService
     {
-        private ITourReviewImageRepository tourReviewImageRepository = TourReviewImageRepository.GetInstance();
-        public TourReviewImageService() { }
+        public ITourReviewImageRepository TourReviewImageRepository {get;set;}
+        public TourReviewImageService(ITourReviewImageRepository tourReviewImageRepository) {
+            TourReviewImageRepository = tourReviewImageRepository;
+                }
         public static TourReviewImageService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourReviewImageService>();
         }
         public void Add(TourReviewImage newImage)
         {
-            tourReviewImageRepository.Add(newImage);
+            TourReviewImageRepository.Add(newImage);
         }
         public List<TourReviewImage> GetAll()
         {
-            return tourReviewImageRepository.GetAll();
+            return TourReviewImageRepository.GetAll();
         }
     }
 }

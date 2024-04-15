@@ -13,25 +13,25 @@ namespace BookingApp.Services
 {
     public class KeyPointService
     {
-        private IKeyPointRepository keyPointRepository = KeyPointRepository.GetInstance();
-        public KeyPointService() { }
+        public IKeyPointRepository KeyPointRepository { get; set; }
+        public KeyPointService(IKeyPointRepository keyPointRepository) { KeyPointRepository = keyPointRepository; }
         public static KeyPointService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<KeyPointService>();
         }
         public KeyPoint Add(KeyPoint newKeyPoint)
         {
-            return keyPointRepository.Add(newKeyPoint);
+            return KeyPointRepository.Add(newKeyPoint);
         }
 
         public List<KeyPoint> GetAll()
         {
-            return keyPointRepository.GetAll();
+            return KeyPointRepository.GetAll();
         }
 
         public KeyPoint? GetById(int Id)
         {
-            return keyPointRepository.GetById(Id);
+            return KeyPointRepository.GetById(Id);
         }
     }
 }

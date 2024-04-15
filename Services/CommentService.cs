@@ -15,37 +15,37 @@ namespace BookingApp.Services
 {
     public class CommentService
     {
-        private ICommentRepository commentRepository = CommentRepository.GetInstance();
-        public CommentService() { }
+        private ICommentRepository CommentRepository {get;set;}
+        public CommentService(ICommentRepository commentRepository) { CommentRepository = commentRepository; }
         public static CommentService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<CommentService>();
         }
         public Comment Save(Comment newComment)
         {
-           return commentRepository.Save(newComment);
+           return CommentRepository.Save(newComment);
         }
 
         public List<Comment> GetAll()
         {
-            return commentRepository.GetAll();
+            return CommentRepository.GetAll();
         }
 
         public void Delete(Comment comment)
         {
-            commentRepository.Delete(comment);
+            CommentRepository.Delete(comment);
         }
         public Comment Update(Comment newComment)
         {
-            return commentRepository.Update(newComment);
+            return CommentRepository.Update(newComment);
         }
         public List<Comment> GetByUser(User user)
         {
-            return commentRepository.GetByUser(user);
+            return CommentRepository.GetByUser(user);
         }
         public Comment? GetById(int id)
         {
-            return commentRepository.GetById(id);
+            return CommentRepository.GetById(id);
         }
     }
 }

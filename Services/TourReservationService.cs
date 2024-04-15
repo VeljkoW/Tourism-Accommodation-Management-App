@@ -14,29 +14,31 @@ namespace BookingApp.Services
 {
     public class TourReservationService
     {
-        private ITourReservationRepository tourReservationRepository = TourReservationRepository.GetInstance();
-        public TourReservationService() { }
+        public ITourReservationRepository TourReservationRepository { get; set; }
+        public TourReservationService(ITourReservationRepository tourReservationRepository) {
+            TourReservationRepository = tourReservationRepository;
+        }
         public static TourReservationService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourReservationService>();
         }
         public TourReservation Add(TourReservation newReservation)
         {
-            return tourReservationRepository.Add(newReservation);
+            return TourReservationRepository.Add(newReservation);
         }
 
         public List<TourReservation> GetAll()
         {
-            return tourReservationRepository.GetAll();
+            return TourReservationRepository.GetAll();
         }
 
         public TourReservation? GetById(int Id)
         {
-            return tourReservationRepository.GetById(Id);
+            return TourReservationRepository.GetById(Id);
         }
         public TourReservation? GetByScheduleId(int Id)
         {
-            return tourReservationRepository.GetByScheduleId(Id);
+            return TourReservationRepository.GetByScheduleId(Id);
         }
 
         public List<TourPerson>? GetTouristsByReservationId(int id)

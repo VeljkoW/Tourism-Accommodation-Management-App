@@ -14,38 +14,40 @@ namespace BookingApp.Services
 {
     public class ReservedAccommodationService
     {
-        private IReservedAccommodationRepository reservedAccommodationRepository = ReservedAccommodationRepository.GetInstance();
-        public ReservedAccommodationService() { }
+        private IReservedAccommodationRepository ReservedAccommodationRepository { get; set; }
+        public ReservedAccommodationService(IReservedAccommodationRepository reservedAccommodationRepository) {
+            ReservedAccommodationRepository = reservedAccommodationRepository;
+        }
         public static ReservedAccommodationService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<ReservedAccommodationService>();
         }
         public void Add(ReservedAccommodation newReservedAccommodation)
         {
-            reservedAccommodationRepository.Add(newReservedAccommodation);
+            ReservedAccommodationRepository.Add(newReservedAccommodation);
         }
 
         public ReservedAccommodation? GetByAccommodationId(int Id)
         {
-            return reservedAccommodationRepository.GetByAccommodationId(Id);
+            return ReservedAccommodationRepository.GetByAccommodationId(Id);
         }
 
         public ReservedAccommodation? GetById(int Id)
         {
-            return reservedAccommodationRepository.GetById(Id);
+            return ReservedAccommodationRepository.GetById(Id);
         }
         public List<ReservedAccommodation> GetAll()
         {
-            return reservedAccommodationRepository.GetAll();
+            return ReservedAccommodationRepository.GetAll();
         }
 
         public void Delete(ReservedAccommodation reservedAccommodation)
         {
-            reservedAccommodationRepository.Delete(reservedAccommodation);
+            ReservedAccommodationRepository.Delete(reservedAccommodation);
         }
         public void UpdateDatesByReschedulingRequest(GuestReschedulingRequest GuestReschedulingRequest)
         {
-            reservedAccommodationRepository.UpdateDatesByReschedulingRequest(GuestReschedulingRequest);
+            ReservedAccommodationRepository.UpdateDatesByReschedulingRequest(GuestReschedulingRequest);
         }
 
         public ObservableCollection<ReservedAccommodation> Update(User user)
