@@ -19,25 +19,27 @@ namespace BookingApp.Services
         public KeyPointService keyPointService = KeyPointService.GetInstance();
         public LocationService locationService = LocationService.GetInstance();
 
-        private ITourRepository tourRepository = TourRepository.GetInstance();
-        public TourService() { }
+        public ITourRepository TourRepository { get; set; }
+        public TourService(ITourRepository TourRepositorya) {
+            this.TourRepository= TourRepositorya;
+        }
         public static TourService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourService>();
         }
         public Tour Add(Tour newTour)
         {
-            return tourRepository.Add(newTour);
+            return TourRepository.Add(newTour);
         }
 
         public List<Tour> GetAll()
         {
-            return tourRepository.GetAll();
+            return TourRepository.GetAll();
         }
 
         public Tour? GetById(int Id)
         {
-            return tourRepository.GetById(Id);
+            return TourRepository.GetById(Id);
         }
         public Dictionary<TourSchedule, Tour> LoadToursForGuide(User user)
         {

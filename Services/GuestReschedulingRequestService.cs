@@ -12,29 +12,29 @@ namespace BookingApp.Services
 {
     public class GuestReschedulingRequestService
     {
-        private IGuestReschedulingRequestRepository guestReschedulingRequestRepository = GuestReschedulingRequestRepository.GetInstance();
-        public GuestReschedulingRequestService() { }
+        public IGuestReschedulingRequestRepository GuestReschedulingRequestRepository {get;set;}
+        public GuestReschedulingRequestService(IGuestReschedulingRequestRepository GuestReschedulingRequestRepository) { }
         public static GuestReschedulingRequestService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<GuestReschedulingRequestService>();
         }
         public void Add(GuestReschedulingRequest newGuestReschedulingRequest)
         {
-            guestReschedulingRequestRepository.Add(newGuestReschedulingRequest);
+            GuestReschedulingRequestRepository.Add(newGuestReschedulingRequest);
         }
 
         public List<GuestReschedulingRequest> GetAll()
         {
-            return guestReschedulingRequestRepository.GetAll();
+            return GuestReschedulingRequestRepository.GetAll();
         }
 
         public GuestReschedulingRequest? GetById(int Id)
         {
-            return guestReschedulingRequestRepository.GetById(Id);
+            return GuestReschedulingRequestRepository.GetById(Id);
         }
         public void DeleteById(int Id)
         {
-            guestReschedulingRequestRepository.DeleteById(Id);
+            GuestReschedulingRequestRepository.DeleteById(Id);
         }
     }
 }

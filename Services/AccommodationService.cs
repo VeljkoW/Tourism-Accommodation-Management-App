@@ -13,25 +13,25 @@ namespace BookingApp.Services
 {
     public class AccommodationService
     {
-        private IAccommodationRepository accommodationRepository = AccommodationRepository.GetInstance();
-        public AccommodationService() { }
+        private IAccommodationRepository AccommodationRepository {get;set;}
+        public AccommodationService(IAccommodationRepository accommodationRepository) { AccommodationRepository = accommodationRepository; }
         public static AccommodationService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<AccommodationService>();
         }
         public void Add(Accommodation newAccommodation)
         {
-            accommodationRepository.Add(newAccommodation);
+            AccommodationRepository.Add(newAccommodation);
         }
 
         public List<Accommodation> GetAll()
         {
-            return accommodationRepository.GetAll();
+            return AccommodationRepository.GetAll();
         }
 
         public Accommodation? GetById(int Id)
         {
-            return accommodationRepository.GetById(Id);
+            return AccommodationRepository.GetById(Id);
         }
     }
 }

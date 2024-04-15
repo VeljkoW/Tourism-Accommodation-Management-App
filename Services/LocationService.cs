@@ -13,29 +13,29 @@ namespace BookingApp.Services
 {
     public class LocationService
     {
-        private ILocationRepository locationRepository = LocationRepository.GetInstance();
-        public LocationService() { }
+        public ILocationRepository LocationRepository { get; set; }
+        public LocationService(ILocationRepository locationRepository) { LocationRepository = locationRepository; }
         public static LocationService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<LocationService>();
         }
         public void Add(Location newLocation)
         {
-            locationRepository.Add(newLocation);
+            LocationRepository.Add(newLocation);
         }
 
         public List<Location> GetAll()
         {
-            return locationRepository.GetAll();
+            return LocationRepository.GetAll();
         }
 
         public Location? GetById(int Id)
         {
-            return locationRepository.GetById(Id);
+            return LocationRepository.GetById(Id);
         }
         public int GetIdByStateCity(string State, string City)
         {
-            return locationRepository.GetIdByStateCity(State, City);
+            return LocationRepository.GetIdByStateCity(State, City);
         }
     }
 }

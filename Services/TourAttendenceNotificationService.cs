@@ -12,29 +12,29 @@ namespace BookingApp.Services
 {
     public class TourAttendenceNotificationService
     {
-        private ITourAttendenceNotificationRepository tourAttendenceNotificationRepository = TourAttendenceNotificationRepository.GetInstance();
-        public TourAttendenceNotificationService() { }
+        public ITourAttendenceNotificationRepository TourAttendenceNotificationRepository{get;set;}
+        public TourAttendenceNotificationService(ITourAttendenceNotificationRepository tourAttendenceNotificationRepository) { TourAttendenceNotificationRepository = tourAttendenceNotificationRepository; }
         public static TourAttendenceNotificationService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourAttendenceNotificationService>();
         }
         public TourAttendenceNotification Add(TourAttendenceNotification newTourAttendenceNotification)
         {
-            return tourAttendenceNotificationRepository.Add(newTourAttendenceNotification);
+            return TourAttendenceNotificationRepository.Add(newTourAttendenceNotification);
         }
 
         public List<TourAttendenceNotification> GetAll()
         {
-            return tourAttendenceNotificationRepository.GetAll();
+            return TourAttendenceNotificationRepository.GetAll();
         }
 
         public TourAttendenceNotification? GetById(int Id)
         {
-            return tourAttendenceNotificationRepository.GetById(Id);
+            return TourAttendenceNotificationRepository.GetById(Id);
         }
         public TourAttendenceNotification? Update(TourAttendenceNotification tourAttendenceNotification)
         {
-            return tourAttendenceNotificationRepository.Update(tourAttendenceNotification);
+            return TourAttendenceNotificationRepository.Update(tourAttendenceNotification);
         }
     }
 }

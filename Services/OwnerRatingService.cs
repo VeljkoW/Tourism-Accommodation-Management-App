@@ -12,8 +12,8 @@ namespace BookingApp.Services
 {
     public class OwnerRatingService
     {
-        private IOwnerRatingRepository ownerRatingRepository = OwnerRatingRepository.GetInstance();
-        public OwnerRatingService() { }
+        private IOwnerRatingRepository OwnerRatingRepository {get;set;}
+        public OwnerRatingService(IOwnerRatingRepository ownerRatingRepository) { OwnerRatingRepository = ownerRatingRepository; }
 
         public static OwnerRatingService GetInstance()
         {
@@ -21,17 +21,17 @@ namespace BookingApp.Services
         }
         public void Add(OwnerRating ownerRating)
         {
-            ownerRatingRepository.Add(ownerRating);
+            OwnerRatingRepository.Add(ownerRating);
         }
 
         public List<OwnerRating> GetAll()
         {
-            return ownerRatingRepository.GetAll();
+            return OwnerRatingRepository.GetAll();
         }
 
         public OwnerRating? GetById(int Id)
         {
-            return ownerRatingRepository.GetById(Id);
+            return OwnerRatingRepository.GetById(Id);
         }
 
     }

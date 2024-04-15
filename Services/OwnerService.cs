@@ -12,8 +12,8 @@ namespace BookingApp.Services
 {
     public class OwnerService
     {
-        private IOwnerRepository ownerRepository = OwnerRepository.GetInstance();
-        public OwnerService() { }
+        public IOwnerRepository OwnerRepository { get; set; }
+        public OwnerService(IOwnerRepository ownerRepository) { OwnerRepository = ownerRepository; }
         public static OwnerService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<OwnerService>();
@@ -21,21 +21,21 @@ namespace BookingApp.Services
 
         public void Add(Owner newOwner)
         {
-            ownerRepository.Add(newOwner);
+            OwnerRepository.Add(newOwner);
         }
 
         public List<Owner> GetAll()
         {
-            return ownerRepository.GetAll();
+            return OwnerRepository.GetAll();
         }
 
         public Owner? GetById(int Id)
         {
-            return ownerRepository.GetById(Id);
+            return OwnerRepository.GetById(Id);
         }
         public void Update(int Id, bool IsSuperOwner)
         {
-            ownerRepository.Update(Id, IsSuperOwner);
+            OwnerRepository.Update(Id, IsSuperOwner);
         }
         public void UpdateAll()
         {
