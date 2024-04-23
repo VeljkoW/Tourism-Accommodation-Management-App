@@ -454,5 +454,11 @@ namespace BookingApp.ViewModel.Tourist
             notificationWindow.Owner = TouristMainWindow;
             notificationWindow.ShowDialog();
         }
+        public void TourSuggestionClick(object sender, RoutedEventArgs e)
+        {
+            TourSuggestionWindow tourSuggestionWindow= new TourSuggestionWindow(User);
+            tourSuggestionWindow.Owner = TouristMainWindow;
+            tourSuggestionWindow.ShowDialog();
+        }
     }
 }
