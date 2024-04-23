@@ -23,4 +23,8 @@ namespace BookingApp.Domain.Model
     {
         Valid, Invalid
     }
+    public enum TourSuggestionStatus
+    {
+        Accepted, Rejected, Pending
+    }
 }

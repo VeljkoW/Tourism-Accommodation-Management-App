@@ -404,8 +404,96 @@
                                 <TranslateTransform/>
                             </TransformGroup>
                         </TabItem.RenderTransform>
+                        <Grid Margin="-16,0,-2,-2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="230"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="0 0 0 5" BorderBrush="{StaticResource BorderColorBrush}">
+                                <Grid Margin="0 10 0 10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Normal Tour Suggestions" HorizontalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="Complex Tour Suggestions" HorizontalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"></TextBlock>
+                                </Grid>
+                            </Border>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <ScrollViewer Grid.Column="0">
+                                    <ItemsControl ItemsSource="{Binding TourSuggestions}" Margin="10" HorizontalAlignment="Stretch">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <local:TourCoupon/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Vertical"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </ScrollViewer>
 
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"> Suggestions TAB</TextBlock>
+                                <Border Grid.Column="1" BorderThickness="5 0 0 0" BorderBrush="{StaticResource BorderColorBrush}">
+                                    <ScrollViewer Grid.Column="0">
+                                        <ItemsControl ItemsSource="{Binding ComplexTourSuggestions}" Margin="10" HorizontalAlignment="Stretch">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <local:TourCoupon/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Vertical"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Border>
+                                
+                            </Grid>
+                            <Border Grid.Row="2" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="0 5 0 0"  Background="{StaticResource BackgroundColorBrush}">
+                                <Border BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="20" Margin="30" BorderThickness="5" Background="{StaticResource TabColorBrush}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="1" Width="320" Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 65 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand" Click="TourSuggestionClick">
+                                            <Button.Effect>
+                                                <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                                            </Button.Effect>
+                                            <TextBlock Text="Create a tour suggestion" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                                        </Button>
+
+                                        <Button Grid.Column="2" Width="320" Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 65 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
+                                            <Button.Effect>
+                                                <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                                            </Button.Effect>
+                                            <TextBlock Text="Tour suggestion statistics" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                                        </Button>
+
+                                        <Button Grid.Column="3" Width="320" Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
+                                            <Button.Effect>
+                                                <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                                            </Button.Effect>
+                                            <TextBlock Text="Create a complex tour suggestion" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                                        </Button>
+
+                                    </Grid>
+                                </Border>
+                            </Border>
+                        </Grid>
 
                     </TabItem>
 

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -186,6 +187,10 @@ namespace BookingApp.View.Tourist
         private void NotificationButtonClick(object sender, RoutedEventArgs e)
         {
             TouristMainWindowViewModel.NotificationButtonClick(sender, e);
+        }
+        private void TourSuggestionClick(object sender, RoutedEventArgs e)
+        {
+            TouristMainWindowViewModel.TourSuggestionClick(sender, e);
         }
     }
 }
