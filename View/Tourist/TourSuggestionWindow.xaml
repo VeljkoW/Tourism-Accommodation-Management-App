@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:BookingApp.View.Tourist"
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
@@ -78,7 +79,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Text="State*" HorizontalAlignment="Left" Margin="0 0 20 0" Foreground="{StaticResource TextColorBrush}"/>
-                                <ComboBox x:Name="StateComboBox" Grid.Row="1" Width="101" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                                <ComboBox x:Name="StateComboBox" Grid.Row="1" Width="101" HorizontalAlignment="Left" Margin="0 0 20 0" SelectionChanged="StateComboBoxSelectionChanged"/>
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="1" Margin="12 5 0 0">
                                 <Grid.RowDefinitions>
@@ -86,7 +87,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Text="Start Date*" HorizontalAlignment="Left" Foreground="{StaticResource TextColorBrush}"/>
-                                <DatePicker Grid.Row="1" x:Name="StartDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0"/>
+                                <DatePicker Grid.Row="1" x:Name="StartDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
                             </Grid>
                             <Grid Grid.Row="2" Grid.Column="0" Margin="25 5 0 0">
                                 <Grid.RowDefinitions>
@@ -102,7 +103,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Text="End Date*" HorizontalAlignment="Left" Foreground="{StaticResource TextColorBrush}"/>
-                                <DatePicker Grid.Row="1" x:Name="EndDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0"/>
+                                <DatePicker Grid.Row="1" x:Name="EndDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
                             </Grid>
             
                         </Grid>

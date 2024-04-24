@@ -27,6 +27,14 @@ namespace BookingApp.View.Tourist
             InitializeComponent();
             TourSuggestionWindowViewModel = new TourSuggestionWindowViewModel(this, user);
             this.DataContext = TourSuggestionWindowViewModel;
+            SetDatePickerBlackoutDates();
+        }
+        private void SetDatePickerBlackoutDates()
+        {
+            DateTime timestamp = DateTime.Today.AddDays(2);
+            CalendarDateRange blackoutRange = new CalendarDateRange(new DateTime(1, 1, 1), timestamp.AddDays(-1));
+            StartDatePicker.BlackoutDates.Add(blackoutRange);
+            EndDatePicker.BlackoutDates.Add(blackoutRange);
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
@@ -43,12 +51,18 @@ namespace BookingApp.View.Tourist
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
         }
-
+        private void StateComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TourSuggestionWindowViewModel.StateComboBoxSelectionChanged(sender, e);
+        }
         private void GenerateTextBoxes(object sender, TextChangedEventArgs e)
         {
             TourSuggestionWindowViewModel.GenerateTextBoxes(sender, e);
         }
-
+        private void DatePicker_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+        }
         public void Cancel(object sender, RoutedEventArgs e)
         {
             TourSuggestionWindowViewModel.Cancel(sender, e);
