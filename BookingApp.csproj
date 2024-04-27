@@ -23,6 +23,7 @@
 		<None Remove="Resources\Images\delete.png" />
 		<None Remove="Resources\Images\edit.png" />
 		<None Remove="Resources\Images\eye.png" />
+		<None Remove="Resources\Images\Guest\star.png" />
 		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
 		<None Remove="Resources\Images\No-Image-Placeholder.png" />
@@ -102,6 +103,7 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<Resource Include="Resources\Images\Guest\star.png" />
 		<Resource Include="Resources\Images\Guide\user.png" />
 		<Resource Include="Resources\Images\Owner\bell.png" />
 		<Resource Include="Resources\Images\Owner\check-box.png" />

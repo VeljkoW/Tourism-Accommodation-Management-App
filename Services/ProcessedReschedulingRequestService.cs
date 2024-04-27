@@ -13,7 +13,7 @@ namespace BookingApp.Services
     public class ProcessedReschedulingRequestService
     {
         public IProcessedReschedulingRequestRepository ProcessedReschedulingRequestRepository {get;set;}
-        public ProcessedReschedulingRequestService(IProcessedReschedulingRequestRepository processedReschedulingRequestRepository) { }
+        public ProcessedReschedulingRequestService(IProcessedReschedulingRequestRepository processedReschedulingRequestRepository) { ProcessedReschedulingRequestRepository = processedReschedulingRequestRepository; }
         public static ProcessedReschedulingRequestService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<ProcessedReschedulingRequestService>();
