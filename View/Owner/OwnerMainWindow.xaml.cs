@@ -46,6 +46,7 @@ namespace BookingApp.View.Owner
             this.DataContext = OwnerMainWindowViewModel;
             this.user = user;
 
+            NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
             AccommodationStatistics = new AccommodationStatistics();
@@ -63,6 +64,7 @@ namespace BookingApp.View.Owner
             {
                 NotificationListBox.BorderBrush = Brushes.Gray;
                 NotificationListBox.BorderThickness = new Thickness(1);
+                NewNotificationImage.Visibility = Visibility.Collapsed;
             }
         }
         private void LogOut(object sender, RoutedEventArgs e)
@@ -106,5 +108,14 @@ namespace BookingApp.View.Owner
 
         private void ForumClick(object sender, RoutedEventArgs e)
         { mainFrame.Navigate(Forum); }
+
+        private void NotificationButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(NotificationListBox.Visibility == Visibility.Collapsed)
+                NotificationListBox.Visibility = Visibility.Visible;
+            else
+                NotificationListBox.Visibility = Visibility.Collapsed;
+            NewNotificationImage.Visibility = Visibility.Collapsed;
+        }
     }
 }

@@ -28,6 +28,7 @@
 		<None Remove="Resources\Images\No-Image-Placeholder.png" />
 		<None Remove="Resources\Images\Owner\bell.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
+		<None Remove="Resources\Images\Owner\record.png" />
 		<None Remove="Resources\Images\Owner\serbia-flag.png" />
 		<None Remove="Resources\Images\Owner\star.png" />
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
@@ -105,6 +106,7 @@
 		<Resource Include="Resources\Images\Guide\user.png" />
 		<Resource Include="Resources\Images\Owner\bell.png" />
 		<Resource Include="Resources\Images\Owner\check-box.png" />
+		<Resource Include="Resources\Images\Owner\record.png" />
 		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
 		<Resource Include="Resources\Images\Owner\star.png" />
 		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
