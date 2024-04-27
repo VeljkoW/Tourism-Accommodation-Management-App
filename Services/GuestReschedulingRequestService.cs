@@ -13,7 +13,7 @@ namespace BookingApp.Services
     public class GuestReschedulingRequestService
     {
         public IGuestReschedulingRequestRepository GuestReschedulingRequestRepository {get;set;}
-        public GuestReschedulingRequestService(IGuestReschedulingRequestRepository GuestReschedulingRequestRepository) { }
+        public GuestReschedulingRequestService(IGuestReschedulingRequestRepository guestReschedulingRequestRepository) { GuestReschedulingRequestRepository = guestReschedulingRequestRepository;  }
         public static GuestReschedulingRequestService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<GuestReschedulingRequestService>();

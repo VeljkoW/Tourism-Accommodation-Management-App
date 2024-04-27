@@ -23,11 +23,19 @@ namespace BookingApp.View.Guest.Windows
     /// </summary>
     public partial class GuestRate : Window
     {
+        public ReservedAccommodation ReservedAccommodation { get; set; }
         public GuestRate(User user, ReservedAccommodation reservedAccommodation)
         {
             InitializeComponent();
             GuestRateViewModel guestRateViewModel = new GuestRateViewModel(this, user, reservedAccommodation);
             DataContext = guestRateViewModel;
+            ReservedAccommodation = reservedAccommodation;
+        }
+
+        private void RenovationClick(object sender, RoutedEventArgs e)
+        {
+            GuestRenovation guestRenovation = new GuestRenovation(this, ReservedAccommodation);
+            guestRenovation.Show();
         }
     }
 }

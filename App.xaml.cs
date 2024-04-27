@@ -68,6 +68,8 @@ namespace BookingApp
             _services.AddSingleton<OwnerService>();
             _services.AddSingleton<ITourSuggestionRepository,TourSuggestionRepository>();
             _services.AddSingleton<TourSuggestionService>();
+            _services.AddSingleton<IRenovationRequestRepository, RenovationRequestRepository>();
+            _services.AddSingleton<RenovationRequestService>();
 
             _serviceProvider = _services.BuildServiceProvider();
 

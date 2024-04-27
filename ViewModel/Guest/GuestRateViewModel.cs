@@ -34,6 +34,14 @@ namespace BookingApp.ViewModel.Guest
             strings = new ObservableCollection<string>();
             Images = new ObservableCollection<Image>();
             RelativeImagePaths = new ObservableCollection<string>();
+            foreach(RenovationRequest renovationRequest in RenovationRequestService.GetInstance().GetAll())
+            {
+                if(renovationRequest.AccommodationId == selectedAccommodation.AccommodationId && renovationRequest.GuestId == User.Id)
+                {
+                    GuestRate.RenovationButton.IsEnabled = false;
+                    GuestRate.RenovationButton.Content = "Renovation sent";
+                }    
+            }
         }
 
         public void RateIt()

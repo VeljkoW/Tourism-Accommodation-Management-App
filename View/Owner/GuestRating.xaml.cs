@@ -52,7 +52,6 @@ namespace BookingApp.View.Owner
             {
                 if (radioButton.IsChecked == true)
                 {
-                    // Proverite koji je RadioButton izabran i postavite vrednost u GuestRatingModel
                     if (radioButton.Name == "Cleanliness1")
                     {
                         Cleanliness = 1;
@@ -83,7 +82,6 @@ namespace BookingApp.View.Owner
             {
                 if (radioButton.IsChecked == true)
                 {
-                    // Proverite koji je RadioButton izabran i postavite vrednost u GuestRatingModel
                     if (radioButton.Name == "FollowingGuidelines1")
                     {
                         FollowingGuidelines = 1;
