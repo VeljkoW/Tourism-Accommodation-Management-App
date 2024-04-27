@@ -11,6 +11,7 @@
     <Page.Resources>
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
     </Page.Resources>
 
     <Grid>
@@ -22,12 +23,14 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1" Grid.Row="1" Margin="30">
+        <Grid Grid.Column="1" Grid.Row="1" Margin="30 0 30 30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="RatingGuestsTable"
+            <Label Content="Select the guest you want to rat:"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+            <DataGrid x:Name="RatingGuestsTable" Margin="20 60 20 10"
                       ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
@@ -35,33 +38,86 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
                     <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
                     <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding checkInDate}"/>
                     <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding checkOutDate}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label x:Name="CleanliniessLabel" Content="Cleanliness" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="15"></Label>
-            <ComboBox Margin="0 50 0 0" x:Name="CleanlinessComboBox" Grid.Row="2" Grid.Column="1" Width="300" Height="80" 
-          HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ComboBoxItem Content="1"></ComboBoxItem>
-                <ComboBoxItem Content="2"></ComboBoxItem>
-                <ComboBoxItem Content="3"></ComboBoxItem>
-                <ComboBoxItem Content="4"></ComboBoxItem>
-                <ComboBoxItem Content="5"></ComboBoxItem>
-            </ComboBox>
-            <Label x:Name="FollowingGuidelinesLabel" Content="Following Guidelines" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="15"></Label>
-            <ComboBox Margin="0 50 0 0" x:Name="FollowingGuidelinesComboBox"  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="300" Height="80">
-                <ComboBoxItem Content="1"></ComboBoxItem>
-                <ComboBoxItem Content="2"></ComboBoxItem>
-                <ComboBoxItem Content="3"></ComboBoxItem>
-                <ComboBoxItem Content="4"></ComboBoxItem>
-                <ComboBoxItem Content="5"></ComboBoxItem>
-            </ComboBox>
-            <Label x:Name="CommentLabel" Content="Add comment" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="15"></Label>
-            <TextBox Margin="0 50 0 0" x:Name="CommentTextBox" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top"></TextBox>
-            <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Margin="0 0 0 50" Grid.Row="2" Grid.Column="1" Width="300" Height="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Rate Guest" FontSize="25"></Button>
-            <Label x:Name="SelectErrorLabel" Content="Select Guest you want to rate!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"></Label>
-            <Label x:Name="InvalidInputLabel" Content="Invalid input!" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="917,0,0,44" FontSize="20" Foreground="Red"/>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="60 10" Margin="160 20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*" MinHeight="50"/>
+                        <RowDefinition Height="*" MinHeight="40"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Label Content="Rating Guest: " FontSize="24"/>
+                        <Label Content="Username1" FontSize="24"/>
+                    </StackPanel>
+                    <DockPanel Grid.Row="1">
+                        <Label Content="Cleanliness:* " FontSize="20"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="83 5 0 5">
+                            <RadioButton x:Name="Cleanliness1" Content="1" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="Cleanliness2" Content="2" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="Cleanliness3" Content="3" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="Cleanliness4" Content="4" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="Cleanliness5" Content="5" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                        </StackPanel>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2">
+                        <Label Content="Following guidelines:* " FontSize="20"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <RadioButton x:Name="FollowingGuidelines1" Content="1" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="FollowingGuidelines2" Content="2" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="FollowingGuidelines3" Content="3" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="FollowingGuidelines4" Content="4" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            <RadioButton x:Name="FollowingGuidelines5" Content="5" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                        </StackPanel>
+                    </DockPanel>
+                    <!-- <DockPanel Grid.Row="1">
+                        <Label Content="Cleanliness:* " FontSize="20"/>
+                        <ComboBox x:Name="CleanlinessComboBox" Width="300" FontSize="20"
+                                  HorizontalAlignment="Left" Margin="83 5 0 5">
+                            <ComboBoxItem Content="1"></ComboBoxItem>
+                            <ComboBoxItem Content="2"></ComboBoxItem>
+                            <ComboBoxItem Content="3"></ComboBoxItem>
+                            <ComboBoxItem Content="4"></ComboBoxItem>
+                            <ComboBoxItem Content="5"></ComboBoxItem>
+                        </ComboBox>
+                    </DockPanel> -->
+                    <!-- <DockPanel Grid.Row="2">
+                        <Label Content="Following guidelines:* " FontSize="20"/>
+                        <ComboBox x:Name="FollowingGuidelinesComboBox" Width="300" FontSize="20"
+                                  HorizontalAlignment="Left" Margin="0 5 0 5">
+                            <ComboBoxItem Content="1"/>
+                            <ComboBoxItem Content="2"/>
+                            <ComboBoxItem Content="3"/>
+                            <ComboBoxItem Content="4"/>
+                            <ComboBoxItem Content="5"/>
+                        </ComboBox>
+                    </DockPanel> -->
+                    <Label Content="Comment:* " Grid.Row="3" FontSize="20"/>
+
+
+                    <TextBox x:Name="CommentTextBox" Grid.Row="4" FontSize="20"
+                             VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True"/>
+                    <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Content="Rate Guest" FontSize="24"></Button>
+                </Grid>
+            </Border>
         </Grid>
-        
     </Grid>
 </Page>

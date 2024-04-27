@@ -60,7 +60,6 @@ namespace BookingApp.ViewModel.Owner
             AccommodationService.GetInstance().Add(Accommodation);
 
             ResetInputs();
-            AccommodationRegistration.ErrorsVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed);
             AccommodationRegistration.SuccessLabel.Visibility = Visibility.Visible;
         }
         public bool AcceptCanExecute()

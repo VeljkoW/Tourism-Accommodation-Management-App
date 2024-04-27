@@ -35,6 +35,7 @@ namespace BookingApp.View.Owner
         public GuestRatingPage GuestRatingPage { get; set; }
         //public GuestReviews GuestReviews { get; set; }
         public Renovation Renovation { get; set; }
+        public RenovationHistory RenovationHistory { get; set; }
         public Forum Forum {  get; set; }
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
         public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
@@ -53,7 +54,8 @@ namespace BookingApp.View.Owner
             GuestRatingPage = new GuestRatingPage(this, user);
             ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();
             //GuestReviews = new GuestReviews(user);
-            Renovation = new Renovation();
+            Renovation = new Renovation(this);
+            RenovationHistory = new RenovationHistory(this);
             Forum = new Forum();
             mainFrame.Navigate(AccommodationRegistration);
 

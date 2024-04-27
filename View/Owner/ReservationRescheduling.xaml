@@ -58,7 +58,7 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Selected Guest:" Grid.Column="0"
+                <Label Content="Selected Guest" Grid.Column="0"
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
                 <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 40 0 0">
                     <Grid>
@@ -71,7 +71,7 @@
                             <RowDefinition Height="*" MinHeight="50"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <Label Content="Selected Guest" FontSize="20"/>
+                            <Label Content="Guest Username: " FontSize="20"/>
                             <Label Content="{Binding SelectedGuestReschedulingRequest.guestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"  Grid.Row="1">
@@ -99,9 +99,59 @@
                     </Grid>
                 </Border>
 
-
                 <Label Content="Check Reservations:" Grid.Column="1" 
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+                <Grid Grid.Column="1"  Margin="20 40 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" MinHeight="120"/>
+                        <RowDefinition Height="2*" MinHeight="80"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0">
+                        <Label Content="Accommodation Name:" FontSize="20" Margin="0 0 20 0"/>
+                        <ComboBox ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedLocation}"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30" FontSize="20"
+                                  SelectedValuePath="Print" DisplayMemberPath="Print"/>
+                    </DockPanel>
+                    <DataGrid Grid.Row="0" Margin="0 40 0 20"
+                              ItemsSource="{Binding GuestReschedulingRequests, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedGuestReschedulingRequest, UpdateSourceTrigger=PropertyChanged}"
+                              AutoGenerateColumns="False"
+                              SelectionMode="Single" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Guest Username"/>
+                            <DataGridTextColumn Width="*" Header="Check-in Date"/>
+                            <DataGridTextColumn Width="*" Header="Check-out Date"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="5" Margin="0 0 0 0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1.5*" MinHeight="50"/>
+                                <RowDefinition Height="*" MinHeight="30"/>
+                                <RowDefinition Height="*" MinHeight="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="For the selected accommodation, choose &#10;start and end date you want the report for:" 
+                                   FontSize="15" Grid.Row="0"/>
+                            <DockPanel Grid.Row="1" VerticalAlignment="Center">
+                                <Label Content="Start Date:*" FontSize="15"/>
+                                <DatePicker Width="250" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15"/>
+                            </DockPanel>
+                            <DockPanel Grid.Row="2" VerticalAlignment="Center">
+                                <Label Content="End Date:*" FontSize="15" Margin="0 0 6 0"/>
+                                <DatePicker Width="250" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15"/>
+                            </DockPanel>
+
+                            <Button Content="Download&#10;Reservation&#10;Report" Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" Height="80" Width="140" FontSize="18"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        </Grid>
+                    </Border>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
