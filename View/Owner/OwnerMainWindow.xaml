@@ -56,13 +56,19 @@
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
                 <ListBox x:Name="NotificationListBox" ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}" 
-                         Grid.Row="0" Grid.Column="2" Width="350" Height="100" HorizontalAlignment="Right" VerticalAlignment="Center"
-                         SelectedValuePath="Print" DisplayMemberPath="Print"></ListBox>
-            
-                <Image Source="../../Resources/Images/Owner/bell.png" Grid.Column="3" Height="64" Width="64" 
-                       HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 20 0 0"></Image>
-                <Label Grid.Column="3" Content="Notifications"
-                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+                         Grid.Row="0" Grid.Column="2" Width="350" Height="104" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 20 20 0"
+                         SelectedValuePath="Print" DisplayMemberPath="Print"/>
+
+                <Button Click="NotificationButtonClick" Grid.Column="3" Margin="0 20 0 25" Background="Transparent" BorderThickness="0"
+                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <Grid>
+                        <Image Source="../../Resources/Images/Owner/bell.png" Height="64" Width="64" 
+                               HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Image x:Name="NewNotificationImage" Source="../../Resources/Images/Owner/record.png" Height="16" Margin="25 0 0 0"
+                               HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="Notifications" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </Button>
 
                 <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
                     <Image Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
