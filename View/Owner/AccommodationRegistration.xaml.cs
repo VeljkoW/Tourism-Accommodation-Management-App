@@ -36,17 +36,17 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             AccommodationManagementViewModel = new AccommodationManagementViewModel(this, user);
             this.DataContext = AccommodationManagementViewModel;
-            ErrorsVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed);
+            //ErrorsVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed);
             SuccessLabel.Visibility = Visibility.Collapsed;
         }
-        public void ErrorsVisibility(System.Windows.Visibility invalidInputVisibility,
+        /*public void ErrorsVisibility(System.Windows.Visibility invalidInputVisibility,
                                      System.Windows.Visibility imageErrorVisibility,
                                      System.Windows.Visibility numberErrorVisibility)
         {
             InvalidInputLabel.Visibility = invalidInputVisibility;
             ImageErrorLabel.Visibility = imageErrorVisibility;
             NumberErrorLabel.Visibility = numberErrorVisibility;
-        }
+        }*/
         
         private void PreviewMouseDownEvent(object sender, MouseButtonEventArgs e)
         {

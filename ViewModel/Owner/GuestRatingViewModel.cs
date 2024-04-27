@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using BookingApp.ViewModel.Owner;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
+using System.ComponentModel;
 
 namespace BookingApp.ViewModel.Owner
 {
@@ -37,23 +38,50 @@ namespace BookingApp.ViewModel.Owner
             GuestRatingModel.ownerId = user.Id;
             GuestRatingModel.guestId = SelectedReservedAccommodations.guestId;
             GuestRatingModel.CommentId = comment.Id;
-            GuestRatingModel.Cleanliness = Convert.ToInt32(GuestRatingPage.CleanlinessComboBox.SelectionBoxItem);
-            GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);
+            //GuestRatingModel.Cleanliness = Convert.ToInt32(GuestRatingPage.CleanlinessComboBox.SelectionBoxItem);
+            //GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);
+            GuestRatingModel.Cleanliness = GuestRatingPage.Cleanliness;
+            GuestRatingModel.FollowingGuidelines = GuestRatingPage.FollowingGuidelines;
             GuestRatingService.GetInstance().Add(GuestRatingModel);
 
             Update();
+            OwnerMainWindow.ReservedAccommodations = Update();
+            OwnerMainWindow.NotificationListBox.Items.Refresh();
         }
         public bool RateGuestCanExecute()
         {
-            if (SelectedReservedAccommodations == null || 
-                GuestRatingPage.CleanlinessComboBox.SelectedItem == null ||
-                GuestRatingPage.FollowingGuidelinesComboBox.SelectedItem == null ||
+            if (SelectedReservedAccommodations == null ||
+                //GuestRatingPage.CleanlinessComboBox.SelectedItem == null ||
+                //GuestRatingPage.FollowingGuidelinesComboBox.SelectedItem == null ||
+                GuestRatingPage.Cleanliness == 0 ||
+                !IsCleanlinessChecked() ||
+                !IsFollowingGuidelinesChecked() ||
                 GuestRatingPage.CommentTextBox.Text.Equals(""))
             {
                 return false;
             }
             else
                 return true;
+        }
+        public bool IsCleanlinessChecked()
+        {
+            if(GuestRatingPage.Cleanliness1.IsChecked == false && GuestRatingPage.Cleanliness2.IsChecked == false &&
+                GuestRatingPage.Cleanliness3.IsChecked == false && GuestRatingPage.Cleanliness4.IsChecked == false &&
+                GuestRatingPage.Cleanliness5.IsChecked == false)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool IsFollowingGuidelinesChecked()
+        {
+            if (GuestRatingPage.FollowingGuidelines1.IsChecked == false && GuestRatingPage.FollowingGuidelines2.IsChecked == false &&
+                GuestRatingPage.FollowingGuidelines3.IsChecked == false && GuestRatingPage.FollowingGuidelines4.IsChecked == false &&
+                GuestRatingPage.FollowingGuidelines5.IsChecked == false)
+            {
+                return false;
+            }
+            return true;
         }
 
         public ObservableCollection<ReservedAccommodation> Update()

@@ -16,20 +16,20 @@ using System.Windows.Shapes;
 namespace BookingApp.View.Owner
 {
     /// <summary>
-    /// Interaction logic for Renovation.xaml
+    /// Interaction logic for RenovationHistory.xaml
     /// </summary>
-    public partial class Renovation : Page
+    public partial class RenovationHistory : Page
     {
-        public OwnerMainWindow OwnerMainWindow {  get; set; }
-        public Renovation(OwnerMainWindow OwnerMainWindow)
+        public OwnerMainWindow OwnerMainWindow { get; set; }
+        public RenovationHistory(OwnerMainWindow OwnerMainWindow)
         {
             this.OwnerMainWindow = OwnerMainWindow;
             InitializeComponent();
         }
 
-        private void HistoryClick(object sender, RoutedEventArgs e)
+        private void SchedulingClick(object sender, RoutedEventArgs e)
         {
-            OwnerMainWindow.mainFrame.Navigate(OwnerMainWindow.RenovationHistory);
+            OwnerMainWindow.mainFrame.Navigate(OwnerMainWindow.Renovation);
         }
     }
 }

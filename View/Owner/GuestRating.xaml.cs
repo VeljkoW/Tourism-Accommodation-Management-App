@@ -27,7 +27,8 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class GuestRating : Page
     {
-        ///
+        public int Cleanliness {  get; set; }
+        public int FollowingGuidelines {  get; set; }
         public GuestRatingViewModel GuestRatingViewModel {  get; set; }
         //public OwnerMainWindow ownerMainWindow { get; set; }
         //public User user { get; set; }
@@ -38,11 +39,73 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             GuestRatingViewModel = new GuestRatingViewModel(this, ownerMainWindow, user);
             this.DataContext = GuestRatingViewModel;
+            Cleanliness = 0;
+            FollowingGuidelines = 0;
             //this.user = user;
             //this.ownerMainWindow = ownerMainWindow;
             //ReservedAccommodations = new List<ReservedAccommodation>();
-            SelectErrorLabel.Visibility = Visibility.Collapsed;
-            InvalidInputLabel.Visibility = Visibility.Collapsed;
+        }
+
+        private void CleanlinessChecked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton radioButton)
+            {
+                if (radioButton.IsChecked == true)
+                {
+                    // Proverite koji je RadioButton izabran i postavite vrednost u GuestRatingModel
+                    if (radioButton.Name == "Cleanliness1")
+                    {
+                        Cleanliness = 1;
+                    }
+                    else if (radioButton.Name == "Cleanliness2")
+                    {
+                        Cleanliness = 2;
+                    }
+                    else if (radioButton.Name == "Cleanliness3")
+                    {
+                        Cleanliness = 3;
+                    }
+                    else if (radioButton.Name == "Cleanliness4")
+                    {
+                        Cleanliness = 4;
+                    }
+                    else if (radioButton.Name == "Cleanliness5")
+                    {
+                        Cleanliness = 5;
+                    }
+                }
+            }
+        }
+
+        private void FollowingGuidelinesChecked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton radioButton)
+            {
+                if (radioButton.IsChecked == true)
+                {
+                    // Proverite koji je RadioButton izabran i postavite vrednost u GuestRatingModel
+                    if (radioButton.Name == "FollowingGuidelines1")
+                    {
+                        FollowingGuidelines = 1;
+                    }
+                    else if (radioButton.Name == "FollowingGuidelines2")
+                    {
+                        FollowingGuidelines = 2;
+                    }
+                    else if (radioButton.Name == "FollowingGuidelines3")
+                    {
+                        FollowingGuidelines = 3;
+                    }
+                    else if (radioButton.Name == "FollowingGuidelines4")
+                    {
+                        FollowingGuidelines = 4;
+                    }
+                    else if (radioButton.Name == "FollowingGuidelines5")
+                    {
+                        FollowingGuidelines = 5;
+                    }
+                }
+            }
         }
     }
 }
