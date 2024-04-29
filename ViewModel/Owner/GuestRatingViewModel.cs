@@ -44,8 +44,10 @@ namespace BookingApp.ViewModel.Owner
             GuestRatingModel.FollowingGuidelines = GuestRatingPage.FollowingGuidelines;
             GuestRatingService.GetInstance().Add(GuestRatingModel);
 
-            Update();
-            OwnerMainWindow.ReservedAccommodations = Update();
+            //Update();
+            //OwnerMainWindow.ReservedAccommodations = Update();
+            ReservedAccommodationService.GetInstance().NotificationUpdate(user);
+            OwnerMainWindow.ReservedAccommodations = ReservedAccommodationService.GetInstance().NotificationUpdate(user);
             OwnerMainWindow.NotificationListBox.Items.Refresh();
         }
         public bool RateGuestCanExecute()
@@ -83,7 +85,7 @@ namespace BookingApp.ViewModel.Owner
             }
             return true;
         }
-
+        /*
         public ObservableCollection<ReservedAccommodation> Update()
         {
             ReservedAccommodations.Clear();
@@ -113,6 +115,6 @@ namespace BookingApp.ViewModel.Owner
             if ((DateTime.Now > ReservedAccommodation.checkOutDate) &&
                 (DateTime.Now - ReservedAccommodation.checkOutDate).Days <= 5)
                 ReservedAccommodations.Add(ReservedAccommodation);
-        }
+        }*/
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.Services;
 using BookingApp.ViewModel.Owner;
 using System;
 using System.Collections.Generic;
@@ -43,17 +44,17 @@ namespace BookingApp.View.Owner
         {
             InitializeComponent();
             OwnerMainWindowViewModel = new OwnerMainWindowViewModel(this, user);
-            this.DataContext = OwnerMainWindowViewModel;
-            this.user = user;
+            DataContext = OwnerMainWindowViewModel;
 
+            this.user = user;
             NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
             AccommodationStatistics = new AccommodationStatistics();
             ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
-            GuestRatingPage = new GuestRatingPage(this, user);
-            ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();
+            GuestRatingPage = new GuestRatingPage(this, user);////////////////////////////////////////////////////////////
+            ReservedAccommodations = ReservedAccommodationService.GetInstance().NotificationUpdate(user);
             //GuestReviews = new GuestReviews(user);
             Renovation = new Renovation(this);
             RenovationHistory = new RenovationHistory(this);
@@ -91,7 +92,7 @@ namespace BookingApp.View.Owner
 
         private void GuestReviewsClick(object sender, RoutedEventArgs e)
         {
-            GuestReviews GuestReviews = new GuestReviews(user);
+            GuestReviews GuestReviews = new GuestReviews(this);
             mainFrame.Navigate(GuestReviews);
         }
 

@@ -14,7 +14,7 @@ namespace BookingApp.Services
 {
     public class OwnerRatingService
     {
-        private IOwnerRatingRepository OwnerRatingRepository {get;set;}
+        public IOwnerRatingRepository OwnerRatingRepository {get;set;}
         public OwnerRatingService(IOwnerRatingRepository ownerRatingRepository) { OwnerRatingRepository = ownerRatingRepository; }
 
         public static OwnerRatingService GetInstance()

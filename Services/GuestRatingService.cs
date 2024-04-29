@@ -13,7 +13,7 @@ namespace BookingApp.Services
 {
     public class GuestRatingService
     {
-        private IGuestRatingRepository GuestRatingRepository { get; set; }
+        public IGuestRatingRepository GuestRatingRepository { get; set; }
         public GuestRatingService(IGuestRatingRepository guestRatingRepository) { GuestRatingRepository = guestRatingRepository; }
         public static GuestRatingService GetInstance()
         {
