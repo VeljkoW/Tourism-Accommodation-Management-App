@@ -30,7 +30,7 @@ namespace BookingApp.View.Guest
 
         public GuestReservations GuestReservations { get; set; }
 
-        public GuestReviews GuestReviews { get; set; }
+        public OwnerReviews OwnerReviews { get; set; }
         public Accommodations Accommodations { get; set; }
         public GuestMainWindow(User user)
         {
@@ -57,8 +57,8 @@ namespace BookingApp.View.Guest
 
         private void ReviewsClick(object sender, RoutedEventArgs e)
         {
-            GuestReviews = new GuestReviews();
-            mainFrame.Navigate(GuestReviews);
+            OwnerReviews = new OwnerReviews(user);
+            mainFrame.Navigate(OwnerReviews);
         }
 
         private void ForumClick(object sender, RoutedEventArgs e)

@@ -88,7 +88,7 @@ namespace BookingApp.ViewModel.Owner
         {
             ReservedAccommodations.Clear();
             foreach (ReservedAccommodation tempReservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                foreach (Accommodation accommodation in AccommodationRepository.GetInstance().GetAll())
+                foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
                     if (tempReservedAccommodation.accommodationId == accommodation.Id && user.Id == accommodation.OwnerId)
                     {
                         if (GuestRatingService.GetInstance().GetAll().Count == 0)
