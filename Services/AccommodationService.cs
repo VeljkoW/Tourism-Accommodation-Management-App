@@ -13,7 +13,7 @@ namespace BookingApp.Services
 {
     public class AccommodationService
     {
-        private IAccommodationRepository AccommodationRepository {get;set;}
+        public IAccommodationRepository AccommodationRepository {get;set;}
         public AccommodationService(IAccommodationRepository accommodationRepository) { AccommodationRepository = accommodationRepository; }
         public static AccommodationService GetInstance()
         {

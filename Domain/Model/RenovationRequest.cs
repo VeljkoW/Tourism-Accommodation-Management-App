@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.Design;
+using BookingApp.Services;
 
 namespace BookingApp.Domain.Model
 {
@@ -121,6 +122,25 @@ namespace BookingApp.Domain.Model
             GuestId = Convert.ToInt32(values[2]);
             Level = Convert.ToInt32(values[3]);
             CommentId = Convert.ToInt32(values[4]);
+        }
+        public string PrintRequests
+        {
+            get
+            {
+                string str = "Accommodation Name: " + AccommodationService.GetInstance().GetById(AccommodationId).Name + "\n";
+                str += "Guest Username: " + UserService.GetInstance().GetById(GuestId).Username + "\n";
+                str += "Level of Renovation Request: " + Level.ToString() + "\n";
+                str += "Comment: " + CommentService.GetInstance().GetById(CommentId).Text + "\n";
+                return str;
+            }
+            set
+            {
+                if (value != PrintRequests)
+                {
+                    PrintRequests = value;
+                    OnPropertyChanged("PrintNotifications");
+                }
+            }
         }
     }
 }

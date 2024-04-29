@@ -24,14 +24,22 @@ namespace BookingApp.View.Owner
     public partial class GuestReviews : Page
     {
         public User User {  get; set; }
+        public OwnerMainWindow OwnerMainWindow { get; set; }
         public GuestReviewsViewModel GuestReviewsViewModel {  get; set; }
         public OwnerRating? SelectedOwnerRating {  get; set; }
-        public GuestReviews(User User)
+        public GuestReviews(OwnerMainWindow OwnerMainWindow)
         {
             InitializeComponent();
-            this.User = User;
+            User = OwnerMainWindow.user;
+            this.OwnerMainWindow = OwnerMainWindow;
             GuestReviewsViewModel = new GuestReviewsViewModel(this, User, SelectedOwnerRating);
             DataContext = GuestReviewsViewModel;
+        }
+
+        private void RenovationRequestsClick(object sender, RoutedEventArgs e)
+        {
+            RenovationRequestPage RenovationRequestPage = new RenovationRequestPage(OwnerMainWindow);
+            OwnerMainWindow.mainFrame.Navigate(RenovationRequestPage);
         }
     }
 }
