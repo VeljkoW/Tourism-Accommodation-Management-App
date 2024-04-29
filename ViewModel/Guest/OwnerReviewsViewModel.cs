@@ -31,6 +31,19 @@ namespace BookingApp.ViewModel.Guest
 
             OwnerReviews.NumberOfReviews.Content += GuestRatings.Count().ToString();
             OwnerReviews.AverageReviews.Content += GuestRatingService.GetInstance().GetAverageGrade(user).ToString();
+
+            if (GuestRatingService.GetInstance().IsSuperGuest(user))
+            {
+                OwnerReviews.starImage.Visibility = System.Windows.Visibility.Visible;
+                OwnerReviews.SuperGuest.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                OwnerReviews.starImage.Visibility = System.Windows.Visibility.Collapsed;
+                OwnerReviews.SuperGuest.Visibility = System.Windows.Visibility.Collapsed;
+            }
+
+            OwnerReviews.GuestBonus.Content += GuestRatingService.GetInstance().GetBonus(user).ToString();
         }
     }
 }

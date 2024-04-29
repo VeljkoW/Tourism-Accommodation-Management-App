@@ -67,5 +67,32 @@ namespace BookingApp.Services
             return AverageGrade;
         }
 
+        public bool IsSuperGuest(User user)
+        {
+            int numberOfReservation = 0;
+            foreach(ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
+            {
+                if (user.Id == reservedAccommodation.GuestId && DateTime.Now > reservedAccommodation.checkInDate && DateTime.Now.AddYears(-1) < reservedAccommodation.checkInDate)
+                    numberOfReservation++;
+            }
+
+            if (numberOfReservation >= 10)
+                return true;
+            
+            return false;
+        }
+
+        public int GetBonus(User user)
+        {
+            int numberOfBonus = 0;
+            foreach(GuestBonus guestBonus in GuestBonusService.GetInstance().GetAll())
+            {
+                if(guestBonus.GuestId == user.Id)
+                {
+                    numberOfBonus = guestBonus.Bonus;
+                }
+            }
+            return numberOfBonus;
+        }
     }
 }
