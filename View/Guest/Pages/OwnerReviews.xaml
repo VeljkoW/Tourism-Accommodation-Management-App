@@ -1,12 +1,16 @@
-﻿<Page x:Class="BookingApp.View.Guest.Pages.GuestReviews"
+﻿<Page x:Class="BookingApp.View.Guest.Pages.OwnerReviews"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="GuestReviews">
+      Title="OwnerReviews">
+    <Page.Resources>
+        <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+    </Page.Resources>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -52,6 +56,9 @@
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="1" BorderThickness="0">
                                             <StackPanel Margin="5">
+                                                <TextBlock Text="{Binding Path=Cleanliness}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                <TextBlock Text="{Binding Path=FollowingGuidelines}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding commentId,Converter={StaticResource CommentIdToComment}}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Border>
                                     </Grid>
