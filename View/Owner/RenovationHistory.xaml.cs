@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Domain.Model;
+using BookingApp.ViewModel.Owner;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +22,16 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class RenovationHistory : Page
     {
+        public RenovationHistoryViewModel RenovationHistoryViewModel {  get; set; }
+        public User User { get; set; }
         public OwnerMainWindow OwnerMainWindow { get; set; }
         public RenovationHistory(OwnerMainWindow OwnerMainWindow)
         {
             this.OwnerMainWindow = OwnerMainWindow;
+            User = OwnerMainWindow.user;
             InitializeComponent();
+            RenovationHistoryViewModel = new RenovationHistoryViewModel(this);
+            DataContext = RenovationHistoryViewModel;
         }
 
         private void SchedulingClick(object sender, RoutedEventArgs e)

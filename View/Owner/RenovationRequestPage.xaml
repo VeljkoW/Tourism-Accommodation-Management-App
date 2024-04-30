@@ -4,9 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="RenovationRequestPage">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +29,53 @@
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding RenovationRequests}" SelectedValuePath="PrintRequests" DisplayMemberPath="PrintRequests" FontSize="15"/>
+            <!-- <ListBox ItemsSource="{Binding RenovationRequests}" SelectedValuePath="PrintRequests" DisplayMemberPath="PrintRequests" FontSize="15"/> -->
+            <Grid Grid.Row="1" Grid.Column="0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="ReservationRequestItems">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand">
+                                    <!-- MouseLeftButtonDown="ClickedOnCard"> -->
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                    </Border.Effect>
+                                    <Grid Margin="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                            <StackPanel Margin="5">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Accommodation Name: " FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <TextBlock Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Guest Username: " FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <TextBlock Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Level of Renovation Request: " FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <TextBlock Text="{Binding Level}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Comment: " FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <TextBlock Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <Button Grid.Column="1" Content="Renovate" FontSize="20" Width="150" Height="60"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+
 
             <Grid Grid.Column="1" Grid.Row="0">
                 <Grid.RowDefinitions>
