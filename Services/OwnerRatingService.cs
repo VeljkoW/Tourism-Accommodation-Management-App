@@ -39,7 +39,7 @@ namespace BookingApp.Services
         public ObservableCollection<OwnerRating> GetOwnerRatings(int userId)
         {
             ObservableCollection<OwnerRating> OwnerRatings = new ObservableCollection<OwnerRating>();
-            foreach (OwnerRating ownerRating in OwnerRatingService.GetInstance().GetAll())
+            foreach (OwnerRating ownerRating in GetAll())
             {
                 if (userId == ownerRating.ownerId)
                 {

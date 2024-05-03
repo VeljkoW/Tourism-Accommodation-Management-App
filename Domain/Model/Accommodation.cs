@@ -277,5 +277,20 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
+        public string PrintAccommodation
+        {
+            get
+            {
+                return Name + ": " + Location.State + " - " + Location.City;
+            }
+            set
+            {
+                if (value != PrintAccommodation)
+                {
+                    PrintAccommodation = value;
+                    OnPropertyChanged("Print");
+                }
+            }
+        }
     }
 }

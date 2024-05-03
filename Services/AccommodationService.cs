@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace BookingApp.Services
 {
@@ -32,6 +33,18 @@ namespace BookingApp.Services
         public Accommodation? GetById(int Id)
         {
             return AccommodationRepository.GetById(Id);
+        }
+        public ObservableCollection<Accommodation> GetAllByUser(User user)
+        {
+            ObservableCollection<Accommodation> Accommodations = new ObservableCollection<Accommodation>();
+            foreach(Accommodation accommodation in GetAll())
+            {
+                if(user.Id == accommodation.OwnerId)
+                {
+                    Accommodations.Add(accommodation);
+                }
+            }
+            return Accommodations;
         }
     }
 }
