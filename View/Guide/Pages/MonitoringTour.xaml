@@ -27,14 +27,11 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="0" Grid.Row="0">
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <StackPanel>
-                <TextBlock FontSize="48" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}">Tour monitoring</TextBlock>
                 <TextBlock FontSize="48" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}" Text="{Binding TourName}" ></TextBlock>
+                <TextBlock FontSize="22" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" ></TextBlock>
             </StackPanel>
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="0">
-            <Button Command ="{Binding ClickGoBack}"  Margin="30" Width="300" Content="Go back" FontSize="22" FontWeight="Bold"/>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid>
@@ -50,8 +47,11 @@
                 </ScrollViewer>
             </Grid>
         </Grid>
-        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Command ="{Binding ClickFinishTour}"  Margin="20" Width="300" Content="Finish tour" FontSize="22" FontWeight="Bold"/>
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Button Command ="{Binding ClickGoBack}"  Margin="30" Width="300" Content="Go back" FontSize="22" FontWeight="Bold"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Button Command ="{Binding ClickFinishTour}"  Margin="30" Width="300" Content="Finish tour" FontSize="22" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </Page>

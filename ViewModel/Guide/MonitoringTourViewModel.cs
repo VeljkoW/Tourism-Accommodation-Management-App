@@ -24,12 +24,25 @@ namespace BookingApp.ViewModel.Guide
         private string _tourName;
         public string TourName
         {
-            get => _tourName;
+            get => String.Format("Monitoring tour: {0}", _tourName);
             set
             {
                 if (value != _tourName)
                 {
                     _tourName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (value != _description)
+                {
+                    _description = value;
                     OnPropertyChanged();
                 }
             }
@@ -94,6 +107,7 @@ namespace BookingApp.ViewModel.Guide
             TourName = tour.Name;
             User = user;
             Tour = tour;
+            Description = tour.Description;
             ScheduleId = schedule.Id;
             Schedule = schedule;
             if (Schedule.VisitedKeypoints > 0)
