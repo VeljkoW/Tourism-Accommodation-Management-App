@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
+using BookingApp.View.Guest.Pages;
 
 namespace BookingApp.Services
 {
@@ -90,6 +91,47 @@ namespace BookingApp.Services
             if ((DateTime.Now > ReservedAccommodation.checkOutDate) &&
                 (DateTime.Now - ReservedAccommodation.checkOutDate).Days <= 5)
                 ReservedAccommodations.Add(ReservedAccommodation);
+        }
+        public void ReservationCountByYear(int accommodationId, ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears)
+        {
+            List<ReservedAccommodation> ReservedAccommodations = new List<ReservedAccommodation>();
+            ReservedAccommodations = GetAll().Where(t=>t.AccommodationId == accommodationId).ToList();
+            foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodations)
+            {
+                if (AccommodationStatisticsByYears.Count == 0)
+                    AddAccommodationStatisticsByYear(reservedAccommodation, AccommodationStatisticsByYears);
+                else
+                {
+                    bool alreadyExists = false;
+                    foreach(AccommodationStatisticsByYear AccommodationStatisticsByYear in AccommodationStatisticsByYears)
+                        if(AccommodationStatisticsByYear.Year == reservedAccommodation.CheckInDate.Year)
+                        {
+                            AccommodationStatisticsByYear.Reservations++;
+                            alreadyExists = true;
+                            break;
+                        }
+                    if (!alreadyExists)
+                        AddAccommodationStatisticsByYear(reservedAccommodation, AccommodationStatisticsByYears);
+                }
+            }
+        }
+        private void AddAccommodationStatisticsByYear(ReservedAccommodation reservedAccommodation, 
+                                                      ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears)
+        {
+            AccommodationStatisticsByYear AccommodationStatisticsByYear = new AccommodationStatisticsByYear();
+            AccommodationStatisticsByYear.AccommodationId = reservedAccommodation.AccommodationId;
+            AccommodationStatisticsByYear.Year = reservedAccommodation.CheckInDate.Year;
+            AccommodationStatisticsByYear.Reservations++;
+            AccommodationStatisticsByYears.Add(AccommodationStatisticsByYear);
+        }
+        public void ReservationCountByMonth(int year, int accommodationId, ObservableCollection<AccommodationStatisticsByMonth> AccommodationStatisticsByMonths)
+        {
+            List<ReservedAccommodation> ReservedAccommodations = new List<ReservedAccommodation>();
+            ReservedAccommodations = GetAll().Where(t => t.AccommodationId == accommodationId && t.CheckInDate.Year == year).ToList();
+            foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodations)
+                foreach (AccommodationStatisticsByMonth AccommodationStatisticsByMonth in AccommodationStatisticsByMonths)
+                    if (AccommodationStatisticsByMonth.Month == reservedAccommodation.CheckInDate.Month)
+                        AccommodationStatisticsByMonth.Reservations++;
         }
     }
 }

@@ -50,7 +50,7 @@ namespace BookingApp.View.Owner
             NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
-            AccommodationStatistics = new AccommodationStatistics();
+            AccommodationStatistics = new AccommodationStatistics(this);
             ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             GuestRatingPage = new GuestRatingPage(this, user);////////////////////////////////////////////////////////////
