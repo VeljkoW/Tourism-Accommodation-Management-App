@@ -18,6 +18,7 @@ namespace BookingApp.ViewModel.Tourist
         public TourReservationSimilarTours TourReservationSimilarTours { get; set; }
         public Tour SelectedTour { get; set; }
         public List<Tour> Tours { get; set; }
+        public RelayCommand ClickExit => new RelayCommand(execute => ExitExecute());
         public TourReservationSimilarToursViewModel(TourReservationSimilarTours tourReservationSimilarTours,Tour selectedTour)
         { 
             this.TourReservationSimilarTours = tourReservationSimilarTours;
@@ -130,7 +131,7 @@ namespace BookingApp.ViewModel.Tourist
             TourReservationSimilarTours.TourTextBlock.Text = "\"" + SelectedTour.Name + "\"";
         }
 
-        public void Exit(object sender, RoutedEventArgs e)
+        public void ExitExecute()
         {
             TourReservationSimilarTours.Close();
         }

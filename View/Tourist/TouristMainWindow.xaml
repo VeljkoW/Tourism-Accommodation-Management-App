@@ -66,7 +66,7 @@
                         <TextBox Width="200" Height="25" Margin="30 30 0 30" HorizontalAlignment="Center" 
                          Text="Search tours..." Foreground="Gray" x:Name="SearchBarTextBox"
                          GotFocus="SearchBoxClicked" LostFocus="SearchBoxNotClicked" VerticalContentAlignment="Center" IsReadOnly="True"/>
-                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand" Click="SearchTours" x:Name="SearchBarButton">
+                        <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand" Command="{Binding ClickSearchTours}" x:Name="SearchBarButton">
                             <Image Source="pack://application:,,,/Resources/Images/Tourist/search.png" Width="17" Height="17"/>
                         </Button>
                     </Grid>
@@ -122,7 +122,7 @@
                     </Grid>
                 </Border>
 
-                <Button Grid.Column="5" Height="40" Width="40" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="NotificationButtonClick" Cursor="Hand">
+                <Button Grid.Column="5" Height="40" Width="40" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickNotificationButton}" Cursor="Hand">
                     <Button.Effect>
                         <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                     </Button.Effect>
@@ -141,7 +141,7 @@
                             <TextBlock Foreground="{StaticResource TextColorBrush}" FontWeight="Bold" Text="{Binding Username}" TextTrimming="CharacterEllipsis" Margin="0 0 10 0"/>
                         </StackPanel>
                         <TextBlock Grid.Row="2" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold" TextDecorations="Underline" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0">
-                            <Hyperlink Foreground="{StaticResource TextColorBrush}" Click="LogOut">
+                            <Hyperlink Foreground="{StaticResource TextColorBrush}" Command="{Binding ClickLogOut}">
                                 <TextBlock Foreground="{StaticResource TextColorBrush}" Text="Log out"/>
                             </Hyperlink>
                         </TextBlock>
@@ -159,42 +159,42 @@
             <Border Background="{StaticResource BackgroundColorBrush}" Grid.Column="0" BorderThickness="0 0 6 0" BorderBrush="{StaticResource BorderColorBrush}">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top">
 
-                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ToursTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickToursTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="OngoingToursTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickOngoingToursTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="My Ongoing Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="FinishedToursTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickFinishedToursTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="My Finished Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="ReservationsTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickReservationsTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="My Reservations" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="SuggestionsTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickSuggestionsTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="My Suggestions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="CouponsTabClick" Cursor="Hand">
+                    <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickCouponsTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
@@ -290,7 +290,7 @@
                                             <TextBox Grid.Row="2" VerticalAlignment="Center" Width="60" Margin="20 10 20 5" x:Name="PeopleTextBox" PreviewTextInput="NumbersPreviewTextInput"/>
 
                                             <Button Grid.Row="4" VerticalAlignment="Bottom" Width="30" Height="20" HorizontalAlignment="Right" Margin="0 0 20 0" Background="{StaticResource BackgroundColorBrush}"
-                                                        BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="3 3 3 0" Click="CollapseSearchBar" Cursor="Hand">
+                                                        BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="3 3 3 0" Command="{Binding ClickCollapseSearchBar}" Cursor="Hand">
                                                 <TextBlock Text="^" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 3 0 0" Foreground="{StaticResource TextColorBrush}"/>
                                             </Button>
 
@@ -469,7 +469,7 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Width="320" Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 65 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand" Click="TourSuggestionClick">
+                                        <Button Grid.Column="1" Width="320" Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 65 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand" Command="{Binding ClickTourSuggestion}">
                                             <Button.Effect>
                                                 <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                                             </Button.Effect>

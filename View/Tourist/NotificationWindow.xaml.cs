@@ -28,11 +28,6 @@ namespace BookingApp.View.Tourist
             NotificationWindowViewModel = new NotificationWindowViewModel(this,user);
             this.DataContext = NotificationWindowViewModel;
         }
-
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            NotificationWindowViewModel.Close(sender, e);
-        }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
             CenterWindow();

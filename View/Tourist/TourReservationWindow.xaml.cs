@@ -67,15 +67,5 @@ namespace BookingApp.View.Tourist
         {
             TourReservationWindowViewModel.GenerateTextBoxes(sender, e);
         }
-
-        public void Cancel(object sender, RoutedEventArgs e)
-        {
-            TourReservationWindowViewModel.Cancel(sender, e);
-        }
-        public void Reserve(object sender, RoutedEventArgs e)
-        {
-            TourReservationWindowViewModel.Reserve(sender, e);
-        }
-
     }
 }
