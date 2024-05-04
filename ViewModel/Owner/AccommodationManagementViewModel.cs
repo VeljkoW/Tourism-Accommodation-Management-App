@@ -44,7 +44,7 @@ namespace BookingApp.ViewModel.Owner
         public void AcceptExecute()
         {
             Accommodation Accommodation = new Accommodation();
-            Accommodation.Name = AccommodationRegistration.NameTextBox.Text;
+            Accommodation.Name = AccommodationRegistration.NameTextBox.InputTextBox.Text;
             Accommodation.AccommodationType = ReturnAccommodationType();
             Accommodation.MaxGuestNumber = Convert.ToInt32(AccommodationRegistration.MaxGuestNumberTextBox.Text);
             Accommodation.MinReservationDays = Convert.ToInt32(AccommodationRegistration.MinResDaysTextBox.Text);
@@ -65,7 +65,7 @@ namespace BookingApp.ViewModel.Owner
         public bool AcceptCanExecute()
         {
             //all the fields must be entered
-            if (string.IsNullOrEmpty(AccommodationRegistration.NameTextBox.Text) || AccommodationRegistration.LocationComboBox.SelectedItem == null ||
+            if (string.IsNullOrEmpty(AccommodationRegistration.NameTextBox.InputTextBox.Text) || AccommodationRegistration.LocationComboBox.SelectedItem == null ||
                 AccommodationRegistration.AccommodationTypeComboBox.SelectedItem == null || !IsNumeric(AccommodationRegistration.MaxGuestNumberTextBox.Text) ||
                 !IsNumeric(AccommodationRegistration.MinResDaysTextBox.Text) || !IsNumeric(AccommodationRegistration.CancelationDaysLimitTextBox.Text) ||
                 AccommodationRegistration.MinResDaysTextBox.Text.Equals("0") || AccommodationRegistration.MaxGuestNumberTextBox.Text.Equals("0") ||
@@ -116,7 +116,7 @@ namespace BookingApp.ViewModel.Owner
         }
         public void ResetInputs()
         {
-            AccommodationRegistration.NameTextBox.Text = string.Empty;
+            AccommodationRegistration.NameTextBox.InputTextBox.Text = string.Empty;
             AccommodationRegistration.MaxGuestNumberTextBox.Text = "0";
             AccommodationRegistration.MinResDaysTextBox.Text = "0";
             AccommodationRegistration.CancelationDaysLimitTextBox.Text = "0";

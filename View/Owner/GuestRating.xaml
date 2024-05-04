@@ -28,7 +28,7 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
-            <Label Content="Select the guest you want to rat:"
+            <Label Content="Select the guest you want to rate:"
                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
             <DataGrid x:Name="RatingGuestsTable" Margin="20 60 20 10"
                       ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
@@ -54,8 +54,8 @@
                         <RowDefinition Height="*" MinHeight="40"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <Label Content="Rating Guest: " FontSize="24"/>
-                        <Label Content="Username1" FontSize="24"/>
+                        <Label Content="Rating Guest:" FontSize="24"/>
+                        <Label Content="{Binding SelectedReservedAccommodations.GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="24"/>
                     </StackPanel>
                     <DockPanel Grid.Row="1">
                         <Label Content="Cleanliness:* " FontSize="20"/>

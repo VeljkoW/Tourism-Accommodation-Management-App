@@ -54,7 +54,8 @@ namespace BookingApp.View.Owner
             ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             GuestRatingPage = new GuestRatingPage(this, user);////////////////////////////////////////////////////////////
-            ReservedAccommodations = ReservedAccommodationService.GetInstance().NotificationUpdate(user);
+            ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
             //GuestReviews = new GuestReviews(user);
             Renovation = new Renovation(this);
             RenovationHistory = new RenovationHistory(this);

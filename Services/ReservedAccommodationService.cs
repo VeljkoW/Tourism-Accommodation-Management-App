@@ -61,10 +61,10 @@ namespace BookingApp.Services
             }
             return reservedAccommodations;
         }
-        public ObservableCollection<ReservedAccommodation> NotificationUpdate(User user)
+        public ObservableCollection<ReservedAccommodation> NotificationUpdate(User user, ObservableCollection<ReservedAccommodation> ReservedAccommodations)
         {
-            ObservableCollection<ReservedAccommodation> ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
-            foreach (ReservedAccommodation tempReservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
+            ReservedAccommodations.Clear();
+            foreach (ReservedAccommodation tempReservedAccommodation in GetAll())
                 foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
                     if (tempReservedAccommodation.accommodationId == accommodation.Id && user.Id == accommodation.OwnerId)
                     {

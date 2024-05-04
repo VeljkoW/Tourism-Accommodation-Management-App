@@ -25,6 +25,7 @@ namespace BookingApp.ViewModel.Owner
             this.OwnerMainWindow = OwnerMainWindow;
             this.GuestRatingPage = GuestRatingPage;
             ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
         }
         public void RateGuestExecute()
         {
@@ -46,9 +47,11 @@ namespace BookingApp.ViewModel.Owner
 
             //Update();
             //OwnerMainWindow.ReservedAccommodations = Update();
-            ReservedAccommodationService.GetInstance().NotificationUpdate(user);
-            OwnerMainWindow.ReservedAccommodations = ReservedAccommodationService.GetInstance().NotificationUpdate(user);
+            ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
+            ReservedAccommodationService.GetInstance().NotificationUpdate(user, OwnerMainWindow.ReservedAccommodations);
             OwnerMainWindow.NotificationListBox.Items.Refresh();
+
+            GuestRatingPage.CommentTextBox.Text = string.Empty;
         }
         public bool RateGuestCanExecute()
         {
