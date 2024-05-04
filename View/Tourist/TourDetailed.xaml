@@ -113,7 +113,40 @@
                     <CornerRadius TopRight="10" TopLeft="10"/>
                 </Border.CornerRadius>
                 <Border Background="{StaticResource TabColorBrush}" Margin="30 30 30 0" CornerRadius="10">
-                    <TextBlock x:Name="DescriptionTextBlock" Foreground="{StaticResource TextColorBrush}" TextWrapping="Wrap" Margin="10 10 10 10"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" x:Name="DescriptionTextBlock" Foreground="{StaticResource TextColorBrush}" TextWrapping="Wrap" Margin="10 10 10 10"/>
+                        <Grid Grid.Row="1" Margin="0 0 0 25">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="LeftArrowButton" Command="{Binding ClickLeftArrow}" Grid.Column="1" Width="25" Height="25" Margin="10" Background="{StaticResource BackgroundColorBrush}" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Visibility="Hidden">
+                                <Button.Effect>
+                                    <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                                </Button.Effect>
+                                <TextBlock Text="&lt;" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            </Button>
+                            <Image x:Name="Image1" Grid.Column="2" Height="95" Width="95" Margin="0 0 15 0" Stretch="Fill"/>
+                            <Image x:Name="Image2" Grid.Column="3" Height="95" Width="95" Margin="0 0 15 0" Stretch="Fill"/>
+                            <Image x:Name="Image3" Grid.Column="4" Height="95" Width="95" Stretch="Fill"/>
+                            <Button x:Name="RightArrowButton" Command="{Binding ClickRightArrow}" Grid.Column="5" Width="25" Height="25" Margin="10" Background="{StaticResource BackgroundColorBrush}" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Visibility="Hidden">
+                                <Button.Effect>
+                                    <DropShadowEffect Color="Gray" Direction="220" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                                </Button.Effect>
+                                <TextBlock Text=">" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Border>
             </Border>
         </Border>
@@ -126,14 +159,14 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="GoBack" Cursor="Hand">
+                    <Button Grid.Column="0" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickGoBack}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="Go back" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
-                    <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="OpenReservationWindow" Cursor="Hand">
+                    <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickReserve}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>

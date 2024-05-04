@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.ViewModel;
 using BookingApp.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
@@ -61,75 +62,6 @@ namespace BookingApp.View.Tourist
                 textBox.Foreground = Brushes.Gray;
             }
         }
-        private void LogOut(object sender, RoutedEventArgs e)
-        {
-            SignInForm signInForm = new SignInForm();
-            signInForm.Show();
-            Close();
-        }
-        private void ToursTabClick(object sender, RoutedEventArgs e)
-        {
-            ToursTabHeader.Visibility = Visibility.Visible;
-            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
-            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
-            ReservationsTabHeader.Visibility = Visibility.Collapsed;
-            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
-            CouponsTabHeader.Visibility = Visibility.Collapsed;
-            Tab.SelectedIndex = 0;
-        }
-        private void OngoingToursTabClick(object sender, RoutedEventArgs e)
-        {
-            ToursTabHeader.Visibility = Visibility.Collapsed;
-            OngoingToursTabHeader.Visibility = Visibility.Visible;
-            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
-            ReservationsTabHeader.Visibility = Visibility.Collapsed;
-            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
-            CouponsTabHeader.Visibility = Visibility.Collapsed;
-            Tab.SelectedIndex = 1;
-        }
-
-        private void FinishedToursTabClick(object sender, RoutedEventArgs e)
-        {
-            ToursTabHeader.Visibility = Visibility.Collapsed;
-            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
-            FinishedToursTabHeader.Visibility = Visibility.Visible;
-            ReservationsTabHeader.Visibility = Visibility.Collapsed;
-            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
-            CouponsTabHeader.Visibility = Visibility.Collapsed;
-            Tab.SelectedIndex = 2;
-        }
-        private void ReservationsTabClick(object sender, RoutedEventArgs e)
-        {
-            ToursTabHeader.Visibility = Visibility.Collapsed;
-            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
-            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
-            ReservationsTabHeader.Visibility = Visibility.Visible;
-            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
-            CouponsTabHeader.Visibility = Visibility.Collapsed;
-            Tab.SelectedIndex = 3;
-        }
-        private void SuggestionsTabClick(object sender, RoutedEventArgs e)
-        {
-            ToursTabHeader.Visibility = Visibility.Collapsed;
-            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
-            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
-            ReservationsTabHeader.Visibility = Visibility.Collapsed;
-            SuggestionsTabHeader.Visibility = Visibility.Visible;
-            CouponsTabHeader.Visibility = Visibility.Collapsed;
-            Tab.SelectedIndex = 4;
-        }
-        private void CouponsTabClick(object sender, RoutedEventArgs e)
-        {
-            ToursTabHeader.Visibility = Visibility.Collapsed;
-            OngoingToursTabHeader.Visibility = Visibility.Collapsed;
-            FinishedToursTabHeader.Visibility = Visibility.Collapsed;
-            ReservationsTabHeader.Visibility = Visibility.Collapsed;
-            SuggestionsTabHeader.Visibility = Visibility.Collapsed;
-            CouponsTabHeader.Visibility = Visibility.Visible;
-            TouristMainWindowViewModel.UpdateCoupons();
-            Tab.SelectedIndex = 5;
-        }
-
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
             CenterWindow();
@@ -146,18 +78,6 @@ namespace BookingApp.View.Tourist
             this.Top = (SHeight - WHeight) / 2;
         }
 
-        private void CollapseSearchBar(object sender, RoutedEventArgs e)     // NEEDS ANIMATION ??
-        {
-            SearchBarGrid.Visibility = Visibility.Collapsed;
-            StateComboBox.SelectedIndex = -1;
-            CityComboBox.SelectedIndex = -1;
-            DurationTextBox.Text = string.Empty;
-            LanguageTextBox.Text = string.Empty;
-            PeopleTextBox.Text = string.Empty;
-            SearchBarTextBox.Text = "Search tours...";
-            RefreshTours();                                 //refreshes searched tours after the search bar is collapsed, might get removed later??
-        }
-
         private void StateComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TouristMainWindowViewModel.StateComboBoxSelectionChanged(sender, e);
@@ -171,11 +91,6 @@ namespace BookingApp.View.Tourist
             }
         }
 
-        public void SearchTours(object sender, RoutedEventArgs e)
-        {
-            TouristMainWindowViewModel.SearchTours(sender, e);
-        }
-
         public List<Tour> searchTours(string state, string city, int duration, string language, int people)
         {
             return TouristMainWindowViewModel.searchTours(state, city, duration, language, people);
@@ -183,14 +98,6 @@ namespace BookingApp.View.Tourist
         public void RefreshTours()
         {
             TouristMainWindowViewModel.RefreshTours();
-        }
-        private void NotificationButtonClick(object sender, RoutedEventArgs e)
-        {
-            TouristMainWindowViewModel.NotificationButtonClick(sender, e);
-        }
-        private void TourSuggestionClick(object sender, RoutedEventArgs e)
-        {
-            TouristMainWindowViewModel.TourSuggestionClick(sender, e);
         }
     }
 }

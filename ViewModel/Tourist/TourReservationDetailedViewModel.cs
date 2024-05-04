@@ -18,6 +18,7 @@ namespace BookingApp.ViewModel.Tourist
         public Tour Tour { get; set; }
         public User User { get; set; }
         public List<TourPerson> allTourists { get; set; }
+        public RelayCommand ClickGoBack => new RelayCommand(execute => GoBackExecute());
         public TourReservationDetailedViewModel(TourReservationDetailed tourReservationDetailed,Tour selectedReservedTour,User user) 
         {
             this.TourReservationDetailed = tourReservationDetailed;
@@ -77,7 +78,7 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
 
-        public void GoBack(object sender, RoutedEventArgs e)
+        public void GoBackExecute()
         {
             TourReservationDetailed.Close();
         }

@@ -63,13 +63,5 @@ namespace BookingApp.View.Tourist
         {
             e.Handled = true;
         }
-        public void Cancel(object sender, RoutedEventArgs e)
-        {
-            TourSuggestionWindowViewModel.Cancel(sender, e);
-        }
-        public void Suggest(object sender, RoutedEventArgs e)
-        {
-            TourSuggestionWindowViewModel.Suggest(sender, e);
-        }
     }
 }

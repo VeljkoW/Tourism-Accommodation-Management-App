@@ -44,21 +44,5 @@ namespace BookingApp.View.Tourist
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
         }
-
-        public void GoBack(object sender, RoutedEventArgs e)
-        {
-            TourReservationFailedViewModel.GoBack(sender, e);
-        }
-
-        public void Exit(object sender, RoutedEventArgs e)
-        {
-            TourReservationFailedViewModel.Exit(sender, e);
-        }
-
-        public void SearchSimilarTours(object sender, RoutedEventArgs e)
-        {
-            TourReservationFailedViewModel.SearchSimilarTours(sender, e);
-        }
-
     }
 }

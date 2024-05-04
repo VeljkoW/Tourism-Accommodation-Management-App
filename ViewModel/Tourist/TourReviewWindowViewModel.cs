@@ -26,6 +26,8 @@ namespace BookingApp.ViewModel.Tourist
         public BitmapImage StarEmpty = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
         public List<string> RelativeImagePaths = new List<string>();
         private List<Image> Images = new List<Image>();
+        public RelayCommand ClickCancel => new RelayCommand(execute => CancelExecute());
+        public RelayCommand ClickSubmit => new RelayCommand(execute => SubmitExecute());
         public TourReviewWindowViewModel(TourReviewWindow tourReviewWindow, Tour tour, User user) 
         { 
             this.TourReviewWindow = tourReviewWindow;
@@ -550,7 +552,7 @@ namespace BookingApp.ViewModel.Tourist
                 }
             }
         }
-        public void Cancel(object sender, RoutedEventArgs e)
+        public void CancelExecute()
         {
             foreach (string s in RelativeImagePaths)
             {
@@ -562,7 +564,7 @@ namespace BookingApp.ViewModel.Tourist
             TourFinishedDetailed tourFinishedDetailed = new TourFinishedDetailed(Tour, User);
             tourFinishedDetailed.ShowDialog();
         }
-        public void Submit(object sender, RoutedEventArgs e)
+        public void SubmitExecute()
         {
             if(TourEnjoyment != -1 && GuideKnowledge != -1 && GuideSpeech != -1 && !String.IsNullOrEmpty(TourReviewWindow.DescriptionTextBox.Text))
             {

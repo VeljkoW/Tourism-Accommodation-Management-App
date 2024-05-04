@@ -43,14 +43,6 @@ namespace BookingApp.View.Tourist
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
         }
-        public void Cancel(object sender, RoutedEventArgs e)
-        {
-            TourReviewWindowViewModel.Cancel(sender, e);
-        }
-        public void Submit(object sender, RoutedEventArgs e)
-        {
-            TourReviewWindowViewModel.Submit(sender, e);
-        }
         public void BtnSelectFiles_ClickExecute(object sender, RoutedEventArgs e)
         {
             TourReviewWindowViewModel.BtnSelectFiles_ClickExecute(sender,e);

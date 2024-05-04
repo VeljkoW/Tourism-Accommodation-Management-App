@@ -14,12 +14,24 @@ using System.Windows.Controls;
 using System.Windows;
 using Image = BookingApp.Domain.Model.Image;
 using System.Collections.ObjectModel;
+using BookingApp.View;
 
 namespace BookingApp.ViewModel.Tourist
 {
     public class TouristMainWindowViewModel : INotifyPropertyChanged
     {
         public TouristMainWindow TouristMainWindow { get; set; }
+        public RelayCommand ClickToursTab => new RelayCommand(execute => ToursTabExecute(),canExecute => ToursTabCanExecute());
+        public RelayCommand ClickOngoingToursTab => new RelayCommand(execute => OngoingToursTabExecute(),canExecute => OngoingToursTabCanExecute());
+        public RelayCommand ClickFinishedToursTab => new RelayCommand(execute => FinishedToursTabExecute(),canExecute => FinishedToursTabCanExecute());
+        public RelayCommand ClickReservationsTab => new RelayCommand(execute => ReservationsTabExecute(),canExecute => ReservationsTabCanExecute());
+        public RelayCommand ClickSuggestionsTab => new RelayCommand(execute => SuggestionsTabExecute(),canExecute => SuggestionsTabCanExecute());
+        public RelayCommand ClickCouponsTab => new RelayCommand(execute => CouponsTabExecute(),canExecute => CouponsTabCanExecute());
+        public RelayCommand ClickCollapseSearchBar => new RelayCommand(execute => CollapseSearchBarExecute());
+        public RelayCommand ClickSearchTours => new RelayCommand(execute => SearchToursExecute());
+        public RelayCommand ClickNotificationButton => new RelayCommand(execute => NotificationButtonExecute());
+        public RelayCommand ClickLogOut => new RelayCommand(execute => LogOutExecute());
+        public RelayCommand ClickTourSuggestion => new RelayCommand(execute => TourSuggestionExecute());
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public List<Tour> IndividualTours { get; set; }
@@ -191,7 +203,15 @@ namespace BookingApp.ViewModel.Tourist
                         imagesForward = new List<Image>();
                         if (tourSchedule.ScheduleStatus == ScheduleStatus.Ready)    // checks if the tour is not finished yet
                         {
-                            ToursAll.Add(tour1);
+                            if (tour1.DateTime < DateTime.Now)
+                            {
+                                tourSchedule.ScheduleStatus = ScheduleStatus.Canceled;                  // Not sure if the tourist needs to get a coupon after the tour expires or not ????
+                                TourScheduleService.GetInstance().Update(tourSchedule);
+                            }
+                            else
+                            {
+                                ToursAll.Add(tour1);
+                            }
                         }
                         else if (tourSchedule.ScheduleStatus == ScheduleStatus.Ongoing)
                         {
@@ -227,7 +247,7 @@ namespace BookingApp.ViewModel.Tourist
 
                         foreach (TourReservation tr in TourReservationService.GetInstance().GetAll())
                         {
-                            if (tr.TourScheduleId == tourSchedule.Id && tr.UserId == User.Id && tourSchedule.ScheduleStatus != ScheduleStatus.Finished) //made it so that it doesnt show finished tours, makes sense????? 
+                            if (tr.TourScheduleId == tourSchedule.Id && tr.UserId == User.Id && tourSchedule.ScheduleStatus != ScheduleStatus.Finished && tourSchedule.ScheduleStatus != ScheduleStatus.Canceled) //made it so that it doesnt show finished tours, makes sense????? 
                             {
                                 if (!tourScheduleIds.Contains(tr.TourScheduleId))
                                 {
@@ -348,7 +368,7 @@ namespace BookingApp.ViewModel.Tourist
             }
             return cities;
         }
-        public void SearchTours(object sender, RoutedEventArgs e)
+        public void SearchToursExecute()
         {
 
             
@@ -448,17 +468,126 @@ namespace BookingApp.ViewModel.Tourist
                 (people <= 0 || tour.MaxTourists >= people)
             ).ToList();
         }
-        public void NotificationButtonClick(object sender, RoutedEventArgs e)
+        public void NotificationButtonExecute()
         {
             NotificationWindow notificationWindow = new NotificationWindow(User);
             notificationWindow.Owner = TouristMainWindow;
             notificationWindow.ShowDialog();
         }
-        public void TourSuggestionClick(object sender, RoutedEventArgs e)
+        public void TourSuggestionExecute()
         {
             TourSuggestionWindow tourSuggestionWindow= new TourSuggestionWindow(User);
             tourSuggestionWindow.Owner = TouristMainWindow;
             tourSuggestionWindow.ShowDialog();
+        }
+        private void ToursTabExecute()
+        {
+            TouristMainWindow.ToursTabHeader.Visibility = Visibility.Visible;
+            TouristMainWindow.OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.CouponsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.Tab.SelectedIndex = 0;
+        }
+        private void OngoingToursTabExecute()
+        {
+            TouristMainWindow.ToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.OngoingToursTabHeader.Visibility = Visibility.Visible;
+            TouristMainWindow.FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.CouponsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.Tab.SelectedIndex = 1;
+        }
+        private void FinishedToursTabExecute()
+        {
+            TouristMainWindow.ToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.FinishedToursTabHeader.Visibility = Visibility.Visible;
+            TouristMainWindow.ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.CouponsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.Tab.SelectedIndex = 2;
+        }
+        private void ReservationsTabExecute()
+        {
+            TouristMainWindow.ToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.ReservationsTabHeader.Visibility = Visibility.Visible;
+            TouristMainWindow.SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.CouponsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.Tab.SelectedIndex = 3;
+        }
+        private void SuggestionsTabExecute()
+        {
+            TouristMainWindow.ToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.SuggestionsTabHeader.Visibility = Visibility.Visible;
+            TouristMainWindow.CouponsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.Tab.SelectedIndex = 4;
+        }
+        private void CouponsTabExecute()
+        {
+            TouristMainWindow.ToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.OngoingToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.FinishedToursTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.ReservationsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.SuggestionsTabHeader.Visibility = Visibility.Collapsed;
+            TouristMainWindow.CouponsTabHeader.Visibility = Visibility.Visible;
+            UpdateCoupons();
+            TouristMainWindow.Tab.SelectedIndex = 5;
+        }
+
+        private void CollapseSearchBarExecute()     // NEEDS ANIMATION ??
+        {
+            TouristMainWindow.SearchBarGrid.Visibility = Visibility.Collapsed;
+            TouristMainWindow.StateComboBox.SelectedIndex = -1;
+            TouristMainWindow.CityComboBox.SelectedIndex = -1;
+            TouristMainWindow.DurationTextBox.Text = string.Empty;
+            TouristMainWindow.LanguageTextBox.Text = string.Empty;
+            TouristMainWindow.PeopleTextBox.Text = string.Empty;
+            TouristMainWindow.SearchBarTextBox.Text = "Search tours...";
+            RefreshTours();                                 //refreshes searched tours after the search bar is collapsed, might get removed later??
+        }
+        private void LogOutExecute()
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            TouristMainWindow.Close();
+        }
+        public bool ToursTabCanExecute()
+        {
+            if(TouristMainWindow.Tab.SelectedIndex == 0) { return false; }
+            return true;
+        }
+        public bool OngoingToursTabCanExecute()
+        {
+            if (TouristMainWindow.Tab.SelectedIndex == 1) { return false; }
+            return true;
+        }
+        public bool FinishedToursTabCanExecute()
+        {
+            if (TouristMainWindow.Tab.SelectedIndex == 2) { return false; }
+            return true;
+        }
+        public bool ReservationsTabCanExecute()
+        {
+            if (TouristMainWindow.Tab.SelectedIndex == 3) { return false; }
+            return true;
+        }
+        public bool SuggestionsTabCanExecute()
+        {
+            if (TouristMainWindow.Tab.SelectedIndex == 4) { return false; }
+            return true;
+        }
+        public bool CouponsTabCanExecute()
+        {
+            if (TouristMainWindow.Tab.SelectedIndex == 5) { return false; }
+            return true;
         }
     }
 }

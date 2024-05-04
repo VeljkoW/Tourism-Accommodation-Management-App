@@ -16,7 +16,8 @@ namespace BookingApp.ViewModel.Tourist
     {
         public TourSuggestionWindow TourSuggestionWindow { get; set; }
         public User User { get; set; }
-
+        public RelayCommand ClickCancel => new RelayCommand(execute => CancelExecute());
+        public RelayCommand ClickSuggest => new RelayCommand(execute => SuggestExecute());
 
         public TourSuggestionWindowViewModel(TourSuggestionWindow tourSuggestionWindow, User user)
         {
@@ -190,11 +191,11 @@ namespace BookingApp.ViewModel.Tourist
             }
             return cities;
         }
-        public void Cancel(object sender, RoutedEventArgs e)
+        public void CancelExecute()
         {
             TourSuggestionWindow.Close();
         }
-        public void Suggest(object sender, RoutedEventArgs e)
+        public void SuggestExecute()
         {
             string description = TourSuggestionWindow.DescriptionTextBox.Text;
             string language = TourSuggestionWindow.LanguageTextBox.Text;
