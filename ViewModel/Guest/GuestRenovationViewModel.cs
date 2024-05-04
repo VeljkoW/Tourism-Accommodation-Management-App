@@ -37,6 +37,7 @@ namespace BookingApp.ViewModel.Guest
 
             renovationRequest.CommentId = comment.Id;
             renovationRequest.Level = GuestRenovation.Level;
+            renovationRequest.RequestDate = DateTime.Now;
 
             RenovationRequestService.GetInstance().Add(renovationRequest);
 

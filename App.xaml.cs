@@ -74,6 +74,10 @@ namespace BookingApp
             _services.AddSingleton<GuestBonusService>();
             _services.AddSingleton<IScheduledRenovationRepository, ScheduledRenovationRepository>();
             _services.AddSingleton<ScheduledRenovationService>();
+            _services.AddSingleton<IReservationCancellationRepository, ReservationCancellationRepository>();
+            _services.AddSingleton<ReservationCancellationService>();
+            _services.AddSingleton<IAcceptedReservationReschedulingRepository, AcceptedReservationReschedulingRepository>();
+            _services.AddSingleton<AcceptedReservationReschedulingService>();
 
             _serviceProvider = _services.BuildServiceProvider();
 

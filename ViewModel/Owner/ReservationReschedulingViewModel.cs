@@ -94,6 +94,13 @@ namespace BookingApp.ViewModel.Owner
                 comment = CommentService.GetInstance().Save(comment);
                 processedReschedulingRequest.CommentId = comment.Id;
             }
+            AcceptedReservationRescheduling acceptedReservationRescheduling = new AcceptedReservationRescheduling();
+
+            acceptedReservationRescheduling.AccommodationId = SelectedGuestReschedulingRequest.AccommodationId;
+            acceptedReservationRescheduling.GuestId = SelectedGuestReschedulingRequest.GuestId;
+            acceptedReservationRescheduling.AcceptedDate = DateTime.Now;
+
+            AcceptedReservationReschedulingService.GetInstance().Add(acceptedReservationRescheduling);
 
             processedReschedulingRequest.AccommodationId = SelectedGuestReschedulingRequest.AccommodationId;
             processedReschedulingRequest.GuestId = SelectedGuestReschedulingRequest.GuestId;
