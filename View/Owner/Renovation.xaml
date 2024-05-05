@@ -107,7 +107,7 @@
                         <DataGridTemplateColumn Width="50" Header="Cancel">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Yes"/>
+                                    <Button Content="Yes" Click="DeleteRow"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

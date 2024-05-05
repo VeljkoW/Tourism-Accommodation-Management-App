@@ -16,6 +16,7 @@ namespace BookingApp.ViewModel.Owner
     {
         public RelayCommand SearchClick => new RelayCommand(execute => SearchExecute(), canExecute => SearchCanExecute());
         public RelayCommand RenovateClick => new RelayCommand(execute => RenovateExecute(), canExecute => RenovateCanExecute());
+        //public RelayCommand CancelCommand => new RelayCommand(execute => CancelExecute());
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public ObservableCollection<AvailableDate> AvailableDates { get; set; }
@@ -36,6 +37,19 @@ namespace BookingApp.ViewModel.Owner
 
             Renovation.CommentTextBox.IsEnabled = false;
             Renovation.AvailableDatesListBox.IsEnabled = false;
+        }
+        public void DeleteRowExecute(ScheduledRenovation scheduledRenovation)
+        {
+            ScheduledRenovationService.GetInstance().Delete(scheduledRenovation);
+            foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
+            {
+                if (accommodation.Id == scheduledRenovation.AccommodationId)
+                {
+                    Accommodations.Add(accommodation);
+                    break;
+                }
+            }
+            ScheduledRenovationService.GetInstance().UpdateUpcomingRenovations(User, ScheduledRenovations);
         }
         public void RenovateExecute()
         {
