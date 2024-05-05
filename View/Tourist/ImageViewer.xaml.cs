@@ -1,5 +1,4 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Repository;
 using BookingApp.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
@@ -14,22 +13,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Tourist
 {
     /// <summary>
-    /// Interaction logic for TourDetailed.xaml
+    /// Interaction logic for ImageViewer.xaml
     /// </summary>
-    public partial class TourDetailed : Window
+    public partial class ImageViewer : Window
     {
-        public TourDetailedViewModel TourDetailedViewModel { get; set; }
-        public TourDetailed(Tour selectedTour,User user)
+        public ImageViewerViewModel ImageViewerViewModel { get; set; }
+        public ImageViewer(System.Windows.Controls.Image image)
         {
-
             InitializeComponent();
-            TourDetailedViewModel = new TourDetailedViewModel(this,selectedTour,user);
-            this.DataContext = TourDetailedViewModel;
+            ImageViewerViewModel = new ImageViewerViewModel(this,image);
+            this.DataContext = ImageViewerViewModel;
+
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
@@ -45,13 +43,6 @@ namespace BookingApp.View.Tourist
 
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
-        }
-        private void ImageClicked(object sender, MouseButtonEventArgs e)
-        {
-            System.Windows.Controls.Image image = sender as System.Windows.Controls.Image;
-            ImageViewer imageViewer = new ImageViewer(image);
-            imageViewer.Owner = this;
-            imageViewer.ShowDialog();
         }
     }
 }

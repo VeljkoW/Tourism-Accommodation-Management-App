@@ -150,10 +150,10 @@
                                 </Button.Effect>
                                 <TextBlock Text="&lt;" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                             </Button>
-                            
-                            <Image x:Name="Image1" Grid.Column="2" Height="95" Width="95" Margin="0 0 15 0" Stretch="Fill"/>
-                            <Image x:Name="Image2" Grid.Column="3" Height="95" Width="95" Margin="0 0 15 0" Stretch="Fill"/>
-                            <Image x:Name="Image3" Grid.Column="4" Height="95" Width="95" Stretch="Fill"/>
+
+                            <Image x:Name="Image1" Grid.Column="2" Height="95" Width="95" Margin="0 0 15 0" Stretch="Fill" MouseLeftButtonDown="ImageClicked"/>
+                            <Image x:Name="Image2" Grid.Column="3" Height="95" Width="95" Margin="0 0 15 0" Stretch="Fill" MouseLeftButtonDown="ImageClicked"/>
+                            <Image x:Name="Image3" Grid.Column="4" Height="95" Width="95" Stretch="Fill" MouseLeftButtonDown="ImageClicked"/>
                             
                             <Button x:Name="RightArrowButton" Command="{Binding ClickRightArrow}" Grid.Column="5" Width="25" Height="25" Margin="10" Background="{StaticResource BackgroundColorBrush}" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Visibility="Hidden">
                                 <Button.Effect>

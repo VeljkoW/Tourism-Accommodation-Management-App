@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Tourist.ListComponents"
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
-        Title="Booking App" Height="800" Width="1500">
+        Title="Booking App" Height="820" Width="1500">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
