@@ -188,6 +188,17 @@ namespace BookingApp.ViewModel.Guest
             reservedAccommodation.location = Accommodation.Location;
             reservedAccommodation.image = Accommodation.Images[0];
             reservedAccommodation.accommodationType = Accommodation.AccommodationType;
+            
+            foreach(GuestBonus guestBonus in GuestBonusService.GetInstance().GetAll())
+            {
+                if(guestBonus.GuestId == user.Id && guestBonus.Bonus > 0)
+                {
+                    guestBonus.Bonus--;
+                    GuestBonusService.GetInstance().Update(guestBonus);
+                    break;
+                }
+            }
+
             ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
             GuestReservations.Close();
         }
