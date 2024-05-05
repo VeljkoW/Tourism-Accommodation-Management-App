@@ -96,6 +96,7 @@
       <Content Remove="Resources\Images\Tourist\live.png" />
       <Content Remove="Resources\Images\Tourist\location.png" />
       <Content Remove="Resources\Images\Tourist\person.png" />
+      <Content Remove="Resources\Images\Tourist\Placeholder.jpg" />
       <Content Remove="Resources\Images\Tourist\search.png" />
       <Content Remove="Resources\Images\Tourist\star.png" />
       <Content Remove="Resources\Images\Tourist\star_empty.png" />
@@ -120,6 +121,7 @@
 		<Resource Include="Resources\Images\Tourist\live.png" />
 		<Resource Include="Resources\Images\Tourist\location.png" />
 		<Resource Include="Resources\Images\Tourist\person.png" />
+		<Resource Include="Resources\Images\Tourist\Placeholder.jpg" />
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>

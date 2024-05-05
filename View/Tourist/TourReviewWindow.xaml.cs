@@ -43,10 +43,6 @@ namespace BookingApp.View.Tourist
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
         }
-        public void BtnSelectFiles_ClickExecute(object sender, RoutedEventArgs e)
-        {
-            TourReviewWindowViewModel.BtnSelectFiles_ClickExecute(sender,e);
-        }
         public void StarMouseEnter(object sender, MouseEventArgs e)
         {
             TourReviewWindowViewModel.StarMouseEnter(sender, e);
@@ -58,6 +54,17 @@ namespace BookingApp.View.Tourist
         public void StarClick(object sender, MouseEventArgs e)
         {
             TourReviewWindowViewModel.StarClick(sender, e);
+        }
+        private void ImageClicked(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.Image image = sender as System.Windows.Controls.Image;
+            string imageSource = image.Source.ToString();
+            if (imageSource != "pack://application:,,,/BookingApp;component/Resources/Images/Tourist/Placeholder.jpg")  //makes it so that the user cannot view the placeholder image
+            {
+                ImageViewer imageViewer = new ImageViewer(image);
+                imageViewer.Owner = this;
+                imageViewer.ShowDialog();
+            }
         }
     }
 }

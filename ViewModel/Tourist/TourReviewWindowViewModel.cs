@@ -4,12 +4,15 @@ using BookingApp.View.Tourist;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BookingApp.ViewModel.Tourist
@@ -26,10 +29,15 @@ namespace BookingApp.ViewModel.Tourist
         public BitmapImage StarEmpty = new BitmapImage(new Uri("../../Resources/Images/Tourist/star_empty.png", UriKind.Relative));
         public List<string> RelativeImagePaths = new List<string>();
         private List<Image> Images = new List<Image>();
+        public RelayCommand ClickBtnSelectFiles => new RelayCommand(execute => BtnSelectFiles_ClickExecute());
         public RelayCommand ClickCancel => new RelayCommand(execute => CancelExecute());
         public RelayCommand ClickSubmit => new RelayCommand(execute => SubmitExecute());
+        public RelayCommand ClickLeftArrow => new RelayCommand(execute => ClickLeftArrowExecute(), canExecute => ClickLeftArrowCanExecute());
+        public RelayCommand ClickRightArrow => new RelayCommand(execute => ClickRightArrowExecute(), canExecute => ClickRightArrowCanExecute());
+        public int Counter;
         public TourReviewWindowViewModel(TourReviewWindow tourReviewWindow, Tour tour, User user) 
-        { 
+        {
+            Counter = 0;
             this.TourReviewWindow = tourReviewWindow;
             this.Tour = tour;
             this.User = user;
@@ -40,9 +48,8 @@ namespace BookingApp.ViewModel.Tourist
             GuideSpeech = -1;
             TourEnjoyment = -1;
         }
-        public void BtnSelectFiles_ClickExecute(object sender,RoutedEventArgs e)
+        public void BtnSelectFiles_ClickExecute()
         {
-            RelativeImagePaths.Clear();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp;*.gif)|*.png;*.jpeg;*.jpg;*.bmp;*.gif";
             dlg.Multiselect = true;
@@ -61,6 +68,11 @@ namespace BookingApp.ViewModel.Tourist
                     Images.Clear();
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/TourReview/", fileName);
+                    if(RelativeImagePaths.Count == 0)
+                    {
+                        var converter = new ImageSourceConverter();
+                        TourReviewWindow.ImageDisplay.Source = (ImageSource)converter.ConvertFromString(relativePath);
+                    }
                     RelativeImagePaths.Add(relativePath);
                 }
             }
@@ -552,12 +564,22 @@ namespace BookingApp.ViewModel.Tourist
                 }
             }
         }
-        public void CancelExecute()
+        public async void CancelExecute()
         {
-            foreach (string s in RelativeImagePaths)
+            TourReviewWindow.ImageDisplay.Source = null;
+            /*
+            foreach (string s in RelativeImagePaths)                                    //NEEDS TO BE FIXED, to delete images once the cancel button has been pressed, it says that the image path is being used in another proccess and it cannot be accessed :C
             {
-                File.Delete(s);
+                try
+                {
+                    File.Delete(s);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting file: {ex.Message}");
+                }
             }
+            */
             RelativeImagePaths.Clear();
             Images.Clear();
             TourReviewWindow.Close();
@@ -586,5 +608,36 @@ namespace BookingApp.ViewModel.Tourist
             }
         }
 
+        public void ClickLeftArrowExecute()
+        {
+            Counter--;
+            var converter = new ImageSourceConverter();
+            TourReviewWindow.ImageDisplay.Source = (ImageSource)converter.ConvertFromString(RelativeImagePaths[Counter]);
+        }
+        public void ClickRightArrowExecute()
+        {
+            Counter++;
+            var converter = new ImageSourceConverter();
+            TourReviewWindow.ImageDisplay.Source = (ImageSource)converter.ConvertFromString(RelativeImagePaths[Counter]);
+        }
+        public bool ClickRightArrowCanExecute()
+        {
+            if (RelativeImagePaths.Count > Counter+1) { return true; }
+            return false;
+        }
+        public bool ClickLeftArrowCanExecute()
+        {
+            if (TourReviewWindow.ImageDisplay.Source != null)
+            {
+                if (TourReviewWindow.ImageDisplay.Source.ToString() != "pack://application:,,,/BookingApp;component/Resources/Images/Tourist/Placeholder.jpg" && RelativeImagePaths.Count > 0)
+                {
+                    if (TourReviewWindow.ImageDisplay.Source.ToString() != RelativeImagePaths[0])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
