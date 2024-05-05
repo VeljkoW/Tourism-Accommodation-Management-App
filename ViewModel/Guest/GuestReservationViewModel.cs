@@ -46,12 +46,12 @@ namespace BookingApp.ViewModel.Guest
             for (DateTime date = startDate; date <= startDate.AddDays(reservationDays); date = date.AddDays(1))
             {
                 foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                {
                     if (Accommodation.Id == reservedAccommodation.accommodationId)
-                    {
                         if (!CheckReservedDates(date, reservedAccommodation)) return false;
-                    }
-                }
+
+                foreach (ScheduledRenovation scheduledRenovation in ScheduledRenovationService.GetInstance().GetAll())
+                    if (scheduledRenovation.AccommodationId == Accommodation.Id)
+                        if (!CheckRenovationDates(date, scheduledRenovation)) return false;
             }
             return true;
         }
@@ -59,6 +59,12 @@ namespace BookingApp.ViewModel.Guest
         public bool CheckReservedDates(DateTime date, ReservedAccommodation reservedAccommodation)
         {
             if (date > reservedAccommodation.checkInDate && date < reservedAccommodation.checkOutDate) return false;
+            return true;
+        }
+
+        public bool CheckRenovationDates(DateTime date, ScheduledRenovation scheduledRenovation)
+        {
+            if (date > scheduledRenovation.StartDate && date < scheduledRenovation.EndDate) return false;
             return true;
         }
 
