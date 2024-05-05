@@ -44,7 +44,15 @@ namespace BookingApp.Repository.AccommodationRepositories
             _guestBonus = _serializer.FromCSV(FilePath);
             return _guestBonus.Find(c => c.Id == Id);
         }
-
+        public void Update(GuestBonus guestBonus)
+        {
+            _guestBonus = _serializer.FromCSV(FilePath);
+            GuestBonus? GuestBonus = _guestBonus.Find(c => c.GuestId == guestBonus.GuestId);
+            GuestBonus.IsSuperGuest = guestBonus.IsSuperGuest;
+            GuestBonus.Bonus = guestBonus.Bonus;
+            GuestBonus.StartSuperGuest = guestBonus.StartSuperGuest;
+            _serializer.ToCSV(FilePath, _guestBonus);
+        }
         public int NextId()
         {
             _guestBonus = _serializer.FromCSV(FilePath);

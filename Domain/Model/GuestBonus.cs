@@ -11,10 +11,11 @@ namespace BookingApp.Domain.Model
 {
     public class GuestBonus : ISerializable, INotifyPropertyChanged
     {
-        public int id { get; set; } 
-        public int guestId { get; set; }
-
-        public int bonus { get; set; }
+        private int id { get; set; }
+        private int guestId { get; set; }
+        private bool isSuperGuest { get; set; }
+        private DateTime startSuperGuest { get; set; }
+        private int bonus { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -36,6 +37,37 @@ namespace BookingApp.Domain.Model
                 {
                     id = value;
                     OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+        public bool IsSuperGuest
+        {
+            get
+            {
+                return isSuperGuest;
+            }
+            set
+            {
+                if (value != isSuperGuest)
+                {
+                    isSuperGuest = value;
+                    OnPropertyChanged(nameof(isSuperGuest));
+                }
+            }
+        }
+
+        public DateTime StartSuperGuest
+        {
+            get
+            {
+                return startSuperGuest;
+            }
+            set
+            {
+                if (value != startSuperGuest)
+                {
+                    startSuperGuest = value;
+                    OnPropertyChanged(nameof(startSuperGuest));
                 }
             }
         }
@@ -75,6 +107,8 @@ namespace BookingApp.Domain.Model
             string[] csvValues = {
                 Id.ToString(), 
                 GuestId.ToString(),
+                IsSuperGuest.ToString(),
+                StartSuperGuest.ToString(),
                 Bonus.ToString()
             };
             return csvValues;
@@ -84,7 +118,9 @@ namespace BookingApp.Domain.Model
         {
             Id = Convert.ToInt32(values[0]);
             GuestId = Convert.ToInt32(values[1]);
-            Bonus = Convert.ToInt32(values[2]);
+            IsSuperGuest = Convert.ToBoolean(values[2]);
+            StartSuperGuest = Convert.ToDateTime(values[3]);
+            Bonus = Convert.ToInt32(values[4]);
         }
     }
 }

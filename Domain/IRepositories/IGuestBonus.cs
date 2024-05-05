@@ -13,6 +13,7 @@ namespace BookingApp.Domain.IRepositories
 
         GuestBonus? GetById(int Id);
 
+        public void Update(GuestBonus guestBonus);
         int NextId();
 
         void Add(GuestBonus guestBonus);
