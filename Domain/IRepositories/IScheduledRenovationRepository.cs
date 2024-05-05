@@ -13,5 +13,6 @@ namespace BookingApp.Domain.IRepositories
         ScheduledRenovation? GetById(int Id);
         int NextId();
         void Add(ScheduledRenovation newScheduledRenovation);
+        void Delete(ScheduledRenovation ScheduledRenovation);
     }
 }

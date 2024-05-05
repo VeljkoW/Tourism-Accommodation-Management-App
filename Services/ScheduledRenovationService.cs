@@ -37,6 +37,10 @@ namespace BookingApp.Services
         {
             return ScheduledRenovationRepository.GetById(Id);
         }
+        public void Delete(ScheduledRenovation scheduledRenovation)
+        {
+            ScheduledRenovationRepository.Delete(scheduledRenovation);
+        }
         public void UpdateUpcomingRenovations(User user, ObservableCollection<ScheduledRenovation> ScheduledRenovations)
         {
             ScheduledRenovations.Clear();
