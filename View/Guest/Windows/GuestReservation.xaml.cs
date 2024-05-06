@@ -35,10 +35,6 @@ namespace BookingApp.View.Guest.Windows
             GuestReservationViewModel = new GuestReservationViewModel(this, selectedAccommodation, logUser);
             this.DataContext = GuestReservationViewModel;
             accommodation = selectedAccommodation;
-
-            ErrorLabel.Visibility = Visibility.Hidden;
-            InvalidInput.Visibility = Visibility.Hidden;
-            ErrorSelect.Visibility = Visibility.Hidden;
             
         }
         private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
@@ -82,6 +78,17 @@ namespace BookingApp.View.Guest.Windows
         private void AvailableDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GuestReservationViewModel.AvailableDates_SelectionChanged(sender, e);
+        }
+        private void PreviousImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuestReservationViewModel.PreviousImage(sender, e);
+            //((GuestReservationViewModel)DataContext).PreviousImage();
+        }
+
+        private void NextImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuestReservationViewModel.NextImage(sender, e);
+            //((GuestReservationViewModel)DataContext).NextImage();
         }
     }
 }

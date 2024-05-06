@@ -3,6 +3,7 @@ using BookingApp.Services;
 using BookingApp.View.Tourist;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,11 @@ namespace BookingApp.ViewModel.Tourist
         public User User { get; set; }
         public bool AttendenceConfirmed;
         public bool Attended;
+        private int Counter;
+        public RelayCommand ClickLeftArrow => new RelayCommand(execute => ClickLeftArrowExecute(), canExecute => ClickLeftArrowCanExecute());
+        public RelayCommand ClickRightArrow => new RelayCommand(execute => ClickRightArrowExecute(), canExecute => ClickRightArrowCanExecute());
+        public RelayCommand ClickGoBack => new RelayCommand(execute => GoBackExecute());
+        public RelayCommand ClickReview => new RelayCommand(execute => ReviewExecute());
         public TourFinishedDetailedViewModel(TourFinishedDetailed tourFinishedDetailed,Tour selectedTour,User user) 
         { 
             this.TourFinishedDetailed = tourFinishedDetailed;
@@ -25,12 +31,24 @@ namespace BookingApp.ViewModel.Tourist
             User = user;
             TourFinishedDetailed.NameTextBlock.Text = Tour.Name;
             TourFinishedDetailed.DescriptionTextBlock.Text = Tour.Description;
+            Counter = 0;
 
             if (Tour.Images != null && Tour.Images.Count > 0)
             {
                 Image Image = Tour.Images[0];
                 var converter = new ImageSourceConverter();
                 TourFinishedDetailed.ImageBox.Source = (ImageSource)converter.ConvertFromString(Image.Path);
+                TourFinishedDetailed.Image1.Source = (ImageSource)converter.ConvertFromString(Image.Path);
+                if (Tour.Images.Count > 1)
+                {
+                    TourFinishedDetailed.Image2.Source = (ImageSource)converter.ConvertFromString(Tour.Images[1].Path);
+                }
+                if (Tour.Images.Count > 2)
+                {
+                    TourFinishedDetailed.Image3.Source = (ImageSource)converter.ConvertFromString(Tour.Images[2].Path);
+                    TourFinishedDetailed.LeftArrowButton.Visibility = Visibility.Visible;
+                    TourFinishedDetailed.RightArrowButton.Visibility = Visibility.Visible;
+                }
             }
             if (Tour.Location != null)
             {
@@ -52,7 +70,7 @@ namespace BookingApp.ViewModel.Tourist
 
             TourFinishedDetailed.MaxPeopleTextBlock.Text = Tour.MaxTourists.ToString();
         }
-        public void OpenReviewWindow(object sender, RoutedEventArgs e)
+        public void ReviewExecute()
         {
             AttendenceConfirmed = true;
             Attended = false;
@@ -89,7 +107,7 @@ namespace BookingApp.ViewModel.Tourist
                 MessageBox.Show("No one from the reservation attended this tour!");
             }
         }
-        public void GoBack(object sender, RoutedEventArgs e)
+        public void GoBackExecute()
         {
             TourFinishedDetailed.Close();
         }
@@ -120,6 +138,33 @@ namespace BookingApp.ViewModel.Tourist
                 }
             }
 
+        }
+        public void ClickLeftArrowExecute()
+        {
+            Counter--;
+            var converter = new ImageSourceConverter();
+            TourFinishedDetailed.Image1.Source = (ImageSource)converter.ConvertFromString(Tour.Images[Counter].Path);
+            TourFinishedDetailed.Image2.Source = (ImageSource)converter.ConvertFromString(Tour.Images[Counter + 1].Path);
+            TourFinishedDetailed.Image3.Source = (ImageSource)converter.ConvertFromString(Tour.Images[Counter + 2].Path);
+        }
+        public void ClickRightArrowExecute()
+        {
+            Counter++;
+            var converter = new ImageSourceConverter();
+            TourFinishedDetailed.Image1.Source = (ImageSource)converter.ConvertFromString(Tour.Images[Counter].Path);
+            TourFinishedDetailed.Image2.Source = (ImageSource)converter.ConvertFromString(Tour.Images[Counter + 1].Path);
+            TourFinishedDetailed.Image3.Source = (ImageSource)converter.ConvertFromString(Tour.Images[Counter + 2].Path);
+        }
+        public bool ClickRightArrowCanExecute()
+        {
+            if (Tour.Images.Count > Counter + 3) { return true; }
+            return false;
+        }
+        public bool ClickLeftArrowCanExecute()
+        {
+            var converter = new ImageSourceConverter();
+            if (TourFinishedDetailed.Image1.Source.ToString() != Tour.Images[0].Path && Tour.Images.Count > 0) { return true; }
+            return false;
         }
     }
 }

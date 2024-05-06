@@ -16,6 +16,7 @@ namespace BookingApp.ViewModel.Tourist
         public NotificationWindow NotificationWindow { get; set; }
         public ObservableCollection<TourAttendenceNotification> TourAttendenceNotifications { get; set; }
         public User User { get; set; }
+        public RelayCommand ClickClose => new RelayCommand(execute => CloseExecute());
         public NotificationWindowViewModel(NotificationWindow notificationWindow,User user) 
         { 
             this.NotificationWindow = notificationWindow;
@@ -86,7 +87,7 @@ namespace BookingApp.ViewModel.Tourist
             }
             TourAttendenceNotifications = new ObservableCollection<TourAttendenceNotification>(TourAttendenceNotifications.Reverse());
         }
-        public void Close(object sender, RoutedEventArgs e)
+        public void CloseExecute()
         {
             NotificationWindow.Close();
         }

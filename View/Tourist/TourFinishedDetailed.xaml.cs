@@ -43,13 +43,12 @@ namespace BookingApp.View.Tourist
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
         }
-        public void GoBack(object sender, RoutedEventArgs e)
+        private void ImageClicked(object sender, MouseButtonEventArgs e)
         {
-            TourFinishedDetailedViewModel.GoBack(sender, e);
-        }
-        public void OpenReviewWindow(object sender, RoutedEventArgs e)
-        {
-            TourFinishedDetailedViewModel.OpenReviewWindow(sender, e);
+            System.Windows.Controls.Image image = sender as System.Windows.Controls.Image;
+            ImageViewer imageViewer = new ImageViewer(image);
+            imageViewer.Owner = this;
+            imageViewer.ShowDialog();
         }
     }
 }

@@ -38,5 +38,12 @@ namespace BookingApp.View.Owner
         {
             OwnerMainWindow.mainFrame.Navigate(OwnerMainWindow.RenovationHistory);
         }
+
+        private void DeleteRow(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as ScheduledRenovation;
+            RenovationViewModel.SelectedScheduledRenovation = selectedCard;
+            RenovationViewModel.DeleteRowExecute(selectedCard);
+        }
     }
 }

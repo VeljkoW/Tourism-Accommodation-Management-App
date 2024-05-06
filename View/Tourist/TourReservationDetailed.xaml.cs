@@ -46,9 +46,5 @@ namespace BookingApp.View.Tourist
             this.Top = (SHeight - WHeight) / 2;
         }
 
-        private void GoBack(object sender, RoutedEventArgs e)
-        {
-            TourReservationDetailedViewModel.GoBack(sender, e);
-        }
     }
 }

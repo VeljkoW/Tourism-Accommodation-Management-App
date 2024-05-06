@@ -43,10 +43,5 @@ namespace BookingApp.View.Tourist
             this.Left = (SWidth - WWidth) / 2;
             this.Top = (SHeight - WHeight) / 2;
         }
-
-        public void Close(object sender, RoutedEventArgs e)
-        {
-            TourReservationSuccessfulViewModel.Close(sender, e);
-        }
     }
 }
