@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="800" d:DesignWidth="1520"
       Title="OwnerReviews">
     <Page.Resources>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
