@@ -50,7 +50,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#EBEBEB" Width="900" Height="215" BorderThickness="1" CornerRadius="15" Margin="0 10 100 10" Background="WhiteSmoke"
-                                HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="ClickedOnCard" MouseRightButtonDown="Gallery">
+                                HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="ClickedOnCard">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>

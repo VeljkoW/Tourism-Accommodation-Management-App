@@ -163,11 +163,5 @@ namespace BookingApp.ViewModel.Guest
             guestReservation.Show();
             guestReservation.Focus();
         }
-        public void Gallery(object sender, RoutedEventArgs e)
-        {
-            var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
-            ImageGallery imagegallery = new ImageGallery(selectedCard);
-            imagegallery.Show();
-        }
     }
 }
