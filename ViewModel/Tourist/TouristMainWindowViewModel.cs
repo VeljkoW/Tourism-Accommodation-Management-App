@@ -34,7 +34,34 @@ namespace BookingApp.ViewModel.Tourist
         public RelayCommand ClickTourSuggestion => new RelayCommand(execute => TourSuggestionExecute());
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler TourSuggestionUpdated;
         public List<Tour> IndividualTours { get; set; }
+        private ObservableCollection<TourSuggestion> tourSuggestions { get; set; }
+        public ObservableCollection<TourSuggestion> TourSuggestions
+        {
+            get
+            {
+                return tourSuggestions;
+            }
+            set
+            {
+                tourSuggestions = value;
+                OnPropertyChanged(nameof(tourSuggestions));
+            }
+        }
+        private ObservableCollection<TourSuggestion> complexTourSuggestions {  get; set; }
+        public ObservableCollection<TourSuggestion> ComplexTourSuggestions
+        {
+            get
+            {
+                return complexTourSuggestions;
+            }
+            set
+            {
+                complexTourSuggestions = value;
+                OnPropertyChanged(nameof(complexTourSuggestions));
+            }
+        }
         private List<Tour> tours { get; set; }
         public List<Tour> Tours
         {
@@ -131,7 +158,17 @@ namespace BookingApp.ViewModel.Tourist
             OngoingTours = new List<Tour>();
             ReservedTours = new List<Tour>();
             FinishedTours = new ObservableCollection<Tour>();
+            TourSuggestions = new ObservableCollection<TourSuggestion>();
+            ComplexTourSuggestions = new ObservableCollection<TourSuggestion>();
 
+            foreach(TourSuggestion ts in TourSuggestionService.GetInstance().GetAll())
+            {
+                if(User.Id == ts.UserId) 
+                {
+                    ts.Location = LocationService.GetInstance().GetById(ts.LocationId);
+                    TourSuggestions.Add(ts);
+                }
+            }
 
             IndividualTours = TourService.GetInstance().GetAll();
             Schedules = TourScheduleService.GetInstance().GetAll();
@@ -589,5 +626,6 @@ namespace BookingApp.ViewModel.Tourist
             if (TouristMainWindow.Tab.SelectedIndex == 5) { return false; }
             return true;
         }
+
     }
 }
