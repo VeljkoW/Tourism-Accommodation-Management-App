@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="0.3*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Label x:Name="AccommodationName" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Content="Accommodation name: " FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+            <Label x:Name="AccommodationName" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Content="Accommodation Name: " FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
             <Label x:Name="AccommodationLocation" Grid.Column="3" Grid.Row="0" Content="Location: " FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
             <Button Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PreviousImageButton_Click">
                 <Button.Content>
@@ -43,15 +43,15 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5 10 0 10">
                         <Label Grid.Row="1" Grid.Column="3" FontSize="17">Check-in date:*</Label>
-                        <DatePicker x:Name="CheckInDatePicker" Margin="20 0 0 0" FontSize="17" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                        <DatePicker x:Name="CheckInDatePicker" Margin="20 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5 10 0 10">
                         <Label Grid.Row="1" Grid.Column="3" FontSize="17">Check-out date:*</Label>
-                        <DatePicker x:Name="CheckOutDatePicker" Margin="9 0 0 0" FontSize="17" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                        <DatePicker x:Name="CheckOutDatePicker" Margin="9 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5 10 0 10">
                         <Label Grid.Row="2" Grid.Column="3" FontSize="17">Reservation days:*</Label>
-                        <TextBox x:Name="ReservationDaysTextBox" FontSize="17" Grid.Row="2" Grid.Column="3" Width="180" Height="30"
+                        <TextBox x:Name="ReservationDaysTextBox" FontSize="15" Grid.Row="2" Grid.Column="3" Width="180" Height="30"
                         Foreground="Gray" GotFocus="ReservationDays_Clicked" LostFocus="ReservationDays_NotClicked"></TextBox>
                     </StackPanel>
                     <StackPanel Margin="5 20 5 10">

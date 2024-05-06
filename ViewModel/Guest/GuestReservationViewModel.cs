@@ -32,6 +32,9 @@ namespace BookingApp.ViewModel.Guest
 
         public Accommodation? Accommodation { get; set; }
 
+        public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths.Count;
+
         public RelayCommand ReservationSearchButton => new RelayCommand(execute => ReservationSearch(), canExecute => AvailableReservationSearch());
         public RelayCommand ReservationClickButton => new RelayCommand(execute => ReservationClick(), canExecute => AvailableReservationClick());
 
@@ -76,8 +79,6 @@ namespace BookingApp.ViewModel.Guest
                 }
             }
         }
-        public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
-        public int TotalImages => ImagePaths.Count;
         public void NextImage(object sender, RoutedEventArgs e)
         {
             if (CurrentImageIndex < TotalImages - 1)
