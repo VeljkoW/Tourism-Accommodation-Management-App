@@ -94,7 +94,7 @@ namespace BookingApp.View.Guest.Pages
         private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "Guest Number")
+            if (textBox.Text == "Guest")
             {
                 textBox.Text = string.Empty;
                 textBox.Foreground = Brushes.Black;
@@ -106,14 +106,14 @@ namespace BookingApp.View.Guest.Pages
             TextBox textBox = (TextBox)sender;
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Text = "Guest Number";
+                textBox.Text = "Guest";
                 textBox.Foreground = Brushes.Gray;
             }
         }
         private void ReservationDays_Clicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "Reservation Days")
+            if (textBox.Text == "Days")
             {
                 textBox.Text = string.Empty;
                 textBox.Foreground = Brushes.Black;
@@ -125,7 +125,7 @@ namespace BookingApp.View.Guest.Pages
             TextBox textBox = (TextBox)sender;
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Text = "Reservation Days";
+                textBox.Text = "Days";
                 textBox.Foreground = Brushes.Gray;
             }
         }
