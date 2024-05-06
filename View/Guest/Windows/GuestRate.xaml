@@ -28,8 +28,8 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="AccommodationName" Grid.Row="0" Grid.Column="0" FontSize="20" Content="Accommodation Name:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="Location" Grid.Row="0" Grid.Column="2" FontSize="20" Content="Location:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="AccommodationName" Grid.Row="0" Grid.Column="0" FontSize="20" Content="Accommodation Name: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="Location" Grid.Row="0" Grid.Column="2" FontSize="20" Content="Location: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Grid.Row="1" Grid.Column="0" Height="35" Width="110" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left">Clealiness:*</Label>
         <!--<ComboBox x:Name="CleanlinessComboBox" Grid.Row="1" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
             <ComboBoxItem Content="1"></ComboBoxItem>
@@ -85,7 +85,7 @@
             <Image Source="{Binding CurrentImagePath}" Height="200" Width="320"/>
         </Border>
         <Label Grid.Row="3" Grid.Column="0" Height="35" Width="170" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">Add comment*</Label>
-        <TextBox x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" ></TextBox>
+        <TextBox x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Margin="5 0 0 0" ></TextBox>
         <Button x:Name="RenovationButton" Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Renovation" Click="RenovationClick"></Button>
         <Button Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Rate It" Command="{Binding rateIt}"></Button>
     </Grid>
