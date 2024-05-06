@@ -26,8 +26,10 @@
 		<None Remove="Resources\Images\Guest\arrowleft.png" />
 		<None Remove="Resources\Images\Guest\arrowright.png" />
 		<None Remove="Resources\Images\Guest\star.png" />
-		<None Remove="Resources\Images\Guest\tutorial.png" />
+		<None Remove="Resources\Images\Guide\left_arrow.png" />
 		<None Remove="Resources\Images\Guide\liveicon.png" />
+		<None Remove="Resources\Images\Guest\tutorial.png" />
+		<None Remove="Resources\Images\Guide\right_arrow.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
 		<None Remove="Resources\Images\No-Image-Placeholder.png" />
 		<None Remove="Resources\Images\Owner\bell.png" />
@@ -147,6 +149,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Update="Resources\Images\Guide\left_arrow.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\Images\Guide\right_arrow.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Update="Resources\Images\ratetour.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
