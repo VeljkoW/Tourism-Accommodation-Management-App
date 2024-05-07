@@ -64,7 +64,7 @@ namespace BookingApp.Services
                 AverageGrade += (double)(guestRating.Cleanliness + guestRating.FollowingGuidelines) / 2;
             }
             AverageGrade /= ratings.Count();
-            return AverageGrade;
+            return Math.Round(AverageGrade, 2);
         }
 
         

@@ -10,6 +10,7 @@
       Title="OwnerReviews">
     <Page.Resources>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
     </Page.Resources>
     <Grid>
         <Grid>
@@ -40,27 +41,45 @@
                 <Label x:Name="GuestBonus" Grid.Column="3" Grid.Row="0" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Bonus: "/>
                 <Image x:Name="starImage" Grid.Column="4" Grid.Row="0" Source="../../../Resources/Images/Guest/star.png" Height="64" Margin="30 10 0 0" Width="64" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
                 <Label x:Name="SuperGuest" Grid.Column="4" Grid.Row="0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Super-Guest"/>
-                <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl Name="reviewsItems" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">
+                <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Name="reviewsItems" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
+                                <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10" Background="White"
                                     HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                     </Border.Effect>
-                                    <Grid Margin="50">
+                                    <Grid Margin="20">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="1" BorderThickness="0">
-                                            <StackPanel Margin="5">
-                                                <TextBlock Text="{Binding Path=Cleanliness}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                                <TextBlock Text="{Binding Path=FollowingGuidelines}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding commentId,Converter={StaticResource CommentIdToComment}}" FontSize="15" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Border>
+                                                <StackPanel Margin="5">
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                    <Run Text="Owner: " FontWeight="Bold" />
+                                                    <Run Text="{Binding OwnerId, Converter={StaticResource GuestIdToUsernameConverter}}" />
+                                                </TextBlock>
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                    <Run Text="Rate for Cleanliness: " FontStyle="Italic" FontWeight="Medium"/>
+                                                    <Run Text="{Binding Path=Cleanliness}" />
+                                                </TextBlock>
+                                                    <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                    <Run Text="Rate for FollowingGuidelines: " FontStyle="Italic" FontWeight="Medium" />
+                                                    <Run Text="{Binding Path=FollowingGuidelines}" />
+                                                </TextBlock>
+                                                    <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                    <Run Text="Comment: "  FontStyle="Italic" FontWeight="Medium"/>
+                                                    <Run Text="{Binding commentId,Converter={StaticResource CommentIdToComment}}" />
+                                                </TextBlock>
+                                                </StackPanel>
+                                            </Border>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
