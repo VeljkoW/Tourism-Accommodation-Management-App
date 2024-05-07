@@ -102,14 +102,5 @@ namespace BookingApp.View.Guest.Windows
             }
         }
 
-        private void PreviousImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            guestRateViewModel.PreviousImage(sender, e);
-        }
-
-        private void NextImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            guestRateViewModel.NextImage(sender, e);
-        }
     }
 }
