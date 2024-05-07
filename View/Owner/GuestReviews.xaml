@@ -26,10 +26,10 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="1" Grid.Column="1" Margin="30">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
+            <!--<DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedOwnerRating, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
@@ -43,15 +43,77 @@
                 </DataGrid.Columns>
                 <DataGrid.ToolTip>
                     <ToolTip>
-                        <!-- Prilagodite sadržaj ToolTip-a prema vašim potrebama -->
+                        --><!-- Prilagodite sadržaj ToolTip-a prema vašim potrebama --><!--
                         <StackPanel>
                             <TextBlock Text="{Binding SelectedOwnerRating.commentId, Converter={StaticResource CommentIdToComment}}" FontWeight="Bold"/>
-                            <!-- Dodajte ostale informacije koje želite prikazati -->
+                            --><!-- Dodajte ostale informacije koje želite prikazati --><!--
                         </StackPanel>
                     </ToolTip>
                 </DataGrid.ToolTip>
-            </DataGrid>
-            <Grid Grid.Column="1" Grid.Row="0">
+            </DataGrid>-->
+
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center">
+                <ItemsControl x:Name="accommodationItems" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="15" Margin="20 10" Background="WhiteSmoke"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                </Border.Effect>
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4*" MinWidth="600"/>
+                                        <ColumnDefinition Width="*" MinWidth="151"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Images}" 
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Path=Path}" Stretch="UniformToFill"
+                                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <Border Padding="0 0 20 0" Grid.Column="0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="Guest Username:"/>
+                                                <Run FontWeight="Bold" Text="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="Accommodation:"/>
+                                                <Run FontWeight="Bold" Text="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}"/>
+                                                <Run Text="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="2" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="Cleanliness:"/>          
+                                                <Run Text="{Binding cleanliness, StringFormat='{}{0}, '}"/>
+                                                <Run Text="Owner Integrity:"/>
+                                                <Run Text="{Binding ownerIntegrity}"/>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="3" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
+                                                <Run Text="Comment:"/>  
+                                                <Run FontSize="15" Text="{Binding commentId,Converter={StaticResource CommentIdToComment}}"/>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="0" Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="9*"/>

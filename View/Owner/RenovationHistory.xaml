@@ -36,10 +36,10 @@
                       AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="1.5*" Header="Accommodation name" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="1.2*" Header="Accommodation name" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -66,22 +66,20 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                <Label Content="Accommodation Name:" FontSize="20"/>
-                                <Label Content="{Binding SelectedScheduledRenovation.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal"  Grid.Row="1">
-                                <Label Content="Start date - End date:" FontSize="20"/>
-                                <Label Content="{Binding SelectedScheduledRenovation.StartDate, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                                <Label Content="-" FontSize="20"/>
-                                <Label Content="{Binding SelectedScheduledRenovation.EndDate, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5 0 0 0">
-                                <TextBlock Text="Renovation details: " Grid.Row="2" FontSize="20"/>
-                                <TextBlock Text="{Binding SelectedScheduledRenovation.Details, UpdateSourceTrigger=PropertyChanged}" FontSize="20"
-                                           TextWrapping="Wrap"/>
-                                <!--NE PREBACUJE SE U NOVI RED!!!!!!!!!!!!!!-->
-                            </StackPanel>
+                            <TextBlock Grid.Row="0" Margin="0 0 0 5">
+                                <Run Text="Accommodation Name:" FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                            </TextBlock>
+                            <TextBlock Grid.Row="1" Margin="0 0 0 5">
+                                <Run Text="Start date - End date:" FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                <Run Text=" - " FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                            </TextBlock>
+                            <TextBlock Grid.Row="2"  FontSize="20" TextWrapping="Wrap">
+                                <Run Text="Renovation details: "/>
+                                <Run Text="{Binding SelectedScheduledRenovation.Details, UpdateSourceTrigger=PropertyChanged}"/>
+                            </TextBlock>
                         </Grid>
                     </ScrollViewer>
                 </Border>

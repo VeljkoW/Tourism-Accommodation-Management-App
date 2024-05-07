@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace BookingApp.Services
 {
@@ -36,6 +37,21 @@ namespace BookingApp.Services
         public int GetIdByStateCity(string State, string City)
         {
             return LocationRepository.GetIdByStateCity(State, City);
+        }
+        public List<string> GetStates()
+        {
+            List<string> States = new List<string>();
+            foreach(Location location in GetAll())
+                if(States.Count == 0 || States.Where(t => t == location.State).Count() == 0)
+                    States.Add(location.State);
+            return States;
+        }
+        public void GetCitiesForState(ObservableCollection<Location> Cities, string state)
+        {
+            Cities.Clear();
+            foreach (Location location in GetAll())
+                if(location.State == state)
+                    Cities.Add(location);
         }
     }
 }

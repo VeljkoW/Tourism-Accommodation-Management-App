@@ -7,8 +7,23 @@
         mc:Ignorable="d"
         Title="OwnerMainWindow" Height="1080" Width="1920">
     <Window.Resources>
+        <Color x:Key="BackgroundColor">#579BB1</Color>
+        <Color x:Key="BorderColor">#000033</Color>
+        <Color x:Key="TextColor">#403022</Color>
+        <Color x:Key="TabColor">#ebd3bc</Color>
+        <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
+        <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
+        <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
+        <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+        
         <Style TargetType="ListBoxItem">
             <EventSetter Event="PreviewMouseDown" Handler="ListBoxItem_PreviewMouseDown"/>
+        </Style>
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}"/>
         </Style>
         <Style TargetType="ListBox">
             <Setter Property="BorderBrush" Value="Red"/>
@@ -16,6 +31,12 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="#e4f1ff" Offset="0"/>
+                <GradientStop Color="#8db9dc" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
@@ -97,19 +118,19 @@
                 <RowDefinition Height="*" MinHeight="40"/>
             </Grid.RowDefinitions>
             <Button x:Name="AccommodationReservationButton" Grid.Row="0" Grid.Column="0" Click="AccommodationReservationClick" 
-                Content="Accommodation Management" FontSize="20"/>
+                    Content="Accommodation Management" FontSize="20" Style="{StaticResource TabButtonStyle}"/>
             <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Click="AccommodationStatisticsClick" 
-                Content="Accommodation Statistics" FontSize="20"/>
+                    Content="Accommodation Statistics" FontSize="20" Style="{StaticResource TabButtonStyle}"/>
             <Button x:Name="ReservationReschedulingButton" Grid.Row="2" Grid.Column="0" Click="ReservationReschedulingClick" 
-                Content="Reservation Rescheduling" FontSize="20"/>
+                    Content="Reservation Rescheduling" FontSize="20" Style="{StaticResource TabButtonStyle}"/>
             <Button x:Name="GuestRatingButton" Grid.Row="3" Grid.Column="0" Click="GuestRatingClick"
-                Content="Guest Rating" FontSize="20"/>
+                    Content="Guest Rating" FontSize="20" Style="{StaticResource TabButtonStyle}"/>
             <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick" 
-            Content="Guest Reviews" FontSize="20"/>
+                    Content="Guest Reviews" FontSize="20" Style="{StaticResource TabButtonStyle}"/>
             <Button x:Name="RenovationButton" Grid.Row="5" Grid.Column="0" Click="RenovationClick" 
-            Content="Renovation" FontSize="20"/>
+                    Content="Renovation" FontSize="20" Style="{StaticResource TabButtonStyle}"/>
             <Button x:Name="ForumButton" Grid.Row="6" Grid.Column="0" Click="ForumClick" 
-            Content="Forum" FontSize="20"/>
+                    Content="Forum" FontSize="20" Style="{StaticResource TabButtonStyle}"/>
 
         </Grid>
     </Grid>
