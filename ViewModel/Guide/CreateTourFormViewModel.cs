@@ -259,6 +259,7 @@ namespace BookingApp.ViewModel.Guide
         public CreateTourFormViewModel(CreateTourForm createTourForm, User user)
         {
             this.createTourForm = createTourForm;
+            CurrentImage = "../../../Resources/Images/No-Image-Placeholder.png";
             createTourForm.StateBoxEventHandler += StateBox_SelectionChanged;
             User = user;
             images.Clear();
@@ -509,7 +510,7 @@ namespace BookingApp.ViewModel.Guide
         private int _currentIndex = 0;
         private void LeftArrowExecute()
         {
-            if (_currentIndex > 0)
+            if (ImagePaths.Count > 0)
             {
                 _currentIndex--;
                 CurrentImage = ImagePaths[_currentIndex];
@@ -542,6 +543,20 @@ namespace BookingApp.ViewModel.Guide
         {
             toBeDeleted.Add(ImagePaths[_currentIndex]);
             ImagePaths.RemoveAt(_currentIndex);
+            if(ImagePaths.Count == 0)
+            {
+                CurrentImage = "../../../Resources/Images/No-Image-Placeholder.png";
+                return;
+            }
+            else if(_currentIndex > ImagePaths.Count - 1)
+            {
+                CurrentImage= ImagePaths[ImagePaths.Count - 1];
+                _currentIndex=ImagePaths.Count - 1;
+            }
+            else
+            {
+                CurrentImage = ImagePaths[_currentIndex];
+            }
         }
         private bool RemoveCanExecute()
         {
