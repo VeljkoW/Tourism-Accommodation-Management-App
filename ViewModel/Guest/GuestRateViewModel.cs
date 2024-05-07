@@ -21,6 +21,9 @@ namespace BookingApp.ViewModel.Guest
         public RelayCommand attachImage => new RelayCommand(execute => AddImageExecute());
 
         public RelayCommand rateIt => new RelayCommand(execute => RateIt(), canExecute => CanRateIt());
+        public RelayCommand DeleteImageCommand => new RelayCommand(execute => DeleteImage(), canExecute => CanDeleteImage());
+        public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
+        public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
         public ObservableCollection<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
 
@@ -62,6 +65,30 @@ namespace BookingApp.ViewModel.Guest
             }
         }
 
+        public void DeleteImage()
+        {
+            try
+            {
+                ImagePaths.RemoveAt(CurrentImageIndex);
+                if (CurrentImageIndex == TotalImages && TotalImages >= 1)
+                    CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                CurrentImageIndex = 0;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+                Console.WriteLine("Error: Indeks not valid - " + ex.Message);
+            }
+        }
+        public bool CanDeleteImage()
+        {
+            if (TotalImages == 0)
+                return false;
+            return true;
+        }
         public int CurrentImageIndex
         {
             get { return currentImageIndex; }
@@ -74,7 +101,7 @@ namespace BookingApp.ViewModel.Guest
                 }
             }
         }
-        public void NextImage(object sender, RoutedEventArgs e)
+        public void NextImage()
         {
             if (CurrentImageIndex < TotalImages - 1)
             {
@@ -83,8 +110,13 @@ namespace BookingApp.ViewModel.Guest
                 OnPropertyChanged(nameof(CurrentImagePath));
             }
         }
-
-        public void PreviousImage(object sender, RoutedEventArgs e)
+        public bool CanNextImage()
+        {
+            if (CurrentImageIndex == TotalImages - 1 || TotalImages == 0)
+                return false;
+            return true;
+        }
+        public void PreviousImage()
         {
             if (CurrentImageIndex > 0)
             {
@@ -92,6 +124,12 @@ namespace BookingApp.ViewModel.Guest
                 OnPropertyChanged(nameof(CurrentImageIndex));
                 OnPropertyChanged(nameof(CurrentImagePath));
             }
+        }
+        public bool CanPreviousImage()
+        {
+            if (CurrentImageIndex == 0 || TotalImages == 0)
+                return false;
+            return true;
         }
         public void RateIt()
         {

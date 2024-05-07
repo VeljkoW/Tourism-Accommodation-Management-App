@@ -70,19 +70,27 @@
             <RadioButton x:Name="Integrity5" Content="5" FontSize="20" GroupName="IntegrityRadioButton" 
         Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
         </StackPanel>
-        <Button Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PreviousImageButton_Click">
+        <Button Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding PreviousImageCommand}">
             <Button.Content>
                 <Image Source="../../../Resources/Images/Guest/arrowleft.png"></Image>
             </Button.Content>
         </Button>
-        <Button Grid.Column="3" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NextImageButton_Click">
+        <Button Grid.Column="3" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding NextImageCommand}">
             <Button.Content>
                 <Image Source="../../../Resources/Images/Guest/arrowright.png"></Image>
             </Button.Content>
         </Button>
         <Button Grid.Row="1" Grid.Column="2" Content="Attach" FontSize="20" Height="35" Width="320" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding attachImage}"></Button>
         <Border Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" Margin="5" Height="200" Width="320" BorderThickness="2" BorderBrush="Black">
+            <Grid>
             <Image Source="{Binding CurrentImagePath}" Height="200" Width="320"/>
+            <Button Grid.Column="1" BorderThickness="0" Width="20" Height="20" Background="Transparent" 
+            HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding DeleteImageCommand}">
+                <Button.Content>
+                    <Image Source="../../../Resources/Images/delete.png"></Image>
+                </Button.Content>
+            </Button>
+            </Grid>
         </Border>
         <Label Grid.Row="3" Grid.Column="0" Height="35" Width="170" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">Add comment*</Label>
         <TextBox x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Margin="5 0 0 0" ></TextBox>
