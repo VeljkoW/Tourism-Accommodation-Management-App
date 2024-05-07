@@ -85,6 +85,15 @@ namespace BookingApp.Services
                 TourScheduleService.GetInstance().Update(t);
                 }
             }
+            else
+            {
+                TourSchedule? t = TourScheduleService.GetInstance().GetById(scheduleId);
+                if (t != null)
+                {
+                    t.ScheduleStatus = ScheduleStatus.Canceled;
+                    TourScheduleService.GetInstance().Update(t);
+                }
+            }
         }
         //TODO: get data for statistics
         public Dictionary<Tour,TourStatistics> GetTourStatistics(int year=0)

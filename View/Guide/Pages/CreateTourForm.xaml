@@ -39,6 +39,29 @@
             <Setter Property="Cursor" Value="Hand">
             </Setter>
         </Style>
+        <Style x:Key="ImageButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}" x:Name="border">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand">
+            </Setter>
+        </Style>
         <converter:ImagePathToImage x:Key="ImagePathToImageConverter" />
 
     </Page.Resources>
@@ -50,7 +73,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="125"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="125"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Column="0" Grid.Row="0" Text="Create a new Tour" FontSize="38" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Border Grid.Column="1" Grid.Row="0" Margin="5" BorderBrush="{StaticResource NButtonColor3Text}" BorderThickness="4" CornerRadius="10">
@@ -82,6 +105,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="1.8*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -107,7 +131,7 @@
             <TextBox Grid.Column="1" Grid.Row="5" x:Name="DurationTextbox" Margin="5"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="6" x:Name="DescriptionTextbox" Margin="5"></TextBox>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Width="470">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
@@ -124,9 +148,9 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                    <DatePicker x:Name="datePicker" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
-                    <StackPanel>
-                        <Grid>
+                        <DatePicker x:Name="datePicker" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
+                        <StackPanel>
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -136,7 +160,7 @@
                                 <ComboBox Grid.Column="1" x:Name="ChosenMinutes" ItemsSource="{Binding MinutesList}" />
                                 <ComboBox Grid.Column="2" x:Name="ChosenAmPm" ItemsSource="{Binding AmPm}" />
                             </Grid>
-                    </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                     <Button Grid.Column="1" Command="{Binding ClickAddDate}">
                         <TextBlock Style="{StaticResource TextBlockStyle}" Text="+"/>
@@ -160,11 +184,11 @@
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" x:Name="KeyPointTextbox" TextWrapping="Wrap"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="KeyPointTextbox" TextWrapping="Wrap"/>
                 <Button Grid.Column="1" Command="{Binding ClidKAddKeyPoint}">
                     <TextBlock Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold">Add</TextBlock>
                 </Button>
@@ -172,15 +196,15 @@
                     <TextBlock Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold">Remove</TextBlock>
                 </Button>
             </Grid>
-            <Grid Grid.Column="0" Grid.Row="3">
-                <DataGrid ItemsSource="{Binding KeyPointStrings}" AutoGenerateColumns="False" Margin="0,5" SelectedItem="{Binding SelectedKeyPoint}">
+            <Grid Grid.Column="0" Grid.Row="3" >
+                <DataGrid ItemsSource="{Binding KeyPointStrings}" AutoGenerateColumns="False" Margin="0,5" SelectedItem="{Binding SelectedKeyPoint}" >
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Added Date" Width="*" Binding="{Binding Path=., StringFormat={}{0:dd/MM/yyyy HH:mm}}" />
+                        <DataGridTextColumn Header="Added Keypoint" Width="*" Binding="{Binding Path=.}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -196,26 +220,26 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Command="{Binding DataContext.LeftArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="50" Height="50">
+                    <Button Style="{StaticResource ImageButton}" Grid.Column="0" Command="{Binding DataContext.LeftArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Height="50" Width="50">
                         <Image Source="../../../Resources/Images/Guide/left_arrow.png" Width="24" Height="24" />
                     </Button>
 
-                    <Image Grid.Column="1" Source="{Binding CurrentImagePath}" Stretch="UniformToFill"/>
+                    <Image Grid.Column="1" Source="{Binding Path=CurrentImage,Mode=OneWay}" Height="100" Width="250"/>
 
-                    <Button Grid.Column="2" Command="{Binding DataContext.RightArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="50" Height="50">
+                    <Button Style="{StaticResource ImageButton}" Grid.Column="2" Command="{Binding DataContext.RightArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Height="50" Width="50">
                         <Image Source="../../../Resources/Images/Guide/right_arrow.png" Width="24" Height="24" />
                     </Button>
                 </Grid>
-                <Button Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="30" Height="30" Margin="200,-60,0,0" Panel.ZIndex="100">
+                <Button Style="{StaticResource ImageButton}" Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="30" Height="30" Margin="200,-60,0,0" Panel.ZIndex="100">
                     <TextBlock Text="X" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Button>
             </Grid>
         </Grid>
-            <Grid Grid.Row="3" Grid.Column="0" >
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Command="{Binding ClickCancelButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Cancel" FontWeight="Bold"/>
-                </StackPanel>
-            </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" >
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Command="{Binding ClickCancelButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Cancel" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
         <Grid Grid.Row="3" Grid.Column="1" >
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button Command="{Binding ClickCreateButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Create" FontWeight="Bold"/>
