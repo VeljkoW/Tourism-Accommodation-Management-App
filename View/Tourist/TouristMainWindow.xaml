@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
         Title="Booking App" Height="820" Width="1500">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ClickToursTab}" Key="F1"/>
+        <KeyBinding Command="{Binding ClickOngoingToursTab}" Key="F2"/>
+        <KeyBinding Command="{Binding ClickFinishedToursTab}" Key="F3"/>
+        <KeyBinding Command="{Binding ClickReservationsTab}" Key="F4"/>
+        <KeyBinding Command="{Binding ClickSuggestionsTab}" Key="F5"/>
+        <KeyBinding Command="{Binding ClickCouponsTab}" Key="F6"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
@@ -222,49 +230,105 @@
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <Grid Height="82" Width="179">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Tours" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            <TextBlock Text="F1" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 2" FontSize="12" Foreground="#f2d8bf"/>
+                        </Grid>
                     </Button>
 
                     <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickOngoingToursTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="My Ongoing Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <Grid Height="82" Width="179">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1" Text="My Ongoing Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            <TextBlock Text="F2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 2" FontSize="12" Foreground="#f2d8bf"/>
+                        </Grid>
                     </Button>
 
                     <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickFinishedToursTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="My Finished Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <Grid Height="82" Width="179">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1"  Text="My Finished Tours" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            <TextBlock Text="F3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 2" FontSize="12" Foreground="#f2d8bf"/>
+                        </Grid>
                     </Button>
 
                     <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickReservationsTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="My Reservations" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <Grid Height="82" Width="179">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1" Text="My Reservations" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            <TextBlock Text="F4" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 2" FontSize="12" Foreground="#f2d8bf"/>
+                        </Grid>
                     </Button>
 
                     <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickSuggestionsTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="My Suggestions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <Grid Height="82" Width="179">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1" Text="My Suggestions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            <TextBlock Text="F5" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 2" FontSize="12" Foreground="#f2d8bf"/>
+                        </Grid>
                     </Button>
 
                     <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickCouponsTab}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="My Coupons" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <Grid Height="82" Width="179">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1" Text="My Coupons" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            <TextBlock Text="F6" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 2" FontSize="12" Foreground="#f2d8bf"/>
+                        </Grid>
                     </Button>
 
                     <Button Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 5 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
-                        <TextBlock Text="Demo" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        <Grid Height="82" Width="179">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1" Text="Demo" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                            <TextBlock Text="F7" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 2" FontSize="12" Foreground="#f2d8bf"/>
+                        </Grid>
                     </Button>
 
                 </StackPanel>
