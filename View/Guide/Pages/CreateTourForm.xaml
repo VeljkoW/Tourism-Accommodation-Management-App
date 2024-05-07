@@ -124,9 +124,9 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                    <DatePicker x:Name="datePicker" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
-                    <StackPanel>
-                        <Grid>
+                        <DatePicker x:Name="datePicker" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
+                        <StackPanel>
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -136,7 +136,7 @@
                                 <ComboBox Grid.Column="1" x:Name="ChosenMinutes" ItemsSource="{Binding MinutesList}" />
                                 <ComboBox Grid.Column="2" x:Name="ChosenAmPm" ItemsSource="{Binding AmPm}" />
                             </Grid>
-                    </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                     <Button Grid.Column="1" Command="{Binding ClickAddDate}">
                         <TextBlock Style="{StaticResource TextBlockStyle}" Text="+"/>
@@ -160,11 +160,11 @@
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" x:Name="KeyPointTextbox" TextWrapping="Wrap"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="KeyPointTextbox" TextWrapping="Wrap"/>
                 <Button Grid.Column="1" Command="{Binding ClidKAddKeyPoint}">
                     <TextBlock Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold">Add</TextBlock>
                 </Button>
@@ -192,17 +192,17 @@
             <Grid Grid.Column="1" Grid.Row="5">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="127*"/>
+                        <ColumnDefinition Width="283*"/>
+                        <ColumnDefinition Width="102*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Command="{Binding DataContext.LeftArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="50" Height="50">
+                    <Button Grid.Column="0" Command="{Binding DataContext.LeftArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Margin="38,33,39,32">
                         <Image Source="../../../Resources/Images/Guide/left_arrow.png" Width="24" Height="24" />
                     </Button>
 
                     <Image Grid.Column="1" Source="{Binding Path=CurrentImage}"/>
 
-                    <Button Grid.Column="2" Command="{Binding DataContext.RightArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="50" Height="50">
+                    <Button Grid.Column="2" Command="{Binding DataContext.RightArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Margin="26,33,26,32">
                         <Image Source="../../../Resources/Images/Guide/right_arrow.png" Width="24" Height="24" />
                     </Button>
                 </Grid>
@@ -211,11 +211,11 @@
                 </Button>
             </Grid>
         </Grid>
-            <Grid Grid.Row="3" Grid.Column="0" >
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button Command="{Binding ClickCancelButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Cancel" FontWeight="Bold"/>
-                </StackPanel>
-            </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" >
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Command="{Binding ClickCancelButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Cancel" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
         <Grid Grid.Row="3" Grid.Column="1" >
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button Command="{Binding ClickCreateButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Create" FontWeight="Bold"/>
