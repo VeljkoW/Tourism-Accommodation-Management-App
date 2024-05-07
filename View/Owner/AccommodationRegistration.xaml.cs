@@ -55,5 +55,9 @@ namespace BookingApp.View.Owner
                 SuccessLabel.Visibility = Visibility.Collapsed;
             }
         }
+        private void StatePickedSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AccommodationManagementViewModel.StatePicked();
+        }
     }
 }

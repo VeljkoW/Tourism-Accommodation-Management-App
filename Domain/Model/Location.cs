@@ -58,5 +58,20 @@ namespace BookingApp.Domain.Model
             State = values[1];
             City = values[2];
         }
+        public string PrintCities
+        {
+            get
+            {
+                return City;
+            }
+            set
+            {
+                if (value != Print)
+                {
+                    Print = value;
+                    OnPropertyChanged("Print");
+                }
+            }
+        }
     }
 }

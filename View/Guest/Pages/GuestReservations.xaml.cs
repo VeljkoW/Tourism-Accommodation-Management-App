@@ -82,16 +82,16 @@ namespace BookingApp.View.Guest.Pages
             var selectedCard = ((FrameworkElement)sender).DataContext as ReservedAccommodation;
             ReservedAccommodation? reserved = new ReservedAccommodation();
             reserved = ReservedAccommodationService.GetInstance().GetById(selectedCard.Id);
-            //if ((DateTime.Now - reserved.CheckOutDate).Days <= 5  && reserved.CheckOutDate < DateTime.Now)
-            //{
+            if ((DateTime.Now - reserved.CheckOutDate).Days <= 5  && reserved.CheckOutDate < DateTime.Now)
+            {
                 GuestRate guestRate = new GuestRate(user, selectedCard);
                 guestRate.Show();
                 guestRate.Focus();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("You can not rate the owner!!");
-           // }
+            }
+            else
+            {
+                MessageBox.Show("You can not rate the owner!!");
+            }
         }
 
         private void RescheduleClick(object sender, RoutedEventArgs e)
