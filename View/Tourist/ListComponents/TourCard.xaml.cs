@@ -42,6 +42,7 @@ namespace BookingApp.View.Tourist.ListComponents
                     throw new Exception();
                 }
                 TourDetailed tourDetailed = new TourDetailed(Selectedtour,user);
+                //tourDetailed.Closed += (s, e) => (Window.GetWindow(this) as TouristMainWindow).TouristMainWindowViewModel.Update();
                 tourDetailed.ShowDialog();
             }
         }

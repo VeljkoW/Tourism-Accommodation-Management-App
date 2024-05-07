@@ -134,10 +134,6 @@ namespace BookingApp.View.Guest.Pages
         {
             GuestAccommodationsViewModel.ClickedOnCard(sender, e);
         }
-        public void Gallery(object sender, RoutedEventArgs e)
-        {
-            GuestAccommodationsViewModel.Gallery(sender, e);
-        }
 
     }
 }

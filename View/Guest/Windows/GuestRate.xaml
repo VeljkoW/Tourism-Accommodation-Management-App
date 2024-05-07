@@ -22,39 +22,71 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.2*"/>
+
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+        <Label x:Name="AccommodationName" Grid.Row="0" Grid.Column="0" FontSize="20" Content="Accommodation Name: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="Location" Grid.Row="0" Grid.Column="2" FontSize="20" Content="Location: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Grid.Row="1" Grid.Column="0" Height="35" Width="110" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left">Clealiness:*</Label>
-        <ComboBox x:Name="CleanlinessComboBox" Grid.Row="1" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
+        <!--<ComboBox x:Name="CleanlinessComboBox" Grid.Row="1" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
             <ComboBoxItem Content="1"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
             <ComboBoxItem Content="4"></ComboBoxItem>
             <ComboBoxItem Content="5"></ComboBoxItem>
-        </ComboBox>
+        </ComboBox>-->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="160 0 0 0" VerticalAlignment="Center">
+            <RadioButton x:Name="Cleanliness1" Content="1" FontSize="20" GroupName="CleanlinessRadioButton" 
+          Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Cleanliness2" Content="2" FontSize="20" GroupName="CleanlinessRadioButton" 
+          Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Cleanliness3" Content="3" FontSize="20" GroupName="CleanlinessRadioButton" 
+          Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Cleanliness4" Content="4" FontSize="20" GroupName="CleanlinessRadioButton" 
+          Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Cleanliness5" Content="5" FontSize="20" GroupName="CleanlinessRadioButton" 
+          Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+        </StackPanel>
         <Label Grid.Row="2" Grid.Column="0" Height="36" Width="170" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left">Owner integrity:*</Label>
-        <ComboBox x:Name="IntegrityComboBox" Grid.Row="2" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
+        <!--<ComboBox x:Name="IntegrityComboBox" Grid.Row="2" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
             <ComboBoxItem Content="1"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
             <ComboBoxItem Content="4"></ComboBoxItem>
             <ComboBoxItem Content="5"></ComboBoxItem>
-        </ComboBox>
-        <Button Grid.Row="1" Grid.Column="1" Content="Attach" FontSize="20" Height="35" Width="380" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding attachImage}"></Button>
-        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="ImageCarousel" ItemsSource="{Binding Path=strings}" Grid.Row="2" Grid.RowSpan="4" Grid.Column="1" Width="380" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Image Source="{Binding Converter={StaticResource ImagePathToImage}}" Stretch="Uniform" Width="360" Height="300"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        </ComboBox>-->
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="160 0 0 0" VerticalAlignment="Center">
+            <RadioButton x:Name="Integrity1" Content="1" FontSize="20" GroupName="IntegrityRadioButton" 
+        Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Integrity2" Content="2" FontSize="20" GroupName="IntegrityRadioButton" 
+        Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Integrity3" Content="3" FontSize="20" GroupName="IntegrityRadioButton" 
+        Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Integrity4" Content="4" FontSize="20" GroupName="IntegrityRadioButton" 
+        Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+            <RadioButton x:Name="Integrity5" Content="5" FontSize="20" GroupName="IntegrityRadioButton" 
+        Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+        </StackPanel>
+        <Button Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PreviousImageButton_Click">
+            <Button.Content>
+                <Image Source="../../../Resources/Images/Guest/arrowleft.png"></Image>
+            </Button.Content>
+        </Button>
+        <Button Grid.Column="3" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NextImageButton_Click">
+            <Button.Content>
+                <Image Source="../../../Resources/Images/Guest/arrowright.png"></Image>
+            </Button.Content>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="2" Content="Attach" FontSize="20" Height="35" Width="320" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding attachImage}"></Button>
+        <Border Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" Margin="5" Height="200" Width="320" BorderThickness="2" BorderBrush="Black">
+            <Image Source="{Binding CurrentImagePath}" Height="200" Width="320"/>
+        </Border>
         <Label Grid.Row="3" Grid.Column="0" Height="35" Width="170" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">Add comment*</Label>
-        <TextBox x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" ></TextBox>
+        <TextBox x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Margin="5 0 0 0" ></TextBox>
         <Button x:Name="RenovationButton" Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Renovation" Click="RenovationClick"></Button>
-        <Button Grid.Row="6" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Rate It" Command="{Binding rateIt}"></Button>
+        <Button Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Rate It" Command="{Binding rateIt}"></Button>
     </Grid>
 </Window>

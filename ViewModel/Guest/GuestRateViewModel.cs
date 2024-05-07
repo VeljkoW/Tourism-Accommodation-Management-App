@@ -10,11 +10,14 @@ using System.IO;
 using BookingApp.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.ComponentModel;
 
 namespace BookingApp.ViewModel.Guest
 {
-    public class GuestRateViewModel
+    public class GuestRateViewModel : INotifyPropertyChanged
     {
+        private int currentImageIndex = 0;
+        public ObservableCollection<string> ImagePaths { get; set; }
         public RelayCommand attachImage => new RelayCommand(execute => AddImageExecute());
 
         public RelayCommand rateIt => new RelayCommand(execute => RateIt(), canExecute => CanRateIt());
@@ -26,6 +29,9 @@ namespace BookingApp.ViewModel.Guest
         public GuestRate GuestRate { get; set; }
         public User User { get; set; }  
         public ReservedAccommodation ReservedAccommodation { get; set; }
+
+        public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths.Count;
         public GuestRateViewModel(GuestRate guestRate, User user, ReservedAccommodation selectedAccommodation)
         { 
             GuestRate = guestRate;
@@ -33,6 +39,7 @@ namespace BookingApp.ViewModel.Guest
             ReservedAccommodation = selectedAccommodation;
             strings = new ObservableCollection<string>();
             Images = new ObservableCollection<Image>();
+            ImagePaths = new ObservableCollection<string>();
             RelativeImagePaths = new ObservableCollection<string>();
             foreach(RenovationRequest renovationRequest in RenovationRequestService.GetInstance().GetAll())
             {
@@ -42,8 +49,50 @@ namespace BookingApp.ViewModel.Guest
                     GuestRate.RenovationButton.Content = "Renovation sent";
                 }    
             }
+            GuestRate.AccommodationName.Content += selectedAccommodation.AccommodationName;
+            GuestRate.Location.Content += selectedAccommodation.Location.State + ", " + selectedAccommodation.Location.City;
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
+
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                if (value >= 0 && value < ImagePaths.Count)
+                {
+                    currentImageIndex = value;
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
+            }
+        }
+        public void NextImage(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+
+        public void PreviousImage(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
         public void RateIt()
         {
             Comment comment = new Comment();
@@ -58,8 +107,8 @@ namespace BookingApp.ViewModel.Guest
             ownerRating.ownerId = accommodation.OwnerId;
             ownerRating.guestId = User.Id;
             ownerRating.CommentId = comment.Id;
-            ownerRating.Cleanliness = Convert.ToInt32(GuestRate.CleanlinessComboBox.SelectionBoxItem);
-            ownerRating.OwnerIntegrity = Convert.ToInt32(GuestRate.IntegrityComboBox.SelectionBoxItem);
+            ownerRating.Cleanliness = GuestRate.Cleanliness;
+            ownerRating.OwnerIntegrity = GuestRate.Integrity;
             ownerRating.AccommodationId = accommodation.Id;
 
             foreach(Image image in Images) ownerRating.Images.Add(image);
@@ -80,7 +129,8 @@ namespace BookingApp.ViewModel.Guest
 
         public bool CanRateIt()
         { 
-            if(GuestRate.CleanlinessComboBox.SelectedItem == null || GuestRate.IntegrityComboBox.SelectedItem == null || string.IsNullOrEmpty(GuestRate.CommentTextBox.Text.ToString()))
+            if((GuestRate.Cleanliness1.IsChecked == false && GuestRate.Cleanliness2.IsChecked == false && GuestRate.Cleanliness3.IsChecked == false
+                && GuestRate.Cleanliness4.IsChecked == false && GuestRate.Cleanliness5.IsChecked == false) || string.IsNullOrEmpty(GuestRate.CommentTextBox.Text.ToString()))
             {
                 return false;
             }
@@ -108,8 +158,17 @@ namespace BookingApp.ViewModel.Guest
 
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
                     RelativeImagePaths.Add(relativePath);
+
+                    ImagePaths.Add(destFilePath);
                 }
                 if (RelativeImagePaths.Count > 0) SaveImageIntoCSV(RelativeImagePaths);
+
+                if (ImagePaths.Count > 0)
+                {
+                    CurrentImageIndex = 0;
+                    OnPropertyChanged(nameof(CurrentImagePath));
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
             }
         }
 
