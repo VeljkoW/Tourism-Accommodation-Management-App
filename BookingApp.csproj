@@ -32,6 +32,8 @@
 		<None Remove="Resources\Images\Guide\right_arrow.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
 		<None Remove="Resources\Images\No-Image-Placeholder.png" />
+		<None Remove="Resources\Images\Owner\arrow-down.png" />
+		<None Remove="Resources\Images\Owner\arrow-up.png" />
 		<None Remove="Resources\Images\Owner\bell.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
 		<None Remove="Resources\Images\Owner\record.png" />
@@ -115,6 +117,8 @@
 		<Resource Include="Resources\Images\Guest\star.png" />
 		<Resource Include="Resources\Images\Guest\tutorial.png" />
 		<Resource Include="Resources\Images\Guide\user.png" />
+		<Resource Include="Resources\Images\Owner\arrow-down.png" />
+		<Resource Include="Resources\Images\Owner\arrow-up.png" />
 		<Resource Include="Resources\Images\Owner\bell.png" />
 		<Resource Include="Resources\Images\Owner\check-box.png" />
 		<Resource Include="Resources\Images\Owner\record.png" />

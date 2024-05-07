@@ -91,7 +91,7 @@ namespace BookingApp.View.Guest.Pages
             //else
             //{
             //    MessageBox.Show("You can not rate the owner!!");
-           // }
+            //}
         }
 
         private void RescheduleClick(object sender, RoutedEventArgs e)
