@@ -283,6 +283,8 @@ namespace BookingApp.ViewModel.Tourist
                 TourReservationService.GetInstance().Add(tourReservation);
                 TourReservationWindow.Close();
                 TourReservationSuccessful tourReservationSuccessful = new TourReservationSuccessful(Tour, tourReservation);
+                TouristMainWindow touristMainWindow = Application.Current.Windows.OfType<TouristMainWindow>().FirstOrDefault();
+                tourReservationSuccessful.Closed += (s,e) => touristMainWindow.TouristMainWindowViewModel.Update();
                 tourReservationSuccessful.ShowDialog();
 
             }

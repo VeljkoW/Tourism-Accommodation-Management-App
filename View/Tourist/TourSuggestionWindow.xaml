@@ -13,10 +13,38 @@
         <Color x:Key="BorderColor">#9c734e</Color>
         <Color x:Key="TextColor">#403022</Color>
         <Color x:Key="TabColor">#ebd3bc</Color>
+        <Color x:Key="HoverColor">#d19f71</Color>
+        <Color x:Key="BorderPressColor">#664b32</Color>
         <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
         <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
         <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
         <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+        <SolidColorBrush x:Key="HoverColorBrush" Color="{StaticResource HoverColor}"/>
+        <SolidColorBrush x:Key="BorderPressColorBrush" Color="{StaticResource BorderPressColor}"/>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource HoverColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource HoverColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderPressColorBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

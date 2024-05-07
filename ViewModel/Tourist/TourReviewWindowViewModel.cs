@@ -602,12 +602,11 @@ namespace BookingApp.ViewModel.Tourist
                 TourReview tourReview = new TourReview(User.Id, tourscheduleId, GuideKnowledge, GuideSpeech, TourEnjoyment, comment, ReviewStatus.Valid);
                 TourReviewService.GetInstance().Add(tourReview);
                 SaveReviewImageIntoCSV(tourReview);
-                
+
                 TourReviewWindow.Close();
 
             }
         }
-
         public void ClickLeftArrowExecute()
         {
             Counter--;
