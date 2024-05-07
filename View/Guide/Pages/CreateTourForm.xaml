@@ -200,7 +200,7 @@
                         <Image Source="../../../Resources/Images/Guide/left_arrow.png" Width="24" Height="24" />
                     </Button>
 
-                    <Image Grid.Column="1" Source="{Binding Path=CurrentImage}"/>
+                    <Image Grid.Column="1" Source="{Binding Path=CurrentImage,Mode=OneWay}"/>
 
                     <Button Grid.Column="2" Command="{Binding DataContext.RightArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Margin="26,33,26,32">
                         <Image Source="../../../Resources/Images/Guide/right_arrow.png" Width="24" Height="24" />

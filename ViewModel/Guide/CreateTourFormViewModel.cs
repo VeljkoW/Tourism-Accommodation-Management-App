@@ -23,7 +23,7 @@ using System.Windows.Shapes;
 
 namespace BookingApp.ViewModel.Guide
 {
-    public class CreateTourFormViewModel
+    public class CreateTourFormViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<string> _relativeImagePaths = new ObservableCollection<string>();
         public ObservableCollection<string> RelativeImagePaths
@@ -37,6 +37,25 @@ namespace BookingApp.ViewModel.Guide
                 if (_relativeImagePaths.Any())
                 {
                     CurrentImage = _relativeImagePaths.First();
+                }
+                else
+                {
+                    CurrentImage = null;
+                }
+            }
+        }
+        private ObservableCollection<string> _ImagePaths = new ObservableCollection<string>();
+        public ObservableCollection<string> ImagePaths
+        {
+            get { return _ImagePaths; }
+            set
+            {
+                _ImagePaths = value;
+                OnPropertyChanged(nameof(ImagePaths));
+                // Update current image when the list changes
+                if (_ImagePaths.Any())
+                {
+                    CurrentImage = _ImagePaths.First();
                 }
                 else
                 {
@@ -210,7 +229,7 @@ namespace BookingApp.ViewModel.Guide
             get { return currentImageIndex; }
             set
             {
-                if (value >= 0 && value < relativeImagePaths.Count)
+                if (value >= 0 && value < RelativeImagePaths.Count)
                 {
                     currentImageIndex = value;
                     OnPropertyChanged(nameof(CurrentImageIndex));
@@ -218,7 +237,7 @@ namespace BookingApp.ViewModel.Guide
             }
         }
         public string CurrentImagePath;
-        public int TotalImages => relativeImagePaths.Count;
+        public int TotalImages => RelativeImagePaths.Count;
 
         private string _description;
         private CreateTourForm createTourForm;
@@ -269,6 +288,7 @@ namespace BookingApp.ViewModel.Guide
         public void BtnSelectFiles_ClickExecute()
         {
             RelativeImagePaths.Clear();
+            ImagePaths.Clear();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp;*.gif)|*.png;*.jpeg;*.jpg;*.bmp;*.gif";
             dlg.Multiselect = true;
@@ -292,12 +312,11 @@ namespace BookingApp.ViewModel.Guide
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
                     RelativeImagePaths.Add(relativePath);
-                    CurrentImage = RelativeImagePaths[0];
+                    ImagePaths.Add(destFilePath);
+                    CurrentImage = ImagePaths[0];
                     OnPropertyChanged(nameof(CurrentImage));
                 }
             }
-            CurrentImagePath = relativeImagePaths.ElementAtOrDefault(CurrentImageIndex) ?? "../../../Resources/Images/Tour/giza.jpg";
-            OnPropertyChanged(nameof(CurrentImagePath));
         }
         public void SaveImageIntoCSV(ObservableCollection<string> relativeImagePaths)
         {
@@ -493,13 +512,13 @@ namespace BookingApp.ViewModel.Guide
             if (_currentIndex > 0)
             {
                 _currentIndex--;
-                CurrentImage = RelativeImagePaths[_currentIndex];
+                CurrentImage = ImagePaths[_currentIndex];
                 OnPropertyChanged(nameof(CurrentImage));
             }
         }
         private bool LeftArrowCanExecute()
         {
-            if (CurrentImageIndex > 0)
+            if (_currentIndex > 0)
             {
                 return true;
             }
@@ -508,12 +527,12 @@ namespace BookingApp.ViewModel.Guide
         private void RightArrowExecute()
         {
             _currentIndex++;
-            CurrentImage = RelativeImagePaths[_currentIndex];
+            CurrentImage = ImagePaths[_currentIndex];
             OnPropertyChanged(nameof(CurrentImage));
         }
         private bool RightArrowCanExecute()
         {
-            if (_currentIndex < RelativeImagePaths.Count - 1)
+            if (_currentIndex < ImagePaths.Count - 1)
             {
                 return true;
             }
@@ -521,12 +540,12 @@ namespace BookingApp.ViewModel.Guide
         }
         private void RemoveExecute()
         {
-            toBeDeleted.Add(RelativeImagePaths[_currentIndex]);
-            RelativeImagePaths.RemoveAt(_currentIndex);
+            toBeDeleted.Add(ImagePaths[_currentIndex]);
+            ImagePaths.RemoveAt(_currentIndex);
         }
         private bool RemoveCanExecute()
         {
-            if (RelativeImagePaths.Count() > 0 && _currentIndex < RelativeImagePaths.Count())
+            if (ImagePaths.Count() > 0 && _currentIndex < ImagePaths.Count())
             {
                 return true;
             }
