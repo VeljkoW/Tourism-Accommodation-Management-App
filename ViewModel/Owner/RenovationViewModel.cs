@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -16,6 +17,7 @@ namespace BookingApp.ViewModel.Owner
     {
         public RelayCommand SearchClick => new RelayCommand(execute => SearchExecute(), canExecute => SearchCanExecute());
         public RelayCommand RenovateClick => new RelayCommand(execute => RenovateExecute(), canExecute => RenovateCanExecute());
+        //public RelayCommand DeleteRowCommand => new RelayCommand(canExecute => CanDeleteRowExecute());
         //public RelayCommand CancelCommand => new RelayCommand(execute => CancelExecute());
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
