@@ -38,7 +38,6 @@ namespace BookingApp.ViewModel.Guest
         public RelayCommand ReservationSearchButton => new RelayCommand(execute => ReservationSearch(), canExecute => AvailableReservationSearch());
         public RelayCommand ReservationClickButton => new RelayCommand(execute => ReservationClick(), canExecute => AvailableReservationClick());
 
-
         public GuestReservationViewModel(GuestReservations GuestReservations, Accommodation selectedAccommodation, User user) 
         {
             this.GuestReservations = GuestReservations;
