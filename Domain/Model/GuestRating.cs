@@ -13,11 +13,11 @@ namespace BookingApp.Domain.Model
 {
     public class GuestRating : INotifyPropertyChanged, ISerializable
     {
-        public int ownerId { get; set; }
-        public int guestId { get; set; }
-        public int cleanliness { get; set; }
-        public int followingGuidelines { get; set; }
-        public int commentId { get; set; }
+        private int ownerId { get; set; }
+        private int guestId { get; set; }
+        private int cleanliness { get; set; }
+        private int followingGuidelines { get; set; }
+        private int commentId { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
@@ -129,28 +129,5 @@ namespace BookingApp.Domain.Model
             FollowingGuidelines = Convert.ToInt32(values[3]);
             CommentId = Convert.ToInt32(values[4]);
         }
-        /*public string Print
-        {
-            get
-            {
-                ReservedAccommodationRepository reservedAccommodationRepository = new ReservedAccommodationRepository();
-                foreach(ReservedAccommodation reservedAccommodation in reservedAccommodationRepository.GetAll())
-                {
-                    if(guestId == reservedAccommodation.guestId)
-                    {
-
-                    }
-                }
-                return "Remaining " + DateTime.Now - tempReservedAccommodation.checkOutDate).Days -  + " days to rate the user: " + username;
-            }
-            set
-            {
-                if (value != Print)
-                {
-                    Print = value;
-                    OnPropertyChanged("Print");
-                }
-            }
-        }*/
     }
 }

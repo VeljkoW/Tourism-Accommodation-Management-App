@@ -57,7 +57,7 @@ namespace BookingApp.Services
 
         public double GetAverageGrade(User user)
         {
-            ObservableCollection<GuestRating> ratings = GuestRatingService.GetInstance().Update(user);
+            ObservableCollection<GuestRating> ratings = Update(user);
             double AverageGrade = 0;
             foreach (GuestRating guestRating in ratings)
             {

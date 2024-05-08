@@ -24,7 +24,7 @@
             <RowDefinition Height="0.4*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="AccommodationInformation" FontSize="30" Content="Accommodation name: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="AccommodationInformation" FontSize="25" Content="Accommodation name: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" Content="Add comment:*" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <TextBox x:Name="CommentTextBox" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10"/>
         <Label Grid.Row="3" Grid.Column="0" FontSize="20" Content="Choose a level:*" HorizontalAlignment="Left" VerticalAlignment="Center"/>

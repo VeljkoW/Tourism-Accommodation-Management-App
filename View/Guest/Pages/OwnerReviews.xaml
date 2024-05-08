@@ -76,7 +76,7 @@
                                                 </TextBlock>
                                                     <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
                                                     <Run Text="Comment: "  FontStyle="Italic" FontWeight="Medium"/>
-                                                    <Run Text="{Binding commentId,Converter={StaticResource CommentIdToComment}}" />
+                                                    <Run Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}" />
                                                 </TextBlock>
                                                 </StackPanel>
                                             </Border>

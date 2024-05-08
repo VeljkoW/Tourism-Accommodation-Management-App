@@ -82,7 +82,7 @@ namespace BookingApp.Services
         public bool IsAlreadyRated(ReservedAccommodation tempReservedAccommodation, User user)
         {
             foreach (GuestRatingModel GuestRatingModel in GuestRatingService.GetInstance().GetAll())
-                if (GuestRatingModel.guestId == tempReservedAccommodation.GuestId && GuestRatingModel.ownerId == user.Id)
+                if (GuestRatingModel.GuestId == tempReservedAccommodation.guestId && GuestRatingModel.OwnerId == user.Id)
                     return true;
             return false;
         }
