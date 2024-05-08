@@ -75,7 +75,6 @@
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <DataGrid x:Name="StatisticsByMonthTable" Grid.Row="1"
                           ItemsSource="{Binding AccommodationStatisticsByMonths, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedAccommodationStatisticsByMonth, UpdateSourceTrigger=PropertyChanged}"
                           AutoGenerateColumns="False" FontSize="14"
                           SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Columns>

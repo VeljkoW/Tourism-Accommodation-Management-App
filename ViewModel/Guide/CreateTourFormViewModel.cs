@@ -23,9 +23,46 @@ using System.Windows.Shapes;
 
 namespace BookingApp.ViewModel.Guide
 {
-    public class CreateTourFormViewModel
+    public class CreateTourFormViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<string> relativeImagePaths { get; set; } = new ObservableCollection<string>();
+        private ObservableCollection<string> _relativeImagePaths = new ObservableCollection<string>();
+        public ObservableCollection<string> RelativeImagePaths
+        {
+            get { return _relativeImagePaths; }
+            set
+            {
+                _relativeImagePaths = value;
+                OnPropertyChanged(nameof(RelativeImagePaths));
+                // Update current image when the list changes
+                if (_relativeImagePaths.Any())
+                {
+                    CurrentImage = _relativeImagePaths.First();
+                }
+                else
+                {
+                    CurrentImage = null;
+                }
+            }
+        }
+        private ObservableCollection<string> _ImagePaths = new ObservableCollection<string>();
+        public ObservableCollection<string> ImagePaths
+        {
+            get { return _ImagePaths; }
+            set
+            {
+                _ImagePaths = value;
+                OnPropertyChanged(nameof(ImagePaths));
+                // Update current image when the list changes
+                if (_ImagePaths.Any())
+                {
+                    CurrentImage = _ImagePaths.First();
+                }
+                else
+                {
+                    CurrentImage = null;
+                }
+            }
+        }
         private List<Image> images = new List<Image>();
 
         private List<TourSchedule> schedules = new List<TourSchedule>();
@@ -58,7 +95,7 @@ namespace BookingApp.ViewModel.Guide
 
         private bool ClickCreateCanExecute()
         {
-            if (KeyPointStrings.Count() < 2 || Dates.Count() < 1 || relativeImagePaths.Count() < 1) { return false; }
+            if (KeyPointStrings.Count() < 2 || Dates.Count() < 1 || RelativeImagePaths.Count() < 1) { return false; }
             return true;
         }
         public List<int> HoursList { get; set; }
@@ -192,7 +229,7 @@ namespace BookingApp.ViewModel.Guide
             get { return currentImageIndex; }
             set
             {
-                if (value >= 0 && value < relativeImagePaths.Count)
+                if (value >= 0 && value < RelativeImagePaths.Count)
                 {
                     currentImageIndex = value;
                     OnPropertyChanged(nameof(CurrentImageIndex));
@@ -200,7 +237,7 @@ namespace BookingApp.ViewModel.Guide
             }
         }
         public string CurrentImagePath;
-        public int TotalImages => relativeImagePaths.Count;
+        public int TotalImages => RelativeImagePaths.Count;
 
         private string _description;
         private CreateTourForm createTourForm;
@@ -222,6 +259,7 @@ namespace BookingApp.ViewModel.Guide
         public CreateTourFormViewModel(CreateTourForm createTourForm, User user)
         {
             this.createTourForm = createTourForm;
+            CurrentImage = "../../../Resources/Images/No-Image-Placeholder.png";
             createTourForm.StateBoxEventHandler += StateBox_SelectionChanged;
             User = user;
             images.Clear();
@@ -250,7 +288,8 @@ namespace BookingApp.ViewModel.Guide
         }
         public void BtnSelectFiles_ClickExecute()
         {
-            relativeImagePaths.Clear();
+            RelativeImagePaths.Clear();
+            ImagePaths.Clear();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp;*.gif)|*.png;*.jpeg;*.jpg;*.bmp;*.gif";
             dlg.Multiselect = true;
@@ -273,13 +312,12 @@ namespace BookingApp.ViewModel.Guide
                     images.Clear();
                     fileName = SaveImageFile(filePath, destFilePath, fileName);
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Tour/", fileName);
-                    relativeImagePaths.Add(relativePath);
-                    CurrentImage = relativeImagePaths[0];
+                    RelativeImagePaths.Add(relativePath);
+                    ImagePaths.Add(destFilePath);
+                    CurrentImage = ImagePaths[0];
                     OnPropertyChanged(nameof(CurrentImage));
                 }
             }
-            CurrentImagePath = relativeImagePaths.ElementAtOrDefault(CurrentImageIndex) ?? "../../../Resources/Images/Tour/giza.jpg";
-            OnPropertyChanged(nameof(CurrentImagePath));
         }
         public void SaveImageIntoCSV(ObservableCollection<string> relativeImagePaths)
         {
@@ -352,9 +390,9 @@ namespace BookingApp.ViewModel.Guide
             newTour.LocationId = location.Id;
             try
             {
-                if (relativeImagePaths.Count > 0)
+                if (RelativeImagePaths.Count > 0)
                 {
-                    SaveImageIntoCSV(relativeImagePaths);
+                    SaveImageIntoCSV(RelativeImagePaths);
                 }
                 newTour = TourService.GetInstance().Add(newTour);
                 int tourId = newTour.Id;
@@ -389,11 +427,11 @@ namespace BookingApp.ViewModel.Guide
             Dates.Clear();
             keyPoints.Clear();
             schedules.Clear();
-            foreach(string path in relativeImagePaths)
+            foreach(string path in RelativeImagePaths)
             {
                 toBeDeleted.Add(path);
             }
-            relativeImagePaths.Clear();
+            RelativeImagePaths.Clear();
             images.Clear();
             KeyPointStrings.Clear();
             Locations.Clear();
@@ -472,14 +510,16 @@ namespace BookingApp.ViewModel.Guide
         private int _currentIndex = 0;
         private void LeftArrowExecute()
         {
-
-            CurrentImageIndex--;
-            OnPropertyChanged(nameof(CurrentImageIndex));
-            OnPropertyChanged(nameof(CurrentImagePath));
+            if (ImagePaths.Count > 0)
+            {
+                _currentIndex--;
+                CurrentImage = ImagePaths[_currentIndex];
+                OnPropertyChanged(nameof(CurrentImage));
+            }
         }
         private bool LeftArrowCanExecute()
         {
-            if (CurrentImageIndex > 0)
+            if (_currentIndex > 0)
             {
                 return true;
             }
@@ -487,13 +527,13 @@ namespace BookingApp.ViewModel.Guide
         }
         private void RightArrowExecute()
         {
-            CurrentImageIndex++;
-            OnPropertyChanged(nameof(CurrentImageIndex));
-            OnPropertyChanged(nameof(CurrentImagePath));
+            _currentIndex++;
+            CurrentImage = ImagePaths[_currentIndex];
+            OnPropertyChanged(nameof(CurrentImage));
         }
         private bool RightArrowCanExecute()
         {
-            if (CurrentImageIndex < TotalImages - 1)
+            if (_currentIndex < ImagePaths.Count - 1)
             {
                 return true;
             }
@@ -501,12 +541,26 @@ namespace BookingApp.ViewModel.Guide
         }
         private void RemoveExecute()
         {
-            toBeDeleted.Add(relativeImagePaths[CurrentImageIndex]);
-            relativeImagePaths.RemoveAt(CurrentImageIndex);
+            toBeDeleted.Add(ImagePaths[_currentIndex]);
+            ImagePaths.RemoveAt(_currentIndex);
+            if(ImagePaths.Count == 0)
+            {
+                CurrentImage = "../../../Resources/Images/No-Image-Placeholder.png";
+                return;
+            }
+            else if(_currentIndex > ImagePaths.Count - 1)
+            {
+                CurrentImage= ImagePaths[ImagePaths.Count - 1];
+                _currentIndex=ImagePaths.Count - 1;
+            }
+            else
+            {
+                CurrentImage = ImagePaths[_currentIndex];
+            }
         }
         private bool RemoveCanExecute()
         {
-            if (relativeImagePaths.Count() > 0 && CurrentImageIndex < relativeImagePaths.Count())
+            if (ImagePaths.Count() > 0 && _currentIndex < ImagePaths.Count())
             {
                 return true;
             }

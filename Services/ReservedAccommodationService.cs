@@ -67,7 +67,7 @@ namespace BookingApp.Services
             ReservedAccommodations.Clear();
             foreach (ReservedAccommodation tempReservedAccommodation in GetAll())
                 foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
-                    if (tempReservedAccommodation.accommodationId == accommodation.Id && user.Id == accommodation.OwnerId)
+                    if (tempReservedAccommodation.Accommodation.Id == accommodation.Id && user.Id == accommodation.OwnerId)
                     {
                         if (GuestRatingService.GetInstance().GetAll().Count == 0)
                             AvailableForRating(tempReservedAccommodation, ReservedAccommodations);
@@ -88,14 +88,14 @@ namespace BookingApp.Services
         }
         public void AvailableForRating(ReservedAccommodation ReservedAccommodation, ObservableCollection<ReservedAccommodation> ReservedAccommodations)
         {
-            if ((DateTime.Now > ReservedAccommodation.checkOutDate) &&
-                (DateTime.Now - ReservedAccommodation.checkOutDate).Days <= 5)
+            if ((DateTime.Now > ReservedAccommodation.CheckOutDate) &&
+                (DateTime.Now - ReservedAccommodation.CheckOutDate).Days <= 5)
                 ReservedAccommodations.Add(ReservedAccommodation);
         }
         public void ReservationCountByYear(int accommodationId, ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears)
         {
             List<ReservedAccommodation> ReservedAccommodations = new List<ReservedAccommodation>();
-            ReservedAccommodations = GetAll().Where(t=>t.AccommodationId == accommodationId).ToList();
+            ReservedAccommodations = GetAll().Where(t=>t.Accommodation.Id == accommodationId).ToList();
             foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodations)
             {
                 if (AccommodationStatisticsByYears.Count == 0)
@@ -119,7 +119,7 @@ namespace BookingApp.Services
                                                       ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears)
         {
             AccommodationStatisticsByYear AccommodationStatisticsByYear = new AccommodationStatisticsByYear();
-            AccommodationStatisticsByYear.AccommodationId = reservedAccommodation.AccommodationId;
+            AccommodationStatisticsByYear.AccommodationId = reservedAccommodation.Accommodation.Id;
             AccommodationStatisticsByYear.Year = reservedAccommodation.CheckInDate.Year;
             AccommodationStatisticsByYear.Reservations++;
             AccommodationStatisticsByYears.Add(AccommodationStatisticsByYear);
@@ -127,7 +127,7 @@ namespace BookingApp.Services
         public void ReservationCountByMonth(int year, int accommodationId, ObservableCollection<AccommodationStatisticsByMonth> AccommodationStatisticsByMonths)
         {
             List<ReservedAccommodation> ReservedAccommodations = new List<ReservedAccommodation>();
-            ReservedAccommodations = GetAll().Where(t => t.AccommodationId == accommodationId && t.CheckInDate.Year == year).ToList();
+            ReservedAccommodations = GetAll().Where(t => t.Accommodation.Id == accommodationId && t.CheckInDate.Year == year).ToList();
             foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodations)
                 foreach (AccommodationStatisticsByMonth AccommodationStatisticsByMonth in AccommodationStatisticsByMonths)
                     if (AccommodationStatisticsByMonth.Month == reservedAccommodation.CheckInDate.Month)

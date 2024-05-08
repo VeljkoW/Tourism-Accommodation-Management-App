@@ -47,7 +47,7 @@ namespace BookingApp.Services
         {
             foreach (OwnerRating ownerRating in OwnerRatingService.GetInstance().GetAll())
             {
-                if (guestRating.OwnerId == ownerRating.ownerId && guestRating.GuestId == ownerRating.guestId)
+                if (guestRating.OwnerId == ownerRating.OwnerId && guestRating.GuestId == ownerRating.GuestId)
                 {
                     return true;
                 }

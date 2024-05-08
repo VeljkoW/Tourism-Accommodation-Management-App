@@ -11,14 +11,13 @@ namespace BookingApp.Domain.Model
 {
     public class ProcessedReschedulingRequest : ISerializable, INotifyPropertyChanged
     {
-        public int id { get; set; }
-        public int accommodationId { get; set; }
-        public int guestId { get; set; }
-        public int commentId { get; set; }
-        public bool isAccepted { get; set; }
-
-        public DateTime checkInDate { get; set; }
-        public DateTime checkOutDate { get; set; }
+        private int id { get; set; }
+        private int accommodationId { get; set; }
+        private int guestId { get; set; }
+        private int commentId { get; set; }
+        private bool isAccepted { get; set; }
+        private DateTime checkInDate { get; set; }
+        private DateTime checkOutDate { get; set; }
         public ProcessedReschedulingRequest() { }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)

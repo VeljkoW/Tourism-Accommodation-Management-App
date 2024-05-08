@@ -37,7 +37,7 @@ namespace BookingApp.ViewModel.Owner
 
             GuestRatingModel GuestRatingModel = new GuestRatingModel();
             GuestRatingModel.OwnerId = user.Id;
-            GuestRatingModel.GuestId = SelectedReservedAccommodations.guestId;
+            GuestRatingModel.GuestId = SelectedReservedAccommodations.GuestId;
             GuestRatingModel.CommentId = comment.Id;
             //GuestRatingModel.Cleanliness = Convert.ToInt32(GuestRatingPage.CleanlinessComboBox.SelectionBoxItem);
             //GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);

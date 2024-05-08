@@ -41,7 +41,7 @@ namespace BookingApp.Services
             ObservableCollection<OwnerRating> OwnerRatings = new ObservableCollection<OwnerRating>();
             foreach (OwnerRating ownerRating in GetAll())
             {
-                if (userId == ownerRating.ownerId)
+                if (userId == ownerRating.OwnerId)
                 {
                     if(IsGuestRated(ownerRating))
                     {
@@ -55,7 +55,7 @@ namespace BookingApp.Services
         {
             foreach (GuestRatingModel guestRating in GuestRatingService.GetInstance().GetAll())
             {
-                if (guestRating.OwnerId == ownerRating.ownerId && guestRating.GuestId == ownerRating.guestId)
+                if (guestRating.OwnerId == ownerRating.OwnerId && guestRating.GuestId == ownerRating.GuestId)
                 {
                     return true;
                 }

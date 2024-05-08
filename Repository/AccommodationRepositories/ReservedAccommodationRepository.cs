@@ -51,7 +51,7 @@ namespace BookingApp.Repository.AccommodationRepositories
         public ReservedAccommodation? GetByAccommodationId(int Id)
         {
             _reservedAccommodations = _serializer.FromCSV(FilePath);
-            return _reservedAccommodations.Find(c => c.accommodationId == Id);
+            return _reservedAccommodations.Find(c => c.Accommodation.Id == Id);
         }
         public ReservedAccommodation? GetById(int Id)
         {
@@ -62,7 +62,7 @@ namespace BookingApp.Repository.AccommodationRepositories
         public List<ReservedAccommodation> GetByGuestId(int Id)
         {
             _reservedAccommodations = _serializer.FromCSV(FilePath);
-            return _reservedAccommodations.FindAll(c => c.guestId == Id);
+            return _reservedAccommodations.FindAll(c => c.GuestId == Id);
         }
 
         public void Delete(ReservedAccommodation reservedAccommodation)

@@ -11,11 +11,11 @@ namespace BookingApp.Domain.Model
     public class AcceptedReservationRescheduling : INotifyPropertyChanged, ISerializable
     {
 
-        public int accommodationId { get; set; }
+        private int accommodationId { get; set; }
 
-        public int guestId { get; set; }
+        private int guestId { get; set; }
 
-        public DateTime acceptedDate { get; set; }
+        private DateTime acceptedDate { get; set; }
 
         public int AccommodationId
         {

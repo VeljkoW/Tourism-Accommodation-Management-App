@@ -11,13 +11,9 @@ namespace BookingApp.Domain.Model
 {
     public class ReservationCancellation : INotifyPropertyChanged, ISerializable
     {
-
-        public int accommodationId { get; set; }
-
-        public int guestId { get; set; }
-
-        public DateTime cancelDate { get; set; }
-
+        private int accommodationId { get; set; }
+        private int guestId { get; set; }
+        private DateTime cancelDate { get; set; }
         public int AccommodationId
         {
             get

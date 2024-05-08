@@ -212,7 +212,7 @@
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="24" Margin="10 20 10 20"/>
 
                         <Button Content="Close Accommodation" Grid.Row="6" Grid.ColumnSpan="2" Height="40" Width="300" FontSize="20"
-                                HorizontalAlignment="Center" Command="{Binding DeclineClick}" VerticalAlignment="Center"/>
+                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
             </Grid>

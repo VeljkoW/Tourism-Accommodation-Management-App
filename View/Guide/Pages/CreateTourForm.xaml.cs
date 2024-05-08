@@ -55,10 +55,5 @@ namespace BookingApp.View.Guide.Pages
         {
             StateBoxEventHandler?.Invoke();
         }
-
-        private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-
-        }
     }
 }
