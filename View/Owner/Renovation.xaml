@@ -13,6 +13,7 @@
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:RenovationStartDateToFlag x:Key="RenovationStartDateToFlag"/>
     </Page.Resources>
 
     <Grid>
@@ -107,7 +108,7 @@
                         <DataGridTemplateColumn Width="50" Header="Cancel">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Yes" Click="DeleteRow"/>
+                                    <Button Content="Yes" Click="DeleteRow" Command="{Binding DeleteRowCommand}" IsEnabled="{Binding StartDate, Converter={StaticResource RenovationStartDateToFlag}, UpdateSourceTrigger=PropertyChanged}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
