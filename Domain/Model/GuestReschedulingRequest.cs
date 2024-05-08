@@ -11,13 +11,12 @@ namespace BookingApp.Domain.Model
 {
     public class GuestReschedulingRequest : ISerializable, INotifyPropertyChanged
     {
-        public int id {  get; set; }
-        public int reservedAccommodationId { get; set; }
-        public int accommodationId { get; set; }
-        public int guestId { get; set; }
-        public DateTime checkInDate { get; set; }
-        public DateTime checkOutDate { get; set; }
-
+        private int id {  get; set; }
+        private int reservedAccommodationId { get; set; }
+        private int accommodationId { get; set; }
+        private int guestId { get; set; }
+        private DateTime checkInDate { get; set; }
+        private DateTime checkOutDate { get; set; }
         public GuestReschedulingRequest() { }
 
         public event PropertyChangedEventHandler? PropertyChanged;

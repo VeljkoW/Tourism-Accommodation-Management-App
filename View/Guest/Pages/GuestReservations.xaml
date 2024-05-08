@@ -38,7 +38,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="0">
-                                        <Image Source="{Binding Path=Image.Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <Image Source="{Binding Path=Accommodation.Images[0].Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     </Border>
                                     <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Width="760" Height="200">
                                         <Grid>
@@ -55,10 +55,10 @@
                                                 <RowDefinition Height="2*"/>
                                                 <RowDefinition Height="2*"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=AccommodationName}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" Margin="5 5 0 0"/>
-                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=AccommodationType}" FontSize="20" HorizontalAlignment="Left" Margin="0 5 0 0"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Location.State}" FontSize="20" HorizontalAlignment="Left" Margin="5 18 0 0"/>
-                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="5 10 0 5" VerticalAlignment="Top"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Accommodation.Name}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" Margin="5 5 0 0"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Accommodation.AccommodationType}" FontSize="20" HorizontalAlignment="Left" Margin="0 5 0 0"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Accommodation.Location.State}" FontSize="20" HorizontalAlignment="Left" Margin="5 18 0 0"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=Accommodation.Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="5 10 0 5" VerticalAlignment="Top"/>
                                             <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                                             <Run Text="{Binding Path=CheckInDate}" />
                                             <Run Text=" - " />

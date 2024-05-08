@@ -12,16 +12,12 @@ namespace BookingApp.Domain.Model
 {
     public class RenovationRequest : INotifyPropertyChanged, ISerializable
     {
-        public int id { get; set; }
-        public int accommodationId { get; set; }
-
-        public int guestId { get; set; }
-        public int commentId { get; set; }
-
-        public int level { get; set; }
-
-        public DateTime requestDate { get; set; }
-
+        private int id { get; set; }
+        private int accommodationId { get; set; }
+        private int guestId { get; set; }
+        private int commentId { get; set; }
+        private int level { get; set; }
+        private DateTime requestDate { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {

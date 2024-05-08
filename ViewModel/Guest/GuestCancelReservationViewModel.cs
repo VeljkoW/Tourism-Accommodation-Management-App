@@ -36,7 +36,7 @@ namespace BookingApp.ViewModel.Guest
         public void CancelReservation()
         {
             ReservationCancellation reservationCancellation = new ReservationCancellation();
-            reservationCancellation.AccommodationId = reservedAccommodation.AccommodationId;
+            reservationCancellation.AccommodationId = reservedAccommodation.Accommodation.Id;
             reservationCancellation.GuestId = reservedAccommodation.GuestId;
             reservationCancellation.CancelDate = DateTime.Now;
             ReservationCancellationService.GetInstance().Add(reservationCancellation);

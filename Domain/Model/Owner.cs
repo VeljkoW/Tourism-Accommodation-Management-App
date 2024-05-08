@@ -12,8 +12,8 @@ namespace BookingApp.Domain.Model
 {
     public class Owner : ISerializable, INotifyPropertyChanged
     {
-        public int id { get; set; }
-        public bool isSuperOwner { get; set; }
+        private int id { get; set; }
+        private bool isSuperOwner { get; set; }
         public Owner() { }
 
         public event PropertyChangedEventHandler? PropertyChanged;

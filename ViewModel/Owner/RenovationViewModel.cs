@@ -164,7 +164,7 @@ namespace BookingApp.ViewModel.Owner
             {
                 foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
                 {
-                    if (SelectedAccommodation.Id == reservedAccommodation.accommodationId)
+                    if (SelectedAccommodation.Id == reservedAccommodation.Accommodation.Id)
                     {
                         if (!CheckReservedDates(date, reservedAccommodation)) 
                             return false;
@@ -175,7 +175,7 @@ namespace BookingApp.ViewModel.Owner
         }
         public bool CheckReservedDates(DateTime date, ReservedAccommodation reservedAccommodation)
         {
-            if (date > reservedAccommodation.checkInDate && date < reservedAccommodation.checkOutDate) 
+            if (date > reservedAccommodation.CheckInDate && date < reservedAccommodation.CheckOutDate) 
                 return false;
             return true;
         }

@@ -20,8 +20,8 @@ namespace BookingApp.ViewModel.Owner
             RenovationRequests = new ObservableCollection<RenovationRequest>();
             foreach (RenovationRequest renovationRequest in RenovationRequestService.GetInstance().GetAll())
             {
-                Accommodation? accommodation = AccommodationService.GetInstance().GetById(renovationRequest.accommodationId);
-                User? user = UserService.GetInstance().GetById(accommodation.ownerId);
+                Accommodation? accommodation = AccommodationService.GetInstance().GetById(renovationRequest.AccommodationId);
+                User? user = UserService.GetInstance().GetById(accommodation.OwnerId);
                 if (user.Id == RenovationRequestPage.User.Id)
                 {
                     RenovationRequests.Add(renovationRequest);

@@ -105,7 +105,7 @@ namespace BookingApp.ViewModel.Guest
             for (DateTime date = startDate; date <= startDate.AddDays(reservationDays); date = date.AddDays(1))
             {
                 foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                    if (Accommodation.Id == reservedAccommodation.accommodationId)
+                    if (Accommodation.Id == reservedAccommodation.Accommodation.Id)
                         if (!CheckReservedDates(date, reservedAccommodation)) return false;
 
                 foreach (ScheduledRenovation scheduledRenovation in ScheduledRenovationService.GetInstance().GetAll())
@@ -117,7 +117,7 @@ namespace BookingApp.ViewModel.Guest
 
         public bool CheckReservedDates(DateTime date, ReservedAccommodation reservedAccommodation)
         {
-            if (date > reservedAccommodation.checkInDate && date < reservedAccommodation.checkOutDate) return false;
+            if (date > reservedAccommodation.CheckInDate && date < reservedAccommodation.CheckOutDate) return false;
             return true;
         }
 
@@ -245,14 +245,10 @@ namespace BookingApp.ViewModel.Guest
         {
             string? selectedDate = GuestReservations.AvailableDates.SelectedValue.ToString();
             string[] dates = selectedDate.Split('-');
-            reservedAccommodation.checkInDate = Convert.ToDateTime(dates[0].Trim());
-            reservedAccommodation.checkOutDate = Convert.ToDateTime(dates[1].Trim());
-            reservedAccommodation.accommodationId = Accommodation.Id;
-            reservedAccommodation.guestId = user.Id;
-            reservedAccommodation.accommodationName = Accommodation.Name;
-            reservedAccommodation.location = Accommodation.Location;
-            reservedAccommodation.image = Accommodation.Images[0];
-            reservedAccommodation.accommodationType = Accommodation.AccommodationType;
+            reservedAccommodation.CheckInDate = Convert.ToDateTime(dates[0].Trim());
+            reservedAccommodation.CheckOutDate = Convert.ToDateTime(dates[1].Trim());
+            reservedAccommodation.Accommodation = Accommodation;
+            reservedAccommodation.GuestId = user.Id;
             
             foreach(GuestBonus guestBonus in GuestBonusService.GetInstance().GetAll())
             {
