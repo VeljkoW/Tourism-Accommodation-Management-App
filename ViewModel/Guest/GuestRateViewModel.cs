@@ -46,14 +46,14 @@ namespace BookingApp.ViewModel.Guest
             RelativeImagePaths = new ObservableCollection<string>();
             foreach(RenovationRequest renovationRequest in RenovationRequestService.GetInstance().GetAll())
             {
-                if(renovationRequest.AccommodationId == selectedAccommodation.AccommodationId && renovationRequest.GuestId == User.Id)
+                if(renovationRequest.AccommodationId == selectedAccommodation.Accommodation.Id && renovationRequest.GuestId == User.Id)
                 {
                     GuestRate.RenovationButton.IsEnabled = false;
                     GuestRate.RenovationButton.Content = "Renovation sent";
                 }    
             }
-            GuestRate.AccommodationName.Content += selectedAccommodation.AccommodationName;
-            GuestRate.Location.Content += selectedAccommodation.Location.State + ", " + selectedAccommodation.Location.City;
+            GuestRate.AccommodationName.Content += selectedAccommodation.Accommodation.Name;
+            GuestRate.Location.Content += selectedAccommodation.Accommodation.Location.State + ", " + selectedAccommodation.Accommodation.Location.City;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -139,11 +139,11 @@ namespace BookingApp.ViewModel.Guest
             comment.User = UserService.GetInstance().GetById(User.Id);
             comment = CommentService.GetInstance().Save(comment);
 
-            Accommodation? accommodation = AccommodationService.GetInstance().GetById(ReservedAccommodation.AccommodationId);
+            Accommodation? accommodation = AccommodationService.GetInstance().GetById(ReservedAccommodation.Accommodation.Id);
 
             OwnerRating ownerRating = new OwnerRating();
-            ownerRating.ownerId = accommodation.OwnerId;
-            ownerRating.guestId = User.Id;
+            ownerRating.OwnerId = accommodation.OwnerId;
+            ownerRating.GuestId = User.Id;
             ownerRating.CommentId = comment.Id;
             ownerRating.Cleanliness = GuestRate.Cleanliness;
             ownerRating.OwnerIntegrity = GuestRate.Integrity;

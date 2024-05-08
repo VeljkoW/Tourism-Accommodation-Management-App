@@ -20,13 +20,13 @@ namespace BookingApp.ViewModel.Guest
         {
             GuestRenovation = guestRenovation;
             ReservedAccommodation = reservedAccommodation;
-            GuestRenovation.AccommodationInformation.Content += ReservedAccommodation.AccommodationName + ", " + ReservedAccommodation.Location.State + " - " + ReservedAccommodation.Location.City;
+            GuestRenovation.AccommodationInformation.Content += ReservedAccommodation.Accommodation.Name + ", " + ReservedAccommodation.Accommodation.Location.State + " - " + ReservedAccommodation.Accommodation.Location.City;
         }
 
         public void SendRenovation()
         {
             RenovationRequest renovationRequest = new RenovationRequest();
-            renovationRequest.AccommodationId = ReservedAccommodation.AccommodationId;
+            renovationRequest.AccommodationId = ReservedAccommodation.Accommodation.Id;
             renovationRequest.GuestId = ReservedAccommodation.GuestId;
             
             Comment comment = new Comment();

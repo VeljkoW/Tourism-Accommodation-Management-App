@@ -66,7 +66,7 @@ namespace BookingApp.View.Guest.Pages
             ReservedAccommodation? reserved = new ReservedAccommodation();
             reserved = ReservedAccommodationService.GetInstance().GetById(selectedCard.Id);
             Accommodation? accommodation = new Accommodation();
-            accommodation = AccommodationService.GetInstance().GetById(selectedCard.AccommodationId);
+            accommodation = AccommodationService.GetInstance().GetById(selectedCard.Accommodation.Id);
             DateTime checkIn = reserved.CheckInDate;
             if ((checkIn - DateTime.Now).Days > accommodation.CancelationDaysLimit)
             {

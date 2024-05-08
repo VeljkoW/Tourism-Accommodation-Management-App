@@ -37,7 +37,7 @@ namespace BookingApp.ViewModel.Owner
             {
                 foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
                 {
-                    if (accommodation.Id == guestReschedulingRequest.accommodationId && accommodation.OwnerId == user.Id)
+                    if (accommodation.Id == guestReschedulingRequest.AccommodationId && accommodation.OwnerId == user.Id)
                     {
                         GuestReschedulingRequests.Add(guestReschedulingRequest);
                     }
@@ -57,14 +57,14 @@ namespace BookingApp.ViewModel.Owner
         }
         public bool isFreeSlot(GuestReschedulingRequest GuestReschedulingRequest)
         {
-            for (DateTime date = GuestReschedulingRequest.checkInDate; date <= GuestReschedulingRequest.checkOutDate; date = date.AddDays(1))
+            for (DateTime date = GuestReschedulingRequest.CheckInDate; date <= GuestReschedulingRequest.CheckOutDate; date = date.AddDays(1))
             {
                 foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
                 {
-                    if (GuestReschedulingRequest.accommodationId == reservedAccommodation.accommodationId &&
+                    if (GuestReschedulingRequest.AccommodationId == reservedAccommodation.Accommodation.Id &&
                         reservedAccommodation.Id != GuestReschedulingRequest.ReservedAccommodationId &&
-                        date > reservedAccommodation.checkInDate &&
-                        date < reservedAccommodation.checkOutDate)
+                        date > reservedAccommodation.CheckInDate &&
+                        date < reservedAccommodation.CheckOutDate)
                     {
                         return false;
                     }
@@ -105,8 +105,8 @@ namespace BookingApp.ViewModel.Owner
             processedReschedulingRequest.AccommodationId = SelectedGuestReschedulingRequest.AccommodationId;
             processedReschedulingRequest.GuestId = SelectedGuestReschedulingRequest.GuestId;
             processedReschedulingRequest.IsAccepted = accepted;
-            processedReschedulingRequest.checkInDate = SelectedGuestReschedulingRequest.CheckInDate;
-            processedReschedulingRequest.checkOutDate = SelectedGuestReschedulingRequest.CheckOutDate;
+            processedReschedulingRequest.CheckInDate = SelectedGuestReschedulingRequest.CheckInDate;
+            processedReschedulingRequest.CheckOutDate = SelectedGuestReschedulingRequest.CheckOutDate;
             ProcessedReschedulingRequestService.GetInstance().Add(processedReschedulingRequest);
             GuestReschedulingRequestService.GetInstance().DeleteById(SelectedGuestReschedulingRequest.Id);
             if (accepted)
