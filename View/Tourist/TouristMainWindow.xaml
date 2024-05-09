@@ -599,7 +599,7 @@
                                             <TextBlock Text="Create a tour suggestion" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                                         </Button>
 
-                                        <Button Grid.Column="2" Width="320" Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 65 5" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Cursor="Hand">
+                                        <Button Grid.Column="2" Width="320" Height="87" Background="{StaticResource BackgroundColorBrush}" Margin="5 5 65 5" BorderBrush="{StaticResource BorderColorBrush}" Command="{Binding ClickTourSuggestionStatistics}" BorderThickness="2" Cursor="Hand">
                                             <Button.Effect>
                                                 <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                                             </Button.Effect>

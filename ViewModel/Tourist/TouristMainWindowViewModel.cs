@@ -33,6 +33,7 @@ namespace BookingApp.ViewModel.Tourist
         public RelayCommand ClickNotificationButton => new RelayCommand(execute => NotificationButtonExecute());
         public RelayCommand ClickLogOut => new RelayCommand(execute => LogOutExecute());
         public RelayCommand ClickTourSuggestion => new RelayCommand(execute => TourSuggestionExecute());
+        public RelayCommand ClickTourSuggestionStatistics => new RelayCommand(execute => TourSuggestionStatisticsExecute());
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private ObservableCollection<TourSuggestion> tourSuggestions { get; set; }
@@ -558,7 +559,12 @@ namespace BookingApp.ViewModel.Tourist
             tourSuggestionWindow.Owner = TouristMainWindow;
             tourSuggestionWindow.Closed += (s, e) => TouristMainWindow.TouristMainWindowViewModel.Update();
             tourSuggestionWindow.ShowDialog();
-            
+        }
+        public void TourSuggestionStatisticsExecute()
+        {
+            TourSuggestionStatistics tourSuggestionStatistics = new TourSuggestionStatistics(User);
+            tourSuggestionStatistics.Owner = TouristMainWindow;
+            tourSuggestionStatistics.ShowDialog();
         }
         private void ToursTabExecute()
         {
