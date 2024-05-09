@@ -87,22 +87,22 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
                                                 <Run Text="Guest Username:"/>
-                                                <Run FontWeight="Bold" Text="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                                                <Run FontWeight="Bold" Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
                                             </TextBlock>
                                             <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
                                                 <Run Text="Accommodation:"/>
-                                                <Run FontWeight="Bold" Text="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}"/>
-                                                <Run Text="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                                <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}"/>
+                                                <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
                                             </TextBlock>
                                             <TextBlock Grid.Row="2" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
                                                 <Run Text="Cleanliness:"/>          
-                                                <Run Text="{Binding cleanliness, StringFormat='{}{0}, '}"/>
+                                                <Run Text="{Binding Cleanliness, StringFormat='{}{0}, '}"/>
                                                 <Run Text="Owner Integrity:"/>
-                                                <Run Text="{Binding ownerIntegrity}"/>
+                                                <Run Text="{Binding OwnerIntegrity}"/>
                                             </TextBlock>
-                                            <TextBlock Grid.Row="3" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
+                                            <TextBlock Grid.Row="3" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
                                                 <Run Text="Comment:"/>  
-                                                <Run FontSize="15" Text="{Binding commentId,Converter={StaticResource CommentIdToComment}}"/>
+                                                <Run FontSize="18" Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}"/>
                                             </TextBlock>
                                         </Grid>
                                     </Border>

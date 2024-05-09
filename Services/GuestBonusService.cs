@@ -94,7 +94,7 @@ namespace BookingApp.Services
             int numberOfReservation = 0;
             foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
             {
-                if (user.Id == reservedAccommodation.GuestId && DateTime.Now > reservedAccommodation.checkInDate && DateTime.Now.AddYears(-1) < reservedAccommodation.checkInDate)
+                if (user.Id == reservedAccommodation.GuestId && DateTime.Now > reservedAccommodation.CheckInDate && DateTime.Now.AddYears(-1) < reservedAccommodation.CheckInDate)
                     numberOfReservation++;
             }
 

@@ -13,17 +13,16 @@ namespace BookingApp.Domain.Model
 {
     public class Accommodation : ISerializable, INotifyPropertyChanged
     {
-        public int id { get; set; }
-        public int ownerId { get; set; }
-        public string name { get; set; }
-        public Location? location { get; set; }
-        public AccommodationType accommodationType { get; set; }
-        public int maxGuestNumber { get; set; }
-        public int minReservationDays { get; set; }
-        public int cancelationDaysLimit { get; set; }
-        public List<Image> images { get; set; }
-
-        public string recommended { get; set; }
+        private int id { get; set; }
+        private int ownerId { get; set; }
+        private string name { get; set; }
+        private Location? location { get; set; }
+        private AccommodationType accommodationType { get; set; }
+        private int maxGuestNumber { get; set; }
+        private int minReservationDays { get; set; }
+        private int cancelationDaysLimit { get; set; }
+        private List<Image> images { get; set; }
+        private string recommended { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {

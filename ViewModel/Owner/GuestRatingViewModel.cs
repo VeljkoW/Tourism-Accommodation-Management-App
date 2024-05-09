@@ -36,8 +36,8 @@ namespace BookingApp.ViewModel.Owner
             comment = CommentService.GetInstance().Save(comment);
 
             GuestRatingModel GuestRatingModel = new GuestRatingModel();
-            GuestRatingModel.ownerId = user.Id;
-            GuestRatingModel.guestId = SelectedReservedAccommodations.guestId;
+            GuestRatingModel.OwnerId = user.Id;
+            GuestRatingModel.GuestId = SelectedReservedAccommodations.GuestId;
             GuestRatingModel.CommentId = comment.Id;
             //GuestRatingModel.Cleanliness = Convert.ToInt32(GuestRatingPage.CleanlinessComboBox.SelectionBoxItem);
             //GuestRatingModel.FollowingGuidelines = Convert.ToInt32(GuestRatingPage.FollowingGuidelinesComboBox.SelectionBoxItem);

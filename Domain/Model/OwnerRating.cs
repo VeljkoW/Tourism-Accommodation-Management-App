@@ -11,16 +11,14 @@ namespace BookingApp.Domain.Model
 {
     public class OwnerRating : INotifyPropertyChanged, ISerializable
     {
-        public int id { get; set; }
-        public int ownerId { get; set; }
-        public int guestId { get; set; }
-        public int cleanliness { get; set; }
-        public int ownerIntegrity { get; set; }
-        public int commentId { get; set; }
-
-        public int accommodationId { get; set; }
-
-        public List<Image> images { get; set; }
+        private int id { get; set; }
+        private int ownerId { get; set; }
+        private int guestId { get; set; }
+        private int cleanliness { get; set; }
+        private int ownerIntegrity { get; set; }
+        private int commentId { get; set; }
+        private int accommodationId { get; set; }
+        private List<Image> images { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)

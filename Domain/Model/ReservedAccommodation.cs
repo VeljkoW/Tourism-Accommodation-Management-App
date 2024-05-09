@@ -14,28 +14,23 @@ namespace BookingApp.Domain.Model
 {
     public class ReservedAccommodation : ISerializable, INotifyPropertyChanged
     {
-        public int id { get; set; } 
-        public int guestId { get; set; }
-        public int accommodationId { get; set; }
-        public DateTime checkInDate { get; set; }
-        public DateTime checkOutDate { get; set; }
+        private int id { get; set; }
+        private int guestId { get; set; }
+        private DateTime checkInDate { get; set; }
+        private DateTime checkOutDate { get; set; }
+        private Accommodation accommodation { get; set; }
 
-        public string accommodationName { get; set; }
-
-        public Location location { get; set; }
-
-        public Image image { get; set; }
-        
-        public AccommodationType accommodationType { get; set; }
-
-        public ReservedAccommodation() { }
-
+        public ReservedAccommodation() 
+        {
+            accommodation = new Accommodation();
+        }
         public ReservedAccommodation(int guestId, int accommodationId, DateTime checkInDate, DateTime checkOutDate)
         {
             this.guestId = guestId;
-            this.accommodationId = accommodationId;
             this.checkInDate = checkInDate;
             this.checkOutDate = checkOutDate;
+            accommodation = new Accommodation();
+            accommodation = AccommodationService.GetInstance().GetById(accommodationId);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -107,78 +102,18 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
-        public int AccommodationId
+        public Accommodation Accommodation
         {
             get
             {
-                return accommodationId;
+                return accommodation;
             }
             set
             {
-                if (value != accommodationId)
+                if (value != accommodation)
                 {
-                    accommodationId = value;
-                    OnPropertyChanged(nameof(accommodationId));
-                }
-            }
-        }
-        public string AccommodationName
-        {
-            get
-            {
-                return accommodationName;
-            }
-            set
-            {
-                if (value != accommodationName)
-                {
-                    accommodationName = value;
-                    OnPropertyChanged(nameof(accommodationName));
-                }
-            }
-        }
-        public AccommodationType AccommodationType
-        {
-            get
-            {
-                return accommodationType;
-            }
-            set
-            {
-                if (value != accommodationType)
-                {
-                    accommodationType = value;
-                    OnPropertyChanged(nameof(accommodationType));
-                }
-            }
-        }
-        public Location Location
-        {
-            get
-            {
-                return location;
-            }
-            set
-            {
-                if (value != location)
-                {
-                    location = value;
-                    OnPropertyChanged(nameof(location));
-                }
-            }
-        }
-        public Image Image
-        {
-            get
-            {
-                return image;
-            }
-            set
-            {
-                if (value != image)
-                {
-                    image = value;
-                    OnPropertyChanged(nameof(image));
+                    accommodation = value;
+                    OnPropertyChanged(nameof(accommodation));
                 }
             }
         }
@@ -188,10 +123,10 @@ namespace BookingApp.Domain.Model
         {
             string[] csvValues = {
                 Id.ToString(),
-                accommodationId.ToString(),
-                guestId.ToString(),
-                checkInDate.ToString(),
-                checkOutDate.ToString()
+                Accommodation.Id.ToString(),
+                GuestId.ToString(),
+                CheckInDate.ToString(),
+                CheckOutDate.ToString()
             };
             return csvValues;
         }
@@ -199,16 +134,11 @@ namespace BookingApp.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            accommodationId = Convert.ToInt32(values[1]);
-            guestId = Convert.ToInt32(values[2]);
-            checkInDate = Convert.ToDateTime(values[3]);
-            checkOutDate = Convert.ToDateTime(values[4]);
-            Accommodation accommodation = new Accommodation();
-            accommodation = AccommodationService.GetInstance().GetById(accommodationId);
-            accommodationName = accommodation.Name;
-            location = accommodation.location;
-            image = accommodation.Images[0];
-            accommodationType = accommodation.AccommodationType;
+            int accommodationId = Convert.ToInt32(values[1]);
+            Accommodation = AccommodationService.GetInstance().GetById(accommodationId);
+            GuestId = Convert.ToInt32(values[2]);
+            CheckInDate = Convert.ToDateTime(values[3]);
+            CheckOutDate = Convert.ToDateTime(values[4]);
         }
         public string Print
         {
@@ -216,8 +146,8 @@ namespace BookingApp.Domain.Model
             {
                 UserRepository userRepository = new UserRepository();
                 User user = new User();
-                user = userRepository.GetById(guestId);
-                return "Remaining " + (5 - (DateTime.Now - checkOutDate).Days) + " days to rate the user: " + user.Username;
+                user = userRepository.GetById(GuestId);
+                return "Remaining " + (5 - (DateTime.Now - CheckOutDate).Days) + " days to rate the user: " + user.Username;
             }
             set
             {
