@@ -3,6 +3,7 @@ using BookingApp.Domain.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,86 @@ namespace BookingApp.Services
         public TourSuggestion? Update(TourSuggestion tourSuggestion)
         {
             return TourSuggestionRepository.Update(tourSuggestion);
+        }
+        public List<String> GetAllLanguages(int id)
+        {
+            List<String> languages = new List<String>();
+            foreach(TourSuggestion tourSuggestion in GetAllByUserId(id))
+            {
+                bool exists = false;
+                foreach (string s in languages)
+                {
+                    if (s == tourSuggestion.Language)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+                if(!exists)
+                {
+                    languages.Add(tourSuggestion.Language);
+                }
+            }
+            return languages;
+        }
+        public List<String> GetAllLocations(int id)
+        {
+            List<String> locations = new List<String>();
+            foreach (TourSuggestion tourSuggestion in GetAllByUserId(id))
+            {
+                bool exists = false;
+                Location ?location = LocationService.GetInstance().GetById(tourSuggestion.LocationId);
+                string stateCity = "";
+                if (location != null)
+                {
+                    stateCity = location.State + ", " + location.City;
+                }
+                foreach (string s in locations)
+                {
+                    if (s == stateCity)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists && stateCity != "")
+                {
+                    locations.Add(stateCity);
+                }
+            }
+            return locations;
+        }
+        public int CountRequestsByLanguage(string language,int id)
+        {
+            int count = 0;
+
+            foreach(TourSuggestion tourSuggestion in GetAllByUserId(id))
+            {
+                if(tourSuggestion.Language == language)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        public int CountRequestsByLocation(string location,int id)
+        {
+            int count = 0;
+
+            foreach(TourSuggestion tourSuggestion in GetAllByUserId(id))
+            {
+                Location? location1 = LocationService.GetInstance().GetById(tourSuggestion.LocationId);
+                string stateCity = "";
+                if (location1 != null)
+                {
+                    stateCity = location1.State + ", " + location1.City;
+                }
+                if(location == stateCity)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
         public List<TourSuggestion> GetAllByUserId(int id)
         {
