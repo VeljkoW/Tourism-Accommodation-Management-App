@@ -15,6 +15,7 @@ namespace BookingApp.ViewModel.Tourist
     {
         public NotificationWindow NotificationWindow { get; set; }
         public ObservableCollection<TourAttendenceNotification> TourAttendenceNotifications { get; set; }
+        public ObservableCollection<TourSuggestionNotification> TourSuggestionNotifications { get; set; }
         public User User { get; set; }
         public RelayCommand ClickClose => new RelayCommand(execute => CloseExecute());
         public NotificationWindowViewModel(NotificationWindow notificationWindow,User user) 
@@ -22,11 +23,22 @@ namespace BookingApp.ViewModel.Tourist
             this.NotificationWindow = notificationWindow;
             this.User = user;
             this.TourAttendenceNotifications = new ObservableCollection<TourAttendenceNotification>();
-            foreach(TourAttendenceNotification tr in TourAttendenceNotificationService.GetInstance().GetAll())
+            this.TourSuggestionNotifications = new ObservableCollection<TourSuggestionNotification>();
+            Update();
+        }
+        public void Update()
+        {
+            UpdateTourAttencenceNotifications();
+            UpdateTourSuggestionNotifications();
+        }
+        public void UpdateTourAttencenceNotifications()
+        {
+            TourAttendenceNotifications.Clear();
+            foreach (TourAttendenceNotification tr in TourAttendenceNotificationService.GetInstance().GetAll())
             {
-                if(tr.ConfirmedAttendence == false && User.Id == tr.UserId) 
+                if (tr.ConfirmedAttendence == false && User.Id == tr.UserId)
                 {
-                    TourPerson ?tourPerson = TourPersonService.GetInstance().GetById(tr.TourPersonId);
+                    TourPerson? tourPerson = TourPersonService.GetInstance().GetById(tr.TourPersonId);
 
                     if (tourPerson != null)
                     {
@@ -47,9 +59,9 @@ namespace BookingApp.ViewModel.Tourist
                         tr.KeypointName = "No keypoint name error";
                     }
                     int TourScheduleid = -1;
-                    foreach(TourReservation tourReservation in TourReservationService.GetInstance().GetAll()) 
+                    foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
                     {
-                        foreach(TourPerson tourPerson1 in tourReservation.People)
+                        foreach (TourPerson tourPerson1 in tourReservation.People)
                         {
                             if (tourPerson1.Id == tr.TourPersonId)
                             {
@@ -58,13 +70,13 @@ namespace BookingApp.ViewModel.Tourist
                             }
                         }
                     }
-                    if(TourScheduleid != -1)
+                    if (TourScheduleid != -1)
                     {
-                        foreach(TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
+                        foreach (TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
                         {
-                            if(tourSchedule.Id == TourScheduleid)
+                            if (tourSchedule.Id == TourScheduleid)
                             {
-                                Tour ?tour = TourService.GetInstance().GetById(tourSchedule.TourId);
+                                Tour? tour = TourService.GetInstance().GetById(tourSchedule.TourId);
                                 if (tour != null)
                                 {
                                     tr.TourName = tour.Name;
@@ -86,6 +98,11 @@ namespace BookingApp.ViewModel.Tourist
                 }
             }
             TourAttendenceNotifications = new ObservableCollection<TourAttendenceNotification>(TourAttendenceNotifications.Reverse());
+        }
+        public void UpdateTourSuggestionNotifications()
+        {
+            TourSuggestionNotifications.Clear();
+            TourSuggestionNotifications = new (TourSuggestionNotificationService.GetInstance().GetAllUnread(User.Id));
         }
         public void CloseExecute()
         {
