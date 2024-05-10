@@ -22,9 +22,13 @@ namespace BookingApp.Services
             AcceptedReservationReschedulingService.GetInstance().ReschedulingCountByYear(accommodationId, AccommodationStatisticsByYears);
             RenovationRequestService.GetInstance().RenovationRequestCountByYear(accommodationId, AccommodationStatisticsByYears);
 
+            SortAccommodationStatisticsByYears(AccommodationStatisticsByYears);
+        }
+        private void SortAccommodationStatisticsByYears(ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears)
+        {
             for (int i = 0; i < AccommodationStatisticsByYears.Count - 1; i++)
             {
-                for (int j = 1; j < AccommodationStatisticsByYears.Count; j++)
+                for (int j = i + 1; j < AccommodationStatisticsByYears.Count; j++)
                 {
                     if (AccommodationStatisticsByYears[i].Year < AccommodationStatisticsByYears[j].Year)
                     {

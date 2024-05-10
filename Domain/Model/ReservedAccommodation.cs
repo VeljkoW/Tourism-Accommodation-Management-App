@@ -9,6 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.View.Guest.Pages;
 
 namespace BookingApp.Domain.Model
 {
@@ -31,6 +32,14 @@ namespace BookingApp.Domain.Model
             this.checkOutDate = checkOutDate;
             accommodation = new Accommodation();
             accommodation = AccommodationService.GetInstance().GetById(accommodationId);
+        }
+        public ReservedAccommodation(ReservedAccommodation reservedAccommodation)
+        {
+            this.guestId = reservedAccommodation.guestId;
+            this.checkInDate = reservedAccommodation.checkInDate;
+            this.checkOutDate = reservedAccommodation.checkOutDate;
+            accommodation = new Accommodation();
+            accommodation = AccommodationService.GetInstance().GetById(reservedAccommodation.Accommodation.Id);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)

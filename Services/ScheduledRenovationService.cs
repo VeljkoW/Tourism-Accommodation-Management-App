@@ -80,7 +80,7 @@ namespace BookingApp.Services
                 bool alreadyRenovated = false;
                 foreach (ScheduledRenovation scheduledRenovation in GetAll())
                 {
-                    if (scheduledRenovation.AccommodationId == accommodation.Id)
+                    if (scheduledRenovation.AccommodationId == accommodation.Id && scheduledRenovation.EndDate >= DateTime.Now)
                     {
                         alreadyRenovated = true;
                         break;

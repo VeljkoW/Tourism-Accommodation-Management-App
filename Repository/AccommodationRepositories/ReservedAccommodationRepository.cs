@@ -48,10 +48,10 @@ namespace BookingApp.Repository.AccommodationRepositories
         {
             return _serializer.FromCSV(FilePath);
         }
-        public ReservedAccommodation? GetByAccommodationId(int Id)
+        public List<ReservedAccommodation>? GetByAccommodationId(int Id)
         {
             _reservedAccommodations = _serializer.FromCSV(FilePath);
-            return _reservedAccommodations.Find(c => c.Accommodation.Id == Id);
+            return _reservedAccommodations.Where(c => c.Accommodation.Id == Id).ToList() ?? null;
         }
         public ReservedAccommodation? GetById(int Id)
         {

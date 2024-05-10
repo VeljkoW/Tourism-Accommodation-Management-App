@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
+      xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
@@ -61,7 +62,8 @@
                     </DockPanel>
                     <DockPanel Grid.Row="3">
                         <Label Content="Duration of renovation:*" FontSize="18"/>
-                        <TextBox x:Name="DurationTextBox" Width="250" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18"/>
+                        <!-- <TextBox x:Name="DurationTextBox" Width="250" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18"/> -->
+                        <userControls:NumberTextBox x:Name="DurationTextBox" Width="250" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18"/>
                     </DockPanel>
                     <Border Grid.Row="4" Width="550" Height="70" Margin="100 20 100 0" HorizontalAlignment="Center" VerticalAlignment="Center" 
                             Padding="0 0 0 20" BorderThickness="0 0 0 1" BorderBrush="Black">
@@ -108,7 +110,7 @@
                         <DataGridTemplateColumn Width="50" Header="Cancel">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Yes" Click="DeleteRow" Command="{Binding DeleteRowCommand}" IsEnabled="{Binding StartDate, Converter={StaticResource RenovationStartDateToFlag}, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Content="Yes" Click="DeleteRow" IsEnabled="{Binding StartDate, Converter={StaticResource RenovationStartDateToFlag}, UpdateSourceTrigger=PropertyChanged}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -127,15 +129,15 @@
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Margin="0 0 0 5">
                                 <Run Text="Accommodation Name:" FontSize="20"/>
-                                <Run Text="{Binding SelectedScheduledRenovation.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                             </TextBlock>
                             <TextBlock  Grid.Row="1" Margin="0 0 0 5">
                                 <Run Text="Start date - End date:" FontSize="20"/>
-                                <Run Text="{Binding SelectedScheduledRenovation.StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                                 <Run Text=" - " FontSize="20"/>
-                                <Run Text="{Binding SelectedScheduledRenovation.EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                             </TextBlock>
-                            <TextBlock Grid.Row="2"  FontSize="20" TextWrapping="Wrap">
+                            <TextBlock Grid.Row="2" FontSize="18" TextWrapping="Wrap">
                                 <Run Text="Renovation details: "/>
                                 <Run Text="{Binding SelectedScheduledRenovation.Details, UpdateSourceTrigger=PropertyChanged}"/>
                             </TextBlock>

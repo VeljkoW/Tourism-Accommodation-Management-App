@@ -18,12 +18,42 @@ namespace BookingApp.ViewModel.Owner
         public GuestReschedulingRequest SelectedGuestReschedulingRequest {  get; set; }
         public User user { get; set; }
         public ReservationRescheduling ReservationRescheduling {  get; set; }
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
         public ReservationReschedulingViewModel(ReservationRescheduling ReservationRescheduling, User user)
         {
             this.user = user;
             this.ReservationRescheduling = ReservationRescheduling;
             GuestReschedulingRequests = new ObservableCollection<GuestReschedulingRequest>();
+            ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            Accommodations = AccommodationService.GetInstance().GetAllByUser(user);
             Update();
+        }
+        public void AccommodationSelectionChanged()
+        {
+            ReservedAccommodations.Clear();
+            List<ReservedAccommodation> AllReservedAccommodations = new List<ReservedAccommodation>();
+            AllReservedAccommodations = ReservedAccommodationService.GetInstance().GetByAccommodationId(SelectedAccommodation.Id);
+            if (AllReservedAccommodations.Count == 0 || AllReservedAccommodations == null) 
+                return;
+            foreach(ReservedAccommodation reservedAccommodation in AllReservedAccommodations)
+            {
+                if(reservedAccommodation.CheckOutDate >= DateTime.Now)
+                    ReservedAccommodations.Add(reservedAccommodation);
+            }
+            for (int i = 0; i < ReservedAccommodations.Count - 1; i++)
+            {
+                for (int j = i + 1; j < ReservedAccommodations.Count; j++)
+                {
+                    if (ReservedAccommodations[i].CheckInDate > ReservedAccommodations[j].CheckInDate)
+                    {
+                        ReservedAccommodation tempReservedAccommodation = new ReservedAccommodation(ReservedAccommodations[i]);
+                        ReservedAccommodations[i] = ReservedAccommodations[j];
+                        ReservedAccommodations[j] = tempReservedAccommodation;
+                    }
+                }
+            }
         }
         public void Update()
         {

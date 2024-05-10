@@ -11,11 +11,13 @@ using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.ComponentModel;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Owner
 {
     public class AccommodationManagementViewModel : INotifyPropertyChanged
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         private int currentImageIndex = 0;
         public ObservableCollection<string> ImagePaths { get; set; }
         public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
@@ -148,6 +150,10 @@ namespace BookingApp.ViewModel.Owner
 
             ResetInputs();
             AccommodationRegistration.SuccessLabel.Visibility = Visibility.Visible;
+            notificationManager.Show("Title", "Message", NotificationType.Success);
+            //var content = new NotificationContent();
+            //notificationManager.Show(content);
+            //notificationManager.Show("Title", "Message");
         }
         public bool AcceptCanExecute()
         {

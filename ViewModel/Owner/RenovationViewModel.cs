@@ -61,7 +61,7 @@ namespace BookingApp.ViewModel.Owner
             scheduledRenovation.StartDate = Convert.ToDateTime(dates[0].Trim());
             scheduledRenovation.EndDate = Convert.ToDateTime(dates[1].Trim());
             scheduledRenovation.AccommodationId = SelectedAccommodation.Id;
-            scheduledRenovation.Duration = Convert.ToInt32(Renovation.DurationTextBox.Text);
+            scheduledRenovation.Duration = Convert.ToInt32(Renovation.DurationTextBox.NumTextBox.Text);
             scheduledRenovation.Details = Renovation.CommentTextBox.Text;
             ScheduledRenovationService.GetInstance().Add(scheduledRenovation);
             foreach(Accommodation accommodation in Accommodations)
@@ -79,7 +79,7 @@ namespace BookingApp.ViewModel.Owner
         {
             Renovation.StartDatePicker.SelectedDate = null;
             Renovation.EndDatePicker.SelectedDate = null;
-            Renovation.DurationTextBox.Text = string.Empty;
+            Renovation.DurationTextBox.NumTextBox.Text = string.Empty;
             AvailableDates.Clear();
             Renovation.CommentTextBox.IsEnabled = false;
             Renovation.AvailableDatesListBox.IsEnabled = false;
@@ -98,7 +98,7 @@ namespace BookingApp.ViewModel.Owner
             AvailableDates.Clear();
             DateTime startDate = Renovation.StartDatePicker.SelectedDate ?? DateTime.Now;
             DateTime endDate = Renovation.EndDatePicker.SelectedDate ?? DateTime.Now;
-            int durationDays = Convert.ToInt32(Renovation.DurationTextBox.Text);
+            int durationDays = Convert.ToInt32(Renovation.DurationTextBox.NumTextBox.Text);
 
             List<DateTime> availableDates = FindAvailableDates(startDate, endDate, durationDays);
             foreach (DateTime availableDate in availableDates)
@@ -117,7 +117,7 @@ namespace BookingApp.ViewModel.Owner
             if (Renovation.AccommodationComboBox.SelectedItem == null ||
                 Renovation.StartDatePicker.SelectedDate == null ||
                 Renovation.EndDatePicker.SelectedDate == null ||
-               !IsNumeric(Renovation.DurationTextBox.Text))
+               !IsNumeric(Renovation.DurationTextBox.NumTextBox.Text))
                 return false;
             return true;
         }
