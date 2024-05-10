@@ -83,7 +83,8 @@ namespace BookingApp
             _services.AddSingleton<ITourSuggestionNotificationRepository, TourSuggestionNotificationRepository>();
             _services.AddSingleton<TourSuggestionNotificationService>();
             _services.AddSingleton<INotificationManager, NotificationManager>();
-
+            _services.AddSingleton<ITourNotificationRepository, TourNotificationRepository>();
+            _services.AddSingleton<TourNotificationService>();
             _serviceProvider = _services.BuildServiceProvider();
 
             SignInForm signInForm = new SignInForm();

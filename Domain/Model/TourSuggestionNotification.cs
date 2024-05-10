@@ -25,11 +25,11 @@ namespace BookingApp.Domain.Model
             CityName = string.Empty;
             TourDate = DateTime.MinValue;
         }
-        public TourSuggestionNotification(int tourSuggestionId,DateTime notificationDate,NotificationStatus notificationStatus)
+        public TourSuggestionNotification(int tourSuggestionId,DateTime notificationDate)
         { 
             this.TourSuggestionId = tourSuggestionId;
             this.NotificationDate = notificationDate;
-            this.NotificationStatus = notificationStatus;
+            this.NotificationStatus = NotificationStatus.Unread;
             CityName = string.Empty;
             TourDate= DateTime.MinValue;
         }
