@@ -13,6 +13,7 @@ using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Domain.IRepositories;
+using Notification.Wpf;
 
 namespace BookingApp
 {
@@ -79,12 +80,16 @@ namespace BookingApp
             _services.AddSingleton<IAcceptedReservationReschedulingRepository, AcceptedReservationReschedulingRepository>();
             _services.AddSingleton<AcceptedReservationReschedulingService>();
             _services.AddSingleton<AccommodationStatisticsService>();
+            _services.AddSingleton<INotificationManager, NotificationManager>();
 
             _serviceProvider = _services.BuildServiceProvider();
 
             SignInForm signInForm = new SignInForm();
             signInForm.Show();
         }
-
+        public static INotificationManager GetNotificationManager()
+        {
+            return _serviceProvider.GetRequiredService<INotificationManager>();
+        }
     }
 }

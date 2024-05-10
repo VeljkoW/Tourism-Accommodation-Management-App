@@ -37,11 +37,11 @@
                       AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding checkInDate, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding checkOutDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTemplateColumn Width="50" Header="Free">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -72,15 +72,15 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0">
                             <Label Content="Guest Username: " FontSize="20"/>
-                            <Label Content="{Binding SelectedGuestReschedulingRequest.guestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                            <Label Content="{Binding SelectedGuestReschedulingRequest.GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"  Grid.Row="1">
                             <Label Content="Accommodation Name: " FontSize="20"/>
-                            <Label Content="{Binding SelectedGuestReschedulingRequest.accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                            <Label Content="{Binding SelectedGuestReschedulingRequest.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="2">
                             <Label Content="Location: " FontSize="20"/>
-                            <Label Content="{Binding SelectedGuestReschedulingRequest.accommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                            <Label Content="{Binding SelectedGuestReschedulingRequest.AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
                         </StackPanel>
                         <Label Content="Comment:" FontSize="20"  Grid.Row="3"/>
 
@@ -108,19 +108,18 @@
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0">
                         <Label Content="Accommodation Name:" FontSize="20" Margin="0 0 20 0"/>
-                        <ComboBox ItemsSource="{Binding Locations, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding SelectedLocation}"
-                                  HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30" FontSize="20"
-                                  SelectedValuePath="Print" DisplayMemberPath="Print"/>
+                        <ComboBox ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30" FontSize="20" SelectionChanged="AccommodationSelectionChanged"
+                                  SelectedValuePath="PrintAccommodation" DisplayMemberPath="PrintAccommodation"/>
                     </DockPanel>
                     <DataGrid Grid.Row="0" Margin="0 40 0 20"
-                              ItemsSource="{Binding GuestReschedulingRequests, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedGuestReschedulingRequest, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False"
                               SelectionMode="Single" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="Guest Username"/>
-                            <DataGridTextColumn Width="*" Header="Check-in Date"/>
-                            <DataGridTextColumn Width="*" Header="Check-out Date"/>
+                            <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

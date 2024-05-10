@@ -122,7 +122,7 @@
                             </Button.Content>
                         </Button>
                     </Grid>
-                    <Button x:Name="AcceptButton" Command="{Binding Accept}" Background="#e49a53" Grid.Row="10" Height="60" Width="200"
+                    <Button x:Name="AcceptButton" Command="{Binding Accept}" Grid.Row="10" Height="60" Width="200"
                             HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Content="Accept"/>
                     <Label x:Name="SuccessLabel" Content="Successfully added!" Grid.Row="10" 
                            VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Foreground="Green"/>
