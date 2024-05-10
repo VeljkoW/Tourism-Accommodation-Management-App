@@ -30,7 +30,7 @@ namespace BookingApp.Services
             ReservedAccommodationRepository.Add(newReservedAccommodation);
         }
 
-        public ReservedAccommodation? GetByAccommodationId(int Id)
+        public List<ReservedAccommodation>? GetByAccommodationId(int Id)
         {
             return ReservedAccommodationRepository.GetByAccommodationId(Id);
         }

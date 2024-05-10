@@ -75,8 +75,13 @@ namespace BookingApp.View.Owner
             signInForm.Show();
             Close();
         }
-        private void AccommodationReservationClick(object sender, RoutedEventArgs e)
-        { mainFrame.Navigate(AccommodationRegistration); }
+        private void AccommodationManagementClick(object sender, RoutedEventArgs e)
+        { 
+            mainFrame.Navigate(AccommodationRegistration);
+            //Color backgroundColor = (Color)FindResource("ButtonPressedColor");
+            //SolidColorBrush backgroundBrush = new SolidColorBrush(backgroundColor);
+            //AccommodationManagementButton.Background = backgroundBrush;
+        }
 
         private void GuestRatingClick(object sender, RoutedEventArgs e)
         {

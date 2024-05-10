@@ -8,6 +8,7 @@
         Title="OwnerMainWindow" Height="1080" Width="1920">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#579BB1</Color>
+        <Color x:Key="ButtonPressedColor">#154c79</Color>
         <Color x:Key="BorderColor">#000033</Color>
         <Color x:Key="TextColor">#403022</Color>
         <Color x:Key="TabColor">#ebd3bc</Color>
@@ -15,6 +16,7 @@
         <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
         <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
         <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+        <SolidColorBrush x:Key="ButtonPressedColorBrush" Color="{StaticResource ButtonPressedColor}"/>
         
         <Style TargetType="ListBoxItem">
             <EventSetter Event="PreviewMouseDown" Handler="ListBoxItem_PreviewMouseDown"/>
@@ -90,10 +92,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-
-
-        
     </Window.Resources>
     <Grid>
         <Grid.Background>
@@ -182,7 +180,7 @@
                 <RowDefinition Height="*" MinHeight="40"/>
                 <RowDefinition Height="*" MinHeight="40"/>
             </Grid.RowDefinitions>
-            <Button x:Name="AccommodationReservationButton" Grid.Row="0" Grid.Column="0" Click="AccommodationReservationClick" 
+            <Button x:Name="AccommodationManagementButton" Grid.Row="0" Grid.Column="0" Click="AccommodationManagementClick" 
                     Content="Accommodation Management" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Click="AccommodationStatisticsClick" 
                     Content="Accommodation Statistics" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>

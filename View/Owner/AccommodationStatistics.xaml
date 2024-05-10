@@ -133,7 +133,7 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Most unpopular locations" FontSize="20" Grid.Row="0"
+                <Label Content="Least popular locations" FontSize="20" Grid.Row="0"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="5" Margin="60 0">
                     <Grid>

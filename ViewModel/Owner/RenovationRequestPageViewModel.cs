@@ -27,7 +27,6 @@ namespace BookingApp.ViewModel.Owner
                     RenovationRequests.Add(renovationRequest);
                 }
             }
-            RenovationRequestPage.ReservationRequestItems.ItemsSource = RenovationRequests;
         }
     }
 }
