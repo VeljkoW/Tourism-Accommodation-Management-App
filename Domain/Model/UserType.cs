@@ -27,4 +27,8 @@ namespace BookingApp.Domain.Model
     {
         Accepted, Rejected, Pending
     }
+    public enum NotificationStatus
+    {
+        Unread,Read
+    }
 }

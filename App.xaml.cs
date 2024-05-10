@@ -80,6 +80,8 @@ namespace BookingApp
             _services.AddSingleton<IAcceptedReservationReschedulingRepository, AcceptedReservationReschedulingRepository>();
             _services.AddSingleton<AcceptedReservationReschedulingService>();
             _services.AddSingleton<AccommodationStatisticsService>();
+            _services.AddSingleton<ITourSuggestionNotificationRepository, TourSuggestionNotificationRepository>();
+            _services.AddSingleton<TourSuggestionNotificationService>();
             _services.AddSingleton<INotificationManager, NotificationManager>();
 
             _serviceProvider = _services.BuildServiceProvider();

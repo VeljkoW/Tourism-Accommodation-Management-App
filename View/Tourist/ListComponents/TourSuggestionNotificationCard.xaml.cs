@@ -18,23 +18,23 @@ using System.Windows.Shapes;
 namespace BookingApp.View.Tourist.ListComponents
 {
     /// <summary>
-    /// Interaction logic for AttendenceNotification.xaml
+    /// Interaction logic for TourSuggestionNotificationCard.xaml
     /// </summary>
-    public partial class AttendenceNotification : UserControl
+    public partial class TourSuggestionNotificationCard : UserControl
     {
-        public AttendenceNotification()
+        public TourSuggestionNotificationCard()
         {
             InitializeComponent();
         }
-        public void ConfirmAttendence(object sender,RoutedEventArgs e)
+        public void DeleteNotification(object sender, RoutedEventArgs e)
         {
-            var SelectedNotification = DataContext as TourAttendenceNotification;
+            var SelectedNotification = DataContext as TourSuggestionNotification;
 
             if (SelectedNotification != null)
             {
-                SelectedNotification.ConfirmedAttendence = true;
-                TourAttendenceNotificationService.GetInstance().Update(SelectedNotification);
-                //(Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourAttencenceNotifications(); does not work as intended
+                SelectedNotification.NotificationStatus = NotificationStatus.Read;
+                TourSuggestionNotificationService.GetInstance().Update(SelectedNotification);
+                //(Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourSuggestionNotifications(); does not work as intended
             }
 
         }
