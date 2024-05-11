@@ -16,8 +16,10 @@ namespace BookingApp.ViewModel.Guide
         public List<int> HoursList { get; set; }
         public List<int> MinutesList { get; set; }
         public List<string> AmPm { get; set; }
-        public UserControlAcceptTourRequestViewModel(TourRequestsPageViewModel tourRequestsPageViewModel, TourSuggestion tourSuggestion)
+        public UserControlAcceptTourRequestViewModel(UserControlAcceptTourRequest userControlAcceptTourRequest, TourRequestsPageViewModel tourRequestsPageViewModel, TourSuggestion tourSuggestion)
         {
+            userControlAcceptTourRequest.datePicker.DisplayDateStart=tourSuggestion.FromDate;
+            userControlAcceptTourRequest.datePicker.DisplayDateEnd=tourSuggestion.ToDate;
             TourRequestsPageViewModel = tourRequestsPageViewModel;
             TourSuggestion = tourSuggestion;
             HoursList = Enumerable.Range(1, 12).ToList();
