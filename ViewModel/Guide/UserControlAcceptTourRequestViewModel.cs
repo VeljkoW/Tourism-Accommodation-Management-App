@@ -92,6 +92,7 @@ namespace BookingApp.ViewModel.Guide
             TourSuggestion.Status = TourSuggestionStatus.Accepted;
             TourSuggestion.Date = selectedDate;
             TourSuggestionService.GetInstance().Update(TourSuggestion);
+            TourSuggestionNotificationService.GetInstance().Add(new TourSuggestionNotification(TourSuggestion.Id, DateTime.Now));
             TourRequestsPageViewModel.ClearPopup();
         }
     }

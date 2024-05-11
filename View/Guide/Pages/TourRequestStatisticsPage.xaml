@@ -1,0 +1,120 @@
+﻿<Page x:Class="BookingApp.View.Guide.Pages.TourRequestStatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.Guide.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="800"
+      Title="TourRequestStatisticsPage">
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}" x:Name="border">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand">
+            </Setter>
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource NButtonColor3}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{StaticResource NBackGroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Button Width="150" Height="40" Command="{Binding ClickGoBack}" Content="Go back" FontSize="18" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"></Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.7*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="State:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="StateCombobox" Grid.Row="0" Grid.Column="1" Margin="5"  ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState}" SelectionChanged="UpdateFilter"/>
+                    <TextBlock Grid.Row="1" Text="City:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Row="1"
+          x:Name="CityCombobox"
+          Grid.Column="1"
+          Margin="5"
+          ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}"
+          SelectedItem="{Binding SelectedCity}">
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedState}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SelectedState}" Value="">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
+
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1.3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Language:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="LanguageCombobox" Grid.Row="0" Grid.Column="1" Margin="5" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
+                        <TextBlock Grid.Row="1" Text="Year:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Year,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Width="500">
+            <ScrollViewer>
+                <StackPanel x:Name="Statistics"/>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>
