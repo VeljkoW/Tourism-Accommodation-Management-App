@@ -61,7 +61,7 @@ namespace BookingApp.Services
                     Location ?suggestionLocation = LocationService.GetInstance().GetById(suggestion.LocationId);
                     if(suggestionLocation != null)
                     {
-                        if(location == suggestionLocation)
+                        if(location.State == suggestionLocation.State && location.City == suggestionLocation.City)
                         {
                             bool exists = false;
                             foreach (TourNotificationTemp tmp in userIds) 

@@ -474,7 +474,7 @@ namespace BookingApp.ViewModel.Guide
             // Create a new Tour object
             State = createTourForm.StateBox.Text.Trim();
             City = createTourForm.CityBox.Text.Trim();
-            Location location = new Location(SelectedState, SelectedCity);
+            Location location = new Location(SelectedCity, SelectedState);
             location.Id = LocationService.GetInstance().GetIdByStateCity(SelectedState, SelectedCity);
             Tour newTour = new Tour
             {
