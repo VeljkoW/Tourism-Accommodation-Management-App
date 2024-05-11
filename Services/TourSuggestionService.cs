@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
+using BookingApp.View.Guide;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -218,6 +219,47 @@ namespace BookingApp.Services
             }
 
             return Years;
+        }
+        public int GetMostRequestedLocation()
+        {
+            List<TourSuggestion> tourSuggestions = GetAll();
+            tourSuggestions = tourSuggestions.Where(t=>t.ToDate.AddYears(1) > DateTime.Today).ToList();
+            int locationId = tourSuggestions
+            .GroupBy(ts => ts.LocationId)
+            .OrderByDescending(g => g.Count())
+            .First()
+            .Key;
+            var location = LocationService.GetInstance().GetById(locationId);
+            return location.Id;
+        }
+        public string GetMostRequestedLanguage()
+        {
+            List<TourSuggestion> tourSuggestions = GetAll();
+            tourSuggestions = tourSuggestions.Where(t=>t.ToDate.AddYears(1) > DateTime.Now).ToList();
+            return tourSuggestions
+            .GroupBy(ts => ts.Language)
+            .OrderByDescending(g => g.Count())
+            .First()
+            .Key;
+        }
+        public bool IsGuideFree(DateTime date)
+        {
+            List<int> tourIds = TourService.GetInstance().GetAll().Where(t => t.OwnerId == GuideMainWindow.UserId).Select(t=>t.Id).ToList();
+            List<TourSchedule> tourSchedules = TourScheduleService.GetInstance().GetAll().Where(t=> tourIds.Contains( t.TourId)).ToList();
+            foreach(TourSchedule schedule in tourSchedules)
+            {
+                int duration = TourService.GetInstance().GetById(schedule.TourId).Duration;
+                DateTime endtime = schedule.Date.AddHours(duration);
+                if (date > schedule.Date)
+                {
+                    if(date < endtime)
+                    {
+                    return false;
+                    }
+                }
+
+            }
+            return true;
         }
     }
 }

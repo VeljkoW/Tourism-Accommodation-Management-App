@@ -63,6 +63,78 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        private string _selectedKeyPoint;
+        public string SelectedKeyPoint
+        {
+            get { return _selectedKeyPoint; }
+            set
+            {
+                if (_selectedKeyPoint != value)
+                {
+                    _selectedKeyPoint = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedState;
+        public string SelectedState
+        {
+            get { return _selectedState; }
+            set
+            {
+                if (_selectedState != value)
+                {
+                    _selectedState = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedCity;
+        public string SelectedCity
+        {
+            get { return _selectedCity; }
+            set
+            {
+                if (_selectedCity != value)
+                {
+                    _selectedCity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _stateBoxIsEnabled = true;
+        public bool StateBoxIsEnabled
+        {
+            get { return _stateBoxIsEnabled; }
+            set
+            {
+                _stateBoxIsEnabled = value;
+                OnPropertyChanged(nameof(StateBoxIsEnabled));
+            }
+        }
+        private bool _cityBoxIsEnabled = false;
+        public bool CityBoxIsEnabled
+        {
+            get { return _cityBoxIsEnabled; }
+            set
+            {
+                _cityBoxIsEnabled = value;
+                OnPropertyChanged(nameof(CityBoxIsEnabled));
+            }
+        }
+        private bool _langaugeBoxIsEnabled = true;
+        public bool LanguageBoxIsEnabled
+        {
+            get { return _langaugeBoxIsEnabled; }
+            set
+            {
+                _langaugeBoxIsEnabled = value;
+                OnPropertyChanged(nameof(LanguageBoxIsEnabled));
+            }
+        }
+
         private List<Image> images = new List<Image>();
 
         private List<TourSchedule> schedules = new List<TourSchedule>();
@@ -71,7 +143,6 @@ namespace BookingApp.ViewModel.Guide
         public List<Location> Locations = new List<Location>();
         public ObservableCollection<string> KeyPointStrings { get; set; } = new ObservableCollection<string>();
         public DateTime SelectedDate { get; set; }
-        public string SelectedKeyPoint { get; set; }
         public RelayCommand BtnSelectFile_Click => new RelayCommand(execute => BtnSelectFiles_ClickExecute());
         public RelayCommand ClickAddDate => new RelayCommand(execute => ClickAddDateExecute(), canExecute => ClickAddDateCanExecute());
         public RelayCommand ClidKAddKeyPoint => new RelayCommand(execute => ClickAddKeyPointExecute());
@@ -81,6 +152,37 @@ namespace BookingApp.ViewModel.Guide
         public RelayCommand LeftArrowCommand => new RelayCommand(execute => LeftArrowExecute(), canExecute => LeftArrowCanExecute());
         public RelayCommand RightArrowCommand => new RelayCommand(execute => RightArrowExecute(), canExecute => RightArrowCanExecute());
         public RelayCommand RemoveCommand => new RelayCommand(execute => RemoveExecute(), canExecute => RemoveCanExecute());
+        public RelayCommand SetLocationCommand => new RelayCommand(execute => SetLocationCommandExecute());
+        public RelayCommand SetLanguageCommand => new RelayCommand(execute => SetLanguageCommandExecute());
+
+        private void SetLanguageCommandExecute()
+        {
+            Language = TourSuggestionService.GetInstance().GetMostRequestedLanguage();
+            List<string> states = LocationService.GetInstance().GetAll().Select(t => t.State).Distinct().ToList();
+            States.Clear();
+            foreach(string state in states)
+            {
+                States.Add(state);
+            }
+            SelectedState = null;
+            Cities.Clear();
+            SelectedCity = null;
+            StateBoxIsEnabled = true;
+            CityBoxIsEnabled = false;
+            LanguageBoxIsEnabled = false;
+        }
+
+        private void SetLocationCommandExecute()
+        {
+            int locationId = TourSuggestionService.GetInstance().GetMostRequestedLocation();
+            Location location = LocationService.GetInstance().GetById(locationId);
+            SelectedState = location.State;
+            SelectedCity = location.City;
+            Language = "";
+            StateBoxIsEnabled = false;
+            CityBoxIsEnabled = false;
+            LanguageBoxIsEnabled = true;
+        }
 
         private bool ClickDeleteDateCanExecute()
         {
@@ -102,8 +204,8 @@ namespace BookingApp.ViewModel.Guide
         public List<int> MinutesList { get; set; }
         public List<string> AmPm { get; set; }
 
-        public List<string> States { get; set; }
-        public List<string> Cities { get; set; }
+        public ObservableCollection<string> States { get; set; }
+        public ObservableCollection<string> Cities { get; set; }
         private int _hours;
         public int Hours
         {
@@ -267,8 +369,8 @@ namespace BookingApp.ViewModel.Guide
             MinutesList = new List<int>() { 0, 15, 30, 45 };
             AmPm = new List<string>() { "AM", "PM" };
             Locations = LocationService.GetInstance().GetAll();
-            States = new List<string>();
-            Cities = new List<string>();
+            States = new ObservableCollection<string>();
+            Cities = new ObservableCollection<string>();
             createTourForm.datePicker.DisplayDateStart = DateTime.Now;
             User = user;
             foreach (Location location in Locations)
@@ -372,13 +474,13 @@ namespace BookingApp.ViewModel.Guide
             // Create a new Tour object
             State = createTourForm.StateBox.Text.Trim();
             City = createTourForm.CityBox.Text.Trim();
-            Location location = new Location(State, City);
-            location.Id = LocationService.GetInstance().GetIdByStateCity(State, City);
+            Location location = new Location(SelectedState, SelectedCity);
+            location.Id = LocationService.GetInstance().GetIdByStateCity(SelectedState, SelectedCity);
             Tour newTour = new Tour
             {
                 Name = createTourForm.TourNameTextbox.Text.Trim(),
                 Description = createTourForm.DescriptionTextbox.Text.Trim(),
-                Language = createTourForm.LanguageTextbox.Text.Trim(),
+                Language = Language,
                 Location = location,
                 MaxTourists = Convert.ToInt32(createTourForm.MaxTouristTextbox.Text.Trim()),
                 Duration = Convert.ToInt32(createTourForm.DurationTextbox.Text.Trim()),
@@ -558,7 +660,7 @@ namespace BookingApp.ViewModel.Guide
                 CurrentImage = ImagePaths[_currentIndex];
             }
         }
-        private bool RemoveCanExecute()
+        private bool RemoveCanExecute() 
         {
             if (ImagePaths.Count() > 0 && _currentIndex < ImagePaths.Count())
             {
@@ -571,6 +673,8 @@ namespace BookingApp.ViewModel.Guide
         {
             Cities.Clear();
             string selectedState = createTourForm.StateBox.SelectedItem as string;
+            if(selectedState != null)
+            {
             foreach (Location location in Locations)
             {
                 if (selectedState.Equals(location.State) && !Cities.Contains(location.City))
@@ -578,10 +682,14 @@ namespace BookingApp.ViewModel.Guide
                     Cities.Add(location.City);
                 }
             }
-            createTourForm.CityBox.ItemsSource = null;
-            createTourForm.CityBox.ItemsSource = Cities;
-            createTourForm.CityBox.IsEnabled = createTourForm.StateBox.SelectedItem != null;
-            createTourForm.CityBox.SelectedItem = Cities[0];
+                SelectedCity = Cities.First();
+                CityBoxIsEnabled= true;
+            }
+            else
+            {
+                CityBoxIsEnabled= false;
+                StateBoxIsEnabled= true;
+            }
         }
     }
 }
