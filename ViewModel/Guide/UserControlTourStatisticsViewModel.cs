@@ -32,7 +32,6 @@ namespace BookingApp.ViewModel.Guide
         public UserControlTourStatisticsViewModel()
         {
         }
-
         private string _tourName;
         public string TourName
         {

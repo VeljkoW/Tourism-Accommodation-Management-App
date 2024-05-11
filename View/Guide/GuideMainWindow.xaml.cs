@@ -22,12 +22,14 @@ namespace BookingApp.View.Guide
     /// </summary>
     public partial class GuideMainWindow : Window
     {
-        public User User {  get; set; }
+        public User User { get; set; }
         public string UserName { get; set; }
+        public static int UserId;
         public GuideMainWindow(User user)
         {
             InitializeComponent();
             User = user;
+            UserId = user.Id;
             GuideMainPage guideMainPage = new GuideMainPage(user);
             guideMainPage.OnLogoutHandler +=(s,e) => LogOut(s,e);
             MainFrame.Navigate(guideMainPage);
