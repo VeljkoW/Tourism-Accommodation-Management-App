@@ -498,6 +498,7 @@ namespace BookingApp.ViewModel.Guide
                 }
                 newTour = TourService.GetInstance().Add(newTour);
                 int tourId = newTour.Id;
+                TourNotificationService.GetInstance().SendNotifications(newTour);
                 foreach (string keyPointString in KeyPointStrings)
                 {
                     KeyPoint keyPoint = new KeyPoint(tourId, keyPointString);

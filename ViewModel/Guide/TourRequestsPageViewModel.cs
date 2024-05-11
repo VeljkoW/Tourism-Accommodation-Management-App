@@ -145,19 +145,6 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
-        private bool _isEnabledToDate;
-        public bool IsEnabledToDate
-        {
-            get { return _isEnabledToDate; }
-            set
-            {
-                if (_isEnabledToDate != value)
-                {
-                    _isEnabledToDate = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         private string _selectedCity="";
         public string SelectedCity
         {
@@ -167,6 +154,19 @@ namespace BookingApp.ViewModel.Guide
                 if (_selectedCity != value)
                 {
                     _selectedCity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isEnabledToDate;
+        public bool IsEnabledToDate
+        {
+            get { return _isEnabledToDate; }
+            set
+            {
+                if (_isEnabledToDate != value)
+                {
+                    _isEnabledToDate = value;
                     OnPropertyChanged();
                 }
             }
@@ -237,7 +237,6 @@ namespace BookingApp.ViewModel.Guide
         }
         public void FilterUpdated()
         {
-            //Update Cards
             Cards.Clear();
             List<TourSuggestion> tourSuggestions = TourSuggestionService.GetInstance().GetAll().ToList();
             DateTime oldestDate = tourSuggestions.Min(suggestion => suggestion.FromDate);

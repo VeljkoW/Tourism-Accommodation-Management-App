@@ -60,6 +60,9 @@
                 <Grid Grid.Column="0" Grid.Row="1">
                     <Button Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickTourSuggestions" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Tour Suggestions"></Button>
                 </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Button Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickTourSuggestionsStatistics" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Suggestion Statistics"></Button>
+                </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
