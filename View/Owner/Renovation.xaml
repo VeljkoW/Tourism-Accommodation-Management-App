@@ -83,12 +83,12 @@
 
                         <Label Content="Available dates:*" Grid.Row="5" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <ListBox x:Name="AvailableDatesListBox" ItemsSource="{Binding AvailableDates, UpdateSourceTrigger=PropertyChanged}" 
-                             Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="40 40 40 0" FontSize="14"
+                             Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="100" Margin="40 40 40 0" FontSize="14"
                              SelectedValuePath="PrintAvailableDate" DisplayMemberPath="PrintAvailableDate"/>
 
                         <Label Content="Renovation details:*" Grid.Row="6" FontSize="20" HorizontalAlignment="Center"/>
                         <TextBox x:Name="CommentTextBox" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                 Margin="40 40 40 0" FontSize="14" Height="80" TextWrapping="Wrap" AcceptsReturn="True"/>
+                                 Margin="40 40 40 0" FontSize="14" Height="100" TextWrapping="Wrap" AcceptsReturn="True"/>
 
                         <Button Content="Renovate" Grid.Row="7" Height="60" Width="200" FontSize="24" Margin="10"
                                 HorizontalAlignment="Center" Command="{Binding RenovateClick}" VerticalAlignment="Center"/>

@@ -298,12 +298,13 @@ namespace BookingApp.ViewModel.Owner
             Images.Clear();
             ImagePaths.Clear();
             currentImageIndex = 0;
-            OnPropertyChanged(nameof(CurrentImagePath));
-            OnPropertyChanged(nameof(CurrentImageIndex));
 
             AccommodationsDisplay.Clear();
             foreach(Accommodation accommodation in AccommodationService.GetInstance().GetAllByUser(user))
                 AccommodationsDisplay.Add(accommodation);
+
+            OnPropertyChanged(nameof(CurrentImagePath));
+            OnPropertyChanged(nameof(CurrentImageIndex));
         }
         private void SaveImageIntoCSV(ObservableCollection<string> relativeImagePaths)
         {
