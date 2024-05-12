@@ -53,7 +53,7 @@ namespace BookingApp.Services
         }
         public List<TourNotificationTemp> CheckTourSuggestions(Location location,string Language)
         {
-            List<TourNotificationTemp> userIds = new List<TourNotificationTemp>();
+            List<TourNotificationTemp> tourNotificationTemps = new List<TourNotificationTemp>();
             foreach(TourSuggestion suggestion in TourSuggestionService.GetInstance().GetAll())
             {
                 if(suggestion.Status != TourSuggestionStatus.Accepted)
@@ -64,7 +64,7 @@ namespace BookingApp.Services
                         if(location.State == suggestionLocation.State && location.City == suggestionLocation.City)
                         {
                             bool exists = false;
-                            foreach (TourNotificationTemp tmp in userIds) 
+                            foreach (TourNotificationTemp tmp in tourNotificationTemps) 
                             { 
                                 if(tmp.UserId == suggestion.UserId) 
                                 {
@@ -75,14 +75,14 @@ namespace BookingApp.Services
                             if(!exists) 
                             {
                                 TourNotificationTemp tourNotification = new TourNotificationTemp(suggestion.UserId, "Location");
-                                userIds.Add(tourNotification);
+                                tourNotificationTemps.Add(tourNotification);
                             }
                         }
                     }
                     if(Language == suggestion.Language)
                     {
                         bool exists = false;
-                        foreach (TourNotificationTemp tmp in userIds)
+                        foreach (TourNotificationTemp tmp in tourNotificationTemps)
                         {
                             if (tmp.UserId == suggestion.UserId)
                             {
@@ -92,13 +92,13 @@ namespace BookingApp.Services
                         }
                         if (!exists)
                         {
-                            TourNotificationTemp tourNotification = new TourNotificationTemp(suggestion.UserId, "Location");
-                            userIds.Add(tourNotification);
+                            TourNotificationTemp tourNotification = new TourNotificationTemp(suggestion.UserId, "Language");
+                            tourNotificationTemps.Add(tourNotification);
                         }
                     }
                 }
             }
-            return userIds;
+            return tourNotificationTemps;
         }
         public void SendNotifications(Tour tour)
         {
