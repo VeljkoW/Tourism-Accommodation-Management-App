@@ -32,6 +32,10 @@ namespace BookingApp.Services
         {
             return RenovationRequestRepository.GetById(Id);
         }
+        public void DeleteById(int Id)
+        {
+            RenovationRequestRepository.DeleteById(Id);
+        }
         public void RenovationRequestCountByYear(int accommodationId, ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears)
         {
             List<RenovationRequest> RenovationRequests = new List<RenovationRequest>();

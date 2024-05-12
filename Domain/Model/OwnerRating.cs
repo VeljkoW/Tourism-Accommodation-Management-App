@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Repository;
+using System.Collections.ObjectModel;
+using BookingApp.ViewModel;
 
 namespace BookingApp.Domain.Model
 {
@@ -19,6 +21,13 @@ namespace BookingApp.Domain.Model
         private int commentId { get; set; }
         private int accommodationId { get; set; }
         private List<Image> images { get; set; }
+        private ObservableCollection<string> imagePaths {  get; set; }
+        private int currentImageIndex = 0;
+        //public ObservableCollection<string> ImagePaths { get; set; }
+        public string CurrentImagePath => ImagePaths?.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths?.Count ?? 0;
+        public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
+        public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -32,6 +41,7 @@ namespace BookingApp.Domain.Model
         public OwnerRating()
         {
             images = new List<Image>();
+            imagePaths = new ObservableCollection<string>();
         }
         public int Id
         {
@@ -153,8 +163,36 @@ namespace BookingApp.Domain.Model
                 if (value != images)
                 {
                     images = value;
+                    UpdateImagePaths();
                     OnPropertyChanged(nameof(images));
                 }
+            }
+        }
+        public ObservableCollection<string> ImagePaths
+        {
+            get
+            {
+                return imagePaths;
+            }
+            set
+            {
+                if (value != imagePaths)
+                {
+                    imagePaths = value;
+                    OnPropertyChanged(nameof(imagePaths));
+                }
+            }
+        }
+        private void UpdateImagePaths()
+        {
+            if (Images != null)
+            {
+                ImagePaths?.Clear();
+                ImagePaths = new ObservableCollection<string>(Images.Select(image => image.Path));
+            }
+            else
+            {
+                ImagePaths = null;
             }
         }
         public string ImagesIdToCSV()
@@ -203,9 +241,51 @@ namespace BookingApp.Domain.Model
                     ImageRepository imageRepository = new ImageRepository();
                     image = imageRepository.GetById(Convert.ToInt32(ImageIds[i]));
                     Images.Add(image);
+                    ImagePaths.Add(image.Path);
                 }
             }
         }
-
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                if (value >= 0 && value < ImagePaths.Count)
+                {
+                    currentImageIndex = value;
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
+            }
+        }
+        public void NextImage()
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanNextImage()
+        {
+            if (CurrentImageIndex == TotalImages - 1 || TotalImages == 0)
+                return false;
+            return true;
+        }
+        public void PreviousImage()
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanPreviousImage()
+        {
+            if (CurrentImageIndex == 0 || TotalImages == 0)
+                return false;
+            return true;
+        }
     }
 }

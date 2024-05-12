@@ -14,5 +14,6 @@ namespace BookingApp.Domain.IRepositories
         List<RenovationRequest> GetAll();
         int NextId();
         RenovationRequest? GetById(int Id);
+        void DeleteById(int Id);
     }
 }
