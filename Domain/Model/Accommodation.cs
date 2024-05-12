@@ -194,6 +194,7 @@ namespace BookingApp.Domain.Model
                 if (value != images)
                 {
                     images = value;
+                    UpdateImagePaths();
                     OnPropertyChanged(nameof(images));
                 }
             }
@@ -315,6 +316,18 @@ namespace BookingApp.Domain.Model
                     PrintAccommodation = value;
                     OnPropertyChanged("Print");
                 }
+            }
+        }
+        private void UpdateImagePaths()
+        {
+            if (Images != null)
+            {
+                ImagePaths?.Clear();
+                ImagePaths = new ObservableCollection<string>(Images.Select(image => image.Path));
+            }
+            else
+            {
+                ImagePaths = null;
             }
         }
         public int CurrentImageIndex

@@ -69,6 +69,7 @@ namespace BookingApp.View.Owner
                 NotificationListBox.BorderThickness = new Thickness(1);
                 NewNotificationImage.Visibility = Visibility.Collapsed;
             }
+            NavigationButtonBarPressed("AccommodationManagementButton");
         }
         private void LogOut(object sender, RoutedEventArgs e)
         {
