@@ -89,13 +89,13 @@
                 <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0" Grid.ColumnSpan="2" Text="Recommended by tourists:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextBlockStyle}" Text="Location " VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Button Height="50" Width="125">
+                    <Button Height="50" Width="125" Command="{Binding SetLocationCommand}">
                         <TextBlock Style="{StaticResource TextBlockStyle}" Text="Set Location" FontSize="18"/>
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextBlockStyle}" Text="Language " VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Button Height="50" Width="125">
+                    <Button Height="50" Width="125" Command="{Binding SetLanguageCommand}">
                         <TextBlock Style="{StaticResource TextBlockStyle}" Text="Set Language" FontSize="18"/>
                     </Button>
                 </StackPanel>
@@ -124,9 +124,9 @@
             <TextBlock Style="{StaticResource TextBlockStyle}" Text="Duration:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="5" Grid.Column="0"/>
             <TextBlock Style="{StaticResource TextBlockStyle}" Text="Description:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="6" Grid.Column="0"/>
             <TextBox Grid.Column="1" Grid.Row="0" x:Name="TourNameTextbox" Margin="5"></TextBox>
-            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="StateBox" ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5" SelectionChanged="StateBox_SelectionChanged"/>
-            <ComboBox Grid.Column="1" Grid.Row="2" x:Name="CityBox"  ItemsSource="{Binding Cities}" Margin="5" Foreground="{StaticResource NBackGroundColorLight}" IsEnabled="False"/>
-            <TextBox Grid.Column="1" Grid.Row="3" x:Name="LanguageTextbox" Margin="5"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="StateBox" IsEnabled="{Binding StateBoxIsEnabled}" ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5" SelectedItem="{Binding SelectedState}" SelectionChanged="StateBox_SelectionChanged"/>
+            <ComboBox Grid.Column="1" Grid.Row="2" x:Name="CityBox"  IsEnabled="{Binding CityBoxIsEnabled}" ItemsSource="{Binding Cities,UpdateSourceTrigger=PropertyChanged}" Margin="5" SelectedItem="{Binding SelectedCity}"/>
+            <TextBox Grid.Column="1" Grid.Row="3" IsEnabled="{Binding LanguageBoxIsEnabled}" Text="{Binding Language,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5"/>
             <TextBox Grid.Column="1" Grid.Row="4" x:Name="MaxTouristTextbox" Margin="5"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="5" x:Name="DurationTextbox" Margin="5"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="6" x:Name="DescriptionTextbox" Margin="5"></TextBox>

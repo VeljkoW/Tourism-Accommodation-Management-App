@@ -31,6 +31,11 @@
             <Setter Property="BorderBrush" Value="{StaticResource NButtonColor3}"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
     </Page.Resources>
     <Grid Background="{StaticResource NBackGroundColor}">
         <Grid.RowDefinitions>

@@ -16,6 +16,8 @@ namespace BookingApp.ViewModel.Tourist
         public NotificationWindow NotificationWindow { get; set; }
         public ObservableCollection<TourAttendenceNotification> TourAttendenceNotifications { get; set; }
         public ObservableCollection<TourSuggestionNotification> TourSuggestionNotifications { get; set; }
+        public ObservableCollection<TourNotification> TourLanguageNotifications {  get; set; }
+        public ObservableCollection<TourNotification> TourLocationNotifications { get; set; }
         public User User { get; set; }
         public RelayCommand ClickClose => new RelayCommand(execute => CloseExecute());
         public NotificationWindowViewModel(NotificationWindow notificationWindow,User user) 
@@ -24,12 +26,16 @@ namespace BookingApp.ViewModel.Tourist
             this.User = user;
             this.TourAttendenceNotifications = new ObservableCollection<TourAttendenceNotification>();
             this.TourSuggestionNotifications = new ObservableCollection<TourSuggestionNotification>();
+            this.TourLanguageNotifications = new ObservableCollection<TourNotification>();
+            this.TourLocationNotifications = new ObservableCollection<TourNotification>();
             Update();
         }
         public void Update()
         {
             UpdateTourAttencenceNotifications();
             UpdateTourSuggestionNotifications();
+            UpdateTourLanguageNotifications();
+            UpdateTourLocationNotifications();
         }
         public void UpdateTourAttencenceNotifications()
         {
@@ -103,6 +109,16 @@ namespace BookingApp.ViewModel.Tourist
         {
             TourSuggestionNotifications.Clear();
             TourSuggestionNotifications = new (TourSuggestionNotificationService.GetInstance().GetAllUnread(User.Id));
+        }
+        public void UpdateTourLanguageNotifications()
+        {
+            TourLanguageNotifications.Clear();
+            TourLanguageNotifications = new(TourNotificationService.GetInstance().GetAllLanguage(User.Id));
+        }
+        public void UpdateTourLocationNotifications()
+        {
+            TourLocationNotifications.Clear();
+            TourLocationNotifications = new(TourNotificationService.GetInstance().GetAllLocation(User.Id));
         }
         public void CloseExecute()
         {

@@ -107,7 +107,7 @@ namespace BookingApp.Services
         public int GetBonus(User user)
         {
             int numberOfBonus = 0;
-            foreach (GuestBonus guestBonus in GuestBonusService.GetInstance().GetAll())
+            foreach (GuestBonus guestBonus in GetAll())
             {
                 if (guestBonus.GuestId == user.Id)
                 {
