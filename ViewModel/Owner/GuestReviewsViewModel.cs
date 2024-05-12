@@ -14,6 +14,7 @@ namespace BookingApp.ViewModel.Owner
 {
     public class GuestReviewsViewModel
     {
+        private int currentImageIndex = 0;
         public User User { get; set; }
         public int NumberOfReviews { get; set; }
         public double AverageGrade { get; set; }

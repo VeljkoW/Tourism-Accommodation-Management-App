@@ -17,7 +17,7 @@
         <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
         <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
         <SolidColorBrush x:Key="ButtonPressedColorBrush" Color="{StaticResource ButtonPressedColor}"/>
-        
+
         <Style TargetType="ListBoxItem">
             <EventSetter Event="PreviewMouseDown" Handler="ListBoxItem_PreviewMouseDown"/>
         </Style>
@@ -83,10 +83,6 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
                                 <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
                             </Trigger>
-                            <Trigger Property="IsFocused"  Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -106,12 +102,15 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="149*"/>
+            <ColumnDefinition Width="175*"/>
         </Grid.ColumnDefinitions>
-        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
         <!-- <Rectangle Grid.Column="1"></Rectangle> -->
+
+        <Image Source="../../Resources/Images/accommodationsLogo.png"/>
         <Border BorderThickness="0 0 0 1" BorderBrush="Black"/>
-        <Border Grid.Column="1" BorderThickness="0 0 0 1" BorderBrush="Black">
+        <Border Grid.Column="1" BorderThickness="0 0 0 1" BorderBrush="Black" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" MinWidth="150"/>
@@ -169,7 +168,7 @@
                 </TextBlock>
             </Grid>
         </Border>
-        
+
         <Grid x:Name="NavigationBar" Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" MinHeight="40"/>
@@ -188,13 +187,12 @@
                     Content="Reservation Rescheduling" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="GuestRatingButton" Grid.Row="3" Grid.Column="0" Click="GuestRatingClick"
                     Content="Guest Rating" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
-            <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick" 
+            <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick"
                     Content="Guest Reviews" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="RenovationButton" Grid.Row="5" Grid.Column="0" Click="RenovationClick" 
                     Content="Renovation" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="ForumButton" Grid.Row="6" Grid.Column="0" Click="ForumClick" 
                     Content="Forum" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
-
         </Grid>
     </Grid>
 </Window>

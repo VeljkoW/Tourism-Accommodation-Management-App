@@ -1,7 +1,9 @@
 using BookingApp.Repository;
 using BookingApp.Serializer;
+using BookingApp.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -23,6 +25,13 @@ namespace BookingApp.Domain.Model
         private int cancelationDaysLimit { get; set; }
         private List<Image> images { get; set; }
         private string recommended { get; set; }
+
+        private ObservableCollection<string> imagePaths { get; set; }
+        private int currentImageIndex = 0;
+        public string CurrentImagePath => ImagePaths?.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths?.Count ?? 0;
+        public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
+        public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
@@ -189,6 +198,21 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
+        public ObservableCollection<string> ImagePaths
+        {
+            get
+            {
+                return imagePaths;
+            }
+            set
+            {
+                if (value != imagePaths)
+                {
+                    imagePaths = value;
+                    OnPropertyChanged(nameof(imagePaths));
+                }
+            }
+        }
         public Accommodation()
         {
             Name = string.Empty;
@@ -198,6 +222,7 @@ namespace BookingApp.Domain.Model
             MinReservationDays = 0;
             CancelationDaysLimit = 0;
             Images = new List<Image>();
+            ImagePaths = new ObservableCollection<string>();
         }
         public Accommodation(int ownerId, string Name, Location Location, AccommodationType AccommodationType,
                             int MaxGuestNumber, int MinReservationDays, int CancelationDaysLimit, List<Image> Images)
@@ -246,6 +271,7 @@ namespace BookingApp.Domain.Model
                     ImageRepository imageRepository = new ImageRepository();
                     image = imageRepository.GetById(Convert.ToInt32(ImageIds[i]));
                     Images.Add(image);
+                    ImagePaths.Add(image.Path);
                 }
             }
         }
@@ -290,6 +316,48 @@ namespace BookingApp.Domain.Model
                     OnPropertyChanged("Print");
                 }
             }
+        }
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                if (value >= 0 && value < ImagePaths.Count)
+                {
+                    currentImageIndex = value;
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
+            }
+        }
+        public void NextImage()
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanNextImage()
+        {
+            if (CurrentImageIndex == TotalImages - 1 || TotalImages == 0)
+                return false;
+            return true;
+        }
+        public void PreviousImage()
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanPreviousImage()
+        {
+            if (CurrentImageIndex == 0 || TotalImages == 0)
+                return false;
+            return true;
         }
     }
 }

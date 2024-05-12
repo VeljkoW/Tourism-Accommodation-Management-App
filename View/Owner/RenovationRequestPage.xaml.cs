@@ -54,5 +54,18 @@ namespace BookingApp.View.Owner
 
             OwnerMainWindow.mainFrame.Navigate(renovation);
         }
+
+        private void clickOnCard(object sender, MouseButtonEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as RenovationRequest;
+            RenovationRequestPageViewModel.SelectedRenovationRequest = selectedCard;
+        }
+
+        private void CloseRequestClick(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as RenovationRequest;
+            RenovationRequestPageViewModel.SelectedRenovationRequest = selectedCard;
+            RenovationRequestPageViewModel.CloseRequest();
+        }
     }
 }

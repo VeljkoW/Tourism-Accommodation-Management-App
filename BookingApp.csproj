@@ -60,9 +60,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="Resources\Images\add.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Resources\Images\delete.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -98,6 +95,7 @@
 		<Content Include="Resources\Images\TourReview\*.*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Remove="Resources\Images\accommodationsLogo.png" />
       <Content Remove="Resources\Images\Tourist\bell.png" />
       <Content Remove="Resources\Images\Tourist\coupon.png" />
       <Content Remove="Resources\Images\Tourist\live.png" />
@@ -114,6 +112,7 @@
 		<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Notification.Wpf" Version="8.0.0" />
+		<Resource Include="Resources\Images\accommodationsLogo.png" />
 		<Resource Include="Resources\Images\Guest\arrowleft.png" />
 		<Resource Include="Resources\Images\Guest\arrowright.png" />
 		<Resource Include="Resources\Images\Guest\star.png" />
