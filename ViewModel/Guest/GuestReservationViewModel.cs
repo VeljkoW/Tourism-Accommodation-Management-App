@@ -51,9 +51,7 @@ namespace BookingApp.ViewModel.Guest
             GuestReservations.AccommodationName.Content += Accommodation.Name;
             GuestReservations.AccommodationLocation.Content += selectedAccommodation.Location.State + ", " + selectedAccommodation.Location.City;
             foreach(Image image in Accommodation.Images)
-            {
                 ImagePaths.Add(image.Path);
-            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -206,10 +204,6 @@ namespace BookingApp.ViewModel.Guest
 
             List<DateTime> availableDates = new List<DateTime>();
             availableDates = FindAvailableDates(startDate, endDate, reservationDays);
-
-            //GuestReservations.ReservationButton.IsEnabled = true;
-            //GuestReservations.GuestNumberTextBox.IsEnabled = true;
-
             if (availableDates.Count != 0)
             {
                 GuestReservations.AvailableDates.IsEnabled = true;
