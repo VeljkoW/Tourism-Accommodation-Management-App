@@ -26,7 +26,7 @@ namespace BookingApp.View.Guide.Pages
         {
             InitializeComponent();
             TourSuggestion = tourSuggestion;
-            UserControlAcceptTourRequestViewModel viewModel = new UserControlAcceptTourRequestViewModel(tourRequestsPageViewModel,tourSuggestion);
+            UserControlAcceptTourRequestViewModel viewModel = new UserControlAcceptTourRequestViewModel(this,tourRequestsPageViewModel,tourSuggestion);
             DataContext=viewModel;
         }
 
