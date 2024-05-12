@@ -12,6 +12,8 @@ using BookingApp.View;
 using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.Domain.IRepositories;
+using Notification.Wpf;
 
 namespace BookingApp
 {
@@ -24,54 +26,73 @@ namespace BookingApp
         {
             _services = new ServiceCollection();
             _services.AddSingleton<ImageService>();
-            _services.AddSingleton<ImageRepository>();
-            _services.AddSingleton<TourRepository>();
+            _services.AddSingleton<IImageRepository,ImageRepository>();
+            _services.AddSingleton<ITourRepository,TourRepository>();
             _services.AddSingleton<TourService>();
-            _services.AddSingleton<UserRepository>();
+            _services.AddSingleton<IUserRepository,UserRepository>();
             _services.AddSingleton<UserService>();
-            _services.AddSingleton<LocationRepository>();
+            _services.AddSingleton<ILocationRepository,LocationRepository>();
             _services.AddSingleton<LocationService>();
-            _services.AddSingleton<CommentRepository>();
+            _services.AddSingleton<ICommentRepository,CommentRepository>();
             _services.AddSingleton<CommentService>();
-            _services.AddSingleton<KeyPointRepository>();
+            _services.AddSingleton<IKeyPointRepository, KeyPointRepository>();
             _services.AddSingleton<KeyPointService>();
-            _services.AddSingleton<TourScheduleRepository>();
+            _services.AddSingleton<ITourScheduleRepository,TourScheduleRepository>();
             _services.AddSingleton<TourScheduleService>();
-            _services.AddSingleton<TourReservationRepository>();
+            _services.AddSingleton<ITourReservationRepository,TourReservationRepository>();
             _services.AddSingleton<TourReservationService>();
-            _services.AddSingleton<TourPersonRepository>();
+            _services.AddSingleton<ITourPersonRepository,TourPersonRepository>();
             _services.AddSingleton<TourPersonService>();
-            _services.AddSingleton<TourImageRepository>();
+            _services.AddSingleton<ITourImageRepository,TourImageRepository>();
             _services.AddSingleton<TourImageService>();
-            _services.AddSingleton<TourCouponRepository>();
+            _services.AddSingleton<ITourCouponRepository,TourCouponRepository>();
             _services.AddSingleton<TourCouponService>();
-            _services.AddSingleton<ReservedAccommodationRepository>();
+            _services.AddSingleton<IReservedAccommodationRepository,ReservedAccommodationRepository>();
             _services.AddSingleton<ReservedAccommodationService>();
-            _services.AddSingleton<GuestRatingRepository>();
+            _services.AddSingleton<IGuestRatingRepository,GuestRatingRepository>();
             _services.AddSingleton<GuestRatingService>();
-            _services.AddSingleton<AccommodationRepository>();
+            _services.AddSingleton<IAccommodationRepository,AccommodationRepository>();
             _services.AddSingleton<AccommodationService>();
-            _services.AddSingleton<TourAttendenceNotificationRepository>();
+            _services.AddSingleton<ITourAttendenceNotificationRepository,TourAttendenceNotificationRepository>();
             _services.AddSingleton<TourAttendenceNotificationService>();
-            _services.AddSingleton<GuestReschedulingRequestRepository>();
+            _services.AddSingleton<IGuestReschedulingRequestRepository,GuestReschedulingRequestRepository>();
             _services.AddSingleton<GuestReschedulingRequestService>();
-            _services.AddSingleton<TourReviewRepository>();
+            _services.AddSingleton<ITourReviewRepository,TourReviewRepository>();
             _services.AddSingleton<TourReviewService>();
-            _services.AddSingleton<TourReviewImageRepository>();
+            _services.AddSingleton<ITourReviewImageRepository,TourReviewImageRepository>();
             _services.AddSingleton<TourReviewImageService>();
-            _services.AddSingleton<OwnerRatingRepository>();
+            _services.AddSingleton<IOwnerRatingRepository, OwnerRatingRepository>();
             _services.AddSingleton<OwnerRatingService>();
-            _services.AddSingleton<ProcessedReschedulingRequestRepository>();
+            _services.AddSingleton<IProcessedReschedulingRequestRepository,ProcessedReschedulingRequestRepository>();
             _services.AddSingleton<ProcessedReschedulingRequestService>();
-            _services.AddSingleton<OwnerRepository>();
+            _services.AddSingleton<IOwnerRepository,OwnerRepository>();
             _services.AddSingleton<OwnerService>();
-
-
+            _services.AddSingleton<ITourSuggestionRepository,TourSuggestionRepository>();
+            _services.AddSingleton<TourSuggestionService>();
+            _services.AddSingleton<IRenovationRequestRepository, RenovationRequestRepository>();
+            _services.AddSingleton<RenovationRequestService>();
+            _services.AddSingleton<IGuestBonus, GuestBonusRepository>();
+            _services.AddSingleton<GuestBonusService>();
+            _services.AddSingleton<IScheduledRenovationRepository, ScheduledRenovationRepository>();
+            _services.AddSingleton<ScheduledRenovationService>();
+            _services.AddSingleton<IReservationCancellationRepository, ReservationCancellationRepository>();
+            _services.AddSingleton<ReservationCancellationService>();
+            _services.AddSingleton<IAcceptedReservationReschedulingRepository, AcceptedReservationReschedulingRepository>();
+            _services.AddSingleton<AcceptedReservationReschedulingService>();
+            _services.AddSingleton<AccommodationStatisticsService>();
+            _services.AddSingleton<ITourSuggestionNotificationRepository, TourSuggestionNotificationRepository>();
+            _services.AddSingleton<TourSuggestionNotificationService>();
+            _services.AddSingleton<INotificationManager, NotificationManager>();
+            _services.AddSingleton<ITourNotificationRepository, TourNotificationRepository>();
+            _services.AddSingleton<TourNotificationService>();
             _serviceProvider = _services.BuildServiceProvider();
 
             SignInForm signInForm = new SignInForm();
             signInForm.Show();
         }
-
+        public static INotificationManager GetNotificationManager()
+        {
+            return _serviceProvider.GetRequiredService<INotificationManager>();
+        }
     }
 }

@@ -10,14 +10,20 @@ using System.IO;
 using BookingApp.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.ComponentModel;
 
 namespace BookingApp.ViewModel.Guest
 {
-    public class GuestRateViewModel
+    public class GuestRateViewModel : INotifyPropertyChanged
     {
+        private int currentImageIndex = 0;
+        public ObservableCollection<string> ImagePaths { get; set; }
         public RelayCommand attachImage => new RelayCommand(execute => AddImageExecute());
 
         public RelayCommand rateIt => new RelayCommand(execute => RateIt(), canExecute => CanRateIt());
+        public RelayCommand DeleteImageCommand => new RelayCommand(execute => DeleteImage(), canExecute => CanDeleteImage());
+        public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
+        public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
         public ObservableCollection<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
 
@@ -26,6 +32,9 @@ namespace BookingApp.ViewModel.Guest
         public GuestRate GuestRate { get; set; }
         public User User { get; set; }  
         public ReservedAccommodation ReservedAccommodation { get; set; }
+
+        public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths.Count;
         public GuestRateViewModel(GuestRate guestRate, User user, ReservedAccommodation selectedAccommodation)
         { 
             GuestRate = guestRate;
@@ -33,9 +42,95 @@ namespace BookingApp.ViewModel.Guest
             ReservedAccommodation = selectedAccommodation;
             strings = new ObservableCollection<string>();
             Images = new ObservableCollection<Image>();
+            ImagePaths = new ObservableCollection<string>();
             RelativeImagePaths = new ObservableCollection<string>();
+            foreach(RenovationRequest renovationRequest in RenovationRequestService.GetInstance().GetAll())
+            {
+                if(renovationRequest.AccommodationId == selectedAccommodation.Accommodation.Id && renovationRequest.GuestId == User.Id)
+                {
+                    GuestRate.RenovationButton.IsEnabled = false;
+                    GuestRate.RenovationButton.Content = "Renovation sent";
+                }    
+            }
+            GuestRate.AccommodationName.Content += selectedAccommodation.Accommodation.Name;
+            GuestRate.Location.Content += selectedAccommodation.Accommodation.Location.State + ", " + selectedAccommodation.Accommodation.Location.City;
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
+
+        public void DeleteImage()
+        {
+            try
+            {
+                ImagePaths.RemoveAt(CurrentImageIndex);
+                if (CurrentImageIndex == TotalImages && TotalImages >= 1)
+                    CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                CurrentImageIndex = 0;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+                Console.WriteLine("Error: Indeks not valid - " + ex.Message);
+            }
+        }
+        public bool CanDeleteImage()
+        {
+            if (TotalImages == 0)
+                return false;
+            return true;
+        }
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                if (value >= 0 && value < ImagePaths.Count)
+                {
+                    currentImageIndex = value;
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
+            }
+        }
+        public void NextImage()
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanNextImage()
+        {
+            if (CurrentImageIndex == TotalImages - 1 || TotalImages == 0)
+                return false;
+            return true;
+        }
+        public void PreviousImage()
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanPreviousImage()
+        {
+            if (CurrentImageIndex == 0 || TotalImages == 0)
+                return false;
+            return true;
+        }
         public void RateIt()
         {
             Comment comment = new Comment();
@@ -44,14 +139,14 @@ namespace BookingApp.ViewModel.Guest
             comment.User = UserService.GetInstance().GetById(User.Id);
             comment = CommentService.GetInstance().Save(comment);
 
-            Accommodation? accommodation = AccommodationService.GetInstance().GetById(ReservedAccommodation.AccommodationId);
+            Accommodation? accommodation = AccommodationService.GetInstance().GetById(ReservedAccommodation.Accommodation.Id);
 
             OwnerRating ownerRating = new OwnerRating();
-            ownerRating.ownerId = accommodation.OwnerId;
-            ownerRating.guestId = User.Id;
+            ownerRating.OwnerId = accommodation.OwnerId;
+            ownerRating.GuestId = User.Id;
             ownerRating.CommentId = comment.Id;
-            ownerRating.Cleanliness = Convert.ToInt32(GuestRate.CleanlinessComboBox.SelectionBoxItem);
-            ownerRating.OwnerIntegrity = Convert.ToInt32(GuestRate.IntegrityComboBox.SelectionBoxItem);
+            ownerRating.Cleanliness = GuestRate.Cleanliness;
+            ownerRating.OwnerIntegrity = GuestRate.Integrity;
             ownerRating.AccommodationId = accommodation.Id;
 
             foreach(Image image in Images) ownerRating.Images.Add(image);
@@ -72,10 +167,9 @@ namespace BookingApp.ViewModel.Guest
 
         public bool CanRateIt()
         { 
-            if(GuestRate.CleanlinessComboBox.SelectedItem == null || GuestRate.IntegrityComboBox.SelectedItem == null || string.IsNullOrEmpty(GuestRate.CommentTextBox.Text.ToString()))
-            {
+            if((GuestRate.Cleanliness1.IsChecked == false && GuestRate.Cleanliness2.IsChecked == false && GuestRate.Cleanliness3.IsChecked == false
+                && GuestRate.Cleanliness4.IsChecked == false && GuestRate.Cleanliness5.IsChecked == false) || string.IsNullOrEmpty(GuestRate.CommentTextBox.Text.ToString()))
                 return false;
-            }
 
             return true;
         }
@@ -100,8 +194,17 @@ namespace BookingApp.ViewModel.Guest
 
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
                     RelativeImagePaths.Add(relativePath);
+
+                    ImagePaths.Add(destFilePath);
                 }
                 if (RelativeImagePaths.Count > 0) SaveImageIntoCSV(RelativeImagePaths);
+
+                if (ImagePaths.Count > 0)
+                {
+                    CurrentImageIndex = 0;
+                    OnPropertyChanged(nameof(CurrentImagePath));
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
             }
         }
 
@@ -142,13 +245,9 @@ namespace BookingApp.ViewModel.Guest
             {
                 DirectoryInfo? parentDirectory = Directory.GetParent(path);
                 if (parentDirectory != null)
-                {
                     path = parentDirectory.FullName;
-                }
                 else
-                {
                     throw new InvalidOperationException("Cannot navigate up three directories from base.");
-                }
             }
             return path;
         }

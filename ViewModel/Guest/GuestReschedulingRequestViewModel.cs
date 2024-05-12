@@ -28,9 +28,9 @@ namespace BookingApp.ViewModel.Guest
             this.reschedulingReservation = reschedulingReservation;
             this.User = user;
             reservedAccommodation = selectedReservedAccommodation;
-            accommodation = AccommodationService.GetInstance().GetById(reservedAccommodation.accommodationId);
-            reschedulingReservation.NameLabel.Content += reservedAccommodation.AccommodationName;
-            reschedulingReservation.DatesLabel.Content += reservedAccommodation.checkInDate + " - " + reservedAccommodation.checkOutDate;
+            accommodation = AccommodationService.GetInstance().GetById(reservedAccommodation.Accommodation.Id);
+            reschedulingReservation.NameLabel.Content += reservedAccommodation.Accommodation.Name;
+            reschedulingReservation.DatesLabel.Content += reservedAccommodation.CheckInDate + " - " + reservedAccommodation.CheckOutDate;
             reschedulingReservation.MinDaysLabel.Content += accommodation.MinReservationDays.ToString();
         }
 
@@ -39,8 +39,8 @@ namespace BookingApp.ViewModel.Guest
             DateTime checkIn = reschedulingReservation.checkInDatePicker.SelectedDate ?? DateTime.Now;
             DateTime checkOut = reschedulingReservation.checkOutDatePicker.SelectedDate ?? DateTime.Now;
             GuestReschedulingRequest request = new GuestReschedulingRequest();
-            request.accommodationId = reservedAccommodation.accommodationId;
-            request.guestId = User.Id;
+            request.AccommodationId = reservedAccommodation.Accommodation.Id;
+            request.GuestId = User.Id;
             request.CheckInDate = checkIn.AddHours(12);
             request.CheckOutDate = checkOut.AddHours(10);
             request.ReservedAccommodationId = reservedAccommodation.Id;

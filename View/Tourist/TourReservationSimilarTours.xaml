@@ -80,7 +80,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="Exit" Cursor="Hand">
+                    <Button Grid.Column="0" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickExit}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>

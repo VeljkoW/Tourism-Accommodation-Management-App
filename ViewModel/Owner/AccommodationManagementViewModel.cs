@@ -9,29 +9,196 @@ using System.Windows;
 using BookingApp.View.Owner;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.ComponentModel;
+using Notification.Wpf;
+using Notification.Wpf.Classes;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using Notification.Wpf.Constants;
 
 namespace BookingApp.ViewModel.Owner
 {
-    public class AccommodationManagementViewModel
+    public class AccommodationManagementViewModel : INotifyPropertyChanged
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
+        private int currentImageIndex = 0;
+        public ObservableCollection<string> ImagePaths { get; set; }
+        public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths.Count;
         public RelayCommand Accept => new RelayCommand(execute => AcceptExecute(), canExecute => AcceptCanExecute());
-        public RelayCommand AddImage => new RelayCommand(execute => AddImageExecute());
+        public RelayCommand AddImage => new RelayCommand(execute => AddImageExecute()); 
+        public RelayCommand DeleteImageCommand => new RelayCommand(execute => DeleteImage(), canExecute => CanDeleteImage());
+        public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
+        public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
         public AccommodationRegistration AccommodationRegistration {  get; set; }
         public User user { get; set; }
-        public List<Location> Locations { get; set; }
-        public string? SelectedLocation { get; set; }
+        public List<string> States { get; set; }
+        public string SelectedState {  get; set; }
+        public ObservableCollection<Location> Cities { get; set; }
+        public Location SelectedLocation { get; set; }
         public List<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
+        public ObservableCollection<Accommodation> AccommodationsDisplay {  get; set; }
+
+        public List<string> StatesForChoosing { get; set; }
+        public ObservableCollection<Location> CitiesForChoosing { get; set; }
+        public string SelectedChosenState { get; set; }
+        public Location SelectedChosenCity { get; set; }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
         public AccommodationManagementViewModel(AccommodationRegistration AccommodationRegistration, User user)
         {
             this.user = user;
             this.AccommodationRegistration = AccommodationRegistration;
             RelativeImagePaths = new ObservableCollection<string>();
-            Locations = new List<Location>();
+            ImagePaths = new ObservableCollection<string>();
+            Cities = new ObservableCollection<Location>();
+            CitiesForChoosing = new ObservableCollection<Location>();
+            AccommodationsDisplay = new ObservableCollection<Accommodation>();
             Images = new List<Image>();
-            Locations = LocationService.GetInstance().GetAll();
+            States = LocationService.GetInstance().GetStates();
+            StatesForChoosing = LocationService.GetInstance().GetStates();
+            AccommodationsDisplay = AccommodationService.GetInstance().GetAllByUser(user);
+            SelectedChosenCity = new Location();
+            InitializeChooseStateComboBox();
+        }
+        private void InitializeChooseStateComboBox()
+        {
+            AccommodationRegistration.ChooseStateComboBox.Items.Clear();
+            AccommodationRegistration.ChooseStateComboBox.Items.Add("");
+            foreach (string state in LocationService.GetInstance().GetStates())
+                AccommodationRegistration.ChooseStateComboBox.Items.Add(state);
         }
         
+        public void StatePicked()
+        {
+            LocationService.GetInstance().GetCitiesForState(Cities, SelectedState);
+        }
+        public void StateChosen()
+        {
+            if (SelectedChosenState.Equals(""))
+            {
+                foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAllByUser(user))
+                    AccommodationsDisplay.Add(accommodation);
+                return;
+            }
+            UpdateChooseCityComboBox();
+            UpdateAccommodationsDisplay("state");
+            if (AccommodationsDisplay.Count == 0)
+                notificationManager.Show("Info", "You have no accommodations in this state!", NotificationType.Information);
+        }
+        public void CityChosen()
+        {
+            if (SelectedChosenCity == null) return;
+            if (AccommodationRegistration.ChooseCityComboBox.SelectedItem.ToString().Equals(""))
+            {
+                UpdateAccommodationsDisplay("state");
+                return;
+            }
+            UpdateAccommodationsDisplay("city");
+            if (AccommodationsDisplay.Count == 0)
+                notificationManager.Show("Info", "You have no accommodations in this city!", NotificationType.Information);
+        }
+        private void UpdateChooseCityComboBox()
+        {
+            if (SelectedChosenState == null) return;
+            AccommodationRegistration.ChooseCityComboBox.Items.Clear();
+            AccommodationRegistration.ChooseCityComboBox.Items.Add("");
+            CitiesForChoosing.Clear();
+            LocationService.GetInstance().GetCitiesForState(CitiesForChoosing, SelectedChosenState);
+            foreach (Location location in CitiesForChoosing)
+                AccommodationRegistration.ChooseCityComboBox.Items.Add(location);
+        }
+        private void UpdateAccommodationsDisplay(string StateOrCity)
+        {
+            AccommodationsDisplay.Clear();
+            if (StateOrCity.Equals("state"))
+            {
+                foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAllByUser(user))
+                    if (accommodation.Location.State == SelectedChosenState)
+                        AccommodationsDisplay.Add(accommodation);
+            }else if (StateOrCity.Equals("city"))
+            {
+                foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAllByUser(user))
+                    if (accommodation.Location.City == SelectedChosenCity.City)
+                        AccommodationsDisplay.Add(accommodation);
+            }
+        }
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                if (value >= 0 && value < ImagePaths.Count)
+                {
+                    currentImageIndex = value;
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
+            }
+        }
+        public void NextImage()
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanNextImage()
+        {
+            if (CurrentImageIndex == TotalImages - 1 || TotalImages == 0)
+                return false;
+            return true;
+        }
+        public void PreviousImage()
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanPreviousImage()
+        {
+            if (CurrentImageIndex == 0 || TotalImages == 0)
+                return false;
+            return true;
+        }
+        public void DeleteImage()
+        {
+            try
+            {
+                ImagePaths.RemoveAt(CurrentImageIndex);
+                if (CurrentImageIndex == TotalImages && TotalImages >= 1)
+                    CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                CurrentImageIndex = 0;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+                Console.WriteLine("Error: Indeks not valid - " + ex.Message);
+            }
+        }
+        public bool CanDeleteImage()
+        {
+            if(TotalImages == 0)
+                return false;
+            return true;
+        }
         public AccommodationType ReturnAccommodationType()
         {
             if (AccommodationRegistration.AccommodationTypeComboBox.SelectionBoxItem.Equals("Apartment"))
@@ -46,31 +213,26 @@ namespace BookingApp.ViewModel.Owner
             Accommodation Accommodation = new Accommodation();
             Accommodation.Name = AccommodationRegistration.NameTextBox.Text;
             Accommodation.AccommodationType = ReturnAccommodationType();
-            Accommodation.MaxGuestNumber = Convert.ToInt32(AccommodationRegistration.MaxGuestNumberTextBox.Text);
-            Accommodation.MinReservationDays = Convert.ToInt32(AccommodationRegistration.MinResDaysTextBox.Text);
-            Accommodation.CancelationDaysLimit = Convert.ToInt32(AccommodationRegistration.CancelationDaysLimitTextBox.Text);
+            Accommodation.MaxGuestNumber = Convert.ToInt32(AccommodationRegistration.MaxGuestNumberTextBox.NumTextBox.Text);
+            Accommodation.MinReservationDays = Convert.ToInt32(AccommodationRegistration.MinResDaysTextBox.NumTextBox.Text);
+            Accommodation.CancelationDaysLimit = Convert.ToInt32(AccommodationRegistration.CancelationDaysLimitTextBox.NumTextBox.Text);
             Accommodation.Images = Images;
-
-            string[] temporaryStrings = SelectedLocation.Split(':');
-            Location? Location = LocationService.GetInstance().GetById(Convert.ToInt32(temporaryStrings[0]));
-            Accommodation.Location.Id = Location.Id;
-            Accommodation.Location.State = Location.State;
-            Accommodation.Location.City = Location.City;
+            Accommodation.Location = SelectedLocation;
             Accommodation.OwnerId = user.Id;
             AccommodationService.GetInstance().Add(Accommodation);
 
             ResetInputs();
-            AccommodationRegistration.ErrorsVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Collapsed);
-            AccommodationRegistration.SuccessLabel.Visibility = Visibility.Visible;
+            notificationManager.Show("Success", "Accommodation Successfully registered!", NotificationType.Success);
         }
         public bool AcceptCanExecute()
         {
             //all the fields must be entered
-            if (string.IsNullOrEmpty(AccommodationRegistration.NameTextBox.Text) || AccommodationRegistration.LocationComboBox.SelectedItem == null ||
-                AccommodationRegistration.AccommodationTypeComboBox.SelectedItem == null || !IsNumeric(AccommodationRegistration.MaxGuestNumberTextBox.Text) ||
-                !IsNumeric(AccommodationRegistration.MinResDaysTextBox.Text) || !IsNumeric(AccommodationRegistration.CancelationDaysLimitTextBox.Text) ||
-                AccommodationRegistration.MinResDaysTextBox.Text.Equals("0") || AccommodationRegistration.MaxGuestNumberTextBox.Text.Equals("0") ||
-                AccommodationRegistration.CancelationDaysLimitTextBox.Text.Equals("0") || RelativeImagePaths.Count == 0)
+            if (string.IsNullOrEmpty(AccommodationRegistration.NameTextBox.Text) || AccommodationRegistration.StateComboBox.SelectedItem == null ||
+                AccommodationRegistration.CityComboBox.SelectedItem == null ||
+                AccommodationRegistration.AccommodationTypeComboBox.SelectedItem == null || !IsNumeric(AccommodationRegistration.MaxGuestNumberTextBox.NumTextBox.Text) ||
+                !IsNumeric(AccommodationRegistration.MinResDaysTextBox.NumTextBox.Text) || !IsNumeric(AccommodationRegistration.CancelationDaysLimitTextBox.NumTextBox.Text) ||
+                AccommodationRegistration.MinResDaysTextBox.NumTextBox.Text.Equals("0") || AccommodationRegistration.MaxGuestNumberTextBox.NumTextBox.Text.Equals("0") ||
+                AccommodationRegistration.CancelationDaysLimitTextBox.NumTextBox.Text.Equals("0") || RelativeImagePaths.Count == 0)
             {
                 return false;
             }
@@ -97,9 +259,16 @@ namespace BookingApp.ViewModel.Owner
 
                     string relativePath = System.IO.Path.Combine("../../../Resources/Images/Accommodation/", fileName);
                     RelativeImagePaths.Add(relativePath);
+                    ImagePaths.Add(destFilePath);
                 }
                 if (RelativeImagePaths.Count > 0)
                     SaveImageIntoCSV(RelativeImagePaths);
+                if (ImagePaths.Count > 0)
+                {
+                    CurrentImageIndex = 0;
+                    OnPropertyChanged(nameof(CurrentImagePath));
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
             }
         }
 
@@ -118,15 +287,24 @@ namespace BookingApp.ViewModel.Owner
         public void ResetInputs()
         {
             AccommodationRegistration.NameTextBox.Text = string.Empty;
-            AccommodationRegistration.MaxGuestNumberTextBox.Text = "0";
-            AccommodationRegistration.MinResDaysTextBox.Text = "0";
-            AccommodationRegistration.CancelationDaysLimitTextBox.Text = "0";
-            AccommodationRegistration.LocationComboBox.SelectedIndex = 0;
-            AccommodationRegistration.AccommodationTypeComboBox.SelectedIndex = 0;
+            AccommodationRegistration.MaxGuestNumberTextBox.NumTextBox.Text = string.Empty;
+            AccommodationRegistration.MinResDaysTextBox.NumTextBox.Text = string.Empty;
+            AccommodationRegistration.CancelationDaysLimitTextBox.NumTextBox.Text = string.Empty;
+            AccommodationRegistration.StateComboBox.SelectedIndex = -1;
+            AccommodationRegistration.CityComboBox.SelectedIndex = -1;
+            AccommodationRegistration.AccommodationTypeComboBox.SelectedIndex = -1;
+            Cities.Clear();
             RelativeImagePaths.Clear();
             Images.Clear();
-            AccommodationRegistration.ImagesListBox.ItemsSource = null;
-            AccommodationRegistration.ImagesListBox.Items.Refresh();
+            ImagePaths.Clear();
+            currentImageIndex = 0;
+
+            AccommodationsDisplay.Clear();
+            foreach(Accommodation accommodation in AccommodationService.GetInstance().GetAllByUser(user))
+                AccommodationsDisplay.Add(accommodation);
+
+            OnPropertyChanged(nameof(CurrentImagePath));
+            OnPropertyChanged(nameof(CurrentImageIndex));
         }
         private void SaveImageIntoCSV(ObservableCollection<string> relativeImagePaths)
         {

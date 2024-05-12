@@ -18,12 +18,42 @@ namespace BookingApp.ViewModel.Owner
         public GuestReschedulingRequest SelectedGuestReschedulingRequest {  get; set; }
         public User user { get; set; }
         public ReservationRescheduling ReservationRescheduling {  get; set; }
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
         public ReservationReschedulingViewModel(ReservationRescheduling ReservationRescheduling, User user)
         {
             this.user = user;
             this.ReservationRescheduling = ReservationRescheduling;
             GuestReschedulingRequests = new ObservableCollection<GuestReschedulingRequest>();
+            ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            Accommodations = AccommodationService.GetInstance().GetAllByUser(user);
             Update();
+        }
+        public void AccommodationSelectionChanged()
+        {
+            ReservedAccommodations.Clear();
+            List<ReservedAccommodation> AllReservedAccommodations = new List<ReservedAccommodation>();
+            AllReservedAccommodations = ReservedAccommodationService.GetInstance().GetByAccommodationId(SelectedAccommodation.Id);
+            if (AllReservedAccommodations.Count == 0 || AllReservedAccommodations == null) 
+                return;
+            foreach(ReservedAccommodation reservedAccommodation in AllReservedAccommodations)
+            {
+                if(reservedAccommodation.CheckOutDate >= DateTime.Now)
+                    ReservedAccommodations.Add(reservedAccommodation);
+            }
+            for (int i = 0; i < ReservedAccommodations.Count - 1; i++)
+            {
+                for (int j = i + 1; j < ReservedAccommodations.Count; j++)
+                {
+                    if (ReservedAccommodations[i].CheckInDate > ReservedAccommodations[j].CheckInDate)
+                    {
+                        ReservedAccommodation tempReservedAccommodation = new ReservedAccommodation(ReservedAccommodations[i]);
+                        ReservedAccommodations[i] = ReservedAccommodations[j];
+                        ReservedAccommodations[j] = tempReservedAccommodation;
+                    }
+                }
+            }
         }
         public void Update()
         {
@@ -37,7 +67,7 @@ namespace BookingApp.ViewModel.Owner
             {
                 foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
                 {
-                    if (accommodation.Id == guestReschedulingRequest.accommodationId && accommodation.OwnerId == user.Id)
+                    if (accommodation.Id == guestReschedulingRequest.AccommodationId && accommodation.OwnerId == user.Id)
                     {
                         GuestReschedulingRequests.Add(guestReschedulingRequest);
                     }
@@ -57,14 +87,14 @@ namespace BookingApp.ViewModel.Owner
         }
         public bool isFreeSlot(GuestReschedulingRequest GuestReschedulingRequest)
         {
-            for (DateTime date = GuestReschedulingRequest.checkInDate; date <= GuestReschedulingRequest.checkOutDate; date = date.AddDays(1))
+            for (DateTime date = GuestReschedulingRequest.CheckInDate; date <= GuestReschedulingRequest.CheckOutDate; date = date.AddDays(1))
             {
                 foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
                 {
-                    if (GuestReschedulingRequest.accommodationId == reservedAccommodation.accommodationId &&
+                    if (GuestReschedulingRequest.AccommodationId == reservedAccommodation.Accommodation.Id &&
                         reservedAccommodation.Id != GuestReschedulingRequest.ReservedAccommodationId &&
-                        date > reservedAccommodation.checkInDate &&
-                        date < reservedAccommodation.checkOutDate)
+                        date > reservedAccommodation.CheckInDate &&
+                        date < reservedAccommodation.CheckOutDate)
                     {
                         return false;
                     }
@@ -94,12 +124,19 @@ namespace BookingApp.ViewModel.Owner
                 comment = CommentService.GetInstance().Save(comment);
                 processedReschedulingRequest.CommentId = comment.Id;
             }
+            AcceptedReservationRescheduling acceptedReservationRescheduling = new AcceptedReservationRescheduling();
+
+            acceptedReservationRescheduling.AccommodationId = SelectedGuestReschedulingRequest.AccommodationId;
+            acceptedReservationRescheduling.GuestId = SelectedGuestReschedulingRequest.GuestId;
+            acceptedReservationRescheduling.AcceptedDate = DateTime.Now;
+
+            AcceptedReservationReschedulingService.GetInstance().Add(acceptedReservationRescheduling);
 
             processedReschedulingRequest.AccommodationId = SelectedGuestReschedulingRequest.AccommodationId;
             processedReschedulingRequest.GuestId = SelectedGuestReschedulingRequest.GuestId;
             processedReschedulingRequest.IsAccepted = accepted;
-            processedReschedulingRequest.checkInDate = SelectedGuestReschedulingRequest.CheckInDate;
-            processedReschedulingRequest.checkOutDate = SelectedGuestReschedulingRequest.CheckOutDate;
+            processedReschedulingRequest.CheckInDate = SelectedGuestReschedulingRequest.CheckInDate;
+            processedReschedulingRequest.CheckOutDate = SelectedGuestReschedulingRequest.CheckOutDate;
             ProcessedReschedulingRequestService.GetInstance().Add(processedReschedulingRequest);
             GuestReschedulingRequestService.GetInstance().DeleteById(SelectedGuestReschedulingRequest.Id);
             if (accepted)

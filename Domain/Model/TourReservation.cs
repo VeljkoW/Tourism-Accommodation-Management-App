@@ -1,6 +1,7 @@
 ﻿using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Serializer;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,8 +62,7 @@ namespace BookingApp.Domain.Model
                 for (int i = 0; i < PeopleIds.Length; i++)
                 {
                     TourPerson? person = new TourPerson();
-                    TourPersonRepository tourPersonRepository = new TourPersonRepository();
-                    person = tourPersonRepository.GetById(Convert.ToInt32(PeopleIds[i]));
+                    person = TourPersonService.GetInstance().GetById(Convert.ToInt32(PeopleIds[i]));
                     if (person != null)
                     {
                         People.Add(person);

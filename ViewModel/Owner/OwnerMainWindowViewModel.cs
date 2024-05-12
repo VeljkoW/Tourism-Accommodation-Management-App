@@ -25,8 +25,9 @@ namespace BookingApp.ViewModel.Owner
         {
             this.user = User;
             this.OwnerMainWindow = OwnerMainWindow;
-            GuestRatingPage = new GuestRatingPage(OwnerMainWindow, user);
-            ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();
+            GuestRatingPage = new GuestRatingPage(OwnerMainWindow, user);////////////////////////////////////////////////////
+            ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
             OwnerService.GetInstance().UpdateAll();
 
 

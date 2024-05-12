@@ -18,6 +18,7 @@ namespace BookingApp.ViewModel.Tourist
         public User User { get; set; }
         public List<KeyPoint> KeyPoints { get; set; }
         public TourOngoingDetailed TourOngoingDetailed { get; set; }
+        public RelayCommand ClickGoBack => new RelayCommand(execute => GoBackExecute());
         public TourOngoingDetailedViewModel(TourOngoingDetailed tourOngoingDetailed,Tour SelectedOngoingTour,User user) 
         {
             this.TourOngoingDetailed = tourOngoingDetailed;
@@ -73,6 +74,10 @@ namespace BookingApp.ViewModel.Tourist
 
             KeyPoints = Tour.KeyPoints;
 
+        }
+        public void GoBackExecute()
+        {
+            TourOngoingDetailed.Close();
         }
     }
 }

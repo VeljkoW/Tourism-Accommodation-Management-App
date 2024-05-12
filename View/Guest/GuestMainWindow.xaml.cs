@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
 using Image = BookingApp.Domain.Model.Image;
+using BookingApp.ViewModel.Guest;
 
 namespace BookingApp.View.Guest
 {
@@ -30,11 +31,15 @@ namespace BookingApp.View.Guest
 
         public GuestReservations GuestReservations { get; set; }
 
+        public GuestMainWindowViewModel GuestMainWindowViewModel { get; set; }
+
+        public OwnerReviews OwnerReviews { get; set; }
         public Accommodations Accommodations { get; set; }
         public GuestMainWindow(User user)
         {
             InitializeComponent();
-            this.DataContext = this;
+            GuestMainWindowViewModel = new GuestMainWindowViewModel(this);
+            this.DataContext = GuestMainWindowViewModel;
             this.user = user;
             //GuestRate = new GuestRate(user, reservedAccommodation);
             Accommodations = new Accommodations(user);
@@ -56,7 +61,8 @@ namespace BookingApp.View.Guest
 
         private void ReviewsClick(object sender, RoutedEventArgs e)
         {
-
+            OwnerReviews = new OwnerReviews(user);
+            mainFrame.Navigate(OwnerReviews);
         }
 
         private void ForumClick(object sender, RoutedEventArgs e)

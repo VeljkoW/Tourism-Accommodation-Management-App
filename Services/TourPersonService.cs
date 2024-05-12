@@ -14,32 +14,34 @@ namespace BookingApp.Services
 {
     public class TourPersonService
     {
-        private ITourPersonRepository tourPersonRepository = TourPersonRepository.GetInstance();
-        public TourPersonService() { }
+        public ITourPersonRepository TourPersonRepository {get;set;}
+        public TourPersonService(ITourPersonRepository tourPersonRepository) {
+            TourPersonRepository=tourPersonRepository;
+        }
         public static TourPersonService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourPersonService>();
         }
         public TourPerson Add(TourPerson newTourPerson)
         {
-            return tourPersonRepository.Add(newTourPerson);
+            return TourPersonRepository.Add(newTourPerson);
         }
         public int NextId()
         {
-            return tourPersonRepository.NextId();
+            return TourPersonRepository.NextId();
         }
 
         public TourPerson? GetById(int Id)
         {
-            return tourPersonRepository.GetById(Id);
+            return TourPersonRepository.GetById(Id);
         }
         public List<TourPerson> GetAll()
         {
-            return tourPersonRepository.GetAll();
+            return TourPersonRepository.GetAll();
         }
         public TourPerson? Update(TourPerson tourPerson)
         {
-            return tourPersonRepository.Update(tourPerson);
+            return TourPersonRepository.Update(tourPerson);
         }
         public int GetUnderageCount(List<TourPerson> tourPersons)
         {

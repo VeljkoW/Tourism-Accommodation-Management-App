@@ -12,32 +12,88 @@ using System.Windows;
 using System.Windows.Controls;
 using GuestReservations = BookingApp.View.Guest.Windows.GuestReservation;
 using System.Collections.ObjectModel;
+using Image = BookingApp.Domain.Model.Image;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace BookingApp.ViewModel.Guest
 {
-    public class GuestReservationViewModel
+    public class GuestReservationViewModel : INotifyPropertyChanged
     {
+
+        private int currentImageIndex = 0;
         public User user { get; set; }
+
+        public ObservableCollection<string> ImagePaths { get; set; }
         public GuestReservations GuestReservations { get; set; }
         public ObservableCollection<AvailableDate> printDates { get; set; }
 
         public ReservedAccommodation reservedAccommodation { get; set; }
 
-        public Accommodation Accommodation { get; set; }
+        public Accommodation? Accommodation { get; set; }
+
+        public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths.Count;
 
         public RelayCommand ReservationSearchButton => new RelayCommand(execute => ReservationSearch(), canExecute => AvailableReservationSearch());
         public RelayCommand ReservationClickButton => new RelayCommand(execute => ReservationClick(), canExecute => AvailableReservationClick());
-
 
         public GuestReservationViewModel(GuestReservations GuestReservations, Accommodation selectedAccommodation, User user) 
         {
             this.GuestReservations = GuestReservations;
             reservedAccommodation = new ReservedAccommodation();
-            Accommodation = selectedAccommodation;
+            Accommodation = AccommodationService.GetInstance().GetById(selectedAccommodation.Id);
             printDates = new ObservableCollection<AvailableDate>();
+            ImagePaths = new ObservableCollection<string>();
             GuestReservations.GuestNumberTextBox.Text = "Max guest number " + selectedAccommodation.MaxGuestNumber;
             GuestReservations.ReservationDaysTextBox.Text = "Min reservation days " + selectedAccommodation.MinReservationDays;
             this.user = user;
+            GuestReservations.AccommodationName.Content += Accommodation.Name;
+            GuestReservations.AccommodationLocation.Content += selectedAccommodation.Location.State + ", " + selectedAccommodation.Location.City;
+            foreach(Image image in Accommodation.Images)
+                ImagePaths.Add(image.Path);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
+
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                if (value >= 0 && value < ImagePaths.Count)
+                {
+                    currentImageIndex = value;
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
+            }
+        }
+        public void NextImage(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+
+        public void PreviousImage(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
         }
         private bool AreDatesAvailable(DateTime startDate, DateTime endDate, int reservationDays)
         {
@@ -46,19 +102,25 @@ namespace BookingApp.ViewModel.Guest
             for (DateTime date = startDate; date <= startDate.AddDays(reservationDays); date = date.AddDays(1))
             {
                 foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                {
-                    if (Accommodation.Id == reservedAccommodation.accommodationId)
-                    {
+                    if (Accommodation.Id == reservedAccommodation.Accommodation.Id)
                         if (!CheckReservedDates(date, reservedAccommodation)) return false;
-                    }
-                }
+
+                foreach (ScheduledRenovation scheduledRenovation in ScheduledRenovationService.GetInstance().GetAll())
+                    if (scheduledRenovation.AccommodationId == Accommodation.Id)
+                        if (!CheckRenovationDates(date, scheduledRenovation)) return false;
             }
             return true;
         }
 
         public bool CheckReservedDates(DateTime date, ReservedAccommodation reservedAccommodation)
         {
-            if (date > reservedAccommodation.checkInDate && date < reservedAccommodation.checkOutDate) return false;
+            if (date > reservedAccommodation.CheckInDate && date < reservedAccommodation.CheckOutDate) return false;
+            return true;
+        }
+
+        public bool CheckRenovationDates(DateTime date, ScheduledRenovation scheduledRenovation)
+        {
+            if (date > scheduledRenovation.StartDate && date < scheduledRenovation.EndDate) return false;
             return true;
         }
 
@@ -142,10 +204,6 @@ namespace BookingApp.ViewModel.Guest
 
             List<DateTime> availableDates = new List<DateTime>();
             availableDates = FindAvailableDates(startDate, endDate, reservationDays);
-
-            GuestReservations.ReservationButton.IsEnabled = true;
-            GuestReservations.GuestNumberTextBox.IsEnabled = true;
-
             if (availableDates.Count != 0)
             {
                 GuestReservations.AvailableDates.IsEnabled = true;
@@ -180,14 +238,21 @@ namespace BookingApp.ViewModel.Guest
         {
             string? selectedDate = GuestReservations.AvailableDates.SelectedValue.ToString();
             string[] dates = selectedDate.Split('-');
-            reservedAccommodation.checkInDate = Convert.ToDateTime(dates[0].Trim());
-            reservedAccommodation.checkOutDate = Convert.ToDateTime(dates[1].Trim());
-            reservedAccommodation.accommodationId = Accommodation.Id;
-            reservedAccommodation.guestId = user.Id;
-            reservedAccommodation.accommodationName = Accommodation.Name;
-            reservedAccommodation.location = Accommodation.Location;
-            reservedAccommodation.image = Accommodation.Images[0];
-            reservedAccommodation.accommodationType = Accommodation.AccommodationType;
+            reservedAccommodation.CheckInDate = Convert.ToDateTime(dates[0].Trim());
+            reservedAccommodation.CheckOutDate = Convert.ToDateTime(dates[1].Trim());
+            reservedAccommodation.Accommodation = Accommodation;
+            reservedAccommodation.GuestId = user.Id;
+            
+            foreach(GuestBonus guestBonus in GuestBonusService.GetInstance().GetAll())
+            {
+                if(guestBonus.GuestId == user.Id && guestBonus.Bonus > 0)
+                {
+                    guestBonus.Bonus--;
+                    GuestBonusService.GetInstance().Update(guestBonus);
+                    break;
+                }
+            }
+
             ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
             GuestReservations.Close();
         }

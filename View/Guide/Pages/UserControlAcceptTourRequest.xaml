@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="BookingApp.View.Guide.Pages.UserControlAcceptTourRequest"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.View.Guide.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="350">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" Background="{TemplateBinding Background}" x:Name="border">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand">
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="FontSize" Value="22"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border x:Name="Border" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="3" Margin="5" CornerRadius="5" Background="{StaticResource NBackGroundColor}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <StackPanel VerticalAlignment="Center">
+                    <DatePicker x:Name="datePicker" PreviewKeyDown="DatePicker_PreviewKeyDown" SelectedDate="{Binding SelectedDate,Mode=TwoWay}"/>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0" x:Name="ChosenHours" ItemsSource="{Binding HoursList}" SelectedItem="{Binding SelectedHour}"/>
+                            <ComboBox Grid.Column="1" x:Name="ChosenMinutes" ItemsSource="{Binding MinutesList}"  SelectedItem="{Binding SelectedMinute}"/>
+                            <ComboBox Grid.Column="2" x:Name="ChosenAmPm" ItemsSource="{Binding AmPm}"  SelectedItem="{Binding SelectedAmPm}" />
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Height="50" Width="50" Command="{Binding AcceptTourRequest}" x:Name="AcceptButton">
+                    <TextBlock FontSize="25" FontWeight="Bold" Text="+"/>
+                </Button>
+                <TextBlock Text="Accept tour" FontWeight="Bold" x:Name="AcceptTourTextBlock">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+                            <Setter Property="FontSize" Value="22"></Setter>
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEnabled, ElementName=AcceptButton}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Guide busy" FontWeight="Bold" x:Name="BusyTextBlock">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"/>
+                            <Setter Property="FontSize" Value="22"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsDateSelected}" Value="False">
+                                    <Setter Property="Text" Value="Select Date/Time"/>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsEnabled, ElementName=AcceptButton}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsEnabled, ElementName=AcceptButton}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Width="50" Height="50" Command="{Binding CancelCommand}">
+                    <TextBlock FontSize="25" FontWeight="Bold" Text="X" Style="{StaticResource TextBlockStyle}"/>
+                </Button>
+                <TextBlock Text="Cancel" FontSize="20" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

@@ -12,29 +12,29 @@ namespace BookingApp.Services
 {
     public class TourCouponService
     {
-        private ITourCouponRepository tourCouponRepository = TourCouponRepository.GetInstance();
-        public TourCouponService() { }
+        private ITourCouponRepository TourCouponRepository {get;set;}
+        public TourCouponService(ITourCouponRepository tourCouponRepository) { TourCouponRepository = tourCouponRepository; }
         public static TourCouponService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourCouponService>();
         }
         public TourCoupon Add(TourCoupon newTourCoupon)
         {
-            return tourCouponRepository.Add(newTourCoupon);
+            return TourCouponRepository.Add(newTourCoupon);
         }
 
         public List<TourCoupon> GetAll()
         {
-            return tourCouponRepository.GetAll();
+            return TourCouponRepository.GetAll();
         }
 
         public TourCoupon? GetById(int Id)
         {
-            return tourCouponRepository.GetById(Id);
+            return TourCouponRepository.GetById(Id);
         }
         public TourCoupon? Update(TourCoupon tourCoupon)
         {
-            return tourCouponRepository.Update(tourCoupon);
+            return TourCouponRepository.Update(tourCoupon);
         }
     }
 }

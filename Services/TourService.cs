@@ -19,25 +19,27 @@ namespace BookingApp.Services
         public KeyPointService keyPointService = KeyPointService.GetInstance();
         public LocationService locationService = LocationService.GetInstance();
 
-        private ITourRepository tourRepository = TourRepository.GetInstance();
-        public TourService() { }
+        public ITourRepository TourRepository { get; set; }
+        public TourService(ITourRepository TourRepositorya) {
+            this.TourRepository= TourRepositorya;
+        }
         public static TourService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<TourService>();
         }
         public Tour Add(Tour newTour)
         {
-            return tourRepository.Add(newTour);
+            return TourRepository.Add(newTour);
         }
 
         public List<Tour> GetAll()
         {
-            return tourRepository.GetAll();
+            return TourRepository.GetAll();
         }
 
         public Tour? GetById(int Id)
         {
-            return tourRepository.GetById(Id);
+            return TourRepository.GetById(Id);
         }
         public Dictionary<TourSchedule, Tour> LoadToursForGuide(User user)
         {
@@ -83,6 +85,15 @@ namespace BookingApp.Services
                 TourScheduleService.GetInstance().Update(t);
                 }
             }
+            else
+            {
+                TourSchedule? t = TourScheduleService.GetInstance().GetById(scheduleId);
+                if (t != null)
+                {
+                    t.ScheduleStatus = ScheduleStatus.Canceled;
+                    TourScheduleService.GetInstance().Update(t);
+                }
+            }
         }
         //TODO: get data for statistics
         public Dictionary<Tour,TourStatistics> GetTourStatistics(int year=0)
@@ -113,6 +124,71 @@ namespace BookingApp.Services
                 }
             }
             return ret;
+        }
+        public Tour MakeTour(Tour tour, TourSchedule tourSchedule)
+        {
+            List<KeyPoint> keyPointsForward = new List<KeyPoint>();
+            List<Image> imagesForward = new List<Image>();
+            Tour tour1 = new Tour();
+
+            tour1.DateTime = tourSchedule.Date;
+            tour1.OwnerId = tour.OwnerId;
+            tour1.Name = tour.Name;
+            tour1.Description = tour.Description;
+            tour1.Duration = tour.Duration;
+            tour1.Id = tour.Id;
+            tour1.LocationId = tour.LocationId;
+            tour1.Language = tour.Language;
+            tour1.MaxTourists = tour.MaxTourists;
+
+            //injecting locations
+            foreach (Location location in LocationService.GetInstance().GetAll())
+            {
+                if (location.Id == tour1.LocationId)
+                {
+                    tour1.Location = location;
+                }
+            }
+
+            //injecting keypoints
+            foreach (KeyPoint keyPoint in KeyPointService.GetInstance().GetAll())
+            {
+                if (keyPoint.TourId == tour1.Id)
+                {
+                    KeyPoint keyPoint1 = new KeyPoint();
+                    keyPoint1.Id = keyPoint.Id;
+                    keyPoint1.TourId = keyPoint.TourId;
+                    keyPoint1.Point = keyPoint.Point;
+                    keyPoint1.IsVisited = keyPoint.IsVisited;
+
+                    keyPointsForward.Add(keyPoint1);
+                }
+            }
+
+            tour1.KeyPoints = keyPointsForward;
+            keyPointsForward = new List<KeyPoint>();
+
+            //injecting images
+            foreach (TourImage tourImage in TourImageService.GetInstance().GetAll())
+            {
+                if (tourImage.TourId == tour1.Id)
+                {
+                    foreach (Image image in ImageService.GetInstance().GetAll())
+                    {
+                        if (image.Id == tourImage.ImageId)
+                        {
+                            Image image1 = new Image();
+                            image1.Id = image.Id;
+                            image1.Path = image.Path;
+
+                            imagesForward.Add(image1);
+                        }
+                    }
+                }
+            }
+            tour1.Images = imagesForward;
+            imagesForward = new List<Image>();
+            return tour1;
         }
     }
 }

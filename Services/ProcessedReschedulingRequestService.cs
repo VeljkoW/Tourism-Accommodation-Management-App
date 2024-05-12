@@ -12,23 +12,23 @@ namespace BookingApp.Services
 {
     public class ProcessedReschedulingRequestService
     {
-        private IProcessedReschedulingRequestRepository processedReschedulingRequestRepository = ProcessedReschedulingRequestRepository.GetInstance();
-        public ProcessedReschedulingRequestService() { }
+        public IProcessedReschedulingRequestRepository ProcessedReschedulingRequestRepository {get;set;}
+        public ProcessedReschedulingRequestService(IProcessedReschedulingRequestRepository processedReschedulingRequestRepository) { ProcessedReschedulingRequestRepository = processedReschedulingRequestRepository; }
         public static ProcessedReschedulingRequestService GetInstance()
         {
             return App._serviceProvider.GetRequiredService<ProcessedReschedulingRequestService>();
         }
         public void Add(ProcessedReschedulingRequest newProcessedReschedulingRequest)
         {
-            processedReschedulingRequestRepository.Add(newProcessedReschedulingRequest);
+            ProcessedReschedulingRequestRepository.Add(newProcessedReschedulingRequest);
         }
         public List<ProcessedReschedulingRequest> GetAll()
         {
-            return processedReschedulingRequestRepository.GetAll();
+            return ProcessedReschedulingRequestRepository.GetAll();
         }
         public ProcessedReschedulingRequest? GetById(int Id)
         {
-            return processedReschedulingRequestRepository.GetById(Id);
+            return ProcessedReschedulingRequestRepository.GetById(Id);
         }
     }
 }

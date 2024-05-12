@@ -52,14 +52,14 @@ namespace BookingApp.ViewModel.Guest
             GuestAccommodationsPage.TextBoxName.Text = "Name";
             GuestAccommodationsPage.TextBoxState.Text = "State";
             GuestAccommodationsPage.TextBoxCity.Text = "City";
-            GuestAccommodationsPage.TextBoxGuestNumber.Text = "Guest Number";
-            GuestAccommodationsPage.TextBoxReservationDays.Text = "Reservation Days";
+            GuestAccommodationsPage.TextBoxGuestNumber.Text = "Guest";
+            GuestAccommodationsPage.TextBoxReservationDays.Text = "Days";
         }
         public void AddSortAccommodations()
         {
             foreach (Accommodation superAccommodation in superOwnerAccommodations)
             {
-                superAccommodation.recommended = "Recommended Accommodation";
+                superAccommodation.Recommended = "Recommended Accommodation";
                 Accommodations.Add(superAccommodation);
             }
             foreach (Accommodation noSuperAccommodation in noSuperOwnerAccommodations) Accommodations.Add(noSuperAccommodation);
@@ -99,13 +99,13 @@ namespace BookingApp.ViewModel.Guest
             if (GuestAccommodationsPage.ComboBoxType.SelectedItem != null && !GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("")) accommodationType = ReturnType();
 
             int GuestNumber = 0;
-            if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxGuestNumber.Text) && !GuestAccommodationsPage.TextBoxGuestNumber.Text.Equals("Guest Number") && IsNumeric(GuestAccommodationsPage.TextBoxGuestNumber.Text))
+            if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxGuestNumber.Text) && !GuestAccommodationsPage.TextBoxGuestNumber.Text.Equals("Guest") && IsNumeric(GuestAccommodationsPage.TextBoxGuestNumber.Text))
             {
                 GuestNumber = Convert.ToInt32(GuestAccommodationsPage.TextBoxGuestNumber.Text.Trim());
                 if (GuestNumber <= 0) return;
             }
             int ReservationDays = 0;
-            if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxReservationDays.Text) && !GuestAccommodationsPage.TextBoxReservationDays.Text.Equals("Reservation Days") && IsNumeric(GuestAccommodationsPage.TextBoxReservationDays.Text))
+            if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxReservationDays.Text) && !GuestAccommodationsPage.TextBoxReservationDays.Text.Equals("Days") && IsNumeric(GuestAccommodationsPage.TextBoxReservationDays.Text))
             {
                 ReservationDays = Convert.ToInt32(GuestAccommodationsPage.TextBoxReservationDays.Text.Trim());
                 if (ReservationDays <= 0) return;
@@ -162,12 +162,6 @@ namespace BookingApp.ViewModel.Guest
             GuestReservation guestReservation = new GuestReservation(selectedCard, user);
             guestReservation.Show();
             guestReservation.Focus();
-        }
-        public void Gallery(object sender, RoutedEventArgs e)
-        {
-            var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
-            ImageGallery imagegallery = new ImageGallery(selectedCard);
-            imagegallery.Show();
         }
     }
 }

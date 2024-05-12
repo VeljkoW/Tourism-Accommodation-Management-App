@@ -4,18 +4,26 @@ using BookingApp.View.Guide.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.ViewModel.Guide
 {
-    public class FinishedToursPageViewModel
+    public class FinishedToursPageViewModel : INotifyPropertyChanged
     {
         public RelayCommand ClickGoBack => new RelayCommand(execute => ClickGoBackExecute());
         public FinishedToursPage FinishedToursPage { get; }
         public User User { get; }
         public ObservableCollection<UserControlTourCardForReview> Cards { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private void ClickGoBackExecute()
         {
             Cards.Clear();

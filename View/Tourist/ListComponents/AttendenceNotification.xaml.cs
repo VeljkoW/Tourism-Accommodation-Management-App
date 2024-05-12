@@ -34,8 +34,7 @@ namespace BookingApp.View.Tourist.ListComponents
             {
                 SelectedNotification.ConfirmedAttendence = true;
                 TourAttendenceNotificationService.GetInstance().Update(SelectedNotification);
-                //Border.BorderBrush = new SolidColorBrush(Colors.DarkGray);
-                //Border.Background = new SolidColorBrush(Colors.Gray);
+                //(Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourAttencenceNotifications(); does not work as intended
             }
 
         }

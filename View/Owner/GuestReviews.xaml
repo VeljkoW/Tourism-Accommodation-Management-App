@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
+      xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="GuestReviews">
@@ -12,6 +13,7 @@
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:ImagesToImagePaths x:Key="ImagesToImagePaths"/>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
     </Page.Resources>
 
@@ -25,11 +27,21 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="1" Grid.Column="1" Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.1*" MaxHeight="120"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
+            <Button Grid.ColumnSpan="2" Content="Reviews" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
+            <Button Grid.ColumnSpan="2" Content="Renovation&#10;Requests" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick"/>
+
+            
+            <!--<DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedOwnerRating, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
@@ -43,33 +55,98 @@
                 </DataGrid.Columns>
                 <DataGrid.ToolTip>
                     <ToolTip>
-                        <!-- Prilagodite sadržaj ToolTip-a prema vašim potrebama -->
+                        --><!-- Prilagodite sadržaj ToolTip-a prema vašim potrebama --><!--
                         <StackPanel>
                             <TextBlock Text="{Binding SelectedOwnerRating.commentId, Converter={StaticResource CommentIdToComment}}" FontWeight="Bold"/>
-                            <!-- Dodajte ostale informacije koje želite prikazati -->
+                            --><!-- Dodajte ostale informacije koje želite prikazati --><!--
                         </StackPanel>
                     </ToolTip>
                 </DataGrid.ToolTip>
-            </DataGrid>
-            <StackPanel Grid.Column="1" Grid.Row="0" >
-                <StackPanel Orientation="Horizontal">
-                    <Label FontSize="32" Content="Reviews number:"/>
-                    <Label FontSize="32" Content="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid>-->
+
+            <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right" Margin="0 20 0 0">
+                <ItemsControl x:Name="accommodationItems" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="15" Margin="20 10" Background="WhiteSmoke"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                </Border.Effect>
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4*" MinWidth="600"/>
+                                        <ColumnDefinition Width="*" MinWidth="151"/>
+                                    </Grid.ColumnDefinitions>
+                                    <userControls:ImageSlider Grid.Column="1" MaxHeight="130" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <!-- <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Images}" 
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Path=Path}" Stretch="UniformToFill"
+                                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl> -->
+                                    <Border Padding="0 0 20 0" Grid.Column="0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="Guest Username:"/>
+                                                <Run FontWeight="Bold" Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="Accommodation:"/>
+                                                <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}"/>
+                                                <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="2" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="Cleanliness:"/>          
+                                                <Run Text="{Binding Cleanliness, StringFormat='{}{0}, '}"/>
+                                                <Run Text="Owner Integrity:"/>
+                                                <Run Text="{Binding OwnerIntegrity}"/>
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="3" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
+                                                <Run Text="Comment:"/>  
+                                                <Run FontSize="18" Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}"/>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="0" Grid.Row="1" Margin="0 20 0 0">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center">
+                        <Run FontSize="32" Text="Reviews number:"/>
+                        <Run FontSize="32" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center">
+                        <Run FontSize="32" Text="Average Grade:"/>
+                        <Run FontSize="32" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0">
+                        <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
+                        <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
+                    </StackPanel>
+                    <Label x:Name="SuperownerLabel" FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 60"/>
+                    <Label FontSize="20" Content="How to become a Superowner?" HorizontalAlignment="Center"/>
+                    <Label FontSize="16" 
+                           Content="In order to become a superowner, &#10;you must have more than 50 reviews &#10;and average grade of at least 4.5" 
+                           HorizontalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label FontSize="32" Content="Average Grade:"/>
-                    <Label FontSize="32" Content="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 60 0 0">
-                    <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
-                    <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
-                </StackPanel>
-                <Label x:Name="SuperownerLabel" FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 60"/>
-                <Label FontSize="20" Content="How to become a Superowner?" HorizontalAlignment="Center"/>
-                <Label FontSize="16" 
-                       Content="In order to become a superowner, &#10;you must have more than 50 reviews &#10;and average grade of at least 4.5" 
-                       HorizontalAlignment="Center"/>
-            </StackPanel>
+            </Grid>
+            
         </Grid>
     </Grid>
 </Page>

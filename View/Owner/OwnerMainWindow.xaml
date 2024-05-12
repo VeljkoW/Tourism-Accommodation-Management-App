@@ -7,27 +7,110 @@
         mc:Ignorable="d"
         Title="OwnerMainWindow" Height="1080" Width="1920">
     <Window.Resources>
+        <Color x:Key="BackgroundColor">#579BB1</Color>
+        <Color x:Key="ButtonPressedColor">#154c79</Color>
+        <Color x:Key="BorderColor">#000033</Color>
+        <Color x:Key="TextColor">#403022</Color>
+        <Color x:Key="TabColor">#ebd3bc</Color>
+        <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
+        <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
+        <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
+        <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+        <SolidColorBrush x:Key="ButtonPressedColorBrush" Color="{StaticResource ButtonPressedColor}"/>
+
         <Style TargetType="ListBoxItem">
             <EventSetter Event="PreviewMouseDown" Handler="ListBoxItem_PreviewMouseDown"/>
         </Style>
+        <!-- <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}"/>
+        </Style> -->
         <Style TargetType="ListBox">
             <Setter Property="BorderBrush" Value="Red"/>
             <Setter Property="BorderThickness" Value="4"/>
         </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#73d1f0"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#154c79"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="TabButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="#e4f1ff" Offset="0"/>
+                <GradientStop Color="#8db9dc" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="149*"/>
+            <ColumnDefinition Width="175*"/>
         </Grid.ColumnDefinitions>
-        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
         <!-- <Rectangle Grid.Column="1"></Rectangle> -->
+
+        <Image Source="../../Resources/Images/accommodationsLogo.png"/>
         <Border BorderThickness="0 0 0 1" BorderBrush="Black"/>
-        <Border Grid.Column="1" BorderThickness="0 0 0 1" BorderBrush="Black">
+        <Border Grid.Column="1" BorderThickness="0 0 0 1" BorderBrush="Black" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" MinWidth="150"/>
@@ -56,13 +139,19 @@
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
                 <ListBox x:Name="NotificationListBox" ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}" 
-                         Grid.Row="0" Grid.Column="2" Width="350" Height="100" HorizontalAlignment="Right" VerticalAlignment="Center"
-                         SelectedValuePath="Print" DisplayMemberPath="Print"></ListBox>
-            
-                <Image Source="../../Resources/Images/Owner/bell.png" Grid.Column="3" Height="64" Width="64" 
-                       HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 20 0 0"></Image>
-                <Label Grid.Column="3" Content="Notifications"
-                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+                         Grid.Row="0" Grid.Column="2" Width="350" Height="104" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 20 20 0"
+                         SelectedValuePath="Print" DisplayMemberPath="Print"/>
+
+                <Button Click="NotificationButtonClick" Grid.Column="3" Margin="0 20 0 25" Background="Transparent" BorderThickness="0"
+                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <Grid>
+                        <Image Source="../../Resources/Images/Owner/bell.png" Height="64" Width="64" 
+                               HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Image x:Name="NewNotificationImage" Source="../../Resources/Images/Owner/record.png" Height="16" Margin="25 0 0 0"
+                               HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="Notifications" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </Button>
 
                 <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
                     <Image Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
@@ -79,7 +168,7 @@
                 </TextBlock>
             </Grid>
         </Border>
-        
+
         <Grid x:Name="NavigationBar" Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" MinHeight="40"/>
@@ -90,21 +179,20 @@
                 <RowDefinition Height="*" MinHeight="40"/>
                 <RowDefinition Height="*" MinHeight="40"/>
             </Grid.RowDefinitions>
-            <Button x:Name="AccommodationReservationButton" Grid.Row="0" Grid.Column="0" Click="AccommodationReservationClick" 
-                Content="Accommodation Management" FontSize="20"/>
+            <Button x:Name="AccommodationManagementButton" Grid.Row="0" Grid.Column="0" Click="AccommodationManagementClick" 
+                    Content="Accommodation Management" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Click="AccommodationStatisticsClick" 
-                Content="Accommodation Statistics" FontSize="20"/>
+                    Content="Accommodation Statistics" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="ReservationReschedulingButton" Grid.Row="2" Grid.Column="0" Click="ReservationReschedulingClick" 
-                Content="Reservation Rescheduling" FontSize="20"/>
+                    Content="Reservation Rescheduling" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="GuestRatingButton" Grid.Row="3" Grid.Column="0" Click="GuestRatingClick"
-                Content="Guest Rating" FontSize="20"/>
-            <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick" 
-            Content="Guest Reviews" FontSize="20"/>
+                    Content="Guest Rating" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+            <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick"
+                    Content="Guest Reviews" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="RenovationButton" Grid.Row="5" Grid.Column="0" Click="RenovationClick" 
-            Content="Renovation" FontSize="20"/>
+                    Content="Renovation" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
             <Button x:Name="ForumButton" Grid.Row="6" Grid.Column="0" Click="ForumClick" 
-            Content="Forum" FontSize="20"/>
-
+                    Content="Forum" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
         </Grid>
     </Grid>
 </Window>

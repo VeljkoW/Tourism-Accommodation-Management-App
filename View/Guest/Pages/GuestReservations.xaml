@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="800" d:DesignWidth="1520"
       Title="GuestReservations">
     <Grid>
         <Grid.RowDefinitions>
@@ -28,32 +28,48 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
-                              HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" MouseLeftButtonDown="clickOnCard">
+                              HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
-                                <Grid Margin="50">
+                                <Grid Margin="20">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="0">
-                                        <Image Source="{Binding Path=Image.Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <Image Source="{Binding Path=Accommodation.Images[0].Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     </Border>
-                                    <Border Grid.Column="1" BorderThickness="0">
-                                        <StackPanel Margin="5">
-                                            <TextBlock Text="{Binding Path=AccommodationName}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                                            <TextBlock Text="{Binding Path=AccommodationType}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Path=Location.State}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Path=Location.City}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                                            <TextBlock Text="{Binding Path=CheckInDate}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                                            <TextBlock Text="{Binding Path=CheckOutDate}" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-                                            <StackPanel Orientation="Horizontal">
-                                            <Button Content="Rescheduling" HorizontalAlignment="Left" Width="100" Height="50" Click="ReschedulingClick" Margin="200 0 0 0"/>
-                                            <Button Content="Cancel" HorizontalAlignment="Left" Width="100" Height="50" Click="CancelClick" Margin="20 0 0 0" />
-                                            <Button Content="Rate It" HorizontalAlignment="Left" Width="100" Height="50" Click="RateItClick" Margin="20 0 0 0"/>
-                                            </StackPanel>
-                                        </StackPanel>
+                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Width="760" Height="200">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="3*"/>
+                                                <RowDefinition Height="3*"/>
+                                                <RowDefinition Height="3*"/>
+                                                <RowDefinition Height="2*"/>
+                                                <RowDefinition Height="2*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Accommodation.Name}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" Margin="5 5 0 0"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Accommodation.AccommodationType}" FontSize="20" HorizontalAlignment="Left" Margin="0 5 0 0"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Accommodation.Location.State}" FontSize="20" HorizontalAlignment="Left" Margin="5 18 0 0"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=Accommodation.Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="5 10 0 5" VerticalAlignment="Top"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                            <Run Text="{Binding Path=CheckInDate}" />
+                                            <Run Text=" - " />
+                                            <Run Text="{Binding Path=CheckOutDate}" />  
+                                            </TextBlock>
+                                            <!--<TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=CheckInDate}" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=CheckOutDate}" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15 0 0 0"/>-->
+                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
+                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
+                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Rate It" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="RateItClick" />
+                                        </Grid>
                                     </Border>
                                 </Grid>
                             </Border>

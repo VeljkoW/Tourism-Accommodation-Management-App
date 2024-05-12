@@ -19,6 +19,8 @@ namespace BookingApp.ViewModel.Tourist
         public TourReservationWindow TourReservationWindow { get; set; }
         public Tour Tour { get; set; }
         public User User { get; set; }
+        public RelayCommand ClickReserve => new RelayCommand(execute => ReserveExecute());
+        public RelayCommand ClickCancel => new RelayCommand(execute => CancelExecute());
         public TourReservationWindowViewModel(TourReservationWindow tourReservationWindow,Tour tour,User user) 
         { 
             this.TourReservationWindow = tourReservationWindow;
@@ -157,13 +159,13 @@ namespace BookingApp.ViewModel.Tourist
             }
             
         }
-        public void Cancel(object sender, RoutedEventArgs e)
+        public void CancelExecute()
         {
             TourReservationWindow.Close();
             TourDetailed tourDetailed = new TourDetailed(Tour, User);
             tourDetailed.ShowDialog();
         }
-        public void Reserve(object sender, RoutedEventArgs e) //NEEDS TO BE SEPARATED A BIT XD
+        public void ReserveExecute() //NEEDS TO BE SEPARATED A BIT XD
         {
 
             List<TourSchedule> tourSchedules = TourScheduleService.GetInstance().GetAll();
@@ -281,6 +283,8 @@ namespace BookingApp.ViewModel.Tourist
                 TourReservationService.GetInstance().Add(tourReservation);
                 TourReservationWindow.Close();
                 TourReservationSuccessful tourReservationSuccessful = new TourReservationSuccessful(Tour, tourReservation);
+                TouristMainWindow touristMainWindow = Application.Current.Windows.OfType<TouristMainWindow>().FirstOrDefault();
+                tourReservationSuccessful.Closed += (s,e) => touristMainWindow.TouristMainWindowViewModel.Update();
                 tourReservationSuccessful.ShowDialog();
 
             }

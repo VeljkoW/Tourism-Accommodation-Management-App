@@ -16,6 +16,42 @@
         <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
         <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
         <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
+        <Color x:Key="HoverColor">#d19f71</Color>
+        <Color x:Key="BorderPressColor">#664b32</Color>
+        <SolidColorBrush x:Key="HoverColorBrush" Color="{StaticResource HoverColor}"/>
+        <SolidColorBrush x:Key="BorderPressColorBrush" Color="{StaticResource BorderPressColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource HoverColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource HoverColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BorderPressColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -68,7 +104,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" Height="50" Width="250" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="SearchSimilarTours" Cursor="Hand">
+                    <Button Grid.Row="0" Height="50" Width="250" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickSearchSimilarTours}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
@@ -82,14 +118,14 @@
                         </Grid.ColumnDefinitions>
                         
                         <Grid Grid.Column="0" x:Name="GoBackButtonGrid">
-                            <Button Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="GoBack" Cursor="Hand">
+                            <Button Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickGoBack}" Cursor="Hand">
                                 <Button.Effect>
                                     <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                                 </Button.Effect>
                                 <TextBlock Text="Go Back" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                             </Button>
                         </Grid>
-                        <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Click="Exit" Cursor="Hand">
+                        <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickExit}" Cursor="Hand">
                             <Button.Effect>
                                 <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                             </Button.Effect>

@@ -23,11 +23,20 @@
 		<None Remove="Resources\Images\delete.png" />
 		<None Remove="Resources\Images\edit.png" />
 		<None Remove="Resources\Images\eye.png" />
+		<None Remove="Resources\Images\Guest\arrowleft.png" />
+		<None Remove="Resources\Images\Guest\arrowright.png" />
+		<None Remove="Resources\Images\Guest\star.png" />
+		<None Remove="Resources\Images\Guide\left_arrow.png" />
 		<None Remove="Resources\Images\Guide\liveicon.png" />
+		<None Remove="Resources\Images\Guest\tutorial.png" />
+		<None Remove="Resources\Images\Guide\right_arrow.png" />
 		<None Remove="Resources\Images\Guide\user.png" />
 		<None Remove="Resources\Images\No-Image-Placeholder.png" />
+		<None Remove="Resources\Images\Owner\arrow-down.png" />
+		<None Remove="Resources\Images\Owner\arrow-up.png" />
 		<None Remove="Resources\Images\Owner\bell.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
+		<None Remove="Resources\Images\Owner\record.png" />
 		<None Remove="Resources\Images\Owner\serbia-flag.png" />
 		<None Remove="Resources\Images\Owner\star.png" />
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
@@ -51,9 +60,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="Resources\Images\add.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Resources\Images\delete.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -89,11 +95,13 @@
 		<Content Include="Resources\Images\TourReview\*.*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Remove="Resources\Images\accommodationsLogo.png" />
       <Content Remove="Resources\Images\Tourist\bell.png" />
       <Content Remove="Resources\Images\Tourist\coupon.png" />
       <Content Remove="Resources\Images\Tourist\live.png" />
       <Content Remove="Resources\Images\Tourist\location.png" />
       <Content Remove="Resources\Images\Tourist\person.png" />
+      <Content Remove="Resources\Images\Tourist\Placeholder.jpg" />
       <Content Remove="Resources\Images\Tourist\search.png" />
       <Content Remove="Resources\Images\Tourist\star.png" />
       <Content Remove="Resources\Images\Tourist\star_empty.png" />
@@ -101,10 +109,20 @@
 		<Content Include="Resources\Images\eye.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Notification.Wpf" Version="8.0.0" />
+		<Resource Include="Resources\Images\accommodationsLogo.png" />
+		<Resource Include="Resources\Images\Guest\arrowleft.png" />
+		<Resource Include="Resources\Images\Guest\arrowright.png" />
+		<Resource Include="Resources\Images\Guest\star.png" />
+		<Resource Include="Resources\Images\Guest\tutorial.png" />
 		<Resource Include="Resources\Images\Guide\user.png" />
+		<Resource Include="Resources\Images\Owner\arrow-down.png" />
+		<Resource Include="Resources\Images\Owner\arrow-up.png" />
 		<Resource Include="Resources\Images\Owner\bell.png" />
 		<Resource Include="Resources\Images\Owner\check-box.png" />
+		<Resource Include="Resources\Images\Owner\record.png" />
 		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
 		<Resource Include="Resources\Images\Owner\star.png" />
 		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
@@ -116,6 +134,7 @@
 		<Resource Include="Resources\Images\Tourist\live.png" />
 		<Resource Include="Resources\Images\Tourist\location.png" />
 		<Resource Include="Resources\Images\Tourist\person.png" />
+		<Resource Include="Resources\Images\Tourist\Placeholder.jpg" />
 		<Resource Include="Resources\Images\Tourist\search.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>
@@ -135,6 +154,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Update="Resources\Images\Guide\left_arrow.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\Images\Guide\right_arrow.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Update="Resources\Images\ratetour.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>

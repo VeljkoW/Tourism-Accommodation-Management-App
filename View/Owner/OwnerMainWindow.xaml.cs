@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.Services;
 using BookingApp.ViewModel.Owner;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -35,6 +37,7 @@ namespace BookingApp.View.Owner
         public GuestRatingPage GuestRatingPage { get; set; }
         //public GuestReviews GuestReviews { get; set; }
         public Renovation Renovation { get; set; }
+        public RenovationHistory RenovationHistory { get; set; }
         public Forum Forum {  get; set; }
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
         public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
@@ -42,18 +45,21 @@ namespace BookingApp.View.Owner
         {
             InitializeComponent();
             OwnerMainWindowViewModel = new OwnerMainWindowViewModel(this, user);
-            this.DataContext = OwnerMainWindowViewModel;
-            this.user = user;
+            DataContext = OwnerMainWindowViewModel;
 
+            this.user = user;
+            NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
-            AccommodationStatistics = new AccommodationStatistics();
+            AccommodationStatistics = new AccommodationStatistics(this);
             ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
-            GuestRatingPage = new GuestRatingPage(this, user);
-            ReservedAccommodations = GuestRatingPage.GuestRatingViewModel.Update();
+            GuestRatingPage = new GuestRatingPage(this, user);////////////////////////////////////////////////////////////
+            ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
+            ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
             //GuestReviews = new GuestReviews(user);
-            Renovation = new Renovation();
+            Renovation = new Renovation(this);
+            RenovationHistory = new RenovationHistory(this);
             Forum = new Forum();
             mainFrame.Navigate(AccommodationRegistration);
 
@@ -61,7 +67,9 @@ namespace BookingApp.View.Owner
             {
                 NotificationListBox.BorderBrush = Brushes.Gray;
                 NotificationListBox.BorderThickness = new Thickness(1);
+                NewNotificationImage.Visibility = Visibility.Collapsed;
             }
+            NavigationButtonBarPressed("AccommodationManagementButton");
         }
         private void LogOut(object sender, RoutedEventArgs e)
         {
@@ -69,14 +77,18 @@ namespace BookingApp.View.Owner
             signInForm.Show();
             Close();
         }
-        private void AccommodationReservationClick(object sender, RoutedEventArgs e)
-        { mainFrame.Navigate(AccommodationRegistration); }
+        private void AccommodationManagementClick(object sender, RoutedEventArgs e)
+        { 
+            mainFrame.Navigate(AccommodationRegistration);
+            NavigationButtonBarPressed("AccommodationManagementButton");
+        }
 
         private void GuestRatingClick(object sender, RoutedEventArgs e)
         {
             NotificationListBox.BorderBrush = Brushes.Gray;
             NotificationListBox.BorderThickness = new Thickness(1);
             mainFrame.Navigate(GuestRatingPage);
+            NavigationButtonBarPressed("GuestRatingButton");
         }
         private void ListBoxItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -87,22 +99,57 @@ namespace BookingApp.View.Owner
 
         private void GuestReviewsClick(object sender, RoutedEventArgs e)
         {
-            GuestReviews GuestReviews = new GuestReviews(user);
+            GuestReviews GuestReviews = new GuestReviews(this);
             mainFrame.Navigate(GuestReviews);
+            NavigationButtonBarPressed("GuestReviewsButton");
         }
 
         private void AccommodationStatisticsClick(object sender, RoutedEventArgs e)
         { 
-            mainFrame.Navigate(AccommodationStatistics); 
+            mainFrame.Navigate(AccommodationStatistics);
+            NavigationButtonBarPressed("AccommodationStatisticsButton");
         }
 
         private void ReservationReschedulingClick(object sender, RoutedEventArgs e)
-        { mainFrame.Navigate(ReservationRescheduling); }
+        { 
+            mainFrame.Navigate(ReservationRescheduling);
+            NavigationButtonBarPressed("ReservationReschedulingButton");
+        }
 
         private void RenovationClick(object sender, RoutedEventArgs e)
-        { mainFrame.Navigate(Renovation); }
+        { 
+            mainFrame.Navigate(Renovation);
+            NavigationButtonBarPressed("RenovationButton");
+        }
 
         private void ForumClick(object sender, RoutedEventArgs e)
-        { mainFrame.Navigate(Forum); }
+        { 
+            mainFrame.Navigate(Forum);
+            NavigationButtonBarPressed("ForumButton");
+        }
+
+        private void NotificationButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(NotificationListBox.Visibility == Visibility.Collapsed)
+                NotificationListBox.Visibility = Visibility.Visible;
+            else
+                NotificationListBox.Visibility = Visibility.Collapsed;
+            NewNotificationImage.Visibility = Visibility.Collapsed;
+        }
+        private void NavigationButtonBarPressed(string buttonName)
+        {
+            Color backgroundButtonPressedColor = (Color)FindResource("ButtonPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("BackgroundColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+
+            AccommodationManagementButton.Background = buttonName == "AccommodationManagementButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            AccommodationStatisticsButton.Background = buttonName == "AccommodationStatisticsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            ReservationReschedulingButton.Background = buttonName == "ReservationReschedulingButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            GuestRatingButton.Background = buttonName == "GuestRatingButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            GuestReviewsButton.Background = buttonName == "GuestReviewsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            RenovationButton.Background = buttonName == "RenovationButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            ForumButton.Background = buttonName == "ForumButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+        }
     }
 }

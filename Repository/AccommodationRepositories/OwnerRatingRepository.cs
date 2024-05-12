@@ -3,7 +3,6 @@ using BookingApp.Domain.Model;
 using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

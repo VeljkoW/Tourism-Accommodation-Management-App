@@ -1,0 +1,130 @@
+﻿<Page x:Class="BookingApp.View.Owner.RenovationHistory"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="RenovationHistory">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.1*" MaxHeight="120"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Scheduling" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="SchedulingClick"/>
+            <Button Content="History" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
+
+            <Label Content="History of renovation" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+            <!-- <DataGrid x:Name="RatingGuestsTable" Grid.Row="1" Margin="20 60 20 40"
+                      ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedScheduledRenovation, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Single" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="1.2*" Header="Accommodation name" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                </DataGrid.Columns>
+            </DataGrid> -->
+
+                <ItemsControl Grid.Row="1" Margin="0 40 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="10" Margin="10 10" Padding="10" Background="White"
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="190">
+                                <!--zbog ovog heighta su sve iste velicine-->
+                                <!-- MouseLeftButtonDown="ClickedOnCard"> -->
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                </Border.Effect>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock Grid.Row="0" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 3">
+                                            <Run Text="Accommodation Name:"/>
+                                            <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="1" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 3">
+                                            <Run Text="Start date:" FontSize="20"/>
+                                            <Run FontWeight="Bold" Text="{Binding StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="2" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 3">
+                                            <Run Text="End date:" FontSize="20"/>
+                                            <Run FontWeight="Bold" Text="{Binding EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="3" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <Run Text="Renovation details: "/>
+                                            <Run Text="{Binding Details, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            <!-- <Grid Grid.Column="1" Grid.Row="1" Margin="20 0 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" 
+                        Margin="20 60 20 0" Height="300" VerticalAlignment="Top">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Margin="0 0 0 5">
+                                <Run Text="Accommodation Name:" FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                            </TextBlock>
+                            <TextBlock Grid.Row="1" Margin="0 0 0 5">
+                                <Run Text="Start date - End date:" FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                                <Run Text=" - " FontSize="20"/>
+                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
+                            </TextBlock>
+                            <TextBlock Grid.Row="2"  FontSize="20" TextWrapping="Wrap">
+                                <Run Text="Renovation details: "/>
+                                <Run Text="{Binding SelectedScheduledRenovation.Details, UpdateSourceTrigger=PropertyChanged}"/>
+                            </TextBlock>
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+            </Grid> -->
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
