@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Repository.TourRepositories;
 using BookingApp.Services;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,39 @@ namespace BookingApp.View.Tourist.ListComponents
                 //(Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourSuggestionNotifications(); does not work as intended
             }
 
+        }
+        public void ClickedOnCard(object sender, RoutedEventArgs e)
+        {
+            var SelectedTourNotification = DataContext as TourNotification;
+            if (SelectedTourNotification != null)
+            {
+                User user = new User();
+
+                if (TouristMainWindow.User != null)
+                {
+                    user = TouristMainWindow.User;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+                Tour tour = TourService.GetInstance().GetById(SelectedTourNotification.TourId);
+                bool exists = false;
+                foreach(TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
+                {
+                    if(SelectedTourNotification.TourId == tourSchedule.TourId && tourSchedule.ScheduleStatus == ScheduleStatus.Ready)
+                    {
+                        tour = TourService.GetInstance().MakeTour(tour, tourSchedule);
+                        exists = true;
+                        break;
+                    }
+                }
+                if (exists)
+                {
+                    TourDetailed tourDetailed = new TourDetailed(tour, user);
+                    tourDetailed.ShowDialog();
+                }
+            }
         }
     }
 }
