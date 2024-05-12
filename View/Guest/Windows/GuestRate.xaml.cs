@@ -19,9 +19,6 @@ using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.Guest.Windows
 {
-    /// <summary>
-    /// Interaction logic for GuestRate.xaml
-    /// </summary>
     public partial class GuestRate : Window
     {
         public int Cleanliness {  get; set; }
@@ -50,25 +47,15 @@ namespace BookingApp.View.Guest.Windows
                 if (radioButton.IsChecked == true)
                 {
                     if (radioButton.Name == "Cleanliness1")
-                    {
                         Cleanliness = 1;
-                    }
                     else if (radioButton.Name == "Cleanliness2")
-                    {
                         Cleanliness = 2;
-                    }
                     else if (radioButton.Name == "Cleanliness3")
-                    {
                         Cleanliness = 3;
-                    }
                     else if (radioButton.Name == "Cleanliness4")
-                    {
                         Cleanliness = 4;
-                    }
                     else if (radioButton.Name == "Cleanliness5")
-                    {
                         Cleanliness = 5;
-                    }
                 }
             }
         }
@@ -79,25 +66,15 @@ namespace BookingApp.View.Guest.Windows
                 if (radioButton.IsChecked == true)
                 {
                     if (radioButton.Name == "Integrity1")
-                    {
                         Integrity = 1;
-                    }
                     else if (radioButton.Name == "Integrity2")
-                    {
                         Integrity = 2;
-                    }
                     else if (radioButton.Name == "Integrity3")
-                    {
                         Integrity = 3;
-                    }
                     else if (radioButton.Name == "Integrity4")
-                    {
                         Integrity = 4;
-                    }
                     else if (radioButton.Name == "Integrity5")
-                    {
                         Integrity = 5;
-                    }
                 }
             }
         }
