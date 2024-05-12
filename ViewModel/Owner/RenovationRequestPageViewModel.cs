@@ -14,6 +14,7 @@ namespace BookingApp.ViewModel.Owner
     {
         public RenovationRequestPage RenovationRequestPage {  get; set; }
         public ObservableCollection<RenovationRequest> RenovationRequests { get; set; }
+        public RenovationRequest SelectedRenovationRequest {  get; set; }
         public RenovationRequestPageViewModel(RenovationRequestPage RenovationRequestPage)
         {
             this.RenovationRequestPage = RenovationRequestPage;
@@ -27,6 +28,11 @@ namespace BookingApp.ViewModel.Owner
                     RenovationRequests.Add(renovationRequest);
                 }
             }
+        }
+        public void CloseRequest()
+        {
+            RenovationRequests.Remove(SelectedRenovationRequest);
+            RenovationRequestService.GetInstance().DeleteById(SelectedRenovationRequest.Id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BookingApp.ViewModel;
+using BookingApp.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Image = BookingApp.Domain.Model.Image;
 
 namespace BookingApp.View.UserControls
 {
@@ -23,12 +25,21 @@ namespace BookingApp.View.UserControls
     /// </summary>
     public partial class ImageSlider : UserControl, INotifyPropertyChanged
     {
+        public static readonly DependencyProperty ImagePathsProperty =
+            DependencyProperty.Register("ImagePaths", typeof(ObservableCollection<string>), typeof(ImageSlider), new PropertyMetadata(null));
+
         private int currentImageIndex = 0;
-        public ObservableCollection<string> ImagePaths { get; set; }
-        public string CurrentImagePath => ImagePaths.ElementAtOrDefault(CurrentImageIndex);
-        public int TotalImages => ImagePaths.Count;
+        //public ObservableCollection<string> ImagePaths { get; set; }
+        public string CurrentImagePath => ImagePaths?.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths?.Count ?? 0;
         public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
         public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
+        public ObservableCollection<string> ImagePaths
+        {
+            get { return (ObservableCollection<string>)GetValue(ImagePathsProperty); }
+            set { SetValue(ImagePathsProperty, value); }
+        }
+        public ObservableCollection<Image> Images { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
@@ -40,7 +51,6 @@ namespace BookingApp.View.UserControls
         public ImageSlider()
         {
             InitializeComponent();
-            ImagePaths = new ObservableCollection<string>();
         }
         public int CurrentImageIndex
         {

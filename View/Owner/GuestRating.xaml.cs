@@ -52,26 +52,11 @@ namespace BookingApp.View.Owner
             {
                 if (radioButton.IsChecked == true)
                 {
-                    if (radioButton.Name == "Cleanliness1")
-                    {
-                        Cleanliness = 1;
-                    }
-                    else if (radioButton.Name == "Cleanliness2")
-                    {
-                        Cleanliness = 2;
-                    }
-                    else if (radioButton.Name == "Cleanliness3")
-                    {
-                        Cleanliness = 3;
-                    }
-                    else if (radioButton.Name == "Cleanliness4")
-                    {
-                        Cleanliness = 4;
-                    }
-                    else if (radioButton.Name == "Cleanliness5")
-                    {
-                        Cleanliness = 5;
-                    }
+                    if (radioButton.Name == "Cleanliness1") Cleanliness = 1;
+                    else if (radioButton.Name == "Cleanliness2") Cleanliness = 2;
+                    else if (radioButton.Name == "Cleanliness3") Cleanliness = 3;
+                    else if (radioButton.Name == "Cleanliness4") Cleanliness = 4;
+                    else if (radioButton.Name == "Cleanliness5") Cleanliness = 5;
                 }
             }
         }
@@ -82,26 +67,11 @@ namespace BookingApp.View.Owner
             {
                 if (radioButton.IsChecked == true)
                 {
-                    if (radioButton.Name == "FollowingGuidelines1")
-                    {
-                        FollowingGuidelines = 1;
-                    }
-                    else if (radioButton.Name == "FollowingGuidelines2")
-                    {
-                        FollowingGuidelines = 2;
-                    }
-                    else if (radioButton.Name == "FollowingGuidelines3")
-                    {
-                        FollowingGuidelines = 3;
-                    }
-                    else if (radioButton.Name == "FollowingGuidelines4")
-                    {
-                        FollowingGuidelines = 4;
-                    }
-                    else if (radioButton.Name == "FollowingGuidelines5")
-                    {
-                        FollowingGuidelines = 5;
-                    }
+                    if (radioButton.Name == "FollowingGuidelines1") FollowingGuidelines = 1;
+                    else if (radioButton.Name == "FollowingGuidelines2") FollowingGuidelines = 2;
+                    else if (radioButton.Name == "FollowingGuidelines3") FollowingGuidelines = 3;
+                    else if (radioButton.Name == "FollowingGuidelines4") FollowingGuidelines = 4;
+                    else if (radioButton.Name == "FollowingGuidelines5") FollowingGuidelines = 5;
                 }
             }
         }

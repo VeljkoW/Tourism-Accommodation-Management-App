@@ -27,10 +27,20 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="1" Grid.Column="1" Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.1*" MaxHeight="120"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
+            <Button Grid.ColumnSpan="2" Content="Reviews" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
+            <Button Grid.ColumnSpan="2" Content="Renovation&#10;Requests" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick"/>
+
+            
             <!--<DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedOwnerRating, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
@@ -54,7 +64,7 @@
                 </DataGrid.ToolTip>
             </DataGrid>-->
 
-            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right">
+            <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right" Margin="0 20 0 0">
                 <ItemsControl x:Name="accommodationItems" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -68,9 +78,8 @@
                                         <ColumnDefinition Width="4*" MinWidth="600"/>
                                         <ColumnDefinition Width="*" MinWidth="151"/>
                                     </Grid.ColumnDefinitions>
-
-                                    <!-- <userControls:ImageSlider Grid.Column="1" ImagePaths="{Binding Images, Converter={StaticResource ImagesToImagePaths}}"/> -->
-                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Images}" 
+                                    <userControls:ImageSlider Grid.Column="1" MaxHeight="130" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <!-- <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Images}" 
                                                     VerticalAlignment="Center" HorizontalAlignment="Center">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -78,7 +87,7 @@
                                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
+                                    </ItemsControl> -->
                                     <Border Padding="0 0 20 0" Grid.Column="0">
                                         <Grid>
                                             <Grid.RowDefinitions>
@@ -116,27 +125,17 @@
                 </ItemsControl>
             </ScrollViewer>
 
-            <Grid Grid.Column="0" Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1.5*"/>
-                    <RowDefinition Height="9*"/>
-                </Grid.RowDefinitions>
-
-                <Button Content="Reviews" FontSize="24" Width="150" Height="70" Margin="0 0 200 0" 
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
-                <Button Content="Renovation&#10;Requests" FontSize="24" Width="150" Height="70" Margin="200 0 0 0" 
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick"/>
-
-                <StackPanel Grid.Row="1" >
-                    <StackPanel Orientation="Horizontal">
-                        <Label FontSize="32" Content="Reviews number:"/>
-                        <Label FontSize="32" Content="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label FontSize="32" Content="Average Grade:"/>
-                        <Label FontSize="32" Content="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 60 0 0">
+            <Grid Grid.Column="0" Grid.Row="1" Margin="0 20 0 0">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center">
+                        <Run FontSize="32" Text="Reviews number:"/>
+                        <Run FontSize="32" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Center">
+                        <Run FontSize="32" Text="Average Grade:"/>
+                        <Run FontSize="32" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0">
                         <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
                         <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
                     </StackPanel>

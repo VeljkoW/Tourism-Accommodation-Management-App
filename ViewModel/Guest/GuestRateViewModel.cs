@@ -169,9 +169,7 @@ namespace BookingApp.ViewModel.Guest
         { 
             if((GuestRate.Cleanliness1.IsChecked == false && GuestRate.Cleanliness2.IsChecked == false && GuestRate.Cleanliness3.IsChecked == false
                 && GuestRate.Cleanliness4.IsChecked == false && GuestRate.Cleanliness5.IsChecked == false) || string.IsNullOrEmpty(GuestRate.CommentTextBox.Text.ToString()))
-            {
                 return false;
-            }
 
             return true;
         }
@@ -247,13 +245,9 @@ namespace BookingApp.ViewModel.Guest
             {
                 DirectoryInfo? parentDirectory = Directory.GetParent(path);
                 if (parentDirectory != null)
-                {
                     path = parentDirectory.FullName;
-                }
                 else
-                {
                     throw new InvalidOperationException("Cannot navigate up three directories from base.");
-                }
             }
             return path;
         }

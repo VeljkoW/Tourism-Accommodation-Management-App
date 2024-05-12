@@ -54,6 +54,13 @@ namespace BookingApp.Repository.AccommodationRepositories
             _renovationRequests = _serializer.FromCSV(FilePath);
             return _renovationRequests.Find(c => c.Id == Id);
         }
+        public void DeleteById(int Id)
+        {
+            _renovationRequests = _serializer.FromCSV(FilePath);
+            RenovationRequest? renovationRequest = _renovationRequests.Find(c => c.Id == Id);
+            _renovationRequests.Remove(renovationRequest);
+            _serializer.ToCSV(FilePath, _renovationRequests);
+        }
 
     }
 }
