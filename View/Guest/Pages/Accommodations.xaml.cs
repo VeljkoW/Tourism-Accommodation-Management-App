@@ -17,14 +17,10 @@ using System.Windows.Shapes;
 
 namespace BookingApp.View.Guest.Pages
 {
-    /// <summary>
-    /// Interaction logic for Accommodations.xaml
-    /// </summary>
     public partial class Accommodations : Page
     {
         public GuestAccommodationsViewModel GuestAccommodationsViewModel { get; set; }
 
-        //public GuestRate GuestRate { get; set; }
         public Accommodations(User user)
         {
             InitializeComponent();

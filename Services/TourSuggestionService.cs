@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
+using BookingApp.View.Guide;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -39,10 +40,10 @@ namespace BookingApp.Services
         {
             return TourSuggestionRepository.Update(tourSuggestion);
         }
-        public List<String> GetAllLanguages(int id)
+        public List<string> GetAllLanguages(int userId)
         {
-            List<String> languages = new List<String>();
-            foreach(TourSuggestion tourSuggestion in GetAllByUserId(id))
+            List<string> languages = new List<string>();
+            foreach(TourSuggestion tourSuggestion in GetAllByUserId(userId))
             {
                 bool exists = false;
                 foreach (string s in languages)
@@ -60,10 +61,10 @@ namespace BookingApp.Services
             }
             return languages;
         }
-        public List<String> GetAllLocations(int id)
+        public List<string> GetAllLocations(int userId)
         {
-            List<String> locations = new List<String>();
-            foreach (TourSuggestion tourSuggestion in GetAllByUserId(id))
+            List<string> locations = new List<string>();
+            foreach (TourSuggestion tourSuggestion in GetAllByUserId(userId))
             {
                 bool exists = false;
                 Location ?location = LocationService.GetInstance().GetById(tourSuggestion.LocationId);
@@ -87,11 +88,11 @@ namespace BookingApp.Services
             }
             return locations;
         }
-        public int CountRequestsByLanguage(string language,int id)
+        public int CountRequestsByLanguage(string language,int userId)
         {
             int count = 0;
 
-            foreach(TourSuggestion tourSuggestion in GetAllByUserId(id))
+            foreach(TourSuggestion tourSuggestion in GetAllByUserId(userId))
             {
                 if(tourSuggestion.Language == language)
                 {
@@ -119,24 +120,24 @@ namespace BookingApp.Services
             }
             return count;
         }
-        public List<TourSuggestion> GetAllByUserId(int id)
+        public List<TourSuggestion> GetAllByUserId(int userId)
         {
             List<TourSuggestion> tourSuggestions = new List<TourSuggestion>();
             foreach(TourSuggestion tourSuggestion in GetAll())
             {
-                if(id == tourSuggestion.UserId)
+                if(userId == tourSuggestion.UserId)
                 {
                     tourSuggestions.Add(tourSuggestion);
                 }
             }
             return tourSuggestions;
         }
-        public List<TourSuggestion> GetAllByUserIdAndYear(int id,int year)
+        public List<TourSuggestion> GetAllByUserIdAndYear(int userId, int year)
         {
             List<TourSuggestion> tourSuggestions = new List<TourSuggestion>();
             foreach (TourSuggestion tourSuggestion in GetAll())
             {
-                if (id == tourSuggestion.UserId && year.ToString() == tourSuggestion.FromDate.Year.ToString())
+                if (userId == tourSuggestion.UserId && year.ToString() == tourSuggestion.FromDate.Year.ToString())
                 {
                     tourSuggestions.Add(tourSuggestion);
                 }
@@ -197,10 +198,10 @@ namespace BookingApp.Services
             
             return average;
         }
-        public List<String> GetAllTourSuggestionYears(int id)
+        public List<string> GetAllTourSuggestionYears(int userId)
         {
-            List<String> Years = new List<String>();
-            foreach(TourSuggestion tourSuggestion in GetAllByUserId(id))
+            List<string> Years = new List<string>();
+            foreach(TourSuggestion tourSuggestion in GetAllByUserId(userId))
             {
                 bool exists = false;
                 foreach(string year in Years)
@@ -218,6 +219,47 @@ namespace BookingApp.Services
             }
 
             return Years;
+        }
+        public int GetMostRequestedLocation()
+        {
+            List<TourSuggestion> tourSuggestions = GetAll();
+            tourSuggestions = tourSuggestions.Where(t=>t.ToDate.AddYears(1) > DateTime.Today).ToList();
+            int locationId = tourSuggestions
+            .GroupBy(ts => ts.LocationId)
+            .OrderByDescending(g => g.Count())
+            .First()
+            .Key;
+            var location = LocationService.GetInstance().GetById(locationId);
+            return location.Id;
+        }
+        public string GetMostRequestedLanguage()
+        {
+            List<TourSuggestion> tourSuggestions = GetAll();
+            tourSuggestions = tourSuggestions.Where(t=>t.ToDate.AddYears(1) > DateTime.Now).ToList();
+            return tourSuggestions
+            .GroupBy(ts => ts.Language)
+            .OrderByDescending(g => g.Count())
+            .First()
+            .Key;
+        }
+        public bool IsGuideFree(DateTime date)
+        {
+            List<int> tourIds = TourService.GetInstance().GetAll().Where(t => t.OwnerId == GuideMainWindow.UserId).Select(t=>t.Id).ToList();
+            List<TourSchedule> tourSchedules = TourScheduleService.GetInstance().GetAll().Where(t=> tourIds.Contains( t.TourId)).ToList();
+            foreach(TourSchedule schedule in tourSchedules)
+            {
+                int duration = TourService.GetInstance().GetById(schedule.TourId).Duration;
+                DateTime endtime = schedule.Date.AddHours(duration);
+                if (date > schedule.Date)
+                {
+                    if(date < endtime)
+                    {
+                    return false;
+                    }
+                }
+
+            }
+            return true;
         }
     }
 }

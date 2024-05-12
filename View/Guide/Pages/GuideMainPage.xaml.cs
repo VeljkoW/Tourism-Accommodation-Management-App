@@ -70,5 +70,17 @@ namespace BookingApp.View.Guide.Pages
             FinishedToursPage tourReviewsPage = new FinishedToursPage(this,User);
             NavigationService.Navigate(tourReviewsPage);
         }
+
+        private void ClickTourSuggestions(object sender, RoutedEventArgs e)
+        {
+            TourRequestsPage tourRequestsPage = new TourRequestsPage();
+            NavigationService.Navigate(tourRequestsPage);
+        }
+
+        private void ClickTourSuggestionsStatistics(object sender, RoutedEventArgs e)
+        {
+            TourRequestStatisticsPage tourRequestStatisticsPage = new TourRequestStatisticsPage();
+            NavigationService.Navigate(tourRequestStatisticsPage);
+        }
     }
 }

@@ -41,25 +41,15 @@ namespace BookingApp.View.Guest.Windows
                 if (radioButton.IsChecked == true)
                 {
                     if (radioButton.Name == "Level1")
-                    {
                         Level = 1;
-                    }
                     else if (radioButton.Name == "Level2")
-                    {
                         Level = 2;
-                    }
                     else if (radioButton.Name == "Level3")
-                    {
                         Level = 3;
-                    }
                     else if (radioButton.Name == "Level4")
-                    {
                         Level = 4;
-                    }
                     else if (radioButton.Name == "Level5")
-                    {
                         Level = 5;
-                    }
                 }
             }
         }

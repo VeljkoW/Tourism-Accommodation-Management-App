@@ -65,6 +65,7 @@ namespace BookingApp.Repository.TourRepositories
             oldTourSuggestion.FromDate = tourSuggestion.FromDate;
             oldTourSuggestion.ToDate = tourSuggestion.ToDate;
             oldTourSuggestion.Date = tourSuggestion.Date;
+            oldTourSuggestion.Status = tourSuggestion.Status;
             _serializer.ToCSV(FilePath, _tourSuggestions);
             return oldTourSuggestion;
         }
