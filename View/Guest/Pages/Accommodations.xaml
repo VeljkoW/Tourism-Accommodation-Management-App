@@ -15,8 +15,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="1" Content="Accommodations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0" FontWeight="Bold" FontSize="40"/>
         <Grid Grid.Row="1" Grid.Column="1" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 0 20" Content="Search" Grid.Column="7" Grid.Row="0" Command="{Binding SearchButtonClick}" Height="30" Width="100"/>
+            <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 0 20" FontSize="20" Content="Search" Grid.Column="7" Grid.Row="0" Command="{Binding SearchButtonClick}" Height="30" Width="100"/>
             <TextBox x:Name="TextBoxName" FontSize="20" Grid.Column="1" Grid.Row="0" Margin="0 0 0 20" Height="30" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="Gray" GotFocus="AccommodationName_Clicked" LostFocus="AccommodationName_NotClicked"/>
             <TextBox x:Name="TextBoxState" FontSize="20" Grid.Column="2" Grid.Row="0" Margin="0 0 0 20" Height="30" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="Gray" GotFocus="AccommodationState_Clicked" LostFocus="AccommodationState_NotClicked"/>
             <TextBox x:Name="TextBoxCity" FontSize="20" Grid.Column="3" Grid.Row="0" Margin="0 0 0 20" Height="30" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="Gray" GotFocus="AccommodationCity_Clicked" LostFocus="AccommodationCity_NotClicked"/>
