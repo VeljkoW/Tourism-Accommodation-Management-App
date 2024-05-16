@@ -243,6 +243,7 @@ namespace BookingApp.ViewModel.Guide
             foreach (var tourSuggestion in tourSuggestions)
             {
                 Location location = LocationService.GetInstance().GetById(tourSuggestion.LocationId);
+                if(SelectedLanguage != null)
                 if (SelectedLanguage != "" && !SelectedLanguage.Equals(tourSuggestion.Language))
                 {
                     continue;

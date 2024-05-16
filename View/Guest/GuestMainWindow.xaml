@@ -72,40 +72,87 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="44" Click="NotificationsClick" Background="Transparent" Width="44" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 100 0">
+        <Image Source="../../Resources/Images/accommodationsLogo.png"  Grid.Column="0" Grid.Row="0"></Image>
+        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="80"  Width="200" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 10 0">
+            <Button.Content>
+                <StackPanel Orientation="Vertical">
+                    <Image Source="../../Resources/Images/Guest/user.png" Height="44" Width="44"></Image>
+                    <Label x:Name="Username" FontSize="18" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        
+        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="44" Click="NotificationsClick" Background="Transparent" Width="44" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 280 0">
             <Button.Content>
                 <Image Source="../../Resources/Images/Owner/bell.png"></Image>
             </Button.Content>
         </Button>
         <Label Grid.Column="1" Grid.Row="0" Content="Notifications"
-        FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 65 25"/>
-        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="44" Background="Transparent" Width="44" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 200 0">
+        FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 248 25"/>
+        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="44" Background="Transparent" Width="44" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 380 0">
             <Button.Content>
                 <Image Source="../../Resources/Images/Guest/tutorial.png"></Image>
             </Button.Content>
         </Button>
         <Label Grid.Column="1" Grid.Row="0" Content="Tutorial"
-        FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 187 25"/>
+        FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 366 25"/>
+        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="0 0 0 1" BorderBrush="Black"/>
+        <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BorderThickness="0 0 1 0" BorderBrush="Black"/>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3" ></Frame>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="1.2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="0" Height="125" Width="300" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AccommodationsClick" Content="Accommodations" FontSize="30"/>
-            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="1" Height="125" Width="300" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReservationClick" Content="Reservations" FontSize="30"/>
-            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" Height="125" Width="300" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReviewsClick" Content="Reviews" FontSize="30"/>
-            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Height="125" Width="300" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ForumClick" Content="Forum" FontSize="30" />
+            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="0" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AccommodationsClick">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal"  Margin="0 0 27 0">
+                        <Image Source="../../Resources/Images/Guest/bed.png" Height="30" Width="30" Margin="0 2.5 0 0"></Image>
+                        <Label Content="Accommodations" FontSize="25" Margin="10 0 0 0"></Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="1" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReservationClick">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 80 0">
+                        <Image Source="../../Resources/Images/Guest/bag.png" Height="30" Width="30" Margin="0 0 0 2"></Image>
+                        <Label Content="Reservations" FontSize="25" Margin="10 0 0 0"></Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReviewsClick">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 125 0">
+                        <Image Source="../../Resources/Images/Guest/rating.png" Height="30" Width="30" Margin="0 0 0 6"></Image>
+                        <Label Content="Reviews" FontSize="25" Margin="10 0 0 0"></Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ForumClick">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 142 0">
+                        <Image Source="../../Resources/Images/Guest/forum.png" Height="30" Width="30" Margin="0 2.5 0 0"></Image>
+                        <Label Content="Forum" FontSize="25" Margin="10 0 0 0"></Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Border Grid.Row="4" Grid.Column="0" BorderThickness="0 1 0 0" Margin="0 15 0 0" BorderBrush="Black"/>
             <Grid Grid.Row="4" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Style="{DynamicResource ButtonStyle}" Grid.Column="0" Click="LogOutClick" Content="Log Out" FontSize="20" Height="60" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
+                <Button Style="{DynamicResource ButtonStyle}" Margin="0 20 0 0"  Grid.Column="0" Click="LogOutClick" Height="60" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../../Resources/Images/Guest/logout.png" Height="20" Width="20" Margin="0 5 0 0"></Image>
+                            <Label Content="Log Out" FontSize="20"></Label>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Grid>
     </Grid>
