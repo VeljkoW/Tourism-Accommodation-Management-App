@@ -49,7 +49,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10" Background="White"
-                                        HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="190">
                                     <!-- MouseLeftButtonDown="ClickedOnCard"> -->
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
@@ -59,38 +59,40 @@
                                             <ColumnDefinition Width="3*"/>
                                             <ColumnDefinition Width="1.5*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Border Padding="5 0 20 0" Grid.Column="0">
-                                            <Grid>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="auto"/>
-                                                </Grid.RowDefinitions>
-                                                <TextBlock Grid.Row="0" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <Border Padding="5 0 20 0" Grid.Column="0">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto"/>
+                                                        <RowDefinition Height="auto"/>
+                                                        <RowDefinition Height="auto"/>
+                                                        <RowDefinition Height="auto"/>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
                                                     <Run Text="Accommodation: " />
                                                     <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
-                                                </TextBlock>
-                                                <TextBlock Grid.Row="1" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                    </TextBlock>
+                                                    <TextBlock Grid.Row="1" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
                                                     <Run Text="Location: "/>
                                                     <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
-                                                </TextBlock>
-                                                
-                                                <TextBlock Grid.Row="2" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                    </TextBlock>
+
+                                                    <TextBlock Grid.Row="2" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
                                                     <Run Text="Guest Username: "/>
                                                     <Run FontWeight="Bold" Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                                                </TextBlock>
-                                                <TextBlock Grid.Row="3" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                    </TextBlock>
+                                                    <TextBlock Grid.Row="3" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
                                                     <Run Text="Level of Renovation Request: "/>
                                                     <Run FontWeight="Bold" Text="{Binding Level}"/>
-                                                </TextBlock>
-                                                <TextBlock Grid.Row="4" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                    </TextBlock>
+                                                    <TextBlock Grid.Row="4" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
                                                     <Run Text="Comment: "/>
                                                     <Run Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}"/>
-                                                </TextBlock>
-                                            </Grid>
-                                        </Border>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </Border>
+                                        </ScrollViewer>
                                         <Grid Grid.Column="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>

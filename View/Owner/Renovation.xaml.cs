@@ -47,5 +47,6 @@ namespace BookingApp.View.Owner
             RenovationViewModel.SelectedScheduledRenovation = selectedCard;
             RenovationViewModel.DeleteRowExecute(selectedCard);
         }
+
     }
 }

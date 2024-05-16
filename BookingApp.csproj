@@ -42,9 +42,16 @@
 		<None Remove="Resources\Images\Owner\arrow-up.png" />
 		<None Remove="Resources\Images\Owner\bell.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
+		<None Remove="Resources\Images\Owner\forum.png" />
+		<None Remove="Resources\Images\Owner\guest-rating.png" />
+		<None Remove="Resources\Images\Owner\hotel.png" />
 		<None Remove="Resources\Images\Owner\record.png" />
+		<None Remove="Resources\Images\Owner\renovation.png" />
+		<None Remove="Resources\Images\Owner\rescheduling.png" />
+		<None Remove="Resources\Images\Owner\review.png" />
 		<None Remove="Resources\Images\Owner\serbia-flag.png" />
 		<None Remove="Resources\Images\Owner\star.png" />
+		<None Remove="Resources\Images\Owner\statistics.png" />
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
 		<None Remove="Resources\Images\Owner\user.png" />
 		<None Remove="Resources\Images\Owner\user128x128.png" />
@@ -79,6 +86,7 @@
 
 	<ItemGroup>
 	  <DesignDataWithDesignTimeCreatableTypes Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61dAAA.jpg" />
+	  <Resource Include="Resources\Images\Owner\renovation.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -134,9 +142,15 @@
 		<Resource Include="Resources\Images\Owner\arrow-up.png" />
 		<Resource Include="Resources\Images\Owner\bell.png" />
 		<Resource Include="Resources\Images\Owner\check-box.png" />
+		<Resource Include="Resources\Images\Owner\forum.png" />
+		<Resource Include="Resources\Images\Owner\guest-rating.png" />
+		<Resource Include="Resources\Images\Owner\hotel.png" />
 		<Resource Include="Resources\Images\Owner\record.png" />
+		<Resource Include="Resources\Images\Owner\rescheduling.png" />
+		<Resource Include="Resources\Images\Owner\review.png" />
 		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
 		<Resource Include="Resources\Images\Owner\star.png" />
+		<Resource Include="Resources\Images\Owner\statistics.png" />
 		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
 		<Resource Include="Resources\Images\Owner\user.png" />
 		<Resource Include="Resources\Images\Owner\user128x128.png" />
