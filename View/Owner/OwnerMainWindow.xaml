@@ -180,51 +180,51 @@
                 <RowDefinition Height="*" MinHeight="40"/>
             </Grid.RowDefinitions>
             <Button x:Name="AccommodationManagementButton" Grid.Row="0" Grid.Column="0" Click="AccommodationManagementClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="30 0 0 0">
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/hotel.png" Width="50" Margin="0 0 10 0"/>
+                    <Image Source="../../Resources/Images/Owner/hotel.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="Accommodation Management" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Click="AccommodationStatisticsClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="30 0 0 0">
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/statistics.png" Width="50" Margin="0 0 10 0"/>
+                    <Image Source="../../Resources/Images/Owner/statistics.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="Accommodation Statistics" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ReservationReschedulingButton" Grid.Row="2" Grid.Column="0" Click="ReservationReschedulingClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="30 0 0 0">
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/rescheduling.png" Width="50" Margin="0 0 10 0"/>
+                    <Image Source="../../Resources/Images/Owner/rescheduling.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="Reservation Rescheduling" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="GuestRatingButton" Grid.Row="3" Grid.Column="0" Click="GuestRatingClick"
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="30 0 0 0">
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/guest-rating.png" Width="50" Margin="0 0 10 0"/>
+                    <Image Source="../../Resources/Images/Owner/guest-rating.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="Guest Rating" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick"
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="30 0 0 0">
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/review.png" Width="50" Margin="0 0 10 0"/>
+                    <Image Source="../../Resources/Images/Owner/review.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="Guest Reviews" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="RenovationButton" Grid.Row="5" Grid.Column="0" Click="RenovationClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="30 0 0 0">
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/renovation.png" Width="50" Margin="0 0 10 0"/>
+                    <Image Source="../../Resources/Images/Owner/renovation.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="Renovation" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ForumButton" Grid.Row="6" Grid.Column="0" Click="ForumClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="30 0 0 0">
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/forum.png" Width="50" Margin="0 0 10 0"/>
+                    <Image Source="../../Resources/Images/Owner/forum.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="Forum" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
