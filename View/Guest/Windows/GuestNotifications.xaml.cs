@@ -30,5 +30,10 @@ namespace BookingApp.View.Guest.Windows
             GuestNotificationsViewModel = new GuestNotificationsViewModel(user);
             DataContext = GuestNotificationsViewModel;
         }
+
+        private void Refresh(object sender, RoutedEventArgs e)
+        {
+            GuestNotificationsViewModel.Refresh(sender, e);
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.View.Guest.Pages;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -17,6 +18,15 @@ namespace BookingApp.ViewModel.Guest
             GuestMainWindow = guestMainWindow;
             GuestMainWindow.Username.Content = user.Username;
             GuestBonusService.GetInstance().UpdateAll();
+
+            if (GuestBonusService.GetInstance().IsSuperGuest(user))
+            {
+                GuestMainWindow.SuperGuestImage.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                GuestMainWindow.SuperGuestImage.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
     }
 }
