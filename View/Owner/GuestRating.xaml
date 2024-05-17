@@ -36,11 +36,11 @@
                       AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True" Grid.Row="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
-                    <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding checkInDate}"/>
-                    <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding checkOutDate}"/>
+                    <DataGridTextColumn Width="*" Header="Username" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                    <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding CheckInDate}"/>
+                    <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding CheckOutDate}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="60 10" Margin="160 20">
@@ -113,7 +113,7 @@
 
 
                     <TextBox x:Name="CommentTextBox" Grid.Row="4" FontSize="20"
-                             VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True"/>
+                             VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="400"/>
                     <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" 
                             HorizontalAlignment="Center" VerticalAlignment="Center" Content="Rate Guest" FontSize="24"></Button>
                 </Grid>

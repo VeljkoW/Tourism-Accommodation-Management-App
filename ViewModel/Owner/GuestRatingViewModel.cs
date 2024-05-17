@@ -57,7 +57,7 @@ namespace BookingApp.ViewModel.Owner
                 GuestRatingPage.Cleanliness == 0 ||
                 !IsCleanlinessChecked() ||
                 !IsFollowingGuidelinesChecked() ||
-                GuestRatingPage.CommentTextBox.Text.Equals(""))
+                GuestRatingPage.CommentTextBox.Text.Equals("") || GuestRatingPage.CommentTextBox.Text.Length<50)
             {
                 return false;
             }

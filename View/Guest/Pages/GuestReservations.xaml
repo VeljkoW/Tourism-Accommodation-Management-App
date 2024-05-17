@@ -18,7 +18,7 @@
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0" FontWeight="Bold" FontSize="40"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
@@ -30,7 +30,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
-                              HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand">
+                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
