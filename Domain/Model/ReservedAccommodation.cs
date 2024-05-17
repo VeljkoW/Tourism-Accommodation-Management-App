@@ -17,6 +17,7 @@ namespace BookingApp.Domain.Model
     {
         private int id { get; set; }
         private int guestId { get; set; }
+        private int guestNumber {  get; set; }
         private DateTime checkInDate { get; set; }
         private DateTime checkOutDate { get; set; }
         private Accommodation accommodation { get; set; }
@@ -111,6 +112,21 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
+        public int GuestNumber
+        {
+            get
+            {
+                return guestNumber;
+            }
+            set
+            {
+                if (value != guestNumber)
+                {
+                    guestNumber = value;
+                    OnPropertyChanged(nameof(guestNumber));
+                }
+            }
+        }
         public Accommodation Accommodation
         {
             get
@@ -134,6 +150,7 @@ namespace BookingApp.Domain.Model
                 Id.ToString(),
                 Accommodation.Id.ToString(),
                 GuestId.ToString(),
+                GuestNumber.ToString(),
                 CheckInDate.ToString(),
                 CheckOutDate.ToString()
             };
@@ -146,8 +163,9 @@ namespace BookingApp.Domain.Model
             int accommodationId = Convert.ToInt32(values[1]);
             Accommodation = AccommodationService.GetInstance().GetById(accommodationId);
             GuestId = Convert.ToInt32(values[2]);
-            CheckInDate = Convert.ToDateTime(values[3]);
-            CheckOutDate = Convert.ToDateTime(values[4]);
+            GuestNumber = Convert.ToInt32(values[3]);
+            CheckInDate = Convert.ToDateTime(values[4]);
+            CheckOutDate = Convert.ToDateTime(values[5]);
         }
         public string Print
         {

@@ -46,5 +46,34 @@ namespace BookingApp.Services
             }
             return Accommodations;
         }
+        public void AccommodationsByLocation(User user, ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations)
+        {
+            foreach (Accommodation accommodation in GetAll().Where(t => t.OwnerId == user.Id))
+            {
+                if (AccommodationsStatisticsByLocations.Count == 0)
+                    AddAccommodationsStatisticsByLocation(accommodation, AccommodationsStatisticsByLocations);
+                else
+                {
+                    bool alreadyExists = false;
+                    foreach (AccommodationsStatisticsByLocation accommodationsStatisticsByLocation in AccommodationsStatisticsByLocations)
+                        if (accommodationsStatisticsByLocation.LocationId == accommodation.Location.Id)
+                        {
+                            accommodationsStatisticsByLocation.Accommodations.Add(accommodation);
+                            alreadyExists = true;
+                            break;
+                        }
+                    if (!alreadyExists)
+                        AddAccommodationsStatisticsByLocation(accommodation, AccommodationsStatisticsByLocations);
+                }
+            }
+        }
+        private void AddAccommodationsStatisticsByLocation(Accommodation accommodation,
+            ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations)
+        {
+            AccommodationsStatisticsByLocation AccommodationsStatisticsByLocation = new AccommodationsStatisticsByLocation();
+            AccommodationsStatisticsByLocation.LocationId = accommodation.Location.Id;
+            AccommodationsStatisticsByLocation.Accommodations.Add(accommodation);
+            AccommodationsStatisticsByLocations.Add(AccommodationsStatisticsByLocation);
+        }
     }
 }

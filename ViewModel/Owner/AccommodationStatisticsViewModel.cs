@@ -17,12 +17,16 @@ namespace BookingApp.ViewModel.Owner
     public class AccommodationStatisticsViewModel
     {
         public User User { get; set; }
+        public ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations {  get; set; }
         public ObservableCollection<AccommodationStatisticsByMonth> AccommodationStatisticsByMonths { get; set; }
         public ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears { get; set; }
         public AccommodationStatisticsByYear SelectedAccommodationStatisticsByYear {  get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation {  get; set; }
         public AccommodationStatistics AccommodationStatistics {  get; set; }
+        public int LeastPopularLocationId1 {  get; set; }
+        public int LeastPopularLocationId2 { get; set; }
+        public int LeastPopularLocationId3 { get; set; }
         public AccommodationStatisticsViewModel(AccommodationStatistics accommodationStatistics)
         {
             User = accommodationStatistics.User;
@@ -30,6 +34,10 @@ namespace BookingApp.ViewModel.Owner
             Accommodations = AccommodationService.GetInstance().GetAllByUser(User);
             AccommodationStatisticsByYears = new ObservableCollection<AccommodationStatisticsByYear>();
             AccommodationStatisticsByMonths = new ObservableCollection<AccommodationStatisticsByMonth>();
+            AccommodationsStatisticsByLocations = AccommodationStatisticsService.GetInstance().UpdateLocations(User);
+            LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+            LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
+            LeastPopularLocationId3 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 3].LocationId;
         }
         public void UpdateYears()
         {

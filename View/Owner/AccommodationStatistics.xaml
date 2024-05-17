@@ -4,9 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="AccommodationStatistics">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:RenovationStartDateToFlag x:Key="RenovationStartDateToFlag"/>
+        <local1:LocationIdToLocationName x:Key="LocationIdToLocationName"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -111,16 +119,16 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <Label Content="Location 1" FontSize="20" Grid.Row="0" Grid.Column="0" 
+
+                        <Label Content="{Binding AccommodationsStatisticsByLocations[0].LocationId, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Button Content="Add accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
-                        <Label Content="Location 2" FontSize="20" Grid.Row="1" Grid.Column="0" 
+                        <Label Content="{Binding AccommodationsStatisticsByLocations[1].LocationId, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Button Content="Add accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
-                        <Label Content="Location 3" FontSize="20" Grid.Row="2" Grid.Column="0" 
+                        <Label Content="{Binding AccommodationsStatisticsByLocations[2].LocationId, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Button Content="Add accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5"/>
                     </Grid>
@@ -147,15 +155,15 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Content="Location 1" FontSize="20" Grid.Row="0" Grid.Column="0" 
+                        <Label Content="{Binding LeastPopularLocationId1, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Button Content="Close accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
-                        <Label Content="Location 2" FontSize="20" Grid.Row="1" Grid.Column="0" 
+                        <Label Content="{Binding LeastPopularLocationId2, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Button Content="Close accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
-                        <Label Content="Location 3" FontSize="20" Grid.Row="2" Grid.Column="0" 
+                        <Label Content="{Binding LeastPopularLocationId3, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Button Content="Close accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5"/>
                     </Grid>

@@ -17,6 +17,85 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Grid.Row="1" Content="Forum"></Button>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="State:" FontSize="24" Margin="0 0 0 80" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="0" VerticalAlignment="Center" Height="40" FontSize="24" Margin="0 0 30 0"/>
+
+                    <TextBlock Grid.Column="1" Text="City:" FontSize="24" Margin="0 0 0 80" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="1" VerticalAlignment="Center" Height="40" FontSize="24" Margin="0 0 30 0"/>
+
+                    <Button Grid.Column="2" Content="Search" FontSize="24" VerticalAlignment="Center" Height="40" Margin="0 0 30 0"/>
+
+                    <Image x:Name="BookmarkImage" Grid.Column="3" Source="../../Resources/Images/Owner/bookmark.png" Height="64" Width="64" 
+                           VerticalAlignment="Center" Margin="20 0 0 50"/>
+                    <TextBlock x:Name="UsefulForumTextBlock" Grid.Column="3" Text="Useful Forum!" Margin="20 50 0 0" FontSize="24" FontWeight="Bold"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                    <TextBlock Grid.Column="4" FontSize="15" Margin="30 0"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
+                               Text="In order to become a useful forum, there must be at least 10 owners' comments and at least 20 guests' comments"/>
+
+                </Grid>
+                <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Height="160">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="../../Resources/Images/Owner/verified-user.png" Width="48" 
+                           VerticalAlignment="Center" Margin="0 0 0 40"/>
+                        <TextBlock Grid.Column="0" Text="Username" FontWeight="Bold" FontSize="20" Margin="0 40 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        
+                        <TextBlock Grid.Column="1" Text="Comment:" FontSize="20" Margin="10 5 0 0"/>
+                        <TextBox Grid.Column="1" Margin="10 35 10 10" FontSize="20"
+                                 TextWrapping="Wrap"/>
+
+                        <Button Grid.Column="2" Content="Post" FontSize="24" Margin="20 0 20 10"
+                                VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Height="160">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="../../Resources/Images/Owner/forum-user.png" Width="48" 
+                               VerticalAlignment="Center" Margin="0 0 0 40"/>
+                        <TextBlock Grid.Column="0" Text="Username" FontSize="20" Margin="5 40 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+
+                        <TextBlock Grid.Column="1" Text="Comment:" FontSize="20" Margin="10 5 0 0"/>
+                        <Border Grid.Column="1" Margin="10 35 10 10" BorderThickness="1" BorderBrush="Black" Padding="5">
+                            <TextBlock FontSize="18" TextWrapping="Wrap"
+                                   Text="sa hjasbu sabui basuivbsauvbadfg dg fgfg gf  gddf fhf  hj yuhhjjhkjoifisbhabs bas basb asbvuiashuiabjiasu asb asbvbvjabsjh bashv ashv asb hab yasb aysb asvb asv asb uysdbyubuab biassauiissug as uiasg u uas jhab hadsb dasb adb asb hjasvb hjas"/>
+                        </Border>
+
+                        <TextBlock Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <Run Text="Report numbers:"/>
+                            <Run Text="123"/>
+                        </TextBlock>
+                        <Button Grid.Column="2" Content="Report" FontSize="20" Margin="20 10 20 0"
+                                VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

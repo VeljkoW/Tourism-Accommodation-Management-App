@@ -52,5 +52,14 @@ namespace BookingApp.Services
             AcceptedReservationReschedulingService.GetInstance().ReschedulingCountByMonth(year, accommodationId, AccommodationStatisticsByMonths);
             RenovationRequestService.GetInstance().RenovationRequestCountByMonth(year, accommodationId, AccommodationStatisticsByMonths);
         }
+
+        public ObservableCollection<AccommodationsStatisticsByLocation> UpdateLocations(User user)
+        {
+            ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations = new ObservableCollection<AccommodationsStatisticsByLocation>();
+            AccommodationService.GetInstance().AccommodationsByLocation(user, AccommodationsStatisticsByLocations);
+            ReservedAccommodationService.GetInstance().SortAccommodationStatisticsByLocation(AccommodationsStatisticsByLocations);
+
+            return AccommodationsStatisticsByLocations;
+        }
     }
 }
