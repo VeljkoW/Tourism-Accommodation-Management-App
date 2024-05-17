@@ -15,8 +15,8 @@
                  TextChanged="InputTextChanged"/>
         <TextBlock x:Name="PlaceholderTextBlock" Text="{Binding Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="3 0 0 0 " Panel.ZIndex="-1" 
                    FontWeight="Light" Foreground="DarkGray" VerticalAlignment="Center"/>
-        <!-- <Button x:Name="ClearButton" Grid.Column="1" Width="30" HorizontalAlignment="Right" Content="X"
+         <Button x:Name="ClearButton" Grid.Column="1" Width="30" HorizontalAlignment="Right" Content="X"
                 Background="Transparent" Foreground="LightGray" BorderThickness="1"
-                Click="ClearClick"/> -->
+                Click="ClearClick"/> 
     </Grid>
 </UserControl>

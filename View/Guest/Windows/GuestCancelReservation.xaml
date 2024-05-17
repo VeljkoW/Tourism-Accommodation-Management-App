@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
-        Title="GuestCancelReservation" Height="180" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="GuestCancelReservation" Height="200" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="1" BorderBrush="black" BorderThickness="2" Height="30" Margin="30" CornerRadius="20">
-            <Label Content="Are you sure you want to cancel the reservation?" FontSize="10" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label x:Name="AccommodationInfo" Grid.Row="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+        <Border Grid.Row="1" BorderBrush="black" BorderThickness="1" Height="35" Margin="20" CornerRadius="20">
+            <Label Content="Are you sure you want to cancel the reservation?" FontSize="15" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         </Border>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Content="YES" Margin="100 0 0 0" Width="50" Height="30" Command="{Binding cancelReservation}"></Button>

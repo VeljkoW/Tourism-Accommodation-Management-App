@@ -28,103 +28,103 @@ namespace BookingApp.View.Guest.Pages
             this.DataContext = GuestAccommodationsViewModel;
         }
 
-        private void AccommodationName_Clicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "Name")
-            {
-                textBox.Text = string.Empty;
-                textBox.Foreground = Brushes.Black;
-            }
+        //private void AccommodationName_Clicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (textBox.Text == "Name")
+        //    {
+        //        textBox.Text = string.Empty;
+        //        textBox.Foreground = Brushes.Black;
+        //    }
 
-        }
-        private void AccommodationName_NotClicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = "Name";
-                textBox.Foreground = Brushes.Gray;
-            }
-        }
-        private void AccommodationState_Clicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "State")
-            {
-                textBox.Text = string.Empty;
-                textBox.Foreground = Brushes.Black;
-            }
+        //}
+        //private void AccommodationName_NotClicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (string.IsNullOrWhiteSpace(textBox.Text))
+        //    {
+        //        textBox.Text = "Name";
+        //        textBox.Foreground = Brushes.Gray;
+        //    }
+        //}
+        //private void AccommodationState_Clicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (textBox.Text == "State")
+        //    {
+        //        textBox.Text = string.Empty;
+        //        textBox.Foreground = Brushes.Black;
+        //    }
 
-        }
-        private void AccommodationState_NotClicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = "State";
-                textBox.Foreground = Brushes.Gray;
-            }
-        }
+        //}
+        //private void AccommodationState_NotClicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (string.IsNullOrWhiteSpace(textBox.Text))
+        //    {
+        //        textBox.Text = "State";
+        //        textBox.Foreground = Brushes.Gray;
+        //    }
+        //}
 
-        private void AccommodationCity_Clicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "City")
-            {
-                textBox.Text = string.Empty;
-                textBox.Foreground = Brushes.Black;
-            }
+        //private void AccommodationCity_Clicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (textBox.Text == "City")
+        //    {
+        //        textBox.Text = string.Empty;
+        //        textBox.Foreground = Brushes.Black;
+        //    }
 
-        }
-        private void AccommodationCity_NotClicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = "City";
-                textBox.Foreground = Brushes.Gray;
-            }
-        }
+        //}
+        //private void AccommodationCity_NotClicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (string.IsNullOrWhiteSpace(textBox.Text))
+        //    {
+        //        textBox.Text = "City";
+        //        textBox.Foreground = Brushes.Gray;
+        //    }
+        //}
 
-        private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "Guest")
-            {
-                textBox.Text = string.Empty;
-                textBox.Foreground = Brushes.Black;
-            }
+        //private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (textBox.Text == "Guest")
+        //    {
+        //        textBox.Text = string.Empty;
+        //        textBox.Foreground = Brushes.Black;
+        //    }
 
-        }
-        private void GuestNumber_NotClicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = "Guest";
-                textBox.Foreground = Brushes.Gray;
-            }
-        }
-        private void ReservationDays_Clicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "Days")
-            {
-                textBox.Text = string.Empty;
-                textBox.Foreground = Brushes.Black;
-            }
+        //}
+        //private void GuestNumber_NotClicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (string.IsNullOrWhiteSpace(textBox.Text))
+        //    {
+        //        textBox.Text = "Guest";
+        //        textBox.Foreground = Brushes.Gray;
+        //    }
+        //}
+        //private void ReservationDays_Clicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (textBox.Text == "Days")
+        //    {
+        //        textBox.Text = string.Empty;
+        //        textBox.Foreground = Brushes.Black;
+        //    }
 
-        }
-        private void ReservationDays_NotClicked(Object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = "Days";
-                textBox.Foreground = Brushes.Gray;
-            }
-        }
+        //}
+        //private void ReservationDays_NotClicked(Object sender, RoutedEventArgs e)
+        //{
+        //    TextBox textBox = (TextBox)sender;
+        //    if (string.IsNullOrWhiteSpace(textBox.Text))
+        //    {
+        //        textBox.Text = "Days";
+        //        textBox.Foreground = Brushes.Gray;
+        //    }
+        //}
 
         public void ClickedOnCard(object sender, RoutedEventArgs e)
         {

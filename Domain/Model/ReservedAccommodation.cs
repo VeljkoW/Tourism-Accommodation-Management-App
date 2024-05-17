@@ -10,6 +10,9 @@ using System.Xml.Linq;
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
+using BookingApp.ViewModel;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace BookingApp.Domain.Model
 {
@@ -22,9 +25,18 @@ namespace BookingApp.Domain.Model
         private DateTime checkOutDate { get; set; }
         private Accommodation accommodation { get; set; }
 
+        private List<Image> images { get; set; }
+        private ObservableCollection<string> imagePaths { get; set; }
+        private int currentImageIndex = 0;
+        public string CurrentImagePath => ImagePaths?.ElementAtOrDefault(CurrentImageIndex);
+        public int TotalImages => ImagePaths?.Count ?? 0;
+        public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
+        public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
         public ReservedAccommodation() 
         {
             accommodation = new Accommodation();
+            images = new List<Image>();
+            imagePaths = new ObservableCollection<string>();
         }
         public ReservedAccommodation(int guestId, int accommodationId, DateTime checkInDate, DateTime checkOutDate)
         {
@@ -142,7 +154,20 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
-
+        public string ImagesIdToCSV()
+        {
+            string str = "";
+            if (images.Count != 0)
+            {
+                foreach (Image i in Images)
+                {
+                    str += i.Id + ",";
+                }
+            }
+            if (str.Length > 0)
+                str = str.Remove(str.Length - 1);
+            return str;
+        }
 
         public string[] ToCSV()
         {
@@ -152,7 +177,8 @@ namespace BookingApp.Domain.Model
                 GuestId.ToString(),
                 GuestNumber.ToString(),
                 CheckInDate.ToString(),
-                CheckOutDate.ToString()
+                CheckOutDate.ToString(),
+                ImagesIdToCSV()
             };
             return csvValues;
         }
@@ -166,6 +192,18 @@ namespace BookingApp.Domain.Model
             GuestNumber = Convert.ToInt32(values[3]);
             CheckInDate = Convert.ToDateTime(values[4]);
             CheckOutDate = Convert.ToDateTime(values[5]);
+            if (values[6].Length > 0)
+            {
+                string[] ImageIds = values[6].Split(',');
+                for (int i = 0; i < ImageIds.Length; i++)
+                {
+                    Image image = new Image();
+                    ImageRepository imageRepository = new ImageRepository();
+                    image = imageRepository.GetById(Convert.ToInt32(ImageIds[i]));
+                    Images.Add(image);
+                    ImagePaths.Add(image.Path);
+                }
+            }
         }
         public string Print
         {
@@ -184,6 +222,91 @@ namespace BookingApp.Domain.Model
                     OnPropertyChanged("Print");
                 }
             }
+        }
+        public List<Image> Images
+        {
+            get
+            {
+                return images;
+            }
+            set
+            {
+                if (value != images)
+                {
+                    images = value;
+                    UpdateImagePaths();
+                    OnPropertyChanged(nameof(images));
+                }
+            }
+        }
+        public ObservableCollection<string> ImagePaths
+        {
+            get
+            {
+                return imagePaths;
+            }
+            set
+            {
+                if (value != imagePaths)
+                {
+                    imagePaths = value;
+                    OnPropertyChanged(nameof(imagePaths));
+                }
+            }
+        }
+        private void UpdateImagePaths()
+        {
+            if (Images != null)
+            {
+                ImagePaths?.Clear();
+                ImagePaths = new ObservableCollection<string>(Images.Select(image => image.Path));
+            }
+            else
+            {
+                ImagePaths = null;
+            }
+        }
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                if (value >= 0 && value < ImagePaths.Count)
+                {
+                    currentImageIndex = value;
+                    OnPropertyChanged(nameof(CurrentImageIndex));
+                }
+            }
+        }
+        public void NextImage()
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanNextImage()
+        {
+            if (CurrentImageIndex == TotalImages - 1 || TotalImages == 0)
+                return false;
+            return true;
+        }
+        public void PreviousImage()
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+        public bool CanPreviousImage()
+        {
+            if (CurrentImageIndex == 0 || TotalImages == 0)
+                return false;
+            return true;
         }
     }
 }
