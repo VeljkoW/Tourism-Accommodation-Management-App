@@ -16,7 +16,7 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="1" Content="Accommodations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0" FontWeight="Bold" FontSize="40"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="Accommodations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
         <Grid Grid.Row="1" Grid.Column="1" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

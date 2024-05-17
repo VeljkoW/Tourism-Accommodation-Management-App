@@ -25,10 +25,10 @@
           AutoGenerateColumns="False"
           SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Accommodation" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Check In Date" Binding="{Binding checkInDate, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Check Out Date" Binding="{Binding checkOutDate, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Accommodation" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Check In Date" Binding="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Check Out Date" Binding="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Grid.Row="1" Content="*Processed reschedule requests" Margin="30 8 0 0"></Label>
@@ -37,12 +37,12 @@
           AutoGenerateColumns="False"
           SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Accommodation" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Check In Date" Binding="{Binding checkInDate, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Check Out Date" Binding="{Binding checkOutDate, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Comment" Binding="{Binding commentId, Converter={StaticResource CommentIdToComment}, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Width="*" Header="Status" Binding="{Binding isAccepted, Converter={StaticResource BoolIsAcceptedToStatus}, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Accommodation" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Check In Date" Binding="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Check Out Date" Binding="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Comment" Binding="{Binding CommentId, Converter={StaticResource CommentIdToComment}, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="*" Header="Status" Binding="{Binding IsAccepted, Converter={StaticResource BoolIsAcceptedToStatus}, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
