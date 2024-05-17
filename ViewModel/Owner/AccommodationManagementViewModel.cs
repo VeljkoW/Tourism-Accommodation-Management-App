@@ -34,18 +34,66 @@ namespace BookingApp.ViewModel.Owner
         public AccommodationRegistration AccommodationRegistration {  get; set; }
         public User user { get; set; }
         public List<string> States { get; set; }
-        public string SelectedState {  get; set; }
+        private string selectedState {  get; set; }
         public ObservableCollection<Location> Cities { get; set; }
-        public Location SelectedLocation { get; set; }
+        private Location selectedLocation { get; set; }
         public List<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
         public ObservableCollection<Accommodation> AccommodationsDisplay {  get; set; }
 
         public List<string> StatesForChoosing { get; set; }
         public ObservableCollection<Location> CitiesForChoosing { get; set; }
-        public string SelectedChosenState { get; set; }
-        public Location SelectedChosenCity { get; set; }
+        private string selectedChosenState { get; set; }
+        private Location selectedChosenCity { get; set; }
 
+        public string SelectedState
+        {
+            get { return selectedState; }
+            set
+            {
+                if (selectedState != value)
+                {
+                    selectedState = value;
+                    OnPropertyChanged(nameof(selectedState));
+                }
+            }
+        }
+        public Location SelectedLocation
+        {
+            get { return selectedLocation; }
+            set
+            {
+                if (selectedLocation != value)
+                {
+                    selectedLocation = value;
+                    OnPropertyChanged(nameof(selectedLocation));
+                }
+            }
+        }
+        public string SelectedChosenState
+        {
+            get { return selectedChosenState; }
+            set
+            {
+                if (selectedChosenState != value)
+                {
+                    selectedChosenState = value;
+                    OnPropertyChanged(nameof(selectedChosenState));
+                }
+            }
+        }
+        public Location SelectedChosenCity
+        {
+            get { return selectedChosenCity; }
+            set
+            {
+                if (selectedChosenCity != value)
+                {
+                    selectedChosenCity = value;
+                    OnPropertyChanged(nameof(selectedChosenCity));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -81,7 +129,8 @@ namespace BookingApp.ViewModel.Owner
         
         public void StatePicked()
         {
-            LocationService.GetInstance().GetCitiesForState(Cities, SelectedState);
+            if (!string.IsNullOrEmpty(SelectedState))
+                LocationService.GetInstance().GetCitiesForState(Cities, SelectedState);
         }
         public void StateChosen()
         {
@@ -98,7 +147,7 @@ namespace BookingApp.ViewModel.Owner
         }
         public void CityChosen()
         {
-            if (SelectedChosenCity == null) return;
+            if (SelectedChosenCity == null || AccommodationRegistration.ChooseCityComboBox.SelectedItem == null) return;
             if (AccommodationRegistration.ChooseCityComboBox.SelectedItem.ToString().Equals(""))
             {
                 UpdateAccommodationsDisplay("state");

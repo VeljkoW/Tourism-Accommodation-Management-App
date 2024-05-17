@@ -44,6 +44,7 @@
 		<None Remove="Resources\Images\No-Image-Placeholder.png" />
 		<None Remove="Resources\Images\Owner\arrow-down.png" />
 		<None Remove="Resources\Images\Owner\arrow-up.png" />
+		<None Remove="Resources\Images\Owner\background1.jpg" />
 		<None Remove="Resources\Images\Owner\bell.png" />
 		<None Remove="Resources\Images\Owner\bookmark.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
@@ -93,6 +94,7 @@
 
 	<ItemGroup>
 	  <DesignDataWithDesignTimeCreatableTypes Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61dAAA.jpg" />
+	  <Resource Include="Resources\Images\Owner\background1.jpg" />
 	  <Resource Include="Resources\Images\Guest\medal.png" />
 	  <Resource Include="Resources\Images\Guest\refresh.png" />
 	  <Resource Include="Resources\Images\Guest\superGuest.png" />
