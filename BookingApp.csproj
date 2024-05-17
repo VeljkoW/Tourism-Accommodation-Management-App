@@ -29,6 +29,7 @@
 		<None Remove="Resources\Images\Guest\bed.png" />
 		<None Remove="Resources\Images\Guest\forum.png" />
 		<None Remove="Resources\Images\Guest\logout.png" />
+		<None Remove="Resources\Images\Guest\notifications.png" />
 		<None Remove="Resources\Images\Guest\rating.png" />
 		<None Remove="Resources\Images\Guest\star.png" />
 		<None Remove="Resources\Images\Guest\user.png" />
@@ -138,6 +139,7 @@
 		<Resource Include="Resources\Images\Guest\bed.png" />
 		<Resource Include="Resources\Images\Guest\forum.png" />
 		<Resource Include="Resources\Images\Guest\logout.png" />
+		<Resource Include="Resources\Images\Guest\notifications.png" />
 		<Resource Include="Resources\Images\Guest\rating.png" />
 		<Resource Include="Resources\Images\Guest\star.png" />
 		<Resource Include="Resources\Images\Guest\tutorial.png" />
