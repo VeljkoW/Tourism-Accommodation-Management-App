@@ -120,17 +120,17 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Content="{Binding AccommodationsStatisticsByLocations[0].LocationId, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
+                        <Label Content="{Binding MostPopularLocationId1, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Add accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                        <Button Content="Add accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="AddAccommodationsClick1"/>
 
-                        <Label Content="{Binding AccommodationsStatisticsByLocations[1].LocationId, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
+                        <Label Content="{Binding MostPopularLocationId2, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Add accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                        <Button Content="Add accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="AddAccommodationsClick2"/>
 
-                        <Label Content="{Binding AccommodationsStatisticsByLocations[2].LocationId, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
+                        <Label Content="{Binding MostPopularLocationId3, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Add accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <Button Content="Add accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="AddAccommodationsClick3"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -157,15 +157,15 @@
 
                         <Label Content="{Binding LeastPopularLocationId1, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Close accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                        <Button Content="Close accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick1"/>
 
                         <Label Content="{Binding LeastPopularLocationId2, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Close accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                        <Button Content="Close accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick2"/>
 
                         <Label Content="{Binding LeastPopularLocationId3, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Close accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <Button Content="Close accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick3"/>
                     </Grid>
                 </Border>
             </Grid>

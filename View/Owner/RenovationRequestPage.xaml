@@ -70,25 +70,25 @@
                                                         <RowDefinition Height="auto"/>
                                                     </Grid.RowDefinitions>
                                                     <TextBlock Grid.Row="0" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <Run Text="Accommodation: " />
-                                                    <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                                                        <Run Text="Accommodation: " />
+                                                        <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
                                                     </TextBlock>
                                                     <TextBlock Grid.Row="1" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <Run Text="Location: "/>
-                                                    <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                                        <Run Text="Location: "/>
+                                                        <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
                                                     </TextBlock>
 
                                                     <TextBlock Grid.Row="2" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <Run Text="Guest Username: "/>
-                                                    <Run FontWeight="Bold" Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                                                        <Run Text="Guest Username: "/>
+                                                        <Run FontWeight="Bold" Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
                                                     </TextBlock>
                                                     <TextBlock Grid.Row="3" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <Run Text="Level of Renovation Request: "/>
-                                                    <Run FontWeight="Bold" Text="{Binding Level}"/>
+                                                        <Run Text="Level of Renovation Request: "/>
+                                                        <Run FontWeight="Bold" Text="{Binding Level}"/>
                                                     </TextBlock>
                                                     <TextBlock Grid.Row="4" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <Run Text="Comment: "/>
-                                                    <Run Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}"/>
+                                                        <Run Text="Comment: "/>
+                                                        <Run Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}"/>
                                                     </TextBlock>
                                                 </Grid>
                                             </Border>
