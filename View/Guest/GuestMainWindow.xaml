@@ -85,7 +85,7 @@
         
         <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="44" Click="NotificationsClick" Background="Transparent" Width="44" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 50 280 0">
             <Button.Content>
-                <Image Source="../../Resources/Images/Owner/bell.png"></Image>
+                <Image Source="../../Resources/Images/Guest/notifications.png"></Image>
             </Button.Content>
         </Button>
         <Label Grid.Column="1" Grid.Row="0" Content="Notifications"
