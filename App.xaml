@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:BookingApp"
              Startup="Application_Startup">
     <Application.Resources>
+        <Color x:Key="OwnerBackgroundColor">#007ACC</Color>
+        <Color x:Key="OwnerButtonPressedColor">#FFA500</Color>
+        <SolidColorBrush x:Key="OwnerBackgroundColorBrush" Color="{StaticResource OwnerBackgroundColor}"/>
+        <SolidColorBrush x:Key="OwnerButtonPressedColorBrush" Color="{StaticResource OwnerButtonPressedColor}"/>
 
         <SolidColorBrush x:Key="DirtColor" Color="#1c160e"/>
         <SolidColorBrush x:Key="LightDirtColor" Color="#ff9142"/>

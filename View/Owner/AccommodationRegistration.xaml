@@ -130,13 +130,13 @@
                                 <DockPanel Grid.Row="2" VerticalAlignment="Center">
                                     <Label Content="Location - State:*" FontSize="20"/>
                                     <ComboBox x:Name="StateComboBox" Width="250" Height="32" FontSize="20"
-                                              ItemsSource="{Binding States, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState}"
+                                              ItemsSource="{Binding States, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState, UpdateSourceTrigger=PropertyChanged}"
                                               HorizontalAlignment="Right" VerticalAlignment="Center" SelectionChanged="StatePickedSelectionChanged"/>
                                 </DockPanel>
                                 <DockPanel Grid.Row="3" VerticalAlignment="Center">
                                     <Label Content="Location - City:*" FontSize="20"/>
                                     <ComboBox x:Name="CityComboBox" Width="250" Height="32" FontSize="20" 
-                                              ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLocation}" 
+                                              ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}" 
                                               HorizontalAlignment="Right" VerticalAlignment="Center"
                                               SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities"/>
                                 </DockPanel>

@@ -24,6 +24,9 @@ namespace BookingApp.ViewModel.Owner
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation {  get; set; }
         public AccommodationStatistics AccommodationStatistics {  get; set; }
+        public int MostPopularLocationId1 {  get; set; }
+        public int MostPopularLocationId2 { get; set; }
+        public int MostPopularLocationId3 { get; set; }
         public int LeastPopularLocationId1 {  get; set; }
         public int LeastPopularLocationId2 { get; set; }
         public int LeastPopularLocationId3 { get; set; }
@@ -35,6 +38,9 @@ namespace BookingApp.ViewModel.Owner
             AccommodationStatisticsByYears = new ObservableCollection<AccommodationStatisticsByYear>();
             AccommodationStatisticsByMonths = new ObservableCollection<AccommodationStatisticsByMonth>();
             AccommodationsStatisticsByLocations = AccommodationStatisticsService.GetInstance().UpdateLocations(User);
+            MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+            MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+            MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
             LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
             LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
             LeastPopularLocationId3 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 3].LocationId;

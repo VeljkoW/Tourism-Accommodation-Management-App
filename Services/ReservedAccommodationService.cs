@@ -194,6 +194,8 @@ namespace BookingApp.Services
                             guestNumberSum += reservedAccommodation.GuestNumber;
                         }
                     }
+                    if (numberOfReservations == 0)
+                        continue;
                     guestNumberSum /= numberOfReservations;
                     busyness += guestNumberSum / accommodation.MaxGuestNumber;
                 }

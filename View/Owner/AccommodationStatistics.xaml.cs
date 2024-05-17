@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.ViewModel.Owner;
 
 namespace BookingApp.View.Owner
@@ -54,6 +55,84 @@ namespace BookingApp.View.Owner
                 AccommodationStatisticsViewModel.AccommodationStatisticsByMonths.Clear();
                 AccommodationStatisticsViewModel.UpdateMonths();
             }
+        }
+
+        private void AddAccommodationsClick1(object sender, RoutedEventArgs e)
+        {
+            AddACcommodationClickGeneral(AccommodationStatisticsViewModel.MostPopularLocationId1);
+        }
+        private void AddAccommodationsClick2(object sender, RoutedEventArgs e)
+        {
+            AddACcommodationClickGeneral(AccommodationStatisticsViewModel.MostPopularLocationId2);
+        }
+        private void AddAccommodationsClick3(object sender, RoutedEventArgs e)
+        {
+            AddACcommodationClickGeneral(AccommodationStatisticsViewModel.MostPopularLocationId3);
+        }
+        private void AddACcommodationClickGeneral(int MostPopularLocationId)
+        {
+            AccommodationRegistration AccommodationRegistration = new AccommodationRegistration(User);
+            Location location = LocationService.GetInstance().GetById(MostPopularLocationId);
+
+            var SelectedState = AccommodationRegistration.AccommodationManagementViewModel.States.FirstOrDefault(t => t.Equals(location.State));
+            AccommodationRegistration.AccommodationManagementViewModel.SelectedState = SelectedState;
+            LocationService.GetInstance().GetCitiesForState(AccommodationRegistration.AccommodationManagementViewModel.Cities, SelectedState);
+
+            for(int i=0; i< AccommodationRegistration.AccommodationManagementViewModel.Cities.Count(); i++)
+            {
+                if (AccommodationRegistration.AccommodationManagementViewModel.Cities[i].Id == location.Id)
+                {
+                    AccommodationRegistration.AccommodationManagementViewModel.SelectedLocation = AccommodationRegistration.AccommodationManagementViewModel.Cities[i];
+                    AccommodationRegistration.CityComboBox.SelectedIndex = i;
+                    break;
+                }
+            }
+            //var SelectedLocation = AccommodationRegistration.AccommodationManagementViewModel.Cities.FirstOrDefault(t => t.Id == location.Id);
+            //AccommodationRegistration.AccommodationManagementViewModel.SelectedLocation = SelectedLocation;
+            //AccommodationRegistration.CityComboBox.SelectedItem = SelectedLocation;
+
+            OwnerMainWindow.mainFrame.Navigate(AccommodationRegistration);
+            OwnerMainWindow.NavigationButtonBarPressed("AccommodationManagementButton");
+        }
+
+        private void CloseAccommodationsClick1(object sender, RoutedEventArgs e)
+        {
+            CloseAccommodationsClickGeneral(AccommodationStatisticsViewModel.LeastPopularLocationId1);
+        }
+        private void CloseAccommodationsClick2(object sender, RoutedEventArgs e)
+        {
+            CloseAccommodationsClickGeneral(AccommodationStatisticsViewModel.LeastPopularLocationId2);
+        }
+        private void CloseAccommodationsClick3(object sender, RoutedEventArgs e)
+        {
+            CloseAccommodationsClickGeneral(AccommodationStatisticsViewModel.LeastPopularLocationId3);
+        }
+        private void CloseAccommodationsClickGeneral(int LeastPopularLocationId)
+        {
+            AccommodationRegistration AccommodationRegistration = new AccommodationRegistration(User, true);
+            Location location = LocationService.GetInstance().GetById(LeastPopularLocationId);
+
+            var SelectedState = AccommodationRegistration.AccommodationManagementViewModel.States.FirstOrDefault(t => t.Equals(location.State));
+            AccommodationRegistration.AccommodationManagementViewModel.SelectedChosenState = SelectedState;
+            AccommodationRegistration.AccommodationManagementViewModel.StateChosen();
+
+            for (int i = 0; i < AccommodationRegistration.AccommodationManagementViewModel.CitiesForChoosing.Count(); i++)
+            {
+                if (AccommodationRegistration.AccommodationManagementViewModel.CitiesForChoosing[i].Id == location.Id)
+                {
+                    AccommodationRegistration.AccommodationManagementViewModel.SelectedChosenCity = AccommodationRegistration.AccommodationManagementViewModel.CitiesForChoosing[i];
+                    AccommodationRegistration.ChooseCityComboBox.SelectedIndex = i + 1;
+                    AccommodationRegistration.AccommodationManagementViewModel.CityChosen();
+                    break;
+                }
+            }
+
+            AccommodationRegistration.Dispatcher.Invoke(() =>
+            {
+                OwnerMainWindow.mainFrame.Navigate(AccommodationRegistration);
+                OwnerMainWindow.NavigationButtonBarPressed("AccommodationManagementButton");
+                AccommodationRegistration.ScrollViewerName.ScrollToVerticalOffset(AccommodationRegistration.ScrollViewerName.VerticalOffset + 510);
+            });
         }
     }
 }
