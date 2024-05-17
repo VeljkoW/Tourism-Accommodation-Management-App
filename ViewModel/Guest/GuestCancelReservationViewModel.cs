@@ -26,6 +26,7 @@ namespace BookingApp.ViewModel.Guest
             reservedAccommodation = selectedReservedAccommodation;
             GuestCancelReservation = guestCancelReservation;
             GuestReservationsViewModel = guestReservationsViewModel;
+            GuestCancelReservation.AccommodationInfo.Content += selectedReservedAccommodation.Accommodation.Name + ", Location: " + selectedReservedAccommodation.Accommodation.Location.State + " - " + selectedReservedAccommodation.Accommodation.Location.City;
         }
 
         public void CloseWindow()

@@ -68,7 +68,7 @@
     </UserControl.Resources>
     <Grid>
         <Border BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black">
-            <Image Source="{Binding CurrentImagePath, UpdateSourceTrigger=PropertyChanged}" Stretch="Uniform"/>
+            <Image Source="{Binding CurrentImagePath, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
         </Border>
         <Button BorderThickness="0" Width="20" Height="20" Style="{DynamicResource TabButtonStyle}"
                 HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding PreviousImageCommand}">

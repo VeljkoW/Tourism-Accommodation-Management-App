@@ -11,12 +11,16 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="NumTextBox" Grid.ColumnSpan="2" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="NumTextBox" VerticalContentAlignment="Center" FontWeight="Light" 
+         TextChanged="InputTextChanged"/>
+        <TextBlock x:Name="PlaceholderTextBlock" Text="{Binding Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="3 0 0 0 " Panel.ZIndex="-1" 
+           FontWeight="Light" Foreground="DarkGray" VerticalAlignment="Center"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
             <Button Grid.Row="0" BorderThickness="0" Width="20" Height="20" Background="Transparent" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" Click="UpClick"
                     PreviewMouseDown="StartClick" PreviewMouseUp="StopClick">

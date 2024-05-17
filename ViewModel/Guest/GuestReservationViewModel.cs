@@ -242,6 +242,7 @@ namespace BookingApp.ViewModel.Guest
             reservedAccommodation.CheckOutDate = Convert.ToDateTime(dates[1].Trim());
             reservedAccommodation.Accommodation = Accommodation;
             reservedAccommodation.GuestId = user.Id;
+            foreach (Image image in Accommodation.Images) reservedAccommodation.Images.Add(image);
             reservedAccommodation.GuestNumber = Convert.ToInt32(GuestReservations.GuestNumberTextBox.Text);
 
 

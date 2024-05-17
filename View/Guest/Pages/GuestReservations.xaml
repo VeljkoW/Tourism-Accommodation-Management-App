@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1520"
@@ -17,7 +18,6 @@
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-
         <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -39,9 +39,10 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" BorderThickness="0">
+                                    <userControls:ImageSlider Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="200" Height="200" MaxHeight="200" MaxWidth="200" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <!--<Border Grid.Column="0" BorderThickness="0">
                                         <Image Source="{Binding Path=Accommodation.Images[0].Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    </Border>
+                                    </Border>-->
                                     <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Width="760" Height="200">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
