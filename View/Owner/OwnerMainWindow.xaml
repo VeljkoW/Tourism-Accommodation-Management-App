@@ -89,6 +89,10 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <!-- <Window.Background>
+        <ImageBrush ImageSource="../../Resources/Images/Owner/background1.jpg" />
+        Putanja do tvoje slike
+    </Window.Background> -->
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">

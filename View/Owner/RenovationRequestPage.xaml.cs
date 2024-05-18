@@ -53,6 +53,7 @@ namespace BookingApp.View.Owner
                 renovation.RenovationViewModel.SelectedAccommodation = selectedAccommodation;
 
             OwnerMainWindow.mainFrame.Navigate(renovation);
+            OwnerMainWindow.NavigationButtonBarPressed("RenovationButton");
         }
 
         private void clickOnCard(object sender, MouseButtonEventArgs e)

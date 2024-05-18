@@ -314,7 +314,7 @@ namespace BookingApp.Domain.Model
                 if (value != PrintAccommodation)
                 {
                     PrintAccommodation = value;
-                    OnPropertyChanged("Print");
+                    OnPropertyChanged("PrintAccommodation");
                 }
             }
         }

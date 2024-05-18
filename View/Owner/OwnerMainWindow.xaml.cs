@@ -50,7 +50,7 @@ namespace BookingApp.View.Owner
             this.user = user;
             NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
-            AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
+            AccommodationRegistration = new AccommodationRegistration(user);
             AccommodationStatistics = new AccommodationStatistics(this);
             ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
@@ -136,7 +136,7 @@ namespace BookingApp.View.Owner
                 NotificationListBox.Visibility = Visibility.Collapsed;
             NewNotificationImage.Visibility = Visibility.Collapsed;
         }
-        private void NavigationButtonBarPressed(string buttonName)
+        public void NavigationButtonBarPressed(string buttonName)
         {
             Color backgroundButtonPressedColor = (Color)FindResource("ButtonPressedColor");
             SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
