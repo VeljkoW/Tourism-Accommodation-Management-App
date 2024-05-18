@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
@@ -28,7 +29,7 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
-            <Label Content="Select the guest you want to rate:"
+            <Label Content="{loc:Loc Select the guest you want to rate:}"
                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
             <DataGrid x:Name="RatingGuestsTable" Margin="20 60 20 10"
                       ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
@@ -36,14 +37,14 @@
                       AutoGenerateColumns="False"
                       SelectionMode="Single" IsReadOnly="True" Grid.Row="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Username" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
-                    <DataGridTextColumn Width="*" Header="Check-in Date" Binding="{Binding CheckInDate}"/>
-                    <DataGridTextColumn Width="*" Header="Check-out Date" Binding="{Binding CheckOutDate}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Accommodation Name}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Location}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="60 10" Margin="160 20">
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="60 10" Margin="200 20">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -54,68 +55,50 @@
                         <RowDefinition Height="*" MinHeight="40"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <Label Content="Rating Guest:" FontSize="24"/>
+                        <Label Content="{loc:Loc Rating Guest:}" FontSize="24"/>
                         <Label Content="{Binding SelectedReservedAccommodations.GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="24"/>
                     </StackPanel>
-                    <DockPanel Grid.Row="1">
-                        <Label Content="Cleanliness:* " FontSize="20"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="83 5 0 5">
-                            <RadioButton x:Name="Cleanliness1" Content="1" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="Cleanliness2" Content="2" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="Cleanliness3" Content="3" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="Cleanliness4" Content="4" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="Cleanliness5" Content="5" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                         Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                        </StackPanel>
-                    </DockPanel>
-                    <DockPanel Grid.Row="2">
-                        <Label Content="Following guidelines:* " FontSize="20"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <RadioButton x:Name="FollowingGuidelines1" Content="1" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                    <Grid Grid.Row="1" Margin="0 5 0 0">
+                        <Label Content="{loc:Loc Cleanliness:*}" FontSize="20"/>
+                        <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Width="220">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <RadioButton x:Name="Cleanliness1" Content="1" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                <RadioButton x:Name="Cleanliness2" Content="2" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                <RadioButton x:Name="Cleanliness3" Content="3" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                <RadioButton x:Name="Cleanliness4" Content="4" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                <RadioButton x:Name="Cleanliness5" Content="5" FontSize="20" GroupName="CleanlinessRadioButton" 
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="0 5 0 0">
+                        <Label Content="{loc:Loc Following guidelines:*}" FontSize="20"/>
+                        <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Width="220">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <RadioButton x:Name="FollowingGuidelines1" Content="1" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
                                          Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="FollowingGuidelines2" Content="2" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                <RadioButton x:Name="FollowingGuidelines2" Content="2" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
                                          Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="FollowingGuidelines3" Content="3" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                <RadioButton x:Name="FollowingGuidelines3" Content="3" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
                                          Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="FollowingGuidelines4" Content="4" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                <RadioButton x:Name="FollowingGuidelines4" Content="4" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
                                          Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                            <RadioButton x:Name="FollowingGuidelines5" Content="5" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
+                                <RadioButton x:Name="FollowingGuidelines5" Content="5" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
                                          Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-                        </StackPanel>
-                    </DockPanel>
-                    <!-- <DockPanel Grid.Row="1">
-                        <Label Content="Cleanliness:* " FontSize="20"/>
-                        <ComboBox x:Name="CleanlinessComboBox" Width="300" FontSize="20"
-                                  HorizontalAlignment="Left" Margin="83 5 0 5">
-                            <ComboBoxItem Content="1"></ComboBoxItem>
-                            <ComboBoxItem Content="2"></ComboBoxItem>
-                            <ComboBoxItem Content="3"></ComboBoxItem>
-                            <ComboBoxItem Content="4"></ComboBoxItem>
-                            <ComboBoxItem Content="5"></ComboBoxItem>
-                        </ComboBox>
-                    </DockPanel> -->
-                    <!-- <DockPanel Grid.Row="2">
-                        <Label Content="Following guidelines:* " FontSize="20"/>
-                        <ComboBox x:Name="FollowingGuidelinesComboBox" Width="300" FontSize="20"
-                                  HorizontalAlignment="Left" Margin="0 5 0 5">
-                            <ComboBoxItem Content="1"/>
-                            <ComboBoxItem Content="2"/>
-                            <ComboBoxItem Content="3"/>
-                            <ComboBoxItem Content="4"/>
-                            <ComboBoxItem Content="5"/>
-                        </ComboBox>
-                    </DockPanel> -->
-                    <Label Content="Comment:* " Grid.Row="3" FontSize="20"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <Label Content="{loc:Loc Comment:*}" Grid.Row="3" FontSize="20"/>
 
 
                     <TextBox x:Name="CommentTextBox" Grid.Row="4" FontSize="20"
                              VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="400"/>
                     <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Content="Rate Guest" FontSize="24"></Button>
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Content="{loc:Loc Rate Guest}" FontSize="24"></Button>
                 </Grid>
             </Border>
         </Grid>
