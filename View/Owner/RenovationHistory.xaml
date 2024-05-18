@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
@@ -23,21 +24,21 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <Grid Margin="30">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.1*" MaxHeight="120"/>
-                <RowDefinition Height="9*"/>
-            </Grid.RowDefinitions>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" x:Name="OuterScrollViewer" VerticalScrollBarVisibility="Auto">
+            <Grid Grid.Column="1" Grid.Row="1" Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.1*" MaxHeight="120"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
 
-            <Button Content="Scheduling" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
+                <Button Content="{loc:Loc Scheduling}" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" Click="SchedulingClick"/>
-            <Button Content="History" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
+                <Button Content="{loc:Loc History}" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
 
-            <Label Content="History of renovation" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                <Label Content="{loc:Loc History of renovation}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                 HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
-            <!-- <DataGrid x:Name="RatingGuestsTable" Grid.Row="1" Margin="20 60 20 40"
+                <!-- <DataGrid x:Name="RatingGuestsTable" Grid.Row="1" Margin="20 60 20 40"
                       ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedScheduledRenovation, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False"
@@ -50,7 +51,48 @@
                 </DataGrid.Columns>
             </DataGrid> -->
 
-                <ItemsControl Grid.Row="1" Margin="0 40 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}" >
+                <ItemsControl Grid.Row="1" Margin="0 50 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10" Background="White"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                </Border.Effect>
+                                <Grid Margin="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <StackPanel Margin="30 20 30 30">
+                                            <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0},'}"/>
+                                                <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                            </TextBlock>
+                                            <Border Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="Black" Margin="0 10 0 10"/>
+                                            <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <Run Text="{loc:Loc Start date:}" FontStyle="Italic" FontWeight="Medium"/>
+                                                <Run Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </TextBlock>
+                                            <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="{loc:Loc End date:}" FontStyle="Italic" FontWeight="Medium" />
+                                                <Run Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </TextBlock>
+                                            <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Run Text="{loc:Loc Comment:}"  FontStyle="Italic" FontWeight="Medium"/>
+                                                <Run Text="{Binding Details, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- <ItemsControl Grid.Row="1" Margin="0 40 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="2"/>
@@ -60,8 +102,6 @@
                         <DataTemplate>
                             <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="10" Margin="10 10" Padding="10" Background="White"
                                     HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="190">
-                                <!--zbog ovog heighta su sve iste velicine-->
-                                <!-- MouseLeftButtonDown="ClickedOnCard"> -->
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
@@ -88,9 +128,9 @@
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                </ItemsControl> -->
 
-            <!-- <Grid Grid.Column="1" Grid.Row="1" Margin="20 0 0 0">
+                <!-- <Grid Grid.Column="1" Grid.Row="1" Margin="20 0 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="9*"/>

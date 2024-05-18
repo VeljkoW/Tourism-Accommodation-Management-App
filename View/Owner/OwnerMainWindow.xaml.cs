@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Localization;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Services;
 using BookingApp.ViewModel.Owner;
@@ -29,6 +30,9 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class OwnerMainWindow : Window
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
+
         public User user { get; set; }
         public Accommodation Accommodation { get; set; }
         public AccommodationRegistration AccommodationRegistration { get; set; }
@@ -43,6 +47,7 @@ namespace BookingApp.View.Owner
         public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
         public OwnerMainWindow(User user)
         {
+            App.ChangeLanguage(ENG);
             InitializeComponent();
             OwnerMainWindowViewModel = new OwnerMainWindowViewModel(this, user);
             DataContext = OwnerMainWindowViewModel;
@@ -150,6 +155,16 @@ namespace BookingApp.View.Owner
             GuestReviewsButton.Background = buttonName == "GuestReviewsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
             RenovationButton.Background = buttonName == "RenovationButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
             ForumButton.Background = buttonName == "ForumButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+        }
+
+        private void ChangeLanguageSRB(object sender, RoutedEventArgs e)
+        {
+            App.ChangeLanguage(SRB);
+        }
+
+        private void ChangeLanguageENG(object sender, RoutedEventArgs e)
+        {
+            App.ChangeLanguage(ENG);
         }
     }
 }

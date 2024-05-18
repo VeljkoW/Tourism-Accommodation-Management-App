@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -39,12 +40,12 @@
                 </Grid.RowDefinitions>
                 
                 <!--SCHEDULE RENOVATION-->
-                <Button Grid.ColumnSpan="2" Content="Scheduling" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
+                <Button Grid.ColumnSpan="2" Content="{loc:Loc Scheduling}" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
                             HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
-                <Button Grid.ColumnSpan="2" Content="History" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
+                <Button Grid.ColumnSpan="2" Content="{loc:Loc History}" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
                             HorizontalAlignment="Center" VerticalAlignment="Center" Click="HistoryClick"/>
 
-                <Label Content="Schedule renovation" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                <Label Content="{loc:Loc Schedule renovation}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
                 <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="120 40 120 0">
                     <Grid>
@@ -61,54 +62,115 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Choose your Accommodation:*" FontSize="22" Margin="80 0 0 0"
+                        <Label Grid.Row="0" Grid.Column="0" Content="{loc:Loc Choose your Accommodation:*}" FontSize="22" Margin="80 0 0 0"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        <ComboBox Grid.Row="0" Grid.Column="1" Height="30" Margin="40 0"
+                        <ComboBox Grid.Row="0" Grid.Column="1" Height="30" Margin="40 0 80 0"
                                   x:Name="AccommodationComboBox" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintAccommodation" DisplayMemberPath="PrintAccommodation"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" SelectedItem="{Binding SelectedAccommodation}"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Start Renovation Date:*" FontSize="22" Margin="80 0 0 0"
+                        <Label Grid.Row="1" Grid.Column="0" Content="{loc:Loc Start Renovation Date:*}" FontSize="22" Margin="80 0 0 0"
                                VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="40 0"
+                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="40 0 80 0"
                                     x:Name="StartDatePicker" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18"
                                     DisplayDateStart="{x:Static sys:DateTime.Today}"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" Content="End Renovation Date:*" FontSize="22" Margin="80 0 0 0"
+                        <Label Grid.Row="2" Grid.Column="0" Content="{loc:Loc End Renovation Date:*}" FontSize="22" Margin="80 0 0 0"
                                 VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        <DatePicker Grid.Row="2" Grid.Column="1" Margin="40 0"
+                        <DatePicker Grid.Row="2" Grid.Column="1" Margin="40 0 80 0"
                                     x:Name="EndDatePicker" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18"
                                     DisplayDateStart="{x:Static sys:DateTime.Today}"/>
 
-                        <Label Grid.Row="3" Grid.Column="0" Content="Duration of Renovation:*" FontSize="22" Margin="80 0 0 0"
+                        <Label Grid.Row="3" Grid.Column="0" Content="{loc:Loc Duration of Renovation:*}" FontSize="22" Margin="80 0 0 0"
                                 VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         <!-- <TextBox x:Name="DurationTextBox" Width="250" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18"/> -->
-                        <userControls:NumberTextBox Grid.Row="3" Grid.Column="1" Margin="40 10"
+                        <userControls:NumberTextBox Grid.Row="3" Grid.Column="1" Margin="40 10 80 10"
                                                     x:Name="DurationTextBox" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18"/>
                         <Border Grid.Row="4" Width="1050" Grid.ColumnSpan="2" Height="80" Margin="70 20 70 0" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                 Padding="0 0 0 20" BorderThickness="0 0 0 1" BorderBrush="Black">
-                            <Button Content="Search" FontSize="24" Width="200" Height="55" Command="{Binding SearchClick}"/>
+                            <Button Content="{loc:Loc Search}" FontSize="24" Width="200" Height="55" Command="{Binding SearchClick}"/>
                         </Border>
 
-                        <Label Content="Available dates:*" Grid.Row="5" Grid.Column="0" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="{loc:Loc Available dates:*}" Grid.Row="5" Grid.Column="0" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <ListBox x:Name="AvailableDatesListBox" ItemsSource="{Binding AvailableDates, UpdateSourceTrigger=PropertyChanged}" 
-                             Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="40 40 40 0" FontSize="14"
-                             SelectedValuePath="PrintAvailableDate" DisplayMemberPath="PrintAvailableDate"/>
+                             Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="40 40 40 0" FontSize="14" HorizontalContentAlignment="Center"
+                             SelectedValuePath="PrintAvailableDate" DisplayMemberPath="PrintAvailableDate" Height="120"/>
 
-                        <Label Content="Renovation details:*" Grid.Row="5" Grid.Column="1" FontSize="22" HorizontalAlignment="Center"/>
+                        <Label Content="{loc:Loc Renovation details:*}" Grid.Row="5" Grid.Column="1" FontSize="22" HorizontalAlignment="Center"/>
                         <TextBox x:Name="CommentTextBox" Grid.Row="5" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                  Margin="40 40 40 0" FontSize="14" TextWrapping="Wrap" AcceptsReturn="True"/>
 
-                        <Button Content="Renovate" Grid.Row="7" Grid.ColumnSpan="2" Height="60" Width="200" FontSize="24" Margin="10"
+                        <Button Content="{loc:Loc Renovate}" Grid.Row="7" Grid.ColumnSpan="2" Height="60" Width="200" FontSize="24" Margin="10"
                                 HorizontalAlignment="Center" Command="{Binding RenovateClick}" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
 
                 <!--UPCOMING RENOVATION-->
-                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0 20 0 0">
 
-                    <Label Content="Upcoming renovation" Grid.Row="0"
+                    <Label Content="{loc:Loc Upcoming renovations}" Grid.Row="0"
                            HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
-                    <ItemsControl Margin="0 40 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}" >
+
+                    <ItemsControl Margin="0 40 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10" Background="White"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                    </Border.Effect>
+                                    <Grid Margin="20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="6*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
+                                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Margin="0 15 0 0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                        <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0},'}"/>
+                                                        <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                                    </TextBlock>
+                                                    <Border Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="Black" Margin="30 10 30 0"/>
+                                                </StackPanel>
+
+                                                <StackPanel Margin="30 60 30 30">
+                                                    <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                        <Run Text="{loc:Loc Start date:}" FontStyle="Italic" FontWeight="Medium"/>
+                                                        <Run Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    </TextBlock>
+                                                    <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                        <Run Text="{loc:Loc End date:}" FontStyle="Italic" FontWeight="Medium" />
+                                                        <Run Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    </TextBlock>
+                                                    <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                        <Run Text="{loc:Loc Comment:}" FontStyle="Italic" FontWeight="Medium"/>
+                                                        <Run Text="{Binding Details, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1">
+                                                    <Button Click="DeleteRow" IsEnabled="{Binding StartDate, Converter={StaticResource RenovationStartDateToFlag}, UpdateSourceTrigger=PropertyChanged}"
+                                                            FontSize="20" Margin="0 60 20 8" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120">
+                                                        <Button.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{loc:Loc Cancel Renovation}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                            </DataTemplate>
+                                                        </Button.ContentTemplate>
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- <ItemsControl Margin="0 40 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="2"/>
@@ -118,16 +180,13 @@
                             <DataTemplate>
                                 <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="10" Margin="10 10" Padding="10" Background="White"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="190">
-                                    <!--zbog ovog heighta su sve iste velicine-->
-                                    <!-- MouseLeftButtonDown="ClickedOnCard"> -->
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                     </Border.Effect>
                                     <ScrollViewer x:Name="InnerScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                         <Grid>
                                             <Button Content="Cancel&#10;Renovation" Click="DeleteRow" IsEnabled="{Binding StartDate, Converter={StaticResource RenovationStartDateToFlag}, UpdateSourceTrigger=PropertyChanged}"
-                                                    FontSize="18" Margin="0 5 5 0"
-                                                    VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                                                    FontSize="18" Margin="0 5 5 0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
                                             <StackPanel>
                                                 <TextBlock Grid.Row="0" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 3">
                                                     <Run Text="Accommodation Name:"/>
@@ -151,7 +210,7 @@
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    </ItemsControl> -->
                     
                 </Grid>
             </Grid>

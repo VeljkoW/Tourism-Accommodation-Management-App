@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
@@ -34,11 +35,77 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.ColumnSpan="2" Content="Reviews" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
+            <Button Grid.ColumnSpan="2" Content="{loc:Loc Reviews}" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
                     HorizontalAlignment="Center" VerticalAlignment="Stretch" Click="ReviewsClick"/>
-            <Button Grid.ColumnSpan="2" Content="Renovation&#10;Requests" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="DarkGray"/>
-            <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0 20 0 0">
+            <Button Grid.ColumnSpan="2" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="DarkGray">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{loc:Loc Renovation Requests}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+
+            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0 10 0 0">
+                <ItemsControl ItemsSource="{Binding RenovationRequests}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10" Background="White"
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                </Border.Effect>
+                                <Grid Margin="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Grid.ColumnSpan="2" >
+                                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Margin="0 15 0 0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                    <Run Text="{loc:Loc Guest:}" FontWeight="Bold" />
+                                                    <Run Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" />
+                                                </TextBlock>
+                                                <Border Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="Black" Margin="30 10 30 0"/>
+                                            </StackPanel>
+                                            
+                                            <StackPanel Margin="30 60 30 30">
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                    <Run Text="{loc:Loc Accommodation:}" FontStyle="Italic" FontWeight="Medium"/>
+                                                    <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}" />
+                                                    <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                                </TextBlock>
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                    <Run Text="{loc:Loc Level of Renovation Request:}" FontStyle="Italic" FontWeight="Medium" />
+                                                    <Run Text="{Binding Path=Level}" />
+                                                </TextBlock>
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                    <Run Text="{loc:Loc Comment:}"  FontStyle="Italic" FontWeight="Medium"/>
+                                                    <Run Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}" />
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1">
+                                                <Button Grid.Row="0" Content="{loc:Loc Renovate}" FontSize="20" Width="100" Height="40" IsEnabled="{Binding AccommodationId,Converter={StaticResource AccommodationIdToRenovationFlag}}"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationClick" Margin="0 60 0 8"/>
+                                                <Button Grid.Row="1" Content="{loc:Loc Close}" FontSize="20" Width="100" Height="40"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="CloseRequestClick"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0 20 0 0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl x:Name="ReservationRequestItems" ItemsSource="{Binding RenovationRequests}">
                         <ItemsControl.ItemsPanel>
@@ -50,7 +117,7 @@
                             <DataTemplate>
                                 <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10" Background="White"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="190">
-                                    <!-- MouseLeftButtonDown="ClickedOnCard"> -->
+                                     MouseLeftButtonDown="ClickedOnCard"> 
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                     </Border.Effect>
@@ -103,20 +170,16 @@
                                             <Button Grid.Row="1" Content="Close" FontSize="20" Width="100" Height="50"
                                                     HorizontalAlignment="Center" VerticalAlignment="Center" Click="CloseRequestClick"/>
                                         </Grid>
-                                        <!-- <Button Grid.Column="1" Content="Renovate" FontSize="20" Width="150" Height="60"
-                                                HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationClick"/> -->
-                                        <!-- <TextBlock Grid.Column="1" Text="Already Scheduled Renovation" FontSize="14" Foreground="Red"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Bottom"/> -->
                                     </Grid>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-            </Grid>
+        </Grid> -->
 
 
-            <!-- <Grid Grid.Column="0">
+        <!-- <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="9*"/>
