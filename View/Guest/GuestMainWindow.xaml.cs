@@ -55,7 +55,7 @@ namespace BookingApp.View.Guest
 
         private void ReservationClick(object sender, RoutedEventArgs e)
         {
-            GuestReservations = new GuestReservations(user);
+            GuestReservations = new GuestReservations(user, this);
             mainFrame.Navigate(GuestReservations);
         }
 
