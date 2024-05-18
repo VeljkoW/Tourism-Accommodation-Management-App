@@ -25,7 +25,10 @@ namespace BookingApp.ViewModel.Guest
             this.user = user;
             reservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             this.guestReservations = guestReservations;
-            reservedAccommodations = ReservedAccommodationService.GetInstance().Update(user);
+
+            foreach(ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().Update(user))
+                if(reservedAccommodation.CheckOutDate > DateTime.Now)
+                    reservedAccommodations.Add(reservedAccommodation);
         }
 
     }
