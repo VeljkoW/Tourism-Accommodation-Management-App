@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,15 @@ namespace BookingApp.View.Guest.Pages
         public User user { get; set; }
 
         public GuestMainWindow GuestMainWindow { get; set; }
+
+        public ReschedulingStatusesViewModel reschedulingStatusesViewModel { get; set; }
         public ReschedulingStatuses(User user, GuestMainWindow guestMainWindow)
         {
             this.user = user;
             GuestMainWindow = guestMainWindow;
+            reschedulingStatusesViewModel = new ReschedulingStatusesViewModel(this, user);
             InitializeComponent();
+            DataContext = reschedulingStatusesViewModel;
         }
 
         private void ReservationsClick(object sender, RoutedEventArgs e)
