@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:BookingApp.View.Owner"
         xmlns:loc="clr-namespace:BookingApp.Localization"
         mc:Ignorable="d"
-        Title="OwnerMainWindow" Height="1080" Width="1920">
+        Title="OwnerMainWindow" Height="1080" Width="1920"
+        WindowState="Maximized">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#579BB1</Color>
         <Color x:Key="ButtonPressedColor">#154c79</Color>
@@ -54,9 +55,9 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabLightColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="Foreground" Value="{StaticResource OwnerTextColor1Brush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -69,15 +70,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
@@ -89,18 +86,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ImageHoverStyle" TargetType="Image">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="0"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="10"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <!-- <Window.Background>
         <ImageBrush ImageSource="../../Resources/Images/Owner/background1.jpg" />
         Putanja do tvoje slike
     </Window.Background> -->
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color="#e4f1ff" Offset="0"/>
-                <GradientStop Color="#8db9dc" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+    <Grid Background="{StaticResource OwnerLightBackgroundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
@@ -158,14 +165,18 @@
                     </Grid>
                 </Button>
 
-                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
-                    <Image Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
-                           VerticalAlignment="Top"></Image>
-                    <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="32" Width="32" 
-                           VerticalAlignment="Top"></Image>
-                </StackPanel>
-                <Label Grid.Column="4" Content="{Binding user.Username, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+                <Image Grid.Column="4" Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
+                        VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0"/>
+                <Image Grid.Column="4" x:Name="starImage" Source="../../Resources/Images/Owner/medal.png" Height="32" Width="32" 
+                        VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40 60 0 0" Style="{StaticResource ImageHoverStyle}">
+                    <Image.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="{loc:Loc Superowner}"/>
+                        </ToolTip>
+                    </Image.ToolTip>
+                </Image>
+                    <Label Grid.Column="4" Content="{Binding user.Username, UpdateSourceTrigger=PropertyChanged}"
+                    FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
                 <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16" Margin="0 0 0 10">
                     <Hyperlink Click="LogOut">
                         <TextBlock Text="{loc:Loc Log out}"/>

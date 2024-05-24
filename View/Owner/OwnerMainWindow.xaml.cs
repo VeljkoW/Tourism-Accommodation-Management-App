@@ -143,9 +143,9 @@ namespace BookingApp.View.Owner
         }
         public void NavigationButtonBarPressed(string buttonName)
         {
-            Color backgroundButtonPressedColor = (Color)FindResource("ButtonPressedColor");
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
             SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
-            Color basicBackgroundColor = (Color)FindResource("BackgroundColor");
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
             SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
 
             AccommodationManagementButton.Background = buttonName == "AccommodationManagementButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;

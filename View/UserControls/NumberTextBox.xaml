@@ -11,10 +11,7 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="NumTextBox" VerticalContentAlignment="Center" FontWeight="Light" 
-         TextChanged="InputTextChanged"/>
-        <TextBlock x:Name="PlaceholderTextBlock" Text="{Binding Placeholder, UpdateSourceTrigger=PropertyChanged}" Margin="3 0 0 0 " Panel.ZIndex="-1" 
-           FontWeight="Light" Foreground="DarkGray" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="NumTextBox" VerticalContentAlignment="Center" FontWeight="Light"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

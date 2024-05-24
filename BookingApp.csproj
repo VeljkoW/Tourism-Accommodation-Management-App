@@ -54,6 +54,9 @@
 		<None Remove="Resources\Images\Owner\forum.png" />
 		<None Remove="Resources\Images\Owner\guest-rating.png" />
 		<None Remove="Resources\Images\Owner\hotel.png" />
+		<None Remove="Resources\Images\Owner\hotelBlue.png" />
+		<None Remove="Resources\Images\Owner\info.png" />
+		<None Remove="Resources\Images\Owner\medal.png" />
 		<None Remove="Resources\Images\Owner\record.png" />
 		<None Remove="Resources\Images\Owner\renovation.png" />
 		<None Remove="Resources\Images\Owner\rescheduling.png" />
@@ -104,6 +107,9 @@
 	  <Resource Include="Resources\Images\Guest\superGuest.png" />
 	  <Resource Include="Resources\Images\Owner\bookmark.png" />
 	  <Resource Include="Resources\Images\Owner\forum-user.png" />
+	  <Resource Include="Resources\Images\Owner\hotelBlue.png" />
+	  <Resource Include="Resources\Images\Owner\info.png" />
+	  <Resource Include="Resources\Images\Owner\medal.png" />
 	  <Resource Include="Resources\Images\Owner\renovation.png" />
 	</ItemGroup>
 
