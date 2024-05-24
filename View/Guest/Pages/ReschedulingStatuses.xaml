@@ -5,9 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
       xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
+        xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReschedulingStatuses">
+    <Page.Resources>
+        <local1:ReservedAccommodationIdToNameConverter x:Key="ReservedAccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:BoolIsAcceptedToStatus x:Key="BoolIsAcceptedToStatus"/>
+        <BitmapImage x:Key="AcceptedImage" UriSource="../../../Resources/Images/Guest/accepted.png"/>
+        <BitmapImage x:Key="RejectedImage" UriSource="../../../Resources/Images/Guest/cancel.png"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -22,6 +30,7 @@
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -35,7 +44,8 @@
                     <Button Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
                 </StackPanel>
             </Border>
-            <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <Label Grid.Row="1" Grid.Column="0" Content="*Pending reschedule requests" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></Label>
+            <ScrollViewer Grid.Row="2" Grid.Column="0"  VerticalScrollBarVisibility="Auto">
                 <ItemsControl Name="guestReschedulingRequestsItems" ItemsSource="{Binding guestReschedulingRequests}" Grid.Row="1" Grid.Column="0">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -60,10 +70,16 @@
                                                 <RowDefinition Height="3*"/>
                                                 <RowDefinition Height="3*"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=ReservedAccommodationId}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" Margin="5 5 0 0"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=CheckInDate}" FontSize="20" HorizontalAlignment="Left" Margin="0 5 0 0"/>
-                                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=CheckOutDate}" FontSize="20" HorizontalAlignment="Left" Margin="5 18 0 0"/>
-                                            
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ReservedAccommodationId, Converter={StaticResource ReservedAccommodationIdToNameConverter}}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" Margin="10 5 0 0"/>
+                                            <Image Grid.Row="0" Grid.Column="1" Source="../../../Resources/Images/Guest/loading.png" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 10 10 0"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  FontSize="20" HorizontalAlignment="Left" Margin="10 5 0 0">
+                                            <Run Text="Check In Date: " FontStyle="Italic" FontWeight="Medium"/>
+                                            <Run Text="{Binding Path=CheckInDate}" />
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  FontSize="20" HorizontalAlignment="Left" Margin="10 5 0 0">
+                                            <Run Text="Check Out Date: " FontStyle="Italic" FontWeight="Medium"/>
+                                            <Run Text="{Binding Path=CheckOutDate}" />   
+                                            </TextBlock>
                                         </Grid>
                                     </Border>
                                 </Grid>
@@ -72,7 +88,8 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <Label Grid.Row="1" Grid.Column="1" Content="*Processed reschedule requests" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></Label>
+            <ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Auto">
                 <ItemsControl Name="processedReschedulingRequestsItems" ItemsSource="{Binding processedReschedulingRequests}"  Grid.Row="1" Grid.Column="1">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -97,10 +114,28 @@
                                                 <RowDefinition Height="3*"/>
                                                 <RowDefinition Height="3*"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=AccommodationId}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=CheckInDate}" FontSize="20" HorizontalAlignment="Left" />
-                                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=CheckOutDate}" FontSize="20" HorizontalAlignment="Left" />
-
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" Margin="10 5 0 0"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding IsAccepted, Converter={StaticResource BoolIsAcceptedToStatus}, UpdateSourceTrigger=PropertyChanged}" FontSize="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 50 0"/>
+                                            <Image Grid.Row="0" Grid.Column="1" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 10 10 0">
+                                                <Image.Style>
+                                                    <Style TargetType="Image">
+                                                        <Setter Property="Source" Value="{StaticResource RejectedImage}"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsAccepted}" Value="True">
+                                                                <Setter Property="Source" Value="{StaticResource AcceptedImage}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Image.Style>
+                                            </Image>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  FontSize="20" HorizontalAlignment="Left" Margin="10 5 0 0">
+                                            <Run Text="New Check In Date: " FontStyle="Italic" FontWeight="Medium"/>
+                                            <Run Text="{Binding Path=CheckInDate}" />   
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  FontSize="20" HorizontalAlignment="Left" Margin="10 5 0 0">
+                                            <Run Text="New Check Out Date: " FontStyle="Italic" FontWeight="Medium"/>
+                                            <Run Text="{Binding Path=CheckOutDate}" />
+                                            </TextBlock>
                                         </Grid>
                                     </Border>
                                 </Grid>
