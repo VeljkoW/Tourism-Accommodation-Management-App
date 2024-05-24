@@ -40,7 +40,7 @@
                 <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 90 10" Background="White"
                           HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
@@ -54,7 +54,7 @@
                                     <!--<Border Grid.Column="0" BorderThickness="0">
                                     <Image Source="{Binding Path=Accommodation.Images[0].Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                 </Border>-->
-                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Width="760" Height="200">
+                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Margin="15 0 0 0" Width="750" Height="200">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="2*"/>

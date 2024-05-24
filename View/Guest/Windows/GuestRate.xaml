@@ -29,7 +29,7 @@
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="AccommodationName" Grid.Row="0" Grid.Column="0" FontSize="20" Content="Accommodation Name: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="Location" Grid.Row="0" Grid.Column="2" FontSize="20" Content="Location: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="Location" Grid.Row="0" Grid.Column="2" FontSize="20" Content="Location: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="11 0 0 0"/>
         <Label Grid.Row="1" Grid.Column="0" Height="35" Width="110" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left">Clealiness:*</Label>
         <!--<ComboBox x:Name="CleanlinessComboBox" Grid.Row="1" Grid.Column="0" Width="200" Height="35" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right">
             <ComboBoxItem Content="1"></ComboBoxItem>
