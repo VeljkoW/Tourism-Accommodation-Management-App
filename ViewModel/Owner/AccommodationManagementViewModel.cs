@@ -33,6 +33,7 @@ namespace BookingApp.ViewModel.Owner
         public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
         public AccommodationRegistration AccommodationRegistration {  get; set; }
         public User user { get; set; }
+        public Accommodation Accommodation {  get; set; }
         public List<string> States { get; set; }
         private string selectedState {  get; set; }
         public ObservableCollection<Location> Cities { get; set; }
@@ -40,6 +41,7 @@ namespace BookingApp.ViewModel.Owner
         public List<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
         public ObservableCollection<Accommodation> AccommodationsDisplay {  get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
 
         public List<string> StatesForChoosing { get; set; }
         public ObservableCollection<Location> CitiesForChoosing { get; set; }
@@ -117,6 +119,7 @@ namespace BookingApp.ViewModel.Owner
             StatesForChoosing = LocationService.GetInstance().GetStates();
             AccommodationsDisplay = AccommodationService.GetInstance().GetAllByUser(user);
             SelectedChosenCity = new Location();
+            Accommodation = new Accommodation();
             InitializeChooseStateComboBox();
         }
         private void InitializeChooseStateComboBox()
@@ -259,8 +262,8 @@ namespace BookingApp.ViewModel.Owner
         }
         public void AcceptExecute()
         {
-            Accommodation Accommodation = new Accommodation();
-            Accommodation.Name = AccommodationRegistration.NameTextBox.Text;
+            //Accommodation Accommodation = new Accommodation();
+            //Accommodation.Name = AccommodationRegistration.NameTextBox.Text;
             Accommodation.AccommodationType = ReturnAccommodationType();
             Accommodation.MaxGuestNumber = Convert.ToInt32(AccommodationRegistration.MaxGuestNumberTextBox.NumTextBox.Text);
             Accommodation.MinReservationDays = Convert.ToInt32(AccommodationRegistration.MinResDaysTextBox.NumTextBox.Text);
@@ -401,6 +404,11 @@ namespace BookingApp.ViewModel.Owner
                 }
             }
             return path;
+        }
+        public void CloseAccommodation()
+        {
+            AccommodationsDisplay.Remove(SelectedAccommodation);
+            AccommodationService.GetInstance().DeleteById(SelectedAccommodation.Id);
         }
     }
 }

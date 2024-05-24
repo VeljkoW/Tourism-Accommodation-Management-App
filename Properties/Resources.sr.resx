@@ -154,6 +154,10 @@
     <value>Dostupni Datumi:*</value>
     <comment>Renovation</comment>
   </data>
+  <data name="Average Grade:" xml:space="preserve">
+    <value>Srednja ocena:</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Cancel Renovation" xml:space="preserve">
     <value>Otkaži Renoviranje</value>
     <comment>Renovation</comment>
@@ -193,6 +197,10 @@
   <data name="City:" xml:space="preserve">
     <value>Grad:</value>
   </data>
+  <data name="Cleanliness:" xml:space="preserve">
+    <value>Čistoća:</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Cleanliness:*" xml:space="preserve">
     <value>Čistoća:*</value>
     <comment>GuestRating</comment>
@@ -200,6 +208,10 @@
   <data name="Close" xml:space="preserve">
     <value>Zatvori</value>
     <comment>RenovationRequestPage</comment>
+  </data>
+  <data name="Close Accommodation" xml:space="preserve">
+    <value>Zatvori Smeštaj</value>
+    <comment>AccommodationRegistration</comment>
   </data>
   <data name="Close accommodations" xml:space="preserve">
     <value>Zatvori smeštajeve</value>
@@ -277,6 +289,10 @@
     <value>Istorija Renoviranja</value>
     <comment>RenovationHistory</comment>
   </data>
+  <data name="In order to become a superowner" xml:space="preserve">
+    <value>Da bi postao super-vlasnik, moraš imati barem 50 ocena i srednju ocenu 4.5 ili vecu</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Jezik</value>
     <comment>OwnerMainWindow</comment>
@@ -332,6 +348,10 @@
   <data name="Notifications" xml:space="preserve">
     <value>Obaveštenja</value>
   </data>
+  <data name="Owner Integrity:" xml:space="preserve">
+    <value>Korektnost vlasnika:</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Post" xml:space="preserve">
     <value>Objavi</value>
     <comment>Forum</comment>
@@ -366,6 +386,10 @@
     <value>Zahtevi za Renoviranje</value>
     <comment>RenovationRequestPage</comment>
   </data>
+  <data name="Renovation Requests number:" xml:space="preserve">
+    <value>Broj zahteva za renoviranje:</value>
+    <comment>RenovationRequestPage</comment>
+  </data>
   <data name="Report" xml:space="preserve">
     <value>Prijavi</value>
     <comment>Forum</comment>
@@ -386,6 +410,10 @@
   <data name="Reviews" xml:space="preserve">
     <value>Recenzije</value>
     <comment>RenovationRequestPage</comment>
+  </data>
+  <data name="Reviews number:" xml:space="preserve">
+    <value>Broj recenzija:</value>
+    <comment>GuestReviews</comment>
   </data>
   <data name="Schedule renovation" xml:space="preserve">
     <value>Zakaži renoviranje</value>
@@ -432,6 +460,9 @@
   <data name="Statistics by Year" xml:space="preserve">
     <value>Statistike po Godinama</value>
   </data>
+  <data name="Superowner" xml:space="preserve">
+    <value>Super-vlasnik</value>
+  </data>
   <data name="Theme" xml:space="preserve">
     <value>Tema</value>
   </data>
@@ -453,7 +484,12 @@
   <data name="Year" xml:space="preserve">
     <value>Godina</value>
   </data>
+  <data name="You are a Superowner" xml:space="preserve">
+    <value>Ti si Super-vlasnik!</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Your Accommodations" xml:space="preserve">
     <value>Tvoji Smeštajevi</value>
+    <comment>AccommodationRegistration</comment>
   </data>
 </root>

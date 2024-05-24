@@ -35,12 +35,21 @@ namespace BookingApp.View.Owner
             this.OwnerMainWindow = OwnerMainWindow;
             GuestReviewsViewModel = new GuestReviewsViewModel(this, User, SelectedOwnerRating);
             DataContext = GuestReviewsViewModel;
+            SuperOwnerInfoLabel.Visibility = Visibility.Collapsed;
         }
 
         private void RenovationRequestsClick(object sender, RoutedEventArgs e)
         {
             RenovationRequestPage RenovationRequestPage = new RenovationRequestPage(OwnerMainWindow);
             OwnerMainWindow.mainFrame.Navigate(RenovationRequestPage);
+        }
+
+        private void SuperOwnerInfoClick(object sender, RoutedEventArgs e)
+        {
+            if(SuperOwnerInfoLabel.Visibility == Visibility.Collapsed)
+                SuperOwnerInfoLabel.Visibility = Visibility.Visible;
+            else
+                SuperOwnerInfoLabel.Visibility = Visibility.Collapsed;
         }
     }
 }

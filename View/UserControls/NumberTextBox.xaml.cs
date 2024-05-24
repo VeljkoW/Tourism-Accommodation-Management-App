@@ -55,26 +55,6 @@ namespace BookingApp.View.UserControls
                 PropertyChanged(this, new PropertyChangedEventArgs(str));
             }
         }
-
-        public string placeholder { get; set; }
-
-        public string Placeholder
-        {
-            get { return placeholder; }
-            set
-            {
-                placeholder = value;
-                PlaceholderTextBlock.Text = placeholder;
-            }
-        }
-        private void InputTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(NumTextBox.Text))
-                PlaceholderTextBlock.Visibility = Visibility.Visible;
-            else
-                PlaceholderTextBlock.Visibility = Visibility.Hidden;
-
-        }
         private void StartClick(object sender, MouseButtonEventArgs e)
         {
 
