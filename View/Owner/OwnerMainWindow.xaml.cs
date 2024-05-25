@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Localization;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Services;
 using BookingApp.ViewModel.Owner;
@@ -29,6 +30,9 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class OwnerMainWindow : Window
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
+
         public User user { get; set; }
         public Accommodation Accommodation { get; set; }
         public AccommodationRegistration AccommodationRegistration { get; set; }
@@ -43,6 +47,7 @@ namespace BookingApp.View.Owner
         public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
         public OwnerMainWindow(User user)
         {
+            App.ChangeLanguage(ENG);
             InitializeComponent();
             OwnerMainWindowViewModel = new OwnerMainWindowViewModel(this, user);
             DataContext = OwnerMainWindowViewModel;
@@ -50,7 +55,7 @@ namespace BookingApp.View.Owner
             this.user = user;
             NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
-            AccommodationRegistration = new AccommodationRegistration(Accommodation, user);
+            AccommodationRegistration = new AccommodationRegistration(user);
             AccommodationStatistics = new AccommodationStatistics(this);
             ReservationRescheduling = new ReservationRescheduling(user);
             //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
@@ -136,11 +141,11 @@ namespace BookingApp.View.Owner
                 NotificationListBox.Visibility = Visibility.Collapsed;
             NewNotificationImage.Visibility = Visibility.Collapsed;
         }
-        private void NavigationButtonBarPressed(string buttonName)
+        public void NavigationButtonBarPressed(string buttonName)
         {
-            Color backgroundButtonPressedColor = (Color)FindResource("ButtonPressedColor");
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
             SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
-            Color basicBackgroundColor = (Color)FindResource("BackgroundColor");
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
             SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
 
             AccommodationManagementButton.Background = buttonName == "AccommodationManagementButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
@@ -150,6 +155,16 @@ namespace BookingApp.View.Owner
             GuestReviewsButton.Background = buttonName == "GuestReviewsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
             RenovationButton.Background = buttonName == "RenovationButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
             ForumButton.Background = buttonName == "ForumButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+        }
+
+        private void ChangeLanguageSRB(object sender, RoutedEventArgs e)
+        {
+            App.ChangeLanguage(SRB);
+        }
+
+        private void ChangeLanguageENG(object sender, RoutedEventArgs e)
+        {
+            App.ChangeLanguage(ENG);
         }
     }
 }

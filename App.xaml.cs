@@ -14,6 +14,7 @@ using BookingApp.Repository.TourRepositories;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Domain.IRepositories;
 using Notification.Wpf;
+using BookingApp.Localization;
 
 namespace BookingApp
 {
@@ -95,6 +96,15 @@ namespace BookingApp
         public static INotificationManager GetNotificationManager()
         {
             return _serviceProvider.GetRequiredService<INotificationManager>();
+        }
+
+        public static string currentLanguage()
+        {
+            return TranslationSource.Instance.CurrentCulture.Name;
+        }
+        public static void ChangeLanguage(string lang)
+        {
+            TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo(lang);
         }
     }
 }

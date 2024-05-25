@@ -23,9 +23,24 @@
 		<None Remove="Resources\Images\delete.png" />
 		<None Remove="Resources\Images\edit.png" />
 		<None Remove="Resources\Images\eye.png" />
+		<None Remove="Resources\Images\Guest\accepted.png" />
+		<None Remove="Resources\Images\Guest\arrowDown.png" />
 		<None Remove="Resources\Images\Guest\arrowleft.png" />
 		<None Remove="Resources\Images\Guest\arrowright.png" />
+		<None Remove="Resources\Images\Guest\arrowUp.png" />
+		<None Remove="Resources\Images\Guest\bag.png" />
+		<None Remove="Resources\Images\Guest\bed.png" />
+		<None Remove="Resources\Images\Guest\cancel.png" />
+		<None Remove="Resources\Images\Guest\forum.png" />
+		<None Remove="Resources\Images\Guest\loading.png" />
+		<None Remove="Resources\Images\Guest\logout.png" />
+		<None Remove="Resources\Images\Guest\medal.png" />
+		<None Remove="Resources\Images\Guest\notifications.png" />
+		<None Remove="Resources\Images\Guest\rating.png" />
+		<None Remove="Resources\Images\Guest\refresh.png" />
 		<None Remove="Resources\Images\Guest\star.png" />
+		<None Remove="Resources\Images\Guest\superGuest.png" />
+		<None Remove="Resources\Images\Guest\user.png" />
 		<None Remove="Resources\Images\Guide\left_arrow.png" />
 		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guest\tutorial.png" />
@@ -34,14 +49,28 @@
 		<None Remove="Resources\Images\No-Image-Placeholder.png" />
 		<None Remove="Resources\Images\Owner\arrow-down.png" />
 		<None Remove="Resources\Images\Owner\arrow-up.png" />
+		<None Remove="Resources\Images\Owner\background1.jpg" />
 		<None Remove="Resources\Images\Owner\bell.png" />
+		<None Remove="Resources\Images\Owner\bookmark.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
+		<None Remove="Resources\Images\Owner\forum-user.png" />
+		<None Remove="Resources\Images\Owner\forum.png" />
+		<None Remove="Resources\Images\Owner\guest-rating.png" />
+		<None Remove="Resources\Images\Owner\hotel.png" />
+		<None Remove="Resources\Images\Owner\hotelBlue.png" />
+		<None Remove="Resources\Images\Owner\info.png" />
+		<None Remove="Resources\Images\Owner\medal.png" />
 		<None Remove="Resources\Images\Owner\record.png" />
+		<None Remove="Resources\Images\Owner\renovation.png" />
+		<None Remove="Resources\Images\Owner\rescheduling.png" />
+		<None Remove="Resources\Images\Owner\review.png" />
 		<None Remove="Resources\Images\Owner\serbia-flag.png" />
 		<None Remove="Resources\Images\Owner\star.png" />
+		<None Remove="Resources\Images\Owner\statistics.png" />
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
 		<None Remove="Resources\Images\Owner\user.png" />
 		<None Remove="Resources\Images\Owner\user128x128.png" />
+		<None Remove="Resources\Images\Owner\verified-user.png" />
 		<None Remove="Resources\Images\Owner\x-box.png" />
     <None Remove="Resources\Images\ratetour.png" />
     <None Remove="Resources\Images\report.png" />
@@ -73,6 +102,21 @@
 
 	<ItemGroup>
 	  <DesignDataWithDesignTimeCreatableTypes Include="Resources\Images\Accommodation\yellow-letter-s-in-black-6ovxl6yn0m6kv61dAAA.jpg" />
+	  <Resource Include="Resources\Images\Guest\accepted.png" />
+	  <Resource Include="Resources\Images\Guest\arrowDown.png" />
+	  <Resource Include="Resources\Images\Guest\arrowUp.png" />
+	  <Resource Include="Resources\Images\Guest\cancel.png" />
+	  <Resource Include="Resources\Images\Guest\loading.png" />
+	  <Resource Include="Resources\Images\Owner\background1.jpg" />
+	  <Resource Include="Resources\Images\Guest\medal.png" />
+	  <Resource Include="Resources\Images\Guest\refresh.png" />
+	  <Resource Include="Resources\Images\Guest\superGuest.png" />
+	  <Resource Include="Resources\Images\Owner\bookmark.png" />
+	  <Resource Include="Resources\Images\Owner\forum-user.png" />
+	  <Resource Include="Resources\Images\Owner\hotelBlue.png" />
+	  <Resource Include="Resources\Images\Owner\info.png" />
+	  <Resource Include="Resources\Images\Owner\medal.png" />
+	  <Resource Include="Resources\Images\Owner\renovation.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -115,19 +159,33 @@
 		<Resource Include="Resources\Images\accommodationsLogo.png" />
 		<Resource Include="Resources\Images\Guest\arrowleft.png" />
 		<Resource Include="Resources\Images\Guest\arrowright.png" />
+		<Resource Include="Resources\Images\Guest\bag.png" />
+		<Resource Include="Resources\Images\Guest\bed.png" />
+		<Resource Include="Resources\Images\Guest\forum.png" />
+		<Resource Include="Resources\Images\Guest\logout.png" />
+		<Resource Include="Resources\Images\Guest\notifications.png" />
+		<Resource Include="Resources\Images\Guest\rating.png" />
 		<Resource Include="Resources\Images\Guest\star.png" />
 		<Resource Include="Resources\Images\Guest\tutorial.png" />
+		<Resource Include="Resources\Images\Guest\user.png" />
 		<Resource Include="Resources\Images\Guide\user.png" />
 		<Resource Include="Resources\Images\Owner\arrow-down.png" />
 		<Resource Include="Resources\Images\Owner\arrow-up.png" />
 		<Resource Include="Resources\Images\Owner\bell.png" />
 		<Resource Include="Resources\Images\Owner\check-box.png" />
+		<Resource Include="Resources\Images\Owner\forum.png" />
+		<Resource Include="Resources\Images\Owner\guest-rating.png" />
+		<Resource Include="Resources\Images\Owner\hotel.png" />
 		<Resource Include="Resources\Images\Owner\record.png" />
+		<Resource Include="Resources\Images\Owner\rescheduling.png" />
+		<Resource Include="Resources\Images\Owner\review.png" />
 		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
 		<Resource Include="Resources\Images\Owner\star.png" />
+		<Resource Include="Resources\Images\Owner\statistics.png" />
 		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
 		<Resource Include="Resources\Images\Owner\user.png" />
 		<Resource Include="Resources\Images\Owner\user128x128.png" />
+		<Resource Include="Resources\Images\Owner\verified-user.png" />
 		<Resource Include="Resources\Images\Owner\x-box.png" />
 		<Resource Include="Resources\Images\Tourist\bell.png" />
 		<Resource Include="Resources\Images\Tourist\coupon.png" />
@@ -148,6 +206,11 @@
   </ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\Guide\Pages\UserControlTourist.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
@@ -163,5 +226,15 @@
 	  <Content Update="Resources\Images\ratetour.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Properties\Resources.sr.resx">
+	    <Generator></Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

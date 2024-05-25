@@ -4,9 +4,18 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="AccommodationStatistics">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:RenovationStartDateToFlag x:Key="RenovationStartDateToFlag"/>
+        <local1:LocationIdToLocationName x:Key="LocationIdToLocationName"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,7 +36,7 @@
                 <ColumnDefinition Width="*" MinWidth="300"/>
                 <ColumnDefinition Width="*" MinWidth="300"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Choose Your Accommodation: " FontSize="24"
+            <Label Content="{loc:Loc Choose Your Accommodation:}" FontSize="24"
                    HorizontalAlignment="Right" VerticalAlignment="Center"/>
             <ComboBox x:Name="AccommodationComboBox" Grid.Column="1" Grid.Row="0" Width="400" Height="40" Margin="10 0 0 0"
                       ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation}"
@@ -42,7 +51,7 @@
                     <RowDefinition Height="*" MinHeight="200"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <Label Content="Statistics by year" FontSize="20" Grid.Row="0"
+                <Label Content="{loc:Loc Statistics by Year}" FontSize="20" Grid.Row="0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <DataGrid x:Name="StatisticsByYearTable" Grid.Row="1"
                           ItemsSource="{Binding AccommodationStatisticsByYears, UpdateSourceTrigger=PropertyChanged}"
@@ -51,15 +60,39 @@
                           SelectionMode="Single" IsReadOnly="True"
                           SelectionChanged="YearSelectionChanged">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="Year" Binding="{Binding Year, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Reservation" Binding="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Cancellation" Binding="{Binding Cancellations, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Rescheduling" Binding="{Binding Reschedulings, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Renovation&#10;recommended" Binding="{Binding RecommendedRenovations, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="*" Header="{loc:Loc Year}" Binding="{Binding Year, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="2*" Header="{loc:Loc Reservation}" Binding="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="2*" Header="{loc:Loc Cancellation}" Binding="{Binding Cancellations, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="2*" Binding="{Binding Reschedulings, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{loc:Loc Rescheduling}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="2*" Binding="{Binding RecommendedRenovations, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{loc:Loc Renovation recommended}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="Most occupied year:" FontSize="18"/>
+                    <Label Content="{loc:Loc Most occupied year:}" FontSize="18"/>
                     <Label x:Name="PopularYearLabel" FontSize="18"/>
                 </StackPanel>
             </Grid>
@@ -71,22 +104,46 @@
                     <RowDefinition Height="*" MinHeight="200"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <Label Content="Statistics by month" FontSize="20" Grid.Row="0"
+                <Label Content="{loc:Loc Statistics by Month}" FontSize="20" Grid.Row="0"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <DataGrid x:Name="StatisticsByMonthTable" Grid.Row="1"
                           ItemsSource="{Binding AccommodationStatisticsByMonths, UpdateSourceTrigger=PropertyChanged}"
                           AutoGenerateColumns="False" FontSize="14"
                           SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="Month" Binding="{Binding MonthString, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Reservation" Binding="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Cancellation" Binding="{Binding Cancellations, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Rescheduling" Binding="{Binding Reschedulings, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Width="2*" Header="Renovation&#10;recommended" Binding="{Binding RecommendedRenovations, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="*" Header="{loc:Loc Month}" Binding="{Binding MonthString, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="2*" Header="{loc:Loc Reservation}" Binding="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="2*" Header="{loc:Loc Cancellation}" Binding="{Binding Cancellations, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Width="2*" Binding="{Binding Reschedulings, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{loc:Loc Rescheduling}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Width="2*" Binding="{Binding RecommendedRenovations, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{loc:Loc Renovation recommended}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="Most occupied month:" FontSize="18"/>
+                    <Label Content="{loc:Loc Most occupied month:}" FontSize="18"/>
                     <Label x:Name="PopularMonthLabel" FontSize="18"/>
                 </StackPanel>
                 
@@ -98,9 +155,9 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Most popular locations" FontSize="20" Grid.Row="0"
+                <Label Content="{loc:Loc Most popular locations}" FontSize="20" Grid.Row="0"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="5" Margin="60 0">
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="3" Margin="50 0">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -111,18 +168,18 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <Label Content="Location 1" FontSize="20" Grid.Row="0" Grid.Column="0" 
-                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Add accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
-                        <Label Content="Location 2" FontSize="20" Grid.Row="1" Grid.Column="0" 
+                        <Label Content="{Binding MostPopularLocationId1, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Add accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="AddAccommodationsClick1"/>
 
-                        <Label Content="Location 3" FontSize="20" Grid.Row="2" Grid.Column="0" 
+                        <Label Content="{Binding MostPopularLocationId2, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Add accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="AddAccommodationsClick2"/>
+
+                        <Label Content="{Binding MostPopularLocationId3, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="AddAccommodationsClick3"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -133,9 +190,9 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Least popular locations" FontSize="20" Grid.Row="0"
+                <Label Content="{loc:Loc Least popular locations}" FontSize="20" Grid.Row="0"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="5" Margin="60 0">
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="3" Margin="50 0">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -147,17 +204,17 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Content="Location 1" FontSize="20" Grid.Row="0" Grid.Column="0" 
+                        <Label Content="{Binding LeastPopularLocationId1, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Close accommodations" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick1"/>
 
-                        <Label Content="Location 2" FontSize="20" Grid.Row="1" Grid.Column="0" 
+                        <Label Content="{Binding LeastPopularLocationId2, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Close accommodations" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick2"/>
 
-                        <Label Content="Location 3" FontSize="20" Grid.Row="2" Grid.Column="0" 
+                        <Label Content="{Binding LeastPopularLocationId3, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="Close accommodations" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick3"/>
                     </Grid>
                 </Border>
             </Grid>

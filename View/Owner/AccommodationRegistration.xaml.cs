@@ -31,13 +31,21 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class AccommodationRegistration : Page
     {
+        private bool calledFromStatistics = false;
         private double lastVerticalOffset = 0;
         public AccommodationManagementViewModel AccommodationManagementViewModel { get; set; }
-        public AccommodationRegistration(Accommodation accommodation, User user)
+        public AccommodationRegistration(User user)
         {
             InitializeComponent();
             AccommodationManagementViewModel = new AccommodationManagementViewModel(this, user);
             this.DataContext = AccommodationManagementViewModel;
+        }
+        public AccommodationRegistration(User user, bool calledFromStatistics)
+        {
+            InitializeComponent();
+            AccommodationManagementViewModel = new AccommodationManagementViewModel(this, user);
+            this.DataContext = AccommodationManagementViewModel;
+            this.calledFromStatistics = calledFromStatistics;
         }
         private void StatePickedSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -45,6 +53,11 @@ namespace BookingApp.View.Owner
         }
         private void StateChosenSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (calledFromStatistics)
+            {
+                calledFromStatistics = false;
+                return;
+            }
             AccommodationManagementViewModel.StateChosen();
         }
         private void CityChosenSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,6 +103,13 @@ namespace BookingApp.View.Owner
             double borderTopPosition = topLeftPoint.Y;
 
             return borderTopPosition;
+        }
+
+        private void CloseAccommodationClick(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
+            AccommodationManagementViewModel.SelectedAccommodation = selectedCard;
+            AccommodationManagementViewModel.CloseAccommodation();
         }
     }
 }

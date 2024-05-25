@@ -242,8 +242,11 @@ namespace BookingApp.ViewModel.Guest
             reservedAccommodation.CheckOutDate = Convert.ToDateTime(dates[1].Trim());
             reservedAccommodation.Accommodation = Accommodation;
             reservedAccommodation.GuestId = user.Id;
-            
-            foreach(GuestBonus guestBonus in GuestBonusService.GetInstance().GetAll())
+            foreach (Image image in Accommodation.Images) reservedAccommodation.Images.Add(image);
+            reservedAccommodation.GuestNumber = Convert.ToInt32(GuestReservations.GuestNumberTextBox.Text);
+
+
+            foreach (GuestBonus guestBonus in GuestBonusService.GetInstance().GetAll())
             {
                 if(guestBonus.GuestId == user.Id && guestBonus.Bonus > 0)
                 {

@@ -44,7 +44,7 @@ namespace BookingApp.Services
             foreach (var tempOwner in owners)
             {
                 List<OwnerRating> ratings = OwnerRatingService.GetInstance().GetOwnerRatings(tempOwner.Id).ToList();
-                if (ratings.Count() >= 50)
+                if (ratings.Count() >= 2) ////////////////////////////////////////////////IMPORTANT FOR TESTING///////////////////////////////////////////////
                 {
                     double AverageGrade = GetAverageGrade(tempOwner.Id);
                     if (AverageGrade >= 4.5)

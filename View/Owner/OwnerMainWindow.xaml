@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Owner"
+        xmlns:loc="clr-namespace:BookingApp.Localization"
         mc:Ignorable="d"
-        Title="OwnerMainWindow" Height="1080" Width="1920">
+        Title="OwnerMainWindow" Height="1080" Width="1920"
+        WindowState="Maximized">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#579BB1</Color>
         <Color x:Key="ButtonPressedColor">#154c79</Color>
@@ -53,9 +55,9 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabLightColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="Foreground" Value="{StaticResource OwnerTextColor1Brush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -68,15 +70,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
@@ -88,14 +86,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ImageHoverStyle" TargetType="Image">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="0"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="10"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color="#e4f1ff" Offset="0"/>
-                <GradientStop Color="#8db9dc" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+    <!-- <Window.Background>
+        <ImageBrush ImageSource="../../Resources/Images/Owner/background1.jpg" />
+        Putanja do tvoje slike
+    </Window.Background> -->
+    <Grid Background="{StaticResource OwnerLightBackgroundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
@@ -121,21 +133,21 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 20 0 0">
-                    <Button Content="ENG" Width="64" Height="64" FontSize="20">
+                    <Button Content="ENG" Width="64" Height="64" FontSize="20" Click="ChangeLanguageENG">
                         <!-- <Button.Background>
                             <ImageBrush ImageSource="../../Resources/Images/Owner/united-kingdom-flag.png" />
                         </Button.Background> -->
                     </Button>
-                    <Button Content="SRB" Width="64" Height="64" FontSize="20">
+                    <Button Content="SRB" Width="64" Height="64" FontSize="20" Click="ChangeLanguageSRB">
                         <!-- <Button.Background>
                             <ImageBrush ImageSource="../../Resources/Images/Owner/serbia-flag.png" />
                         </Button.Background> -->
                     </Button>
                 </StackPanel>
-                <Label Grid.Column="0" Content="Language"
+                <Label x:Name="LanguageLabel" Grid.Column="0" Content="{loc:Loc Language}"
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
-                <Label Grid.Column="1" Content="Theme"
+                <Label x:Name="ThemeLabel" Grid.Column="1" Content="{loc:Loc Theme}"
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
                 <ListBox x:Name="NotificationListBox" ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}" 
@@ -149,21 +161,25 @@
                                HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Image x:Name="NewNotificationImage" Source="../../Resources/Images/Owner/record.png" Height="16" Margin="25 0 0 0"
                                HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="Notifications" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                        <Label Content="{loc:Loc Notifications}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                     </Grid>
                 </Button>
 
-                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
-                    <Image Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
-                           VerticalAlignment="Top"></Image>
-                    <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="32" Width="32" 
-                           VerticalAlignment="Top"></Image>
-                </StackPanel>
-                <Label Grid.Column="4" Content="{Binding user.Username, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+                <Image Grid.Column="4" Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
+                        VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0"/>
+                <Image Grid.Column="4" x:Name="starImage" Source="../../Resources/Images/Owner/medal.png" Height="32" Width="32" 
+                        VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40 60 0 0" Style="{StaticResource ImageHoverStyle}">
+                    <Image.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="{loc:Loc Superowner}"/>
+                        </ToolTip>
+                    </Image.ToolTip>
+                </Image>
+                    <Label Grid.Column="4" Content="{Binding user.Username, UpdateSourceTrigger=PropertyChanged}"
+                    FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
                 <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16" Margin="0 0 0 10">
                     <Hyperlink Click="LogOut">
-                        <TextBlock>Log out</TextBlock>
+                        <TextBlock Text="{loc:Loc Log out}"/>
                     </Hyperlink>
                 </TextBlock>
             </Grid>
@@ -180,19 +196,54 @@
                 <RowDefinition Height="*" MinHeight="40"/>
             </Grid.RowDefinitions>
             <Button x:Name="AccommodationManagementButton" Grid.Row="0" Grid.Column="0" Click="AccommodationManagementClick" 
-                    Content="Accommodation Management" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                <DockPanel>
+                    <Image Source="../../Resources/Images/Owner/hotel.png" Width="43" Margin="0 0 10 0"/>
+                    <TextBlock Text="{loc:Loc Accommodation Management}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+            </Button>
             <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Click="AccommodationStatisticsClick" 
-                    Content="Accommodation Statistics" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                <DockPanel>
+                    <Image Source="../../Resources/Images/Owner/statistics.png" Width="43" Margin="0 0 10 0"/>
+                    <TextBlock Text="{loc:Loc Accommodation Statistics}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+            </Button>
             <Button x:Name="ReservationReschedulingButton" Grid.Row="2" Grid.Column="0" Click="ReservationReschedulingClick" 
-                    Content="Reservation Rescheduling" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                <DockPanel>
+                    <Image Source="../../Resources/Images/Owner/rescheduling.png" Width="43" Margin="0 0 10 0"/>
+                    <TextBlock Text="{loc:Loc Reservation Rescheduling}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+            </Button>
             <Button x:Name="GuestRatingButton" Grid.Row="3" Grid.Column="0" Click="GuestRatingClick"
-                    Content="Guest Rating" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                <DockPanel>
+                    <Image Source="../../Resources/Images/Owner/guest-rating.png" Width="43" Margin="0 0 10 0"/>
+                    <TextBlock Text="{loc:Loc Guest Rating}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+            </Button>
             <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick"
-                    Content="Guest Reviews" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                <DockPanel>
+                    <Image Source="../../Resources/Images/Owner/review.png" Width="43" Margin="0 0 10 0"/>
+                    <TextBlock Text="{loc:Loc Guest Reviews}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+            </Button>
             <Button x:Name="RenovationButton" Grid.Row="5" Grid.Column="0" Click="RenovationClick" 
-                    Content="Renovation" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                <DockPanel>
+                    <Image Source="../../Resources/Images/Owner/renovation.png" Width="43" Margin="0 0 10 0"/>
+                    <TextBlock Text="{loc:Loc Renovation}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+            </Button>
             <Button x:Name="ForumButton" Grid.Row="6" Grid.Column="0" Click="ForumClick" 
-                    Content="Forum" FontSize="20" Style="{DynamicResource TabButtonStyle}"/>
+                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                <DockPanel>
+                    <Image Source="../../Resources/Images/Owner/forum.png" Width="43" Margin="0 0 10 0"/>
+                    <TextBlock Text="{loc:Loc Forum}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </DockPanel>
+            </Button>
         </Grid>
     </Grid>
 </Window>

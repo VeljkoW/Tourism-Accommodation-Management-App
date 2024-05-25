@@ -38,7 +38,7 @@ namespace BookingApp.View.Guest
         public GuestMainWindow(User user)
         {
             InitializeComponent();
-            GuestMainWindowViewModel = new GuestMainWindowViewModel(this);
+            GuestMainWindowViewModel = new GuestMainWindowViewModel(this, user);
             this.DataContext = GuestMainWindowViewModel;
             this.user = user;
             //GuestRate = new GuestRate(user, reservedAccommodation);
@@ -55,7 +55,7 @@ namespace BookingApp.View.Guest
 
         private void ReservationClick(object sender, RoutedEventArgs e)
         {
-            GuestReservations = new GuestReservations(user);
+            GuestReservations = new GuestReservations(user, this);
             mainFrame.Navigate(GuestReservations);
         }
 

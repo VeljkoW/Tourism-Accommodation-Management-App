@@ -66,10 +66,10 @@ namespace BookingApp.Domain.Model
             }
             set
             {
-                if (value != Print)
+                if (value != PrintCities)
                 {
-                    Print = value;
-                    OnPropertyChanged("Print");
+                    PrintCities = value;
+                    OnPropertyChanged("PrintCities");
                 }
             }
         }

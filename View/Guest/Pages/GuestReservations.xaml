@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1520"
@@ -17,18 +18,30 @@
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Reschedule" Width="150" Height="50" FontSize="20" Click="RescheduleClick" Grid.RowSpan="2" VerticalAlignment="Top"></Button>
-            <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" VerticalScrollBarVisibility="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 0 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="White" CornerRadius="15">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
+                    <Button Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
+                    <Button Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
+                </StackPanel>
+            </Border>
+            <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" VerticalScrollBarVisibility="Auto">
                 <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 50 10" Background="White"
-                              HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand">
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 90 10" Background="White"
+                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
@@ -37,10 +50,11 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" BorderThickness="0">
+                                    <userControls:ImageSlider Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="200" Height="200" MaxHeight="200" MaxWidth="200" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <!--<Border Grid.Column="0" BorderThickness="0">
                                         <Image Source="{Binding Path=Accommodation.Images[0].Path}" Stretch="UniformToFill" Width="200" Height="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                    </Border>
-                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Width="760" Height="200">
+                                    </Border>-->
+                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Margin="15 0 0 0" Width="750" Height="200">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="2*"/>
@@ -62,13 +76,12 @@
                                             <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                                             <Run Text="{Binding Path=CheckInDate}" />
                                             <Run Text=" - " />
-                                            <Run Text="{Binding Path=CheckOutDate}" />  
+                                            <Run Text="{Binding Path=CheckOutDate}" />
                                             </TextBlock>
                                             <!--<TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=CheckInDate}" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=CheckOutDate}" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15 0 0 0"/>-->
-                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
-                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
-                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Rate It" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="RateItClick" />
+                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
+                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
                                         </Grid>
                                     </Border>
                                 </Grid>

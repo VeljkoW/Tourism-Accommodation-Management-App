@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
-        Title="GuestNotifications" Height="400" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="GuestNotifications" Height="450" Width="360" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -15,7 +15,36 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="New Notifications" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ProcessedReschedulingRequests}" SelectedValuePath="PrintNotifications" DisplayMemberPath="PrintNotifications" FontSize="15"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label FontWeight="Medium" Content="New Notifications" FontSize="20"></Label>
+            <Button Click="Refresh"  Background="Transparent" BorderThickness="0">
+            <Image Source="../../../Resources/Images/Guest/refresh.png" Width="30" Height="30"></Image>
+            </Button>
+        </StackPanel>
+        
+        <!--<ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ProcessedReschedulingRequests}" SelectedValuePath="PrintNotifications" DisplayMemberPath="PrintNotifications" FontSize="15"/>-->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Name="reviewsItems" ItemsSource="{Binding ProcessedReschedulingRequests}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="20" Margin="5 5 5 5" Background="White"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                            </Border.Effect>
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="5">
+                                    <TextBlock Text="{Binding PrintNotifications}" FontSize="13" ></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>

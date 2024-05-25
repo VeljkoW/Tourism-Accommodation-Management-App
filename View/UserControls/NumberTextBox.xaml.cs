@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace BookingApp.View.UserControls
     /// <summary>
     /// Interaction logic for NumberTextBox.xaml
     /// </summary>
-    public partial class NumberTextBox : UserControl
+    public partial class NumberTextBox : UserControl, INotifyPropertyChanged
     {
         public NumberTextBox()
         {
@@ -46,6 +47,14 @@ namespace BookingApp.View.UserControls
                 e.Handled = true;
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
         private void StartClick(object sender, MouseButtonEventArgs e)
         {
 

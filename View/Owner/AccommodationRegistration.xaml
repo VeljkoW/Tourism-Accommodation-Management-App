@@ -4,12 +4,22 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
+      xmlns:val="clr-namespace:BookingApp.Validation"
       xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="AccommodationRegistration">
 
     <Page.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="14"/>
+            </StackPanel>
+        </ControlTemplate>
+        
         <Color x:Key="BackgroundColor">#579BB1</Color>
         <Color x:Key="ButtonPressedColor">#154c79</Color>
         <Color x:Key="BorderColor">#000033</Color>
@@ -92,9 +102,9 @@
                     </Grid.RowDefinitions>
 
                     <!--Registration-->
-                    <Label Content="Registration" Grid.Column="0" Grid.ColumnSpan="2"
+                    <Label Content="{loc:Loc Registration}" Grid.Column="0" Grid.ColumnSpan="2"
                            HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
-                    <Border Grid.Column="0" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 40 0 0">
+                    <Border Background="{StaticResource OwnerTabLightColorBrush}" Grid.Column="0" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 40 0 0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="3*"/>
@@ -115,43 +125,48 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <DockPanel Grid.Row="0" VerticalAlignment="Center">
-                                    <Label Content="Accommodation Name:*" FontSize="20"/>
-                                    <TextBox x:Name="NameTextBox" Width="250" Height="32" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    <Label Content="{loc:Loc Accommodation Name:*}" FontSize="20"/>
+                                    <TextBox x:Name="NameTextBox" Text="{Binding Accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="250" Height="32" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                                 </DockPanel>
                                 <DockPanel Grid.Row="1" VerticalAlignment="Center">
-                                    <Label Content="Accommodation Type:*" FontSize="20"/>
+                                    <Label Content="{loc:Loc Accommodation Type:*}" FontSize="20"/>
                                     <ComboBox x:Name="AccommodationTypeComboBox" Width="250" Height="32" FontSize="20"
-                                              HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <ComboBoxItem Content="Apartment"></ComboBoxItem>
-                                        <ComboBoxItem Content="House"></ComboBoxItem>
-                                        <ComboBoxItem Content="Hut"></ComboBoxItem>
+                                              HorizontalAlignment="Right" VerticalAlignment="Center"
+                                              val:ComboBoxValidation.IsRequired="True"
+                                              Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="Apartment"/>
+                                            <ComboBoxItem Content="House"/>
+                                            <ComboBoxItem Content="Hut"/>
+                                        </ComboBox.Items>
                                     </ComboBox>
                                 </DockPanel>
                                 <DockPanel Grid.Row="2" VerticalAlignment="Center">
-                                    <Label Content="Location - State:*" FontSize="20"/>
+                                    <Label Content="{loc:Loc Location - State:*}" FontSize="20"/>
                                     <ComboBox x:Name="StateComboBox" Width="250" Height="32" FontSize="20"
-                                              ItemsSource="{Binding States, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState}"
+                                              ItemsSource="{Binding States, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState, UpdateSourceTrigger=PropertyChanged}"
                                               HorizontalAlignment="Right" VerticalAlignment="Center" SelectionChanged="StatePickedSelectionChanged"/>
                                 </DockPanel>
                                 <DockPanel Grid.Row="3" VerticalAlignment="Center">
-                                    <Label Content="Location - City:*" FontSize="20"/>
+                                    <Label Content="{loc:Loc Location - City:*}" FontSize="20"/>
                                     <ComboBox x:Name="CityComboBox" Width="250" Height="32" FontSize="20" 
-                                              ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLocation}" 
+                                              ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}" 
                                               HorizontalAlignment="Right" VerticalAlignment="Center"
                                               SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities"/>
                                 </DockPanel>
                                 <DockPanel Grid.Row="4" VerticalAlignment="Center">
-                                    <Label Content="Max number of guests:*" FontSize="20"/>
+                                    <Label Content="{loc:Loc Max number of guests:*}" FontSize="20"/>
                                     <userControls:NumberTextBox x:Name="MaxGuestNumberTextBox" Width="250" Height="32" FontSize="20" 
                                                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                                 </DockPanel>
                                 <DockPanel Grid.Row="5" VerticalAlignment="Center">
-                                    <Label Content="Min number of reservation days:*" FontSize="20"/>
+                                    <Label Content="{loc:Loc Min number of reservation days:*}" FontSize="20"/>
                                     <userControls:NumberTextBox x:Name="MinResDaysTextBox" Width="250" Height="32" FontSize="20" 
                                                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                                 </DockPanel>
                                 <DockPanel Grid.Row="6" VerticalAlignment="Center">
-                                    <Label Content="Cancelation days limit:*" FontSize="20"/>
+                                    <Label Content="{loc:Loc Cancelation days limit:*}" FontSize="20"/>
                                     <userControls:NumberTextBox x:Name="CancelationDaysLimitTextBox" Width="250" Height="32" FontSize="20" 
                                                                 HorizontalAlignment="Right" VerticalAlignment="Center"/>
                                 </DockPanel>
@@ -162,7 +177,7 @@
                                     <RowDefinition Height="*" MinHeight="60"/>
                                     <RowDefinition Height="3*" MinHeight="140"/>
                                 </Grid.RowDefinitions>
-                                <Button x:Name="AddImagesButton" Grid.Row="0" Command="{Binding AddImage}" Content="Add Image"
+                                <Button x:Name="AddImagesButton" Grid.Row="0" Command="{Binding AddImage}" Content="{loc:Loc Add Image}"
                                         HorizontalAlignment="Center" VerticalAlignment="Top" Width="180" Height="60" FontSize="24"/>
 
                                 <Border Grid.Row="1" BorderThickness="2" Margin="0 7" Height="270"
@@ -192,7 +207,7 @@
                             </Grid>
                             <Button x:Name="AcceptButton" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                                     Command="{Binding Accept}" Height="60" Width="200" Margin="0 20"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Content="Accept"/>
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Content="{loc:Loc Accept}"/>
                         </Grid>
                     </Border>
 
@@ -295,15 +310,15 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="Choose location" Grid.Column="1" Margin="0 0 0 10"
+                            <Label Grid.Row="0" Content="{loc:Loc Choose Location}" Grid.Column="1" Margin="0 0 0 10"
                                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
                             <DockPanel Grid.Row="1">
-                                <Label Content="State:" FontSize="20"/>
+                                <Label Content="{loc:Loc State:}" FontSize="20"/>
                                 <ComboBox x:Name="ChooseStateComboBox" SelectedItem="{Binding SelectedChosenState}"
                                           Width="230" Height="30" FontSize="20" HorizontalAlignment="Right" Margin="0 0 0 10" SelectionChanged="StateChosenSelectionChanged"/>
                             </DockPanel>
                             <DockPanel Grid.Row="2">
-                                <Label Content="City:" FontSize="20"/>
+                                <Label Content="{loc:Loc City:}" FontSize="20"/>
                                 <ComboBox x:Name="ChooseCityComboBox" SelectedItem="{Binding SelectedChosenCity}"
                                           Width="230" Height="30" FontSize="20" HorizontalAlignment="Right" Margin="0 0 0 10" SelectionChanged="CityChosenSelectionChanged"
                                           SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities"/>
@@ -312,7 +327,7 @@
                     </Border>
 
 
-                    <TextBlock Text="Your Accommodations" Grid.Column="0"
+                    <TextBlock Text="{loc:Loc Your Accommodations}" Grid.Column="0"
                            HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30"/>
                     <ItemsControl x:Name="accommodationItems" Grid.Column="0" ItemsSource="{Binding AccommodationsDisplay}" Margin="20 40 20 10">
                         <ItemsControl.ItemTemplate>
@@ -327,7 +342,7 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <userControls:ImageSlider Grid.Column="0" Height="170" Width="220" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <userControls:ImageSlider Grid.Column="0" Height="220" Width="220" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
                                         <!-- <Border Grid.Column="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 10">
                                             <ItemsControl ItemsSource="{Binding Path=Images}">
                                                 <ItemsControl.ItemTemplate>
@@ -349,34 +364,38 @@
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
 
                                                 <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Path=Name}" FontWeight="Bold" FontSize="27" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="7 0 0 0"/>
 
                                                 <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" Margin="10 0 0 0">
-                                                    <Run Text="State:"/>
+                                                    <Run Text="{loc:Loc State:}"/>
                                                     <Run Text="{Binding Path=Location.State}"/>
                                                 </TextBlock>
                                                 <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" Margin="10 0 0 0">
-                                                    <Run Text="City:"/>
+                                                    <Run Text="{loc:Loc City:}"/>
                                                     <Run Text="{Binding Path=Location.City}"/>
                                                 </TextBlock>
                                                 <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" Margin="10 0 0 0">
-                                                    <Run Text="Type:"/>
+                                                    <Run Text="{loc:Loc Type:}"/>
                                                     <Run Text="{Binding Path=AccommodationType}"/>
                                                 </TextBlock>
                                                 <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" Margin="50 0 0 0">
-                                                    <Run Text="Max Guest Number:"/>
+                                                    <Run Text="{loc:Loc Max Guest Number:}"/>
                                                     <Run Text="{Binding Path=MaxGuestNumber}"/>
                                                 </TextBlock>
                                                 <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" Margin="50 0 0 0">
-                                                    <Run Text="Min Reservation Days:"/>
+                                                    <Run Text="{loc:Loc Min Reservation Days:}"/>
                                                     <Run Text="{Binding Path=MinReservationDays}"/>
                                                 </TextBlock>
                                                 <TextBlock Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" Margin="50 0 0 0">
-                                                    <Run Text="Cancelation Days Limit:"/>
+                                                    <Run Text="{loc:Loc Cancelation Days Limit:}"/>
                                                     <Run Text="{Binding Path=CancelationDaysLimit}"/>
                                                 </TextBlock>
+
+                                                <Button Grid.Column="0" Grid.Row="4" Content="{loc:Loc Close Accommodation}" Grid.ColumnSpan="2" Height="30" FontSize="18"
+                                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 4" Click="CloseAccommodationClick"/>
                                             </Grid>
                                         </Border>
                                     </Grid>
