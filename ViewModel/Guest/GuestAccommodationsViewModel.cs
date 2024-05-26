@@ -54,7 +54,7 @@ namespace BookingApp.ViewModel.Guest
         {
             foreach (Accommodation superAccommodation in superOwnerAccommodations)
             {
-                superAccommodation.Recommended = "Recommended Accommodation";
+                superAccommodation.Recommended = "Recommended";
                 Accommodations.Add(superAccommodation);
             }
             foreach (Accommodation noSuperAccommodation in noSuperOwnerAccommodations) Accommodations.Add(noSuperAccommodation);
