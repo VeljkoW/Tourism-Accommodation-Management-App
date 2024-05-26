@@ -54,10 +54,9 @@ namespace BookingApp.ViewModel.Owner
         public bool RateGuestCanExecute()
         {
             if (SelectedReservedAccommodations == null ||
-                GuestRatingPage.Cleanliness == 0 ||
                 !IsCleanlinessChecked() ||
                 !IsFollowingGuidelinesChecked() ||
-                GuestRatingPage.CommentTextBox.Text.Equals("") || GuestRatingPage.CommentTextBox.Text.Length<50)
+                GuestRatingPage.CommentTextBox.Text.Equals(""))
             {
                 return false;
             }

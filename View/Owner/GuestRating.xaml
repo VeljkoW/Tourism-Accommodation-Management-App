@@ -38,8 +38,8 @@
                       SelectionMode="Single" IsReadOnly="True" Grid.Row="0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Accommodation Name}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Location}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Accommodation Name}" Binding="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Location}" Binding="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToLocation}}"/>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate}"/>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate}"/>
                 </DataGrid.Columns>

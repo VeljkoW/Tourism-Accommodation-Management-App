@@ -20,8 +20,14 @@
         <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
         <SolidColorBrush x:Key="ButtonPressedColorBrush" Color="{StaticResource ButtonPressedColor}"/>
 
-        <Style TargetType="ListBoxItem">
-            <EventSetter Event="PreviewMouseDown" Handler="ListBoxItem_PreviewMouseDown"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
         </Style>
         <!-- <Style x:Key="TabButtonStyle" TargetType="Button">
             <Setter Property="BorderThickness" Value="2"/>
@@ -62,6 +68,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -70,11 +77,12 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTabLightColorBrush}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
+                                <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
@@ -108,6 +116,12 @@
         Putanja do tvoje slike
     </Window.Background> -->
     <Grid Background="{StaticResource OwnerLightBackgroundColorBrush}">
+        <Grid.Resources>
+            <!-- Stil za sve TextElemente unutar Grid-a -->
+            <Style TargetType="{x:Type TextElement}">
+                <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="10*"/>
@@ -133,26 +147,80 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 20 0 0">
-                    <Button Content="ENG" Width="64" Height="64" FontSize="20" Click="ChangeLanguageENG">
-                        <!-- <Button.Background>
-                            <ImageBrush ImageSource="../../Resources/Images/Owner/united-kingdom-flag.png" />
-                        </Button.Background> -->
+                    <Button x:Name="ENGButton" Content="ENG" Width="64" Height="64" FontSize="20" Click="ChangeLanguageENG" Style="{DynamicResource TabButtonStyle}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="20 0 0 20">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
                     </Button>
-                    <Button Content="SRB" Width="64" Height="64" FontSize="20" Click="ChangeLanguageSRB">
-                        <!-- <Button.Background>
-                            <ImageBrush ImageSource="../../Resources/Images/Owner/serbia-flag.png" />
-                        </Button.Background> -->
+                    <Button x:Name="SRBButton" Content="SRB" Width="64" Height="64" FontSize="20" Click="ChangeLanguageSRB" Style="{DynamicResource TabButtonStyle}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                    CornerRadius="0 20 20 0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
                     </Button>
                 </StackPanel>
                 <Label x:Name="LanguageLabel" Grid.Column="0" Content="{loc:Loc Language}"
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 20 0 0">
+                    <Button x:Name="LightThemeButton" Content="Light" Width="64" Height="64" FontSize="20" Click="ChangeThemeLight" Style="{DynamicResource TabButtonStyle}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="20 0 0 20">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="DarkThemeButton" Content="Dark" Width="64" Height="64" FontSize="20" Click="ChangeThemeDark" Style="{DynamicResource TabButtonStyle}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="0 20 20 0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+
+
                 <Label x:Name="ThemeLabel" Grid.Column="1" Content="{loc:Loc Theme}"
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
-                <ListBox x:Name="NotificationListBox" ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}" 
+                <ListBox x:Name="NotificationListBox" ItemsSource="{Binding OwnerNotifications, UpdateSourceTrigger=PropertyChanged}" 
                          Grid.Row="0" Grid.Column="2" Width="350" Height="104" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 20 20 0"
-                         SelectedValuePath="Print" DisplayMemberPath="Print"/>
+                         SelectedValuePath="Print" DisplayMemberPath="Print" PreviewMouseDown="ListBoxItem_PreviewMouseDown"/>
 
                 <Button Click="NotificationButtonClick" Grid.Column="3" Margin="0 20 0 25" Background="Transparent" BorderThickness="0"
                         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">

@@ -161,6 +161,10 @@ namespace BookingApp.ViewModel.Guest
                 } 
             }
             OwnerRatingService.GetInstance().Add(ownerRating);
+            OwnerNotification ownerNotification = new OwnerNotification();
+            ownerNotification.ReservedAccommodationId = ReservedAccommodation.Id;
+            ownerNotification.Root = "OwnerRating";
+            OwnerNotificationService.GetInstance().Add(ownerNotification);
 
             GuestRate.Close();
         }
