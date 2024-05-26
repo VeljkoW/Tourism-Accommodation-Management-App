@@ -20,12 +20,15 @@ namespace BookingApp.View.Guest.Pages
     public partial class Accommodations : Page
     {
         public GuestAccommodationsViewModel GuestAccommodationsViewModel { get; set; }
-
-        public Accommodations(User user)
+        public GuestMainWindow GuestMainWindow { get; set; }
+        public User User { get; set; }
+        public Accommodations(User user, GuestMainWindow guestMainWindow)
         {
             InitializeComponent();
+            User = user;
             GuestAccommodationsViewModel = new GuestAccommodationsViewModel(this, user);
             this.DataContext = GuestAccommodationsViewModel;
+            GuestMainWindow = guestMainWindow;
         }
 
         //private void AccommodationName_Clicked(Object sender, RoutedEventArgs e)
@@ -131,5 +134,16 @@ namespace BookingApp.View.Guest.Pages
             GuestAccommodationsViewModel.ClickedOnCard(sender, e);
         }
 
+        private void AccommodationsClick(object sender, RoutedEventArgs e)
+        {
+            Accommodations accommodations = new Accommodations(User, GuestMainWindow);
+            GuestMainWindow.mainFrame.Navigate(accommodations);
+        }
+
+        private void AnyClick(object sender, RoutedEventArgs e)
+        {
+            AnywhereAnytime anywhereAnytime = new AnywhereAnytime(User, GuestMainWindow);
+            GuestMainWindow.mainFrame.Navigate(anywhereAnytime);
+        }
     }
 }
