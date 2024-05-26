@@ -59,6 +59,10 @@ namespace BookingApp.Services
         {
             ObservableCollection<GuestRating> ratings = Update(user);
             double AverageGrade = 0;
+            if(ratings.Count == 0)
+            {
+                return 0;
+            }
             foreach (GuestRating guestRating in ratings)
             {
                 AverageGrade += (double)(guestRating.Cleanliness + guestRating.FollowingGuidelines) / 2;
