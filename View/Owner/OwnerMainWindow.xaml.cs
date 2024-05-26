@@ -44,6 +44,7 @@ namespace BookingApp.View.Owner
         public RenovationHistory RenovationHistory { get; set; }
         public Forum Forum {  get; set; }
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
+        public ObservableCollection<OwnerNotification> OwnerNotifications { get; set; }
         public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
         public OwnerMainWindow(User user)
         {
@@ -58,23 +59,26 @@ namespace BookingApp.View.Owner
             AccommodationRegistration = new AccommodationRegistration(user);
             AccommodationStatistics = new AccommodationStatistics(this);
             ReservationRescheduling = new ReservationRescheduling(user);
-            //ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             GuestRatingPage = new GuestRatingPage(this, user);////////////////////////////////////////////////////////////
             ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
-            //GuestReviews = new GuestReviews(user);
+
+            OwnerNotifications = new ObservableCollection<OwnerNotification>();
+            foreach (OwnerNotification ownerNotification in OwnerNotificationService.GetInstance().GetAll())
+                OwnerNotifications.Add(ownerNotification);
             Renovation = new Renovation(this);
             RenovationHistory = new RenovationHistory(this);
-            Forum = new Forum();
+            Forum = new Forum(this);
             mainFrame.Navigate(AccommodationRegistration);
 
-            if (ReservedAccommodations.Count == 0)
+            if (OwnerNotifications.Count == 0)
             {
                 NotificationListBox.BorderBrush = Brushes.Gray;
                 NotificationListBox.BorderThickness = new Thickness(1);
                 NewNotificationImage.Visibility = Visibility.Collapsed;
             }
             NavigationButtonBarPressed("AccommodationManagementButton");
+            ChangeLanguageENG();
         }
         private void LogOut(object sender, RoutedEventArgs e)
         {
@@ -99,7 +103,8 @@ namespace BookingApp.View.Owner
         {
             NotificationListBox.BorderBrush = Brushes.Gray;
             NotificationListBox.BorderThickness = new Thickness(1);
-            mainFrame.Navigate(GuestRatingPage);
+            mainFrame.Navigate(Forum);
+            NavigationButtonBarPressed("ForumButton");
         }
 
         private void GuestReviewsClick(object sender, RoutedEventArgs e)
@@ -160,11 +165,36 @@ namespace BookingApp.View.Owner
         private void ChangeLanguageSRB(object sender, RoutedEventArgs e)
         {
             App.ChangeLanguage(SRB);
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            ENGButton.Background = basicBackgroundBrush;
+            SRBButton.Background = backgroundButtonPressedBrush;
         }
-
-        private void ChangeLanguageENG(object sender, RoutedEventArgs e)
+        private void ChangeLanguageENG()
         {
             App.ChangeLanguage(ENG);
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            ENGButton.Background = backgroundButtonPressedBrush;
+            SRBButton.Background = basicBackgroundBrush;
+        }
+        private void ChangeLanguageENG(object sender, RoutedEventArgs e)
+        {
+            ChangeLanguageENG();
+        }
+
+        private void ChangeThemeLight(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ChangeThemeDark(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

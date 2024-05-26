@@ -20,6 +20,10 @@ namespace BookingApp.Services
         public void Add(Forum forum)
         {
             ForumRepository.Add(forum);
+            OwnerNotification ownerNotification = new OwnerNotification();
+            ownerNotification.ForumId = forum.Id;
+            ownerNotification.Root = "Forum";
+            OwnerNotificationService.GetInstance().Add(ownerNotification);
         }
 
         public List<Forum> GetAll()

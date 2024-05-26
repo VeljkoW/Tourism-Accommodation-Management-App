@@ -328,7 +328,7 @@
     <value>Maksimalan broj gostiju:*</value>
   </data>
   <data name="Min number of reservation days:*" xml:space="preserve">
-    <value>Minimalan broj rezervisanih dana:*</value>
+    <value>Najmanji broj rezervisanih dana:*</value>
   </data>
   <data name="Min Reservation Days:" xml:space="preserve">
     <value>Min. rezervisanih dana:</value>
