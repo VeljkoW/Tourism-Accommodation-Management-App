@@ -152,6 +152,7 @@ namespace BookingApp.ViewModel.Tourist
             ComplexTourSuggestions = new ObservableCollection<TourSuggestion>();
 
             AddStatesToComboBox(LocationService.GetInstance().GetAll());
+            TourCouponAwardService.GetInstance().CreateACouponAward(User.Id);
             Update();
         }
         public Tour MakeTour(Tour tour,TourSchedule tourSchedule)
