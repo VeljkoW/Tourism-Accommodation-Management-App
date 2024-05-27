@@ -160,6 +160,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Average Grade:.
+        /// </summary>
+        internal static string Average_Grade_ {
+            get {
+                return ResourceManager.GetString("Average Grade:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel Renovation.
         /// </summary>
         internal static string Cancel_Renovation {
@@ -259,6 +268,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cleanliness:.
+        /// </summary>
+        internal static string Cleanliness_ {
+            get {
+                return ResourceManager.GetString("Cleanliness:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cleanliness:*.
         /// </summary>
         internal static string Cleanliness__ {
@@ -273,6 +291,15 @@ namespace BookingApp.Properties {
         internal static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Accommodation.
+        /// </summary>
+        internal static string Close_Accommodation {
+            get {
+                return ResourceManager.GetString("Close Accommodation", resourceCulture);
             }
         }
         
@@ -458,6 +485,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In order to become a superowner, you must have at least 50 reviews and average grade of at least 4.5.
+        /// </summary>
+        internal static string In_order_to_become_a_superowner {
+            get {
+                return ResourceManager.GetString("In order to become a superowner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string Language {
@@ -611,6 +647,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Owner Integrity:.
+        /// </summary>
+        internal static string Owner_Integrity_ {
+            get {
+                return ResourceManager.GetString("Owner Integrity:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post.
         /// </summary>
         internal static string Post {
@@ -692,6 +737,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Renovation Requests number:.
+        /// </summary>
+        internal static string Renovation_Requests_number_ {
+            get {
+                return ResourceManager.GetString("Renovation Requests number:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report.
         /// </summary>
         internal static string Report {
@@ -742,6 +796,15 @@ namespace BookingApp.Properties {
         internal static string Reviews {
             get {
                 return ResourceManager.GetString("Reviews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviews number:.
+        /// </summary>
+        internal static string Reviews_number_ {
+            get {
+                return ResourceManager.GetString("Reviews number:", resourceCulture);
             }
         }
         
@@ -863,6 +926,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Superowner.
+        /// </summary>
+        internal static string Superowner {
+            get {
+                return ResourceManager.GetString("Superowner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Theme.
         /// </summary>
         internal static string Theme {
@@ -913,6 +985,15 @@ namespace BookingApp.Properties {
         internal static string Year {
             get {
                 return ResourceManager.GetString("Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are a Superowner!.
+        /// </summary>
+        internal static string You_are_a_Superowner {
+            get {
+                return ResourceManager.GetString("You are a Superowner", resourceCulture);
             }
         }
         

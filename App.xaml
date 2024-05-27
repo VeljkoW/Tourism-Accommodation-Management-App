@@ -4,10 +4,43 @@
              xmlns:local="clr-namespace:BookingApp"
              Startup="Application_Startup">
     <Application.Resources>
+        <FontFamily x:Key="OwnerFontFamily">Trebuchet MS</FontFamily>
+        <FontFamily x:Key="asas">Trebuchet MS</FontFamily>
         <Color x:Key="OwnerBackgroundColor">#007ACC</Color>
-        <Color x:Key="OwnerButtonPressedColor">#FFA500</Color>
+        <Color x:Key="OwnerTextColor1">#3e434c</Color>
+        <Color x:Key="OwnerImageColor1">#337ae1</Color>
+        <Color x:Key="OwnerImageColor2">#45c3ef</Color>
+        <Color x:Key="OwnerLightBackgroundColor">#ffffff</Color>
+        <Color x:Key="OwnerDarkBackgroundColor">#11192c</Color>
+        <Color x:Key="OwnerTabLightColor">#e3e3e3</Color>
+        <Color x:Key="OwnerTabHoverLightColor">#8fb1ff</Color>
+        <Color x:Key="OwnerTabDarkColor">#1f2a42</Color>
+        <Color x:Key="OwnerTabHoverDarkColor">#2a354c</Color>
+        <Color x:Key="OwnerTabPressedLightColor">#6d7585</Color>
+        <Color x:Key="OwnerTabPressedDarkColor">#171a25</Color>
+        <Color x:Key="OwnerButtonColor">#2a5bc9</Color>
+        <Color x:Key="OwnerButtonPressedColor">#2955bc</Color>
+        <Color x:Key="OwnerButtonDisabledColor">#8495ba</Color>
+        <Color x:Key="OwnerTabPressedColor">#4578eb</Color>
+        <Color x:Key="OwnerButtonDisabledForegroundColor">#454545</Color>
+        
         <SolidColorBrush x:Key="OwnerBackgroundColorBrush" Color="{StaticResource OwnerBackgroundColor}"/>
+        <SolidColorBrush x:Key="OwnerTextColor1Brush" Color="{StaticResource OwnerTextColor1}"/>
+        <SolidColorBrush x:Key="OwnerImageColor1Brush" Color="{StaticResource OwnerImageColor1}"/>
+        <SolidColorBrush x:Key="OwnerImageColor2Brush" Color="{StaticResource OwnerImageColor2}"/>
+        <SolidColorBrush x:Key="OwnerTabLightColorBrush" Color="{StaticResource OwnerTabLightColor}"/>
+        <SolidColorBrush x:Key="OwnerTabHoverLightColorBrush" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="OwnerLightBackgroundColorBrush" Color="{StaticResource OwnerLightBackgroundColor}"/>
+        <SolidColorBrush x:Key="OwnerDarkBackgroundColorBrush" Color="{StaticResource OwnerDarkBackgroundColor}"/>
+        <SolidColorBrush x:Key="OwnerTabDarkColorBrush" Color="{StaticResource OwnerTabDarkColor}"/>
+        <SolidColorBrush x:Key="OwnerTabHoverDarkColorBrush" Color="{StaticResource OwnerTabHoverDarkColor}"/>
+        <SolidColorBrush x:Key="OwnerTabPressedLightColorBrush" Color="{StaticResource OwnerTabPressedLightColor}"/>
+        <SolidColorBrush x:Key="OwnerTabPressedDarkColorBrush" Color="{StaticResource OwnerTabPressedDarkColor}"/>
         <SolidColorBrush x:Key="OwnerButtonPressedColorBrush" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="OwnerTabPressedColorBrush" Color="{StaticResource OwnerTabPressedColor}"/>
+        <SolidColorBrush x:Key="OwnerButtonDisabledColorBrush" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="OwnerButtonDisabledForegroundColorBrush" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+
 
         <SolidColorBrush x:Key="DirtColor" Color="#1c160e"/>
         <SolidColorBrush x:Key="LightDirtColor" Color="#ff9142"/>

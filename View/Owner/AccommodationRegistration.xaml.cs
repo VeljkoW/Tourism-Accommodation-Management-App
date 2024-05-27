@@ -104,5 +104,12 @@ namespace BookingApp.View.Owner
 
             return borderTopPosition;
         }
+
+        private void CloseAccommodationClick(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
+            AccommodationManagementViewModel.SelectedAccommodation = selectedCard;
+            AccommodationManagementViewModel.CloseAccommodation();
+        }
     }
 }

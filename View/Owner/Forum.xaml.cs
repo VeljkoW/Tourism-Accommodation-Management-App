@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Domain.Model;
+using BookingApp.ViewModel.Owner;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,26 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class Forum : Page
     {
-        public Forum()
+        public User User { get; set; }
+        public OwnerForumViewModel OwnerForumViewModel {  get; set; }
+        public OwnerMainWindow OwnerMainWindow { get; set; }
+        public Forum(OwnerMainWindow ownerMainWindow)
         {
+            User = ownerMainWindow.user;
+            OwnerMainWindow = ownerMainWindow;
             InitializeComponent();
+            OwnerForumViewModel = new OwnerForumViewModel(this);
+            DataContext = OwnerForumViewModel;
+        }
+
+        private void statePicked(object sender, SelectionChangedEventArgs e)
+        {
+            OwnerForumViewModel.StatePicked();
+        }
+
+        private void cityPicked(object sender, SelectionChangedEventArgs e)
+        {
+            OwnerForumViewModel.CityPicked();
         }
     }
 }

@@ -50,5 +50,9 @@ namespace BookingApp.Services
         {
             return GetAll().Where(t => t.TourScheduleId == id).ToList();
         }
+        public List<TourReservation> GetReservationsByUserId(int userId)
+        {
+            return GetAll().Where(t => t.UserId == userId).ToList();
+        }
     }
 }

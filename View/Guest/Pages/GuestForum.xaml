@@ -1,0 +1,106 @@
+﻿<Page x:Class="BookingApp.View.Guest.Pages.GuestForum"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
+      xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
+        xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1520"
+      Title="GuestForum">
+    <Page.Resources>
+        <local1:BoolIsSpecialToString x:Key="BoolIsSpecialToString"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="1" Content="Forum" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14 0 0 0" FontWeight="Medium" FontSize="40"/>
+        <Grid Grid.Row="1" Grid.Column="1" Background="#efe5dc">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Width="1100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42 0 42 0" Height="55" Background="White" CornerRadius="8">
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox x:Name="ComboBoxState" FontSize="20" Grid.Column="0" Grid.Row="0" Margin="50 0 0 0" Height="40" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding StatesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedChosenState, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="statePick" />
+                        <ComboBox x:Name="ComboBoxCity" FontSize="20" Grid.Column="1" Grid.Row="0" Margin="50 0 0 0" Height="40" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CitiesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities" SelectedItem="{Binding SelectedChosenCity, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cityPick" />
+                        <Button VerticalAlignment="Center" Margin="50 0 0 0" FontSize="20" Content="Open" Grid.Column="2" Grid.Row="0" Command="{Binding OpenButtonClick}" Height="30" Width="150"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <Border x:Name="PostCommentBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Width="1100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42 0 42 0" Height="165" Background="White" CornerRadius="8">
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="../../../Resources/Images/Guest/user.png" Grid.Row="0" Grid.Column="0" Height="30" Width="30" Margin="0 2.5 0 0"></Image>
+                    <Label x:Name="Username" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Width="200" Height="40" FontSize="20" Content="Nenad"></Label>
+                    <TextBox x:Name="CommentTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0 0 17 0" FontSize="20"></TextBox>
+                    <Button VerticalAlignment="Center" Margin="5" FontSize="20" Content="Post" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Command="{Binding PostButtonClick}" Height="28" Width="80"/>
+                </Grid>
+            </Border>
+            <ScrollViewer x:Name="Comments" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left">
+                <ItemsControl x:Name="post" ItemsSource="{Binding postItems, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="42 10 90 10" Background="White"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" >
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                                </Border.Effect>
+                                <Grid Margin="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding UserId}" FontSize="20" HorizontalAlignment="Left"></TextBlock>
+                                    <TextBlock x:Name="specialGuest" Text="{Binding SpecialUser, Converter={StaticResource BoolIsSpecialToString}}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="20"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Comment}" FontSize="20"></TextBlock>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button x:Name="CloseButton" Grid.Row="4" Grid.Column="3" Margin="97 2 5 2" Width="100" Command="{Binding CloseButtonClick}" FontSize="20">Close</Button>
+        </Grid>
+    </Grid>
+</Page>

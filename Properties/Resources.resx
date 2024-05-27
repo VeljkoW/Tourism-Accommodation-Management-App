@@ -154,6 +154,10 @@
     <value>Available Dates:*</value>
     <comment>Renovation</comment>
   </data>
+  <data name="Average Grade:" xml:space="preserve">
+    <value>Average Grade:</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Cancel Renovation" xml:space="preserve">
     <value>Cancel Renovation</value>
     <comment>Renovation</comment>
@@ -193,6 +197,10 @@
   <data name="City:" xml:space="preserve">
     <value>City:</value>
   </data>
+  <data name="Cleanliness:" xml:space="preserve">
+    <value>Cleanliness:</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Cleanliness:*" xml:space="preserve">
     <value>Cleanliness:*</value>
     <comment>GuestRating</comment>
@@ -200,6 +208,10 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
     <comment>RenovationRequestPage</comment>
+  </data>
+  <data name="Close Accommodation" xml:space="preserve">
+    <value>Close Accommodation</value>
+    <comment>AccommodationRegistration</comment>
   </data>
   <data name="Close accommodations" xml:space="preserve">
     <value>Close accommodations</value>
@@ -277,6 +289,10 @@
     <value>History of renovation</value>
     <comment>RenovationHistory</comment>
   </data>
+  <data name="In order to become a superowner" xml:space="preserve">
+    <value>In order to become a superowner, you must have at least 50 reviews and average grade of at least 4.5</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
     <comment>OwnerMainWindow</comment>
@@ -332,6 +348,10 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
+  <data name="Owner Integrity:" xml:space="preserve">
+    <value>Owner Integrity:</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Post" xml:space="preserve">
     <value>Post</value>
     <comment>Forum</comment>
@@ -366,6 +386,10 @@
     <value>Renovation Requests</value>
     <comment>RenovationRequestPage</comment>
   </data>
+  <data name="Renovation Requests number:" xml:space="preserve">
+    <value>Renovation Requests number:</value>
+    <comment>RenovationRequestPage</comment>
+  </data>
   <data name="Report" xml:space="preserve">
     <value>Report</value>
     <comment>Forum</comment>
@@ -386,6 +410,10 @@
   <data name="Reviews" xml:space="preserve">
     <value>Reviews</value>
     <comment>RenovationRequestPage</comment>
+  </data>
+  <data name="Reviews number:" xml:space="preserve">
+    <value>Reviews number:</value>
+    <comment>GuestReviews</comment>
   </data>
   <data name="Schedule renovation" xml:space="preserve">
     <value>Schedule renovation</value>
@@ -436,6 +464,9 @@
     <value>ReservationRescheduling</value>
     <comment>ReservationRescheduling</comment>
   </data>
+  <data name="Superowner" xml:space="preserve">
+    <value>Superowner</value>
+  </data>
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
   </data>
@@ -457,7 +488,12 @@
   <data name="Year" xml:space="preserve">
     <value>Year</value>
   </data>
+  <data name="You are a Superowner" xml:space="preserve">
+    <value>You are a Superowner!</value>
+    <comment>GuestReviews</comment>
+  </data>
   <data name="Your Accommodations" xml:space="preserve">
     <value>Your Accommodations</value>
+    <comment>AccommodationRegistration</comment>
   </data>
 </root>

@@ -13,5 +13,6 @@ namespace BookingApp.Domain.IRepositories
         Accommodation? GetById(int Id);
         int NextId();
         void Add(Accommodation newAccommodation);
+        void DeleteById(int Id);
     }
 }

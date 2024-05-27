@@ -1,4 +1,4 @@
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using BookingApp.Serializer;
 using BookingApp.ViewModel;
 using System;
@@ -8,12 +8,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 public enum AccommodationType { Apartment, House, Hut }
 namespace BookingApp.Domain.Model
 {
-    public class Accommodation : ISerializable, INotifyPropertyChanged
+    public class Accommodation : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int id { get; set; }
         private int ownerId { get; set; }
@@ -40,6 +41,30 @@ namespace BookingApp.Domain.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(str));
             }
         }
+        public string Error => null;
+        private const string SRB = "sr-RS";
+        private Regex TextRegex = new Regex("^[A-Za-zČĆŠĐŽčćšđž ]+$");
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "*";
+
+                    Match match = TextRegex.Match(Name);
+                    if (!match.Success)
+                        if (App.currentLanguage() == SRB)
+                            return "Polje moze da sadrzi samo slova";
+                        else
+                            return "The field can only contain letters";
+                }
+                return null;
+            }
+        }
+
         public int Id
         {
             get

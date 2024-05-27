@@ -34,6 +34,10 @@ namespace BookingApp.Services
         {
             return AccommodationRepository.GetById(Id);
         }
+        public void DeleteById(int Id)
+        {
+            AccommodationRepository.DeleteById(Id);
+        }
         public ObservableCollection<Accommodation> GetAllByUser(User user)
         {
             ObservableCollection<Accommodation> Accommodations = new ObservableCollection<Accommodation>();
