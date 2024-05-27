@@ -41,14 +41,14 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock Width="260" Height="36" Text="Most visited tour:" FontSize="30" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource NButtonColor3Text}"/>
-            <Button Width="150" Height="40" Command="{Binding ClickInGeneral}" Content="In general" FontSize="18" FontWeight="Bold" VerticalAlignment="Top"></Button>
-            <Button Width="150" Height="40" Command="{Binding ClickGoBack}" Content="Go back" FontSize="18" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"></Button>
-            <ComboBox x:Name="YearComboBox" ItemsSource="{Binding ComboBoxYears}" SelectedItem="{Binding SelectedYear}" Width="150" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,160,0" FontSize="24"/>
-            <Button Width="150" Height="40" Command="{Binding ClickSelectedYear}" Content="Selected year" FontSize="18" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right"></Button>
+            <Button Width="150" Height="40" Command="{Binding ClickInGeneral}" Margin="0 15 0 0" Content="In general" FontSize="18" FontWeight="Bold" VerticalAlignment="Top"></Button>
+            <TextBlock FontSize="45" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}"> Tour statistics:</TextBlock>
+            <ComboBox x:Name="YearComboBox" ItemsSource="{Binding ComboBoxYears}" Margin="0 15 160 0" SelectedItem="{Binding SelectedYear}" Width="150" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top"  FontSize="24"/>
+            <Button Width="150" Height="40" Command="{Binding ClickSelectedYear}" Margin="0 15 0 0" Content="Selected year" FontSize="18" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right"></Button>
         </Grid>
         <Grid Grid.Row="1">
             <ItemsControl x:Name="MostVisitedTour" ItemsSource="{Binding MostVisited}"/>
-            <TextBlock Width="260" Height="36" Text="Other tours:" FontSize="30" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource NButtonColor3Text}"/>
+            <TextBlock Width="260" Height="36" Text="Other tours:" FontSize="28" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource NButtonColor3Text}"/>
         </Grid>
         <Grid Grid.Row="2">
             <ScrollViewer>

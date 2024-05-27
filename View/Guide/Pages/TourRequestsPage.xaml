@@ -113,7 +113,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" Grid.Column="1" Margin="5">
+                        <Button Grid.Row="0" Grid.Column="1" Margin="5" Command="{Binding Filter}">
                             <TextBlock Text="Search" Style="{StaticResource TextBlockStyle}"/>
                         </Button>
                         <Button Grid.Row="1" Grid.Column="1" Margin="5" Command="{Binding ClearFilter}">

@@ -38,6 +38,7 @@
 		<None Remove="Resources\Images\Guest\star.png" />
 		<None Remove="Resources\Images\Guest\superGuest.png" />
 		<None Remove="Resources\Images\Guest\user.png" />
+		<None Remove="Resources\Images\Guide\hamburger.png" />
 		<None Remove="Resources\Images\Guide\left_arrow.png" />
 		<None Remove="Resources\Images\Guide\liveicon.png" />
 		<None Remove="Resources\Images\Guest\tutorial.png" />
@@ -205,6 +206,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Update="Resources\Images\Guide\hamburger.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Update="Resources\Images\Guide\left_arrow.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>

@@ -31,56 +31,72 @@ namespace BookingApp.View.Guide.Pages
         public GuideMainPageViewModel GuideMainPageViewModel { get;set; }
         public User User { get; set; }
         public string UserName { get; set; }
+        private UpcomingTours upcomingTours;
+        private TourStatistics tourStatistics;
+        private FinishedToursPage tourReviewsPage;
+        private TourRequestsPage tourRequestsPage;
+        private TourRequestStatisticsPage tourRequestStatisticsPage;
         public GuideMainPage(User user)
         {
             InitializeComponent();
             User = user;
             UserName = User.Username;
             GuideMainPageViewModel = new GuideMainPageViewModel(user);
-            this.DataContext = GuideMainPageViewModel;
+            DataContext = GuideMainPageViewModel;
+            BurgerMenu burgerMenu = new BurgerMenu(this);
+            BurgerMenu.Children.Add(burgerMenu);
+            upcomingTours = new UpcomingTours(user);
+            tourStatistics = new TourStatistics(User);
+            tourReviewsPage = new FinishedToursPage(this, User);
+            tourRequestsPage = new TourRequestsPage();
+            tourRequestStatisticsPage = new TourRequestStatisticsPage();
+            Frame.Navigate(upcomingTours);
         }
-        private void ClickCreateTour(object sender, RoutedEventArgs e)
+        public void ClickCreateTour(object sender, RoutedEventArgs e)
         {
             CreateTourForm createTourForm = new CreateTourForm(User);
-            createTourForm.RequestRefreshEvent += RequestRefreshEventAction;
             NavigationService.Navigate(createTourForm);
         }
-
-        private void RequestRefreshEventAction()
-        {
-            GuideMainPageViewModel.Load();
-        }
-
-        private void ClickLogout(object sender, RoutedEventArgs e)
+        //ClickUpcommingTour
+        public void ClickLogout(object sender, RoutedEventArgs e)
         {
             SignInForm signInForm = new SignInForm();
             OnLogoutHandler?.Invoke(sender, e);
             signInForm.Show();
         }
         public EventHandler OnLogoutHandler { get; set; }
-
-        private void ClickTourStatistics(object sender, RoutedEventArgs e)
+        public void ClickUpcommingTour(object sender, RoutedEventArgs e)
         {
-            TourStatistics tourStatistics = new TourStatistics(User);
-            NavigationService.Navigate(tourStatistics);
+            Frame.Navigate(upcomingTours);
+        }
+        public void ClickTourStatistics(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(tourStatistics);
         }
 
-        private void ClickTourReviews(object sender, RoutedEventArgs e)
+        public void ClickTourReviews(object sender, RoutedEventArgs e)
         {
-            FinishedToursPage tourReviewsPage = new FinishedToursPage(this,User);
-            NavigationService.Navigate(tourReviewsPage);
+            Frame.Navigate(tourReviewsPage);
         }
 
-        private void ClickTourSuggestions(object sender, RoutedEventArgs e)
+        public void ClickTourSuggestions(object sender, RoutedEventArgs e)
         {
-            TourRequestsPage tourRequestsPage = new TourRequestsPage();
-            NavigationService.Navigate(tourRequestsPage);
+            Frame.Navigate(tourRequestsPage);
         }
 
-        private void ClickTourSuggestionsStatistics(object sender, RoutedEventArgs e)
+        public void ClickTourSuggestionsStatistics(object sender, RoutedEventArgs e)
         {
-            TourRequestStatisticsPage tourRequestStatisticsPage = new TourRequestStatisticsPage();
-            NavigationService.Navigate(tourRequestStatisticsPage);
+            Frame.Navigate(tourRequestStatisticsPage);
+        }
+        public void ShowBurger(object sender, RoutedEventArgs e)
+        {
+            this.BurgerMenu.Visibility = Visibility.Visible;
+            defaultBurger.Visibility=Visibility.Collapsed;
+        }
+        public void HideBurger(object sender, RoutedEventArgs e)
+        {
+            defaultBurger.Visibility = Visibility.Visible;
+            this.BurgerMenu.Visibility = Visibility.Collapsed;
         }
     }
 }

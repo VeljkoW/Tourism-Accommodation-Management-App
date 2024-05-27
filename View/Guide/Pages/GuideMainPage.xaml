@@ -10,6 +10,9 @@
 
     <Page.Resources>
         <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="Margin" Value="5 10"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -27,65 +30,60 @@
             <Setter Property="Cursor" Value="Hand">
             </Setter>
         </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
     </Page.Resources>
     <Grid Background="{StaticResource NBackGroundColor}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Column="1" Grid.Row="0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <Button x:Name="CreateTour" Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickCreateTour" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2">Create Tour</Button>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="0">
-                    <Button Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickTourStatistics" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Tour Statistics"></Button>
-                </Grid>
-                <Grid Grid.Column="2" Grid.Row="0">
-                    <Button Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickTourReviews" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Tour Reviews"></Button>
-                </Grid>
-                <Grid Grid.Column="0" Grid.Row="1">
-                    <Button Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickTourSuggestions" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Tour Suggestions"></Button>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <Button Margin="5" Padding="10" FontSize="22" FontWeight="Bold" Click="ClickTourSuggestionsStatistics" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Suggestion Statistics"></Button>
-                </Grid>
-            </Grid>
+        <Grid Grid.Column="1">
+            <Frame x:Name="Frame"></Frame>
         </Grid>
-        <Grid Grid.Column="1" Grid.Row="1">
-            <ScrollViewer Grid.Column="1">
-                <ItemsControl x:Name="ListOfTours" ItemsSource="{Binding TourList}"/>
-            </ScrollViewer>
-        </Grid>
-        <Grid Grid.Column="0" Grid.Row="1">
+        <Grid Grid.Column="0" x:Name="BurgerMenu" Visibility="Collapsed"/>
+
+        <Grid Grid.Column="0" x:Name="defaultBurger">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Column="0">
+            <Grid>
+                <Button Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0" Background="{StaticResource NButtonColor3}" Height="60" Click="ShowBurger">
+                    <Image Source="../../../Resources/Images/Guide/hamburger.png" ></Image>
+                </Button>
+                <Button HorizontalAlignment="Right" Grid.Row="0" Margin="10 20" Width="90">
+                    <TextBlock>
+                        Help
+                    </TextBlock>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1" Grid.RowSpan="2">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     
                 <Image Source="../../../Resources/Images/Guide/user.png" Height="100" Width="100" HorizontalAlignment="Center"  VerticalAlignment="Center"  ></Image>
                 <TextBlock x:Name="UserNameTextbox" Text="{Binding UserName}" Foreground="{StaticResource NButtonColor3Text}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
             </Grid>
-            <Button Grid.Row="2" x:Name="LogOut" Margin="5" Padding="10" Height="80" FontSize="22" FontWeight="Bold" Click="ClickLogout" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Log out"/>
-            <Button Grid.Row="3"  Margin="5" Padding="10" Height="80" FontSize="22" FontWeight="Bold" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="2" Content="Resign"/>
+            <Button Grid.Row="6" Click="ClickLogout" Background="{StaticResource NBackGroundColorLight}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}" >
+                <TextBlock>
+                    Log out
+                </TextBlock>
+            </Button>
+            <Button Grid.Row="7" Background="{StaticResource GuideButtonColor}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}">
+                <TextBlock>
+                    Resign
+                </TextBlock>
+            </Button>
         </Grid>
     </Grid>
 </Page>

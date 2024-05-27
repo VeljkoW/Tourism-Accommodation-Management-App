@@ -12,6 +12,7 @@
         <SolidColorBrush x:Key="DirtColor" Color="#1c160e"/>
         <SolidColorBrush x:Key="LightDirtColor" Color="#ff9142"/>
         <SolidColorBrush x:Key="GuideTextboxBackground" Color="#fcde97"/>
+        <SolidColorBrush x:Key="GuideButtonColor" Color="#E94F37"/>
         <SolidColorBrush x:Key="GrassDark" Color="#166300"/>
         <SolidColorBrush x:Key="GrassLight" Color="#24a800"/>
         <SolidColorBrush x:Key="NBackGroundColor" Color="#383838"/>

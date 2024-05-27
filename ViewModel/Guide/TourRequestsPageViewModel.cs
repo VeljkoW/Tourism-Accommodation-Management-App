@@ -17,6 +17,13 @@ namespace BookingApp.ViewModel.Guide
     public class TourRequestsPageViewModel : INotifyPropertyChanged
     {
         public RelayCommand ClickGoBack => new RelayCommand(execute => ClickGoBackExecute());
+        public RelayCommand Filter => new RelayCommand(execute => FilterExecute());
+
+        private void FilterExecute()
+        {
+            FilterUpdated();
+        }
+
         public ObservableCollection<UserControlTourSuggestion> Cards { get; set; } = new ObservableCollection<UserControlTourSuggestion>();
         public TourRequestsPage TourRequestsPage { get; }
         private int userId = GuideMainWindow.UserId;
