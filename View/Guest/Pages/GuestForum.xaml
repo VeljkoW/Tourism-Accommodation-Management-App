@@ -11,6 +11,7 @@
       Title="GuestForum">
     <Page.Resources>
         <local1:BoolIsSpecialToString x:Key="BoolIsSpecialToString"/>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -46,20 +47,21 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Width="1100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42 0 42 0" Height="55" Background="White" CornerRadius="8">
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Width="1100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42 10 42 0" Height="55" Background="White" CornerRadius="8">
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox x:Name="ComboBoxState" FontSize="20" Grid.Column="0" Grid.Row="0" Margin="50 0 0 0" Height="40" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding StatesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedChosenState, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="statePick" />
-                        <ComboBox x:Name="ComboBoxCity" FontSize="20" Grid.Column="1" Grid.Row="0" Margin="50 0 0 0" Height="40" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CitiesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities" SelectedItem="{Binding SelectedChosenCity, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cityPick" />
-                        <Button VerticalAlignment="Center" Margin="50 0 0 0" FontSize="20" Content="Open" Grid.Column="2" Grid.Row="0" Command="{Binding OpenButtonClick}" Height="30" Width="150"/>
+                        <ComboBox x:Name="ComboBoxState" FontSize="20" Grid.Column="0" Grid.Row="0" Margin="50 0 0 0" Height="35" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding StatesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedChosenState, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="statePick" />
+                        <ComboBox x:Name="ComboBoxCity" FontSize="20" Grid.Column="1" Grid.Row="0" Margin="50 0 0 0" Height="35" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CitiesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities" SelectedItem="{Binding SelectedChosenCity, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cityPick" />
+                        <Button VerticalAlignment="Center" Margin="50 0 0 0" FontSize="20" Content="Open" Grid.Column="2" Grid.Row="0" Command="{Binding OpenButtonClick}" Height="35" Width="150"/>
+                        <Image x:Name="usefulForum" Source="../../../Resources/Images/Guest/book.png" Height="50" Width="50" Margin="330 0 0 10" VerticalAlignment="Center"></Image>
                     </StackPanel>
                 </Border>
             </Grid>
-            <Border x:Name="PostCommentBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Width="1100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42 0 42 0" Height="165" Background="White" CornerRadius="8">
+            <Border x:Name="PostCommentBox" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Width="1100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42 10 42 0" Height="167" Background="White" CornerRadius="8">
                 <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1.2*"/>
+                        <RowDefinition Height="1.43*"/>
                         <RowDefinition Height="2*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1.2*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.3*"/>
@@ -67,33 +69,45 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="../../../Resources/Images/Guest/user.png" Grid.Row="0" Grid.Column="0" Height="30" Width="30" Margin="0 2.5 0 0"></Image>
-                    <Label x:Name="Username" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Width="200" Height="40" FontSize="20" Content="Nenad"></Label>
-                    <TextBox x:Name="CommentTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0 0 17 0" FontSize="20"></TextBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="15 5 0 15">
+                        <Image Source="../../../Resources/Images/Guest/user.png" Height="30" Width="30"></Image>
+                        <Label x:Name="Username" Margin="10 0 0 0" FontSize="20" Content="Nenad"></Label>
+                    </StackPanel>
+                    <Border Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="0 0 0 1" BorderBrush="Black" Margin="15 10 18 10"/>
+                    
+                    <TextBox BorderThickness="1" BorderBrush="Gray" x:Name="CommentTextBox" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Grid.ColumnSpan="3" Margin="0 0 17 0" FontSize="20"></TextBox>
                     <Button VerticalAlignment="Center" Margin="5" FontSize="20" Content="Post" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Command="{Binding PostButtonClick}" Height="28" Width="80"/>
                 </Grid>
             </Border>
-            <ScrollViewer x:Name="Comments" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left">
-                <ItemsControl x:Name="post" ItemsSource="{Binding postItems, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">
+            <ScrollViewer x:Name="Comments" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="post" ItemsSource="{Binding postItems, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="42 10 90 10" Background="White"
-                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="Hand" >
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="8" HorizontalAlignment="Stretch" Margin="42 10 36 0"
+                                    VerticalAlignment="Center" Background="White" Padding="0 0 0 40">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
-                                <Grid Margin="20">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                <Grid Margin="15 5 15 5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="2*"/>
-                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="4*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding UserId}" FontSize="20" HorizontalAlignment="Left"></TextBlock>
-                                    <TextBlock x:Name="specialGuest" Text="{Binding SpecialUser, Converter={StaticResource BoolIsSpecialToString}}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="20"></TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Comment}" FontSize="20"></TextBlock>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 15">
+                                        <Image Source="../../../Resources/Images/Guest/user.png" Grid.Row="0" Grid.Column="0" Height="30" Width="30" />
+                                        <Label Content="Guest:" FontSize="20" Margin="10 0 0 0" ></Label>
+                                        <Label  Content="{Binding UserId, Converter={StaticResource GuestIdToUsernameConverter}}" Margin="0 0 0 0" FontSize="20" ></Label>
+                                    </StackPanel>
+                                    <Border Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="0 0 0 1" BorderBrush="Black" Margin="0 10 0 10"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="10 0 17 0" TextWrapping="Wrap" FontSize="20" Text="{Binding Comment}"></TextBlock>
+                                    <Label x:Name="specialGuest" Grid.Row="0" Grid.Column="4" Content="{Binding SpecialUser, Converter={StaticResource BoolIsSpecialToString}}" HorizontalAlignment="Right" FontSize="20"></Label>
                                 </Grid>
                             </Border>
                         </DataTemplate>
