@@ -40,6 +40,7 @@ namespace BookingApp.ViewModel.Guest
             GuestForum.PostCommentBox.Visibility = System.Windows.Visibility.Collapsed;
             GuestForum.Comments.Visibility = System.Windows.Visibility.Collapsed;
             GuestForum.CloseButton.Visibility = System.Windows.Visibility.Collapsed;
+            
         }
         public string SelectedChosenState
         {
