@@ -320,6 +320,7 @@ namespace BookingApp.ViewModel.Owner
                     CurrentImageIndex = 0;
                     OnPropertyChanged(nameof(CurrentImagePath));
                     OnPropertyChanged(nameof(CurrentImageIndex));
+                    AccommodationRegistration.ImageValidation.Visibility = Visibility.Hidden;
                 }
             }
         }

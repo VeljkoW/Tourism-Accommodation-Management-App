@@ -42,6 +42,7 @@ namespace BookingApp.ViewModel.Guest
                 if (processedReschedulingRequest.GuestId == User.Id)
                     processedReschedulingRequests.Add(processedReschedulingRequest);
             }
+
         }
     }
 }

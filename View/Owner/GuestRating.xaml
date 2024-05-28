@@ -13,6 +13,46 @@
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="30" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -97,7 +137,7 @@
 
                     <TextBox x:Name="CommentTextBox" Grid.Row="4" FontSize="20"
                              VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="400"/>
-                    <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" 
+                    <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" Style="{DynamicResource ButtonStyle}"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Content="{loc:Loc Rate Guest}" FontSize="24"></Button>
                 </Grid>
             </Border>
