@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
+
 namespace BookingApp.ViewModel.Tourist
 {
     public class TourSuggestionStatisticsViewModel
@@ -20,8 +21,9 @@ namespace BookingApp.ViewModel.Tourist
         public SeriesCollection LocationData { get; set; } = new SeriesCollection();
         public RelayCommand ClickBoBack => new RelayCommand(execute => GoBackExecute());
         public RelayCommand ClickInGeneral => new RelayCommand(execute => InGeneralExecute());
+        public RelayCommand ClickPrintPDF => new RelayCommand(execute => PrintPDFExecute());
         public User User;
-        public TourSuggestionStatisticsViewModel(TourSuggestionStatistics tourSuggestionStatistics,User user) 
+        public TourSuggestionStatisticsViewModel(TourSuggestionStatistics tourSuggestionStatistics, User user)
         {
             TourSuggestionStatistics = tourSuggestionStatistics;
             this.User = user;
@@ -43,7 +45,7 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void PopulateRequestsByLanguageGraph()
         {
-            foreach(string language in TourSuggestionService.GetInstance().GetAllLanguages(User.Id))
+            foreach (string language in TourSuggestionService.GetInstance().GetAllLanguages(User.Id))
             {
                 var series = new ColumnSeries
                 {
@@ -73,7 +75,7 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void Year1ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int Year =Convert.ToInt32(TourSuggestionStatistics.Year1ComboBox.SelectedItem);
+            int Year = Convert.ToInt32(TourSuggestionStatistics.Year1ComboBox.SelectedItem);
             List<TourSuggestion> tourSuggestions = TourSuggestionService.GetInstance().GetAllByUserIdAndYear(User.Id, Year);
             double percentageOfToursAccepted = TourSuggestionService.GetInstance().GetPercentageOfToursAccepted(tourSuggestions);
             double percentageOfToursRejected = TourSuggestionService.GetInstance().GetPercentageOfToursRejected(tourSuggestions);
@@ -93,7 +95,7 @@ namespace BookingApp.ViewModel.Tourist
         {
             TourSuggestionStatistics.Close();
         }
-        public void InGeneralExecute() 
+        public void InGeneralExecute()
         {
             TourSuggestionStatistics.Year1ComboBox.SelectedIndex = -1;
             TourSuggestionStatistics.Year2ComboBox.SelectedIndex = -1;
@@ -104,6 +106,10 @@ namespace BookingApp.ViewModel.Tourist
             TourSuggestionStatistics.PercentageToursAccepted.Text = percentageOfToursAccepted.ToString();
             TourSuggestionStatistics.PercentageToursRejected.Text = percentageOfToursRejected.ToString();
             TourSuggestionStatistics.AverageNumberOfTouristsAccepted.Text = averageNumberOfTouristsAccepted.ToString();
+        }
+        public void PrintPDFExecute()
+        {
+
         }
     }
 }
