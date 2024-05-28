@@ -33,6 +33,8 @@ namespace BookingApp.View.Guest
 
         public GuestMainWindowViewModel GuestMainWindowViewModel { get; set; }
 
+        public GuestForum GuestForum { get; set; }
+
         public OwnerReviews OwnerReviews { get; set; }
         public Accommodations Accommodations { get; set; }
         public GuestMainWindow(User user)
@@ -42,7 +44,7 @@ namespace BookingApp.View.Guest
             this.DataContext = GuestMainWindowViewModel;
             this.user = user;
             //GuestRate = new GuestRate(user, reservedAccommodation);
-            Accommodations = new Accommodations(user);
+            Accommodations = new Accommodations(user, this);
             mainFrame.Navigate(Accommodations);
         }
         private void LogOut(object sender, RoutedEventArgs e)
@@ -67,7 +69,8 @@ namespace BookingApp.View.Guest
 
         private void ForumClick(object sender, RoutedEventArgs e)
         {
-
+            GuestForum = new GuestForum(user);
+            mainFrame.Navigate(GuestForum);
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)
