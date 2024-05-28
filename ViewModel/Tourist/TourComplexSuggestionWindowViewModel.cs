@@ -37,6 +37,7 @@ namespace BookingApp.ViewModel.Tourist
             TourSuggestions.Clear();
             foreach(var item in TourSuggestionComplexService.GetInstance().GetAllByComplexId(ComplexId))
             {
+                item.Location = LocationService.GetInstance().GetById(item.LocationId);
                 TourSuggestions.Add(item);
             }
         }

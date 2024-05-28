@@ -569,7 +569,7 @@
                                         <ItemsControl ItemsSource="{Binding ComplexTourSuggestions}" Margin="10" HorizontalAlignment="Stretch">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <local:TourCoupon/>
+                                                    <local:TourComplexSuggestionCard/>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                             <ItemsControl.ItemsPanel>
