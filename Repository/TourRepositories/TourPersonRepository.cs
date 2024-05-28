@@ -54,6 +54,16 @@ namespace BookingApp.Repository.TourRepositories
             _serializer.ToCSV(FilePath, _tourPeople);
             return oldTourPerson;
         }
+        public void DeleteById(int id)
+        {
+            var tourSuggestion = _tourPeople.FirstOrDefault(c => c.Id == id);
+
+            if (tourSuggestion != null)
+            {
+                _tourPeople.Remove(tourSuggestion);
+                _serializer.ToCSV(FilePath, _tourPeople);
+            }
+        }
         public List<TourPerson> GetAll()
         {
             return _serializer.FromCSV(FilePath);

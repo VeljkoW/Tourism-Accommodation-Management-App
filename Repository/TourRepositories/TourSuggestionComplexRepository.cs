@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository.TourRepositories
 {
-    public class TourSuggestionRepository : ITourSuggestionRepository
+    public class TourSuggestionComplexRepository : ITourSuggestionComplexRepository
     {
-        public static TourSuggestionRepository GetInstance()
+        public static TourSuggestionComplexRepository GetInstance()
         {
-            return App._serviceProvider.GetRequiredService<TourSuggestionRepository>();
+            return App._serviceProvider.GetRequiredService<TourSuggestionComplexRepository>();
         }
-        private const string FilePath = "../../../Resources/Data/toursuggestions.csv";
+        private const string FilePath = "../../../Resources/Data/toursuggestionscomplex.csv";
 
         private readonly Serializer<TourSuggestion> _serializer;
 
         private List<TourSuggestion> _tourSuggestions;
 
-        public TourSuggestionRepository()
+        public TourSuggestionComplexRepository()
         {
             _serializer = new Serializer<TourSuggestion>();
             _tourSuggestions = _serializer.FromCSV(FilePath);
@@ -50,6 +50,16 @@ namespace BookingApp.Repository.TourRepositories
         {
             _tourSuggestions = _serializer.FromCSV(FilePath);
             return _tourSuggestions.Find(c => c.Id == Id);
+        }
+        public void DeleteById(int id)
+        {
+            var tourSuggestion = _tourSuggestions.FirstOrDefault(c => c.Id == id);
+
+            if(tourSuggestion != null)
+            {
+                _tourSuggestions.Remove(tourSuggestion);
+                _serializer.ToCSV(FilePath, _tourSuggestions);
+            }
         }
         public TourSuggestion? Update(TourSuggestion tourSuggestion)
         {
