@@ -35,5 +35,14 @@ namespace BookingApp.Services
         {
             GuestPostRepository.Update(guestPost);
         }
+        public bool IsValidUser(int id)
+        {
+            GuestPost? guestPost = GuestPostRepository.GetById(id);
+            Forum? forum = ForumService.GetInstance().GetById(guestPost.ForumId);
+            foreach(ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
+                if(reservedAccommodation.Accommodation.Location.Id == forum.LocationId && guestPost.UserId == reservedAccommodation.GuestId)
+                    return true;
+            return false;
+        }
     }
 }
