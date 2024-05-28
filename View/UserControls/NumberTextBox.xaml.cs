@@ -24,6 +24,7 @@ namespace BookingApp.View.UserControls
         public NumberTextBox()
         {
             InitializeComponent();
+            NumTextBox.TextChanged += NumTextBoxChanged;
         }
         private void UpClick(object sender, RoutedEventArgs e)
         {
@@ -63,6 +64,23 @@ namespace BookingApp.View.UserControls
         private void StopClick(object sender, MouseButtonEventArgs e)
         {
 
+        }
+        // Definisanje RoutedEvent-a za TextChanged
+        public static readonly RoutedEvent TextChangedEvent =
+            EventManager.RegisterRoutedEvent("TextChanged", RoutingStrategy.Bubble, typeof(TextChangedEventHandler), typeof(NumberTextBox));
+
+        // Dodavanje i uklanjanje rukovaoca za TextChanged događaj
+        public event TextChangedEventHandler TextChanged
+        {
+            add { AddHandler(TextChangedEvent, value); }
+            remove { RemoveHandler(TextChangedEvent, value); }
+        }
+
+        // Rukovalac za TextChanged događaj unutar user kontrole
+        private void NumTextBoxChanged(object sender, TextChangedEventArgs e)
+        {
+            // Prosljeđivanje događaja
+            RaiseEvent(new TextChangedEventArgs(TextChangedEvent, e.UndoAction));
         }
     }
 }

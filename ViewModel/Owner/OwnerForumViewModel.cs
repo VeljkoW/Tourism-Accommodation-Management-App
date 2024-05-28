@@ -12,11 +12,15 @@ using BookingApp.Services;
 using System.Windows.Media;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Owner;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Owner
 {
     public class OwnerForumViewModel : INotifyPropertyChanged
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
         public ObservableCollection<GuestPost> Posts { get; set; }
         public ForumPage ForumPage { get; set; }
         public ForumModel ForumModel { get; set; }
@@ -79,6 +83,7 @@ namespace BookingApp.ViewModel.Owner
         public void PostExecute()
         {
             GuestPost guestPost = new GuestPost();
+            guestPost.ForumId = ForumModel.Id;
             guestPost.UserId = User.Id;
             guestPost.Comment = ForumPage.PostCommentTextBox.Text;
             guestPost.SpecialUser = true;
@@ -124,6 +129,16 @@ namespace BookingApp.ViewModel.Owner
                 ForumPage.MainPostBorder.Visibility = System.Windows.Visibility.Visible;
             else
                 ForumPage.MainPostBorder.Visibility = System.Windows.Visibility.Collapsed;
+            if (ForumService.GetInstance().isSpecial(ForumModel.Id))
+            {
+                ForumPage.BookmarkImage.Visibility = System.Windows.Visibility.Visible;
+                ForumPage.UsefulForumTextBlock.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                ForumPage.BookmarkImage.Visibility = System.Windows.Visibility.Collapsed;
+                ForumPage.UsefulForumTextBlock.Visibility = System.Windows.Visibility.Collapsed;
+            }
 
         }
         public bool CanSearchExecute()
@@ -138,29 +153,30 @@ namespace BookingApp.ViewModel.Owner
             if (!string.IsNullOrEmpty(SelectedState))
                 LocationService.GetInstance().GetCitiesForStateWithForums(Cities, SelectedState);
         }
+        public void ReportClick(GuestPost guestPost)
+        {
+            foreach(OwnerReport report in OwnerReportService.GetInstance().GetAll())
+                if(report.OwnerId == User.Id && report.PostId == guestPost.Id)
+                {
+                    if (App.currentLanguage() == ENG)
+                        notificationManager.Show("Info", "You have already reported this user!", NotificationType.Error);
+                    else
+                        notificationManager.Show("Info", "Već si prijavio ovog korisnika!", NotificationType.Error);
+                    return;
+                }
+            OwnerReport ownerReport = new OwnerReport();
+            ownerReport.OwnerId = User.Id;
+            ownerReport.PostId = guestPost.Id;
+            OwnerReportService.GetInstance().Add(ownerReport);
+            guestPost.Reports++;
+            GuestPostService.GetInstance().Update(guestPost);
+            Posts.Clear();
+            foreach (GuestPost GuestPost in ForumModel.GuestPosts)
+                Posts.Add(GuestPost);
+        }
         public void CityPicked()
         {
 
-        }
-        public void LoadStates()
-        {
-            /*List<string> tempStates = new List<string>();
-            tempStates = LocationService.GetInstance().GetStates();
-            List<Accommodation> accommodations = AccommodationService.GetInstance().GetAllByUser(User).ToList();
-
-            List<string> StatesWithAccommodations = new List<string>();
-            foreach (Accommodation accommodation in accommodations)
-                foreach (string state in tempStates)
-                    if(accommodation.Location.State.Equals(state) && !StatesWithAccommodations.Contains(state))
-                        StatesWithAccommodations.Add(state);
-
-            foreach(ForumModel forumModel in ForumService.GetInstance().GetAll())
-            {
-                Location? location = LocationService.GetInstance().GetById(forumModel.LocationId);
-                foreach (string state in StatesWithAccommodations)
-                    if (location.State.Equals(state) && !States.Contains(state))
-                        States.Add(state);
-            }*/
         }
     }
 }

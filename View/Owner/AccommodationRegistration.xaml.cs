@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,6 +32,8 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class AccommodationRegistration : Page
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
         private bool calledFromStatistics = false;
         private double lastVerticalOffset = 0;
         public AccommodationManagementViewModel AccommodationManagementViewModel { get; set; }
@@ -39,6 +42,7 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             AccommodationManagementViewModel = new AccommodationManagementViewModel(this, user);
             this.DataContext = AccommodationManagementViewModel;
+            ValidationErrors();
         }
         public AccommodationRegistration(User user, bool calledFromStatistics)
         {
@@ -50,6 +54,16 @@ namespace BookingApp.View.Owner
         private void StatePickedSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AccommodationManagementViewModel.StatePicked();
+            StateValidation.Visibility = Visibility.Hidden;
+            if (App.currentLanguage() == ENG)
+                CityValidation.Text = "City is required!";
+            else
+                CityValidation.Text = "Unesite grad!";
+
+        }
+        private void CityPickedSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CityValidation.Visibility = Visibility.Hidden;
         }
         private void StateChosenSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -64,52 +78,148 @@ namespace BookingApp.View.Owner
         {
             AccommodationManagementViewModel.CityChosen();
         }
-
-        private void ScrollViewerScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            double borderTopPosition = GetBorderTopPosition(ChooseLocationBorder);
-            var scrollViewer = sender as ScrollViewer;
-            if (scrollViewer.VerticalOffset > lastVerticalOffset)
-            {
-                // Korisnik skrolira nadole
-                // Implementirajte željenu logiku ovde
-                /*Point topRightPoint = new Point(ScrollViewerName.ActualWidth, ScrollViewerName.TranslatePoint(new Point(0, 0), Application.Current.MainWindow).Y);
-                if (borderTopPosition >= topRightPoint.Y)
-                {
-                    ChooseLocationBorder.Margin = new Thickness(ChooseLocationBorder.Margin.Left, ChooseLocationBorder.Margin.Top + 50, ChooseLocationBorder.Margin.Right, ChooseLocationBorder.Margin.Bottom);
-                }*/
-            }
-            // Provera da li je korisnik skrolirao nagore
-            else if (scrollViewer.VerticalOffset < lastVerticalOffset)
-            {
-                // Korisnik skrolira nagore
-                // Implementirajte željenu logiku ovde
-                /*if (borderTopPosition <= 400)
-                {
-                    ChooseLocationBorder.Margin = new Thickness(ChooseLocationBorder.Margin.Left, ChooseLocationBorder.Margin.Top - 50, ChooseLocationBorder.Margin.Right, ChooseLocationBorder.Margin.Bottom);
-                }*/
-            }
-            lastVerticalOffset = scrollViewer.VerticalOffset;
-        }
-        private double GetBorderTopPosition(Border border)
-        {
-            // Pronalaženje koordinata gornjeg levog ćoška Border elementa unutar Page
-            Point topLeftPoint = border.TranslatePoint(new Point(0, 0), Application.Current.MainWindow);
-
-            // Ako Border nema roditeljski element koji je MainWindow, možete koristiti TranslatePoint relativno na Page:
-            // Point topLeftPoint = border.TranslatePoint(new Point(0, 0), this);
-
-            // Visina na kojoj se nalazi gornji deo Border elementa
-            double borderTopPosition = topLeftPoint.Y;
-
-            return borderTopPosition;
-        }
-
         private void CloseAccommodationClick(object sender, RoutedEventArgs e)
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
             AccommodationManagementViewModel.SelectedAccommodation = selectedCard;
             AccommodationManagementViewModel.CloseAccommodation();
+        }
+        public void ValidationErrors()
+        {
+            if (App.currentLanguage() == ENG)
+            {
+                AccommodationNameValidation.Text = "Accommodation Name is required!";
+                AccommodationTypeValidation.Text = "Accommodation Type is required!";
+                StateValidation.Text = "State is required!";
+                CityValidation.Text = "First select a state!";
+                MaxNumOfGuestsValidation.Text = "Max number of guests is required!";
+                MinNumOfResDaysValidation.Text = "Min number of res. days is required!";
+                CancelationDaysLimitValdation.Text = "Cancelation days limit is reqired!";
+                ImageValidation.Text = "At least one image has to be added!";
+            }
+            else
+            {
+                AccommodationNameValidation.Text = "Unesite naziv smeštaja!";
+                AccommodationTypeValidation.Text = "Unesite tip smeštaja!";
+                StateValidation.Text = "Unesite državu!";
+                CityValidation.Text = "Prvo unesite državu!";
+                MaxNumOfGuestsValidation.Text = "Unesite maksimalan broj gostiju!";
+                MinNumOfResDaysValidation.Text = "Unesite minimalan broj rezervisanih dana!";
+                CancelationDaysLimitValdation.Text = "Unesite broj dana za otkazivanje!";
+                ImageValidation.Text = "Barem jedna slika mora da se doda!";
+            }
+        }
+        private void AccommodationNameTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(NameTextBox.Text) || string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                if(App.currentLanguage() == ENG)
+                    AccommodationNameValidation.Text = "Accommodation Name is required!";
+                else
+                    AccommodationNameValidation.Text = "Unesite naziv smestaja!";
+                AccommodationNameValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            Regex TextNumberRegex = new Regex("^[A-Za-zČĆŠĐŽčćšđž ]+[0-9]*$");
+            if (!TextNumberRegex.Match(NameTextBox.Text).Success)
+            {
+                if (App.currentLanguage() == ENG)
+                    AccommodationNameValidation.Text = "The field can only contain letters!";
+                else
+                    AccommodationNameValidation.Text = "Polje moze da sadrzi samo slova!";
+                AccommodationNameValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                AccommodationNameValidation.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void AccommodationTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AccommodationTypeValidation.Visibility = Visibility.Hidden;
+        }
+
+        private void MaxNumOfGuestsTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(MaxGuestNumberTextBox.NumTextBox.Text) || string.IsNullOrWhiteSpace(MaxGuestNumberTextBox.NumTextBox.Text))
+            {
+                if (App.currentLanguage() == ENG)
+                    MaxNumOfGuestsValidation.Text = "Max number of guests is required!";
+                else
+                    MaxNumOfGuestsValidation.Text = "Unesite naziv smestaja!";
+                MaxNumOfGuestsValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            Regex NumberRegex = new Regex("^[1-9]+[0-9]*$");
+            if (!NumberRegex.Match(MaxGuestNumberTextBox.NumTextBox.Text).Success)
+            {
+                if (App.currentLanguage() == ENG)
+                    MaxNumOfGuestsValidation.Text = "The field can only contain numbers!";
+                else
+                    MaxNumOfGuestsValidation.Text = "Polje moze da sadrzi samo brojeve!";
+                MaxNumOfGuestsValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                MaxNumOfGuestsValidation.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void MinNumOfResDaysTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(MinResDaysTextBox.NumTextBox.Text) || string.IsNullOrWhiteSpace(MinResDaysTextBox.NumTextBox.Text))
+            {
+                if (App.currentLanguage() == ENG)
+                    MinNumOfResDaysValidation.Text = "Min number of res. days is required!";
+                else
+                    MinNumOfResDaysValidation.Text = "Unesite minimalan broj rezervisanih dana!";
+                MinNumOfResDaysValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            Regex NumberRegex = new Regex("^[1-9]+[0-9]*$");
+            if (!NumberRegex.Match(MinResDaysTextBox.NumTextBox.Text).Success)
+            {
+                if (App.currentLanguage() == ENG)
+                    MinNumOfResDaysValidation.Text = "The field can only contain numbers!";
+                else
+                    MinNumOfResDaysValidation.Text = "Polje moze da sadrzi samo brojeve!";
+                MinNumOfResDaysValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                MinNumOfResDaysValidation.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void CancelationDaysLimitTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(CancelationDaysLimitTextBox.NumTextBox.Text) || string.IsNullOrWhiteSpace(CancelationDaysLimitTextBox.NumTextBox.Text))
+            {
+                if (App.currentLanguage() == ENG)
+                    CancelationDaysLimitValdation.Text = "Cancelation days limit is required!";
+                else
+                    CancelationDaysLimitValdation.Text = "Unesite broj dana za otkazivanje!";
+                CancelationDaysLimitValdation.Visibility = Visibility.Visible;
+                return;
+            }
+            Regex NumberRegex = new Regex("^[1-9]+[0-9]*$");
+            if (!NumberRegex.Match(CancelationDaysLimitTextBox.NumTextBox.Text).Success)
+            {
+                if (App.currentLanguage() == ENG)
+                    CancelationDaysLimitValdation.Text = "The field can only contain numbers!";
+                else
+                    CancelationDaysLimitValdation.Text = "Polje moze da sadrzi samo brojeve!";
+                CancelationDaysLimitValdation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                CancelationDaysLimitValdation.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

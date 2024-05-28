@@ -43,5 +43,12 @@ namespace BookingApp.View.Owner
         {
             OwnerForumViewModel.CityPicked();
         }
+
+        private void ReportClick(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as GuestPost;
+            OwnerForumViewModel.ReportClick(selectedCard);
+
+        }
     }
 }

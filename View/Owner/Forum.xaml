@@ -14,6 +14,10 @@
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+        <local1:UserIdToOwnerFlagConverter x:Key="UserIdToOwnerFlagConverter"/>
+        <local1:PostIdToReportVisibilityConverter x:Key="PostIdToReportVisibilityConverter"/>
+        <BitmapImage x:Key="OwnerImage" UriSource="../../Resources/Images/Owner/verified-user.png"/>
+        <BitmapImage x:Key="GuestImage" UriSource="../../Resources/Images/Owner/forum-user.png"/>
     </Page.Resources>
 
     <Grid>
@@ -102,8 +106,19 @@
                                             <ColumnDefinition Width="10*"/>
                                             <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="../../Resources/Images/Owner/forum-user.png" Width="48" 
-                                       VerticalAlignment="Center" Margin="0 0 0 40"/>
+                                        <Image Grid.Column="0" Width="48" 
+                                               VerticalAlignment="Center" Margin="0 0 0 40">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Source" Value="{StaticResource GuestImage}"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding UserId, Converter={StaticResource UserIdToOwnerFlagConverter}}" Value="True">
+                                                            <Setter Property="Source" Value="{StaticResource OwnerImage}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
                                         <TextBlock Grid.Column="0" Text="{Binding UserId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="20" Margin="5 40 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
                                         <TextBlock Grid.Column="1" Text="{loc:Loc Comment:}" FontSize="20" Margin="10 5 0 0"/>
@@ -111,12 +126,13 @@
                                             <TextBlock FontSize="18" TextWrapping="Wrap" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
                                         </Border>
 
-                                        <TextBlock Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                    <Run Text="{loc:Loc Report numbers:}"/>
-                                    <Run Text="123"/>
+                                        <TextBlock x:Name="ReportNumbersTextBlock" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                                   Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}">
+                                            <Run Text="{loc:Loc Report numbers:}"/>
+                                            <Run Text="{Binding Reports, UpdateSourceTrigger=PropertyChanged}"/>
                                         </TextBlock>
-                                        <Button Grid.Column="2" Content="{loc:Loc Report}" FontSize="20" Margin="20 10 20 0"
-                                        VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                                        <Button x:Name="ReportNumberButton" Grid.Column="2" Content="{loc:Loc Report}" FontSize="20" Margin="20 10 20 0" Click="ReportClick"
+                                                VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
