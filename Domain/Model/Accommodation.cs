@@ -43,7 +43,9 @@ namespace BookingApp.Domain.Model
         }
         public string Error => null;
         private const string SRB = "sr-RS";
+        private Regex TextNumberRegex = new Regex("^[A-Za-zČĆŠĐŽčćšđž ]+[0-9]*$");
         private Regex TextRegex = new Regex("^[A-Za-zČĆŠĐŽčćšđž ]+$");
+        private Regex NumberRegex = new Regex("^[1-9][0-9]+$");
 
         public string this[string columnName]
         {
@@ -54,12 +56,24 @@ namespace BookingApp.Domain.Model
                     if (string.IsNullOrEmpty(Name))
                         return "*";
 
-                    Match match = TextRegex.Match(Name);
+                    Match match = TextNumberRegex.Match(Name);
                     if (!match.Success)
                         if (App.currentLanguage() == SRB)
                             return "Polje moze da sadrzi samo slova";
                         else
                             return "The field can only contain letters";
+                }
+                else if(columnName == "MaxGuestNumber")
+                {
+                    if (MaxGuestNumber == 0)
+                        return "*";
+
+                    Match match = NumberRegex.Match(MaxGuestNumber.ToString());
+                    if (!match.Success)
+                        if (App.currentLanguage() == SRB)
+                            return "Polje moze da sadrzi samo brojeve";
+                        else
+                            return "The field can only contain digits";
                 }
                 return null;
             }

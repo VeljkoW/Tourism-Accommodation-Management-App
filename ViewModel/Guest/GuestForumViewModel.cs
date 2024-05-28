@@ -114,6 +114,7 @@ namespace BookingApp.ViewModel.Guest
                 if (forum.LocationId == selectedChosenCity.Id)
                 {
                     GuestPost guestPost = new GuestPost();
+                    guestPost.ForumId = forum.Id;
                     guestPost.UserId = user.Id;
                     guestPost.Comment = GuestForum.CommentTextBox.Text;
                     guestPost.SpecialUser = IsSpecialUser(guestPost, forum);
@@ -138,6 +139,8 @@ namespace BookingApp.ViewModel.Guest
                 forum.IsValid = false;
                 postItems.Add(guestPost);
                 ForumService.GetInstance().Add(forum);
+                guestPost.ForumId = forum.Id;
+                GuestPostService.GetInstance().Update(guestPost);
             }
 
         }

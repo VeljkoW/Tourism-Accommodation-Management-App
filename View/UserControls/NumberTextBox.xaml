@@ -11,7 +11,7 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="NumTextBox" VerticalContentAlignment="Center" FontWeight="Light"/>
+        <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="NumTextBox" VerticalContentAlignment="Center" FontWeight="Light" TextChanged="NumTextBoxChanged"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

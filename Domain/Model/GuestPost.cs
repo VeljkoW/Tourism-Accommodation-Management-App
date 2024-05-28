@@ -17,12 +17,15 @@ namespace BookingApp.Domain.Model
     public class GuestPost : ISerializable, INotifyPropertyChanged
     { 
         private int id {  get; set; }
+        private int forumId {  get; set; }
         private int userId { get; set; }
-
         private string comment { get; set; }
-
         private bool specialUser { get; set; }
-        public GuestPost() { }
+        private int reports {  get; set; }
+        public GuestPost()
+        {
+            reports = 0;
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -44,6 +47,21 @@ namespace BookingApp.Domain.Model
                 {
                     id = value;
                     OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+        public int ForumId
+        {
+            get
+            {
+                return forumId;
+            }
+            set
+            {
+                if (value != forumId)
+                {
+                    forumId = value;
+                    OnPropertyChanged(nameof(forumId));
                 }
             }
         }
@@ -92,13 +110,30 @@ namespace BookingApp.Domain.Model
                 }
             }
         }
+        public int Reports
+        {
+            get
+            {
+                return reports;
+            }
+            set
+            {
+                if (value != reports)
+                {
+                    reports = value;
+                    OnPropertyChanged(nameof(reports));
+                }
+            }
+        }
         public string[] ToCSV()
         {
             string[] csvValues = {
                     Id.ToString(),
+                    ForumId.ToString(),
                     UserId.ToString(),
                     Comment,
-                    SpecialUser.ToString()
+                    SpecialUser.ToString(),
+                    Reports.ToString()
                 };
             return csvValues;
         }
@@ -106,9 +141,11 @@ namespace BookingApp.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            UserId = Convert.ToInt32(values[1]);
-            Comment = values[2];
-            SpecialUser = Convert.ToBoolean(values[3]);
+            ForumId = Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[2]);
+            Comment = values[3];
+            SpecialUser = Convert.ToBoolean(values[4]);
+            Reports = Convert.ToInt32(values[5]);
         }
     }
 }
