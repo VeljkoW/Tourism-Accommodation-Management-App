@@ -38,5 +38,13 @@ namespace BookingApp.Services
         {
             return TourSuggestionComplexRepository.Update(tourSuggestion);
         }
+        public void DeleteById(int Id) 
+        {
+            TourSuggestionComplexRepository.DeleteById(Id);
+        }
+        public List<TourSuggestion> GetAllByComplexId(int complexId)
+        {
+            return GetAll().Where(t => t.ComplexTourId == complexId).ToList();
+        }
     }
 }

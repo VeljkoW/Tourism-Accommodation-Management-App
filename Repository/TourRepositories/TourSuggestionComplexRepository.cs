@@ -16,7 +16,7 @@ namespace BookingApp.Repository.TourRepositories
         {
             return App._serviceProvider.GetRequiredService<TourSuggestionComplexRepository>();
         }
-        private const string FilePath = "../../../Resources/Data/toursuggestions.csv";
+        private const string FilePath = "../../../Resources/Data/toursuggestionscomplex.csv";
 
         private readonly Serializer<TourSuggestion> _serializer;
 
@@ -51,6 +51,16 @@ namespace BookingApp.Repository.TourRepositories
             _tourSuggestions = _serializer.FromCSV(FilePath);
             return _tourSuggestions.Find(c => c.Id == Id);
         }
+        public void DeleteById(int id)
+        {
+            var tourSuggestion = _tourSuggestions.FirstOrDefault(c => c.Id == id);
+
+            if(tourSuggestion != null)
+            {
+                _tourSuggestions.Remove(tourSuggestion);
+                _serializer.ToCSV(FilePath, _tourSuggestions);
+            }
+        }
         public TourSuggestion? Update(TourSuggestion tourSuggestion)
         {
             TourSuggestion? oldTourSuggestion = GetById(tourSuggestion.Id);
@@ -66,6 +76,7 @@ namespace BookingApp.Repository.TourRepositories
             oldTourSuggestion.ToDate = tourSuggestion.ToDate;
             oldTourSuggestion.Date = tourSuggestion.Date;
             oldTourSuggestion.Status = tourSuggestion.Status;
+            oldTourSuggestion.ComplexTourId = tourSuggestion.ComplexTourId;
             _serializer.ToCSV(FilePath, _tourSuggestions);
             return oldTourSuggestion;
         }

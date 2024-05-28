@@ -23,6 +23,7 @@ namespace BookingApp.Domain.Model
         public DateTime ToDate { get; set; }
         public DateTime Date {  get; set; }
         public TourSuggestionStatus Status { get; set; }
+        public int ComplexTourId { get; set; }
 
         public TourSuggestion() 
         {
@@ -38,9 +39,10 @@ namespace BookingApp.Domain.Model
             ToDate = DateTime.MinValue;
             Date = DateTime.MinValue;
             Status = TourSuggestionStatus.Rejected;
+            ComplexTourId = -1;
         }
 
-        public TourSuggestion(int userId,Location location, string description, string language, int numberOfPeople, List<TourPerson> tourists,DateTime fromDate,DateTime toDate,DateTime date,TourSuggestionStatus status)
+        public TourSuggestion(int userId,Location location, string description, string language, int numberOfPeople, List<TourPerson> tourists,DateTime fromDate,DateTime toDate,DateTime date,TourSuggestionStatus status, int complexTourId)
         {
             UserId = userId;
             Location = location;
@@ -53,6 +55,7 @@ namespace BookingApp.Domain.Model
             ToDate = toDate;
             Date = date;
             Status = status;
+            ComplexTourId = complexTourId;
         }
 
         public string[] ToCSV()
@@ -68,7 +71,8 @@ namespace BookingApp.Domain.Model
                             FromDate.ToString(),
                             ToDate.ToString(),
                             Date.ToString(),
-                            Status.ToString()
+                            Status.ToString(),
+                            ComplexTourId.ToString(),
                             };
             return ret;
         }
@@ -98,6 +102,7 @@ namespace BookingApp.Domain.Model
             ToDate = Convert.ToDateTime(values[8]);
             Date = Convert.ToDateTime(values[9]);
             Status = (TourSuggestionStatus)Enum.Parse(typeof(TourSuggestionStatus), values[10]);
+            ComplexTourId = Convert.ToInt32(values[11]);
         }
         public string TouristIdToCSV()
         {

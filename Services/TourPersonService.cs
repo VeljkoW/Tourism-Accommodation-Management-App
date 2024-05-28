@@ -43,6 +43,10 @@ namespace BookingApp.Services
         {
             return TourPersonRepository.Update(tourPerson);
         }
+        public void DeleteById(int Id)
+        {
+            TourPersonRepository.DeleteById(Id);
+        }
         public int GetUnderageCount(List<TourPerson> tourPersons)
         {
             return tourPersons.Where(person => person.Age < 18).Count();

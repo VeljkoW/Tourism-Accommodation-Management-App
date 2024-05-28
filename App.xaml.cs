@@ -94,6 +94,10 @@ namespace BookingApp
             _services.AddSingleton<GuestPostService>();
             _services.AddSingleton<IOwnerNotificationRepository, OwnerNotificationRepository>();
             _services.AddSingleton<OwnerNotificationService>();
+            _services.AddSingleton<ITourSuggestionComplexRepository, TourSuggestionComplexRepository>();
+            _services.AddSingleton<TourSuggestionComplexService>();
+            _services.AddSingleton<ITourComplexSuggestionRepository, TourComplexSuggestionRepository>();
+            _services.AddSingleton<TourComplexSuggestionService>();
             _serviceProvider = _services.BuildServiceProvider();
 
             SignInForm signInForm = new SignInForm();
