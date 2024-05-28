@@ -11,6 +11,7 @@ using BookingApp.View.Guide.Pages;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -33,6 +34,8 @@ namespace BookingApp.ViewModel.Guide
         }
         public GuideMainPageViewModel(User user)
         {
+            VKeyboard.Listen<System.Windows.Controls.TextBox>(e => e.Text);
+            VKeyboard.Config(typeof(KeyboardCustom));
             UserName = user.Username;
         }
         protected virtual void OnPropertyChanged(string propertyName)

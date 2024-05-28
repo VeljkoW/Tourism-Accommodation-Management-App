@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {

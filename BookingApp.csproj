@@ -157,6 +157,7 @@
 		<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Notification.Wpf" Version="8.0.0" />
+		<PackageReference Include="VirtualKeyboard.Wpf" Version="0.1.0" />
 		<Resource Include="Resources\Images\accommodationsLogo.png" />
 		<Resource Include="Resources\Images\Guest\arrowleft.png" />
 		<Resource Include="Resources\Images\Guest\arrowright.png" />
@@ -240,5 +241,12 @@
 	  <EmbeddedResource Update="Properties\Resources.sr.resx">
 	    <Generator></Generator>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="View\Guide\Pages\KeyboardCustom.xaml">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	    <Generator>XamlIntelliSenseFileGenerator</Generator>
+	  </Page>
 	</ItemGroup>
 </Project>

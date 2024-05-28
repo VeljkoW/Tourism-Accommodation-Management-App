@@ -67,6 +67,7 @@ namespace BookingApp.View.Guide.Pages
         public EventHandler OnLogoutHandler { get; set; }
         public void ClickUpcommingTour(object sender, RoutedEventArgs e)
         {
+            upcomingTours.ViewModelLoad();
             Frame.Navigate(upcomingTours);
         }
         public void ClickTourStatistics(object sender, RoutedEventArgs e)

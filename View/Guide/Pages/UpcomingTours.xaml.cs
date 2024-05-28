@@ -22,11 +22,16 @@ namespace BookingApp.View.Guide.Pages
     /// </summary>
     public partial class UpcomingTours : Page
     {
+        UpcomingTourViewModel vm;
         public UpcomingTours(User user)
         {
             InitializeComponent();
-            UpcomingTourViewModel vm = new UpcomingTourViewModel(user);
+            vm = new UpcomingTourViewModel(user);
             DataContext = vm;
+        }
+        public void ViewModelLoad()
+        {
+            vm.Load();
         }
     }
 }

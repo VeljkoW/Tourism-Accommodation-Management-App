@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using System.Globalization;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {

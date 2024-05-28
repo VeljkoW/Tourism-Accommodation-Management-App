@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -69,7 +70,8 @@ namespace BookingApp.ViewModel.Guide
         }
         public int SelectedYear { get; set; }
         public View.Guide.Pages.TourStatistics TourStatisticsPage { get;set; }
-        public TourStatisticsViewModel(View.Guide.Pages.TourStatistics tourStatistics, User user) {
+        public TourStatisticsViewModel(View.Guide.Pages.TourStatistics tourStatistics, User user)
+        {
             User = user;
             TourStatisticsPage = tourStatistics;
             UserControlTourStatistics = new ObservableCollection<UserControlTourStatistics>();

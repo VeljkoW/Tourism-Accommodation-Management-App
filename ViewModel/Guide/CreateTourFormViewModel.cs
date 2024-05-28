@@ -20,6 +20,7 @@ using BookingApp.Domain.IRepositories;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -145,7 +146,8 @@ namespace BookingApp.ViewModel.Guide
         public DateTime SelectedDate { get; set; } = DateTime.Now;
         public RelayCommand BtnSelectFile_Click => new RelayCommand(execute => BtnSelectFiles_ClickExecute());
         public RelayCommand ClickAddDate => new RelayCommand(execute => ClickAddDateExecute(), canExecute => ClickAddDateCanExecute());
-        public RelayCommand ClidKAddKeyPoint => new RelayCommand(execute => ClickAddKeyPointExecute());
+        public RelayCommand ClidKAddKeyPoint => new RelayCommand(execute => ClickAddKeyPointExecute(),canExecute => ClickAddKeyPointCanExecute());
+        public RelayCommand ClicKRemoveKeyPoint => new RelayCommand(execute => ClickRemoveKeyPointExecute(),canExecute => ClickRemoveKeyPointCanExecute());
         public RelayCommand ClickCancelButton => new RelayCommand(execute => ClickCancelButtonExecute());
         public RelayCommand ClickCreateButton => new RelayCommand(execute => ClickCreateButtonExecute(), canExecute => ClickCreateCanExecute());
         public RelayCommand ClickDeleteDate => new RelayCommand(execute => ClickDeleteDateExecute(), canExecute => ClickDeleteDateCanExecute());
@@ -268,6 +270,20 @@ namespace BookingApp.ViewModel.Guide
                 if (value != _maxTourists)
                 {
                     _maxTourists = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        //CurrentKeyPoint
+        private string _currentKeyPoint;
+        public string CurrentKeyPoint
+        {
+            get => _currentKeyPoint;
+            set
+            {
+                if (value != _currentKeyPoint)
+                {
+                    _currentKeyPoint = value;
                     OnPropertyChanged();
                 }
             }
@@ -556,8 +572,31 @@ namespace BookingApp.ViewModel.Guide
         }
         public void ClickAddKeyPointExecute()
         {
-            KeyPointStrings.Add(this.SelectedKeyPoint);
-            this.SelectedKeyPoint="";
+            KeyPointStrings.Add(this.CurrentKeyPoint);
+            this.CurrentKeyPoint = "";
+        }
+        private bool ClickAddKeyPointCanExecute()
+        {
+            if(CurrentKeyPoint != null) 
+            {
+                if (!CurrentKeyPoint.Equals(""))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void ClickRemoveKeyPointExecute()
+        {
+            KeyPointStrings.Remove(this.SelectedKeyPoint);
+        }
+        private bool ClickRemoveKeyPointCanExecute()
+        {
+            if(SelectedKeyPoint != null)
+            {
+                return true;
+            }
+            return false;
         }
         public bool ClickAddDateCanExecute()
         {
@@ -658,6 +697,7 @@ namespace BookingApp.ViewModel.Guide
         private void RemoveExecute()
         {
             toBeDeleted.Add(ImagePaths[_currentIndex]);
+            RelativeImagePaths.RemoveAt(_currentIndex);
             ImagePaths.RemoveAt(_currentIndex);
             if(ImagePaths.Count == 0)
             {
