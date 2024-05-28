@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Tourist.ListComponents"
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
-        Title="TourComplexSuggestionWindow" Height="700" Width="800">
+        Title="TourComplexSuggestionWindow" Height="700" Width="750">
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
