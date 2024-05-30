@@ -98,15 +98,15 @@ namespace BookingApp.ViewModel.Guest
         private bool AreDatesAvailable(DateTime startDate, DateTime endDate, int reservationDays)
         {
             if (!CheckDates(startDate, endDate, reservationDays)) return false;
+            List<ReservedAccommodation> reservedAccommodations = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == Accommodation.Id).ToList();
+            List<ScheduledRenovation> scheduledRenovations = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == Accommodation.Id).ToList();
 
             for (DateTime date = startDate; date <= startDate.AddDays(reservationDays); date = date.AddDays(1))
             {
-                foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                    if (Accommodation.Id == reservedAccommodation.Accommodation.Id)
+                foreach (ReservedAccommodation reservedAccommodation in reservedAccommodations)
                         if (!CheckReservedDates(date, reservedAccommodation)) return false;
 
-                foreach (ScheduledRenovation scheduledRenovation in ScheduledRenovationService.GetInstance().GetAll())
-                    if (scheduledRenovation.AccommodationId == Accommodation.Id)
+                foreach (ScheduledRenovation scheduledRenovation in scheduledRenovations)
                         if (!CheckRenovationDates(date, scheduledRenovation)) return false;
             }
             return true;

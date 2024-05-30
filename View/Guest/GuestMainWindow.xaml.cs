@@ -45,6 +45,7 @@ namespace BookingApp.View.Guest
             this.user = user;
             //GuestRate = new GuestRate(user, reservedAccommodation);
             Accommodations = new Accommodations(user, this);
+            NavigationButtonBarPressed("AccommodationButton");
             mainFrame.Navigate(Accommodations);
         }
         private void LogOut(object sender, RoutedEventArgs e)
@@ -53,24 +54,28 @@ namespace BookingApp.View.Guest
         private void AccommodationsClick(object sender, RoutedEventArgs e)
         { 
             mainFrame.Navigate(Accommodations);
+            NavigationButtonBarPressed("AccommodationButton");
         }
 
         private void ReservationClick(object sender, RoutedEventArgs e)
         {
             GuestReservations = new GuestReservations(user, this);
             mainFrame.Navigate(GuestReservations);
+            NavigationButtonBarPressed("ReservationsButton");
         }
 
         private void ReviewsClick(object sender, RoutedEventArgs e)
         {
             OwnerReviews = new OwnerReviews(user);
             mainFrame.Navigate(OwnerReviews);
+            NavigationButtonBarPressed("ReviewsButton");
         }
 
         private void ForumClick(object sender, RoutedEventArgs e)
         {
             GuestForum = new GuestForum(user);
             mainFrame.Navigate(GuestForum);
+            NavigationButtonBarPressed("ForumButton");
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)
@@ -82,13 +87,27 @@ namespace BookingApp.View.Guest
 
         private void TutorialClick(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void NotificationsClick(object sender, RoutedEventArgs e)
         {
             GuestNotifications guestNotifications = new GuestNotifications(user, this);
             guestNotifications.Show();
+        }
+
+        public void NavigationButtonBarPressed(string buttonName)
+        {
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+
+
+            Color basicBackgroundColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+
+            AccommodationButton.Background = buttonName == "AccommodationButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            ReservationsButton.Background = buttonName == "ReservationsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            ReviewsButton.Background = buttonName == "ReviewsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            ForumButton.Background = buttonName == "ForumButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
         }
     }
 }
