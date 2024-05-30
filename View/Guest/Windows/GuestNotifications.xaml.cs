@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.View.Guest.Pages;
 using BookingApp.ViewModel.Guest;
 using System;
 using System.Collections.Generic;
@@ -23,17 +24,29 @@ namespace BookingApp.View.Guest.Windows
     public partial class GuestNotifications : Window
     {
         public GuestNotificationsViewModel GuestNotificationsViewModel { get; set; }
+        public GuestMainWindow GuestMainWindow { get; set; }
 
-        public GuestNotifications(User user)
+        public User User { get; set; }
+
+        public GuestNotifications(User user, GuestMainWindow guestMainWindow)
         {
             InitializeComponent();
-            GuestNotificationsViewModel = new GuestNotificationsViewModel(user);
+            User = user;
+            GuestNotificationsViewModel = new GuestNotificationsViewModel(User);
             DataContext = GuestNotificationsViewModel;
+            GuestMainWindow = guestMainWindow;
         }
 
         private void Refresh(object sender, RoutedEventArgs e)
         {
             GuestNotificationsViewModel.Refresh(sender, e);
+        }
+
+        public void ClickedOnCard(object sender, RoutedEventArgs e)
+        {
+            ReschedulingStatuses rescheduleStatus = new ReschedulingStatuses(User, GuestMainWindow);
+            GuestMainWindow.mainFrame.Navigate(rescheduleStatus);
+            Close();
         }
     }
 }

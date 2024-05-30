@@ -6,28 +6,120 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="ReschedulingReservation" Height="400" Width="550" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="ReschedulingReservation" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderBrush="#56736F" BorderThickness="3">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#F3B124"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#F3B124"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused"  Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Focus">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border1}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused"  Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#B5AE9F">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*" MinHeight="60"/>
-            <RowDefinition Height="3*" MinHeight="180"/>
+            <RowDefinition Height="1*" MinHeight="60"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*" MinHeight="120"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" x:Name="NameLabel" Content="Check new dates for " FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
-        <Label Grid.Row="0" x:Name="DatesLabel" FontSize="16" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
-        <Label Grid.Row="1" x:Name="MinDaysLabel" VerticalAlignment="Top" Content="*Min reservation days " FontSize="13" Margin="43 0 0 0"></Label>
-        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1.5" Margin="15 20 15 20" CornerRadius="40">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25 0 0 0">
+        <Label Grid.Row="0" x:Name="NameLabel" Content="Check new dates for " FontSize="20" VerticalAlignment="Top" Margin="15 0 0 0" HorizontalAlignment="Center"></Label>
+        <Label Grid.Row="0" x:Name="DatesLabel" FontSize="20" Margin="15 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
+        <Label Grid.Row="1" x:Name="MinDaysLabel" VerticalAlignment="Top" Content="*Min reservation days " FontSize="13" Margin="10 7 0 40"></Label>
+        <Border BorderBrush="#56736F" Grid.Row="1" BorderThickness="1" Margin="15 10 15 0" CornerRadius="0" Height="130">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30 0 0 0">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <Label Content="Check In Date:*" HorizontalAlignment="Left" FontSize="24"></Label>
-                    <DatePicker x:Name="checkInDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="24" Margin="120 0 0 0"></DatePicker>
+                    <Label Content="Check In Date:*" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="20"></Label>
+                    <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="checkInDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="20" Margin="75 0 0 0"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Check Out Date:*" HorizontalAlignment="Left" FontSize="24"></Label>
-                    <DatePicker x:Name="checkOutDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="24" Margin="100 0 0 0"></DatePicker>
+                    <Label Content="Check Out Date:*" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="20"></Label>
+                    <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="checkOutDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="20" Margin="58 0 0 0"></DatePicker>
                 </StackPanel>
             </StackPanel>
         </Border>
-        <Button Grid.Row="2" Width="115" Height="60" Content="Send" FontSize="25" Command="{Binding sendRequest}"></Button>
+        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" Width="115" Height="50" Content="Send" FontSize="25" Command="{Binding sendRequest}"></Button>
     </Grid>
 </Window>

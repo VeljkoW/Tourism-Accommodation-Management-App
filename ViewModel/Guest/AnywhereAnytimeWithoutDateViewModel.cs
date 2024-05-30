@@ -39,7 +39,7 @@ namespace BookingApp.ViewModel.Guest
             AccommodationForReservation = accommodationForReservation;
             reservedAccommodation = new ReservedAccommodation();
             accommodation = AccommodationService.GetInstance().GetById(accommodationForReservation.AccommodationId);
-            AnywhereAnytimeWithoutDate.AccommodationName.Content += accommodation.Name + ", " + accommodation.Location.State + " - " + accommodation.Location.City;
+            AnywhereAnytimeWithoutDate.AccommodationName.Content += "Accommodation: " + accommodation.Name + ", " + accommodation.Location.State + " - " + accommodation.Location.City;
             foreach (Image image in accommodation.Images)
                 ImagePaths.Add(image.Path);
             AnywhereAnytimeWithoutDate.AvailableDates.ItemsSource = AccommodationForReservation.AvailableDates;

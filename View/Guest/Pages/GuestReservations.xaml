@@ -5,9 +5,104 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       xmlns:local="clr-namespace:BookingApp.View.Guest.Pages"
+        xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1520"
       Title="GuestReservations">
+    <Page.Resources>
+
+        <local1:DateTimeToHourConverter x:Key="DateTimeToHourConverter"/>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#F3B124"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#F3B124"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused"  Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Focus">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border1}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused"  Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -16,10 +111,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
@@ -31,16 +125,16 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 0 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="White" CornerRadius="15">
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
-                    <Button Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
-                    <Button Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
+                    <Button Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
+                    <Button Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
+                    <Button Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
                 </StackPanel>
             </Border>
-            <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" VerticalScrollBarVisibility="Auto">
-                <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6">
+            <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right">
+                <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 90 10" Background="White"
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8"  Margin="42 10 80 10" Background="White"
                               HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
@@ -57,7 +151,7 @@
                                     <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Margin="15 0 0 0" Width="750" Height="200">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2.5*"/>
                                                 <ColumnDefinition Width="2*"/>
                                                 <ColumnDefinition Width="2*"/>
                                                 <ColumnDefinition Width="2*"/>
@@ -70,18 +164,31 @@
                                                 <RowDefinition Height="2*"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Accommodation.Name}" FontWeight="Bold" FontSize="30" HorizontalAlignment="Left" Margin="5 5 0 0"/>
-                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Accommodation.AccommodationType}" FontSize="20" HorizontalAlignment="Left" Margin="0 5 0 0"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Accommodation.Location.State}" FontSize="20" HorizontalAlignment="Left" Margin="5 18 0 0"/>
-                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=Accommodation.Location.City}" FontSize="20" HorizontalAlignment="Left" Margin="5 10 0 5" VerticalAlignment="Top"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                                            <Run Text="{Binding Path=CheckInDate}" />
-                                            <Run Text=" - " />
-                                            <Run Text="{Binding Path=CheckOutDate}" />
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  FontSize="20" HorizontalAlignment="Center" Margin="0 12 0 0">
+                                                <Run Text="Type:" />
+                                                <Run Text="{Binding Path=Accommodation.AccommodationType}" />  
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Bottom">
+                                                <Run Text="State:" />
+                                                <Run Text="{Binding Path=Accommodation.Location.State}" />
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" HorizontalAlignment="Left" Margin="5 10 0 5" VerticalAlignment="Top">
+                                                 <Run Text="City:" />
+                                                 <Run Text="{Binding Path=Accommodation.Location.City}" />
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" FontSize="17" Margin="0 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                                <Run Text="Check In Date            Check Out Date" />
+                                            </TextBlock>
+                                            <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" FontSize="17" Margin="0 10 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <Run Text="{Binding CheckInDate, Converter={StaticResource DateTimeToHourConverter}}" />
+                                                <Run Text="PM   " />
+                                                <Run Text="{Binding CheckOutDate, Converter={StaticResource DateTimeToHourConverter}}" />
+                                                <Run Text="AM" />   
                                             </TextBlock>
                                             <!--<TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=CheckInDate}" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=CheckOutDate}" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15 0 0 0"/>-->
-                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
-                                            <Button Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
+                                            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
+                                            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
                                         </Grid>
                                     </Border>
                                 </Grid>
