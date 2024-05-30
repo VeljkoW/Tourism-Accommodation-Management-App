@@ -87,7 +87,7 @@ namespace BookingApp.View.Guest
 
         private void NotificationsClick(object sender, RoutedEventArgs e)
         {
-            GuestNotifications guestNotifications = new GuestNotifications(user);
+            GuestNotifications guestNotifications = new GuestNotifications(user, this);
             guestNotifications.Show();
         }
     }

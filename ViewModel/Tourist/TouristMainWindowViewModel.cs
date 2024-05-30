@@ -34,6 +34,7 @@ namespace BookingApp.ViewModel.Tourist
         public RelayCommand ClickLogOut => new RelayCommand(execute => LogOutExecute());
         public RelayCommand ClickTourSuggestion => new RelayCommand(execute => TourSuggestionExecute());
         public RelayCommand ClickTourSuggestionStatistics => new RelayCommand(execute => TourSuggestionStatisticsExecute());
+        public RelayCommand ClickTourComplexSuggestion => new RelayCommand(execute => TourComplexSuggestionExecute());
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private ObservableCollection<TourSuggestion> tourSuggestions { get; set; }
@@ -49,8 +50,8 @@ namespace BookingApp.ViewModel.Tourist
                 OnPropertyChanged(nameof(tourSuggestions));
             }
         }
-        private ObservableCollection<TourSuggestion> complexTourSuggestions {  get; set; }
-        public ObservableCollection<TourSuggestion> ComplexTourSuggestions
+        private ObservableCollection<TourComplexSuggestion> complexTourSuggestions {  get; set; }
+        public ObservableCollection<TourComplexSuggestion> ComplexTourSuggestions
         {
             get
             {
@@ -149,7 +150,7 @@ namespace BookingApp.ViewModel.Tourist
             Coupons = new ObservableCollection<TourCoupon>();
             FinishedTours = new ObservableCollection<Tour>();
             TourSuggestions = new ObservableCollection<TourSuggestion>();
-            ComplexTourSuggestions = new ObservableCollection<TourSuggestion>();
+            ComplexTourSuggestions = new ObservableCollection<TourComplexSuggestion>();
 
             AddStatesToComboBox(LocationService.GetInstance().GetAll());
             TourCouponAwardService.GetInstance().CreateACouponAward(User.Id);
@@ -227,6 +228,7 @@ namespace BookingApp.ViewModel.Tourist
             UpdateFinishedTours();
             UpdateReservedTours();
             UpdateTourSuggestions();
+            UpdateComplexTourSuggestions();
             UpdateCoupons();
         }
         public void UpdateAllTours()
@@ -345,6 +347,14 @@ namespace BookingApp.ViewModel.Tourist
                     ts.Location = LocationService.GetInstance().GetById(ts.LocationId);
                     TourSuggestions.Add(ts);
                 }
+            }
+        }
+        void UpdateComplexTourSuggestions()
+        {
+            ComplexTourSuggestions.Clear();
+            foreach(TourComplexSuggestion tcs in TourComplexSuggestionService.GetInstance().GetAll().Where(t => t.UserId == User.Id))
+            {
+                ComplexTourSuggestions.Add(tcs);
             }
         }
         public void UpdateCoupons()
@@ -556,7 +566,7 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void TourSuggestionExecute()
         {
-            TourSuggestionWindow tourSuggestionWindow= new TourSuggestionWindow(User);
+            TourSuggestionWindow tourSuggestionWindow= new TourSuggestionWindow(User,false,-1);
             tourSuggestionWindow.Owner = TouristMainWindow;
             tourSuggestionWindow.Closed += (s, e) => TouristMainWindow.TouristMainWindowViewModel.Update();
             tourSuggestionWindow.ShowDialog();
@@ -566,6 +576,13 @@ namespace BookingApp.ViewModel.Tourist
             TourSuggestionStatistics tourSuggestionStatistics = new TourSuggestionStatistics(User);
             tourSuggestionStatistics.Owner = TouristMainWindow;
             tourSuggestionStatistics.ShowDialog();
+        }
+        public void TourComplexSuggestionExecute()
+        {
+            TourComplexSuggestionWindow tourComplexSuggestionWindow = new TourComplexSuggestionWindow(User);
+            tourComplexSuggestionWindow.Owner = TouristMainWindow;
+            tourComplexSuggestionWindow.Closed += (s, e) => TouristMainWindow.TouristMainWindowViewModel.Update();
+            tourComplexSuggestionWindow.ShowDialog();
         }
         private void ToursTabExecute()
         {

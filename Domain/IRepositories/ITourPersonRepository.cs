@@ -14,5 +14,6 @@ namespace BookingApp.Domain.IRepositories
         int NextId();
         TourPerson Add(TourPerson newTourPerson);
         TourPerson? Update(TourPerson tourPerson);
+        void DeleteById(int Id);
     }
 }

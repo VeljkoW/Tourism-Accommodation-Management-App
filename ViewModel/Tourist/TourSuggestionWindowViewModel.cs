@@ -16,13 +16,17 @@ namespace BookingApp.ViewModel.Tourist
     {
         public TourSuggestionWindow TourSuggestionWindow { get; set; }
         public User User { get; set; }
+        public bool IsComplex { get; set; }
+        public int ComplexId { get; set; }
         public RelayCommand ClickCancel => new RelayCommand(execute => CancelExecute());
         public RelayCommand ClickSuggest => new RelayCommand(execute => SuggestExecute());
 
-        public TourSuggestionWindowViewModel(TourSuggestionWindow tourSuggestionWindow, User user)
+        public TourSuggestionWindowViewModel(TourSuggestionWindow tourSuggestionWindow, User user, bool isComplex, int complexId)
         {
             TourSuggestionWindow = tourSuggestionWindow;
             User = user;
+            IsComplex = isComplex;
+            ComplexId = complexId;
             AddStatesToComboBox(LocationService.GetInstance().GetAll());
         }
 
@@ -204,12 +208,27 @@ namespace BookingApp.ViewModel.Tourist
 
             if (!string.IsNullOrEmpty(language) && !string.IsNullOrEmpty(description) && !string.IsNullOrEmpty(state) && !string.IsNullOrEmpty(city) && !string.IsNullOrEmpty(TourSuggestionWindow.StartDatePicker.Text) && !string.IsNullOrEmpty(TourSuggestionWindow.EndDatePicker.Text) && !string.IsNullOrEmpty(TourSuggestionWindow.NumberOfPeopleTextBox.Text))
             {
-                int numberOfPeople = Convert.ToInt32(TourSuggestionWindow.NumberOfPeopleTextBox.Text);
+                int numberOfPeople = 0;
+                try
+                {
+                    numberOfPeople = Convert.ToInt32(TourSuggestionWindow.NumberOfPeopleTextBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("The number of people textbox can have only numbers");
+                    return;
+                }
+                if(numberOfPeople == 0)
+                {
+                    MessageBox.Show("The number of people cannot be 0");
+                    return;
+                }
                 DateTime fromDate = DateTime.Parse(TourSuggestionWindow.StartDatePicker.Text);
                 DateTime toDate = DateTime.Parse(TourSuggestionWindow.EndDatePicker.Text);
                 if(fromDate >  toDate)
                 {
                     MessageBox.Show("The starting date cannot be after the end date!","Wrong date input",MessageBoxButton.OK,MessageBoxImage.Warning);
+                    return;
                 }
                 List<TourPerson> tourists = new List<TourPerson>();
 
@@ -283,8 +302,15 @@ namespace BookingApp.ViewModel.Tourist
                         TourPersonService.GetInstance().Add(person);
                     }
 
-                    TourSuggestion tourSuggestion = new TourSuggestion(User.Id,location,description,language,numberOfPeople,tourists,fromDate,toDate,DateTime.MinValue,TourSuggestionStatus.Pending);
-                    TourSuggestionService.GetInstance().Add(tourSuggestion);
+                    TourSuggestion tourSuggestion = new TourSuggestion(User.Id,location,description,language,numberOfPeople,tourists,fromDate,toDate,DateTime.MinValue,TourSuggestionStatus.Pending,ComplexId);
+                    if (!IsComplex)
+                    {
+                        TourSuggestionService.GetInstance().Add(tourSuggestion);
+                    }
+                    else
+                    {
+                        TourSuggestionComplexService.GetInstance().Add(tourSuggestion);
+                    }
                     TourSuggestionWindow.Close();
                 }
                 else
