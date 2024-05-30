@@ -32,6 +32,12 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             RenovationHistoryViewModel = new RenovationHistoryViewModel(this);
             DataContext = RenovationHistoryViewModel;
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            SchedulingButton.Background = basicBackgroundBrush;
+            HistoryButton.Background = backgroundButtonPressedBrush;
         }
 
         private void SchedulingClick(object sender, RoutedEventArgs e)

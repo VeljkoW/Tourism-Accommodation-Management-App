@@ -29,8 +29,8 @@ namespace BookingApp.ViewModel.Guest
             this.User = user;
             reservedAccommodation = selectedReservedAccommodation;
             accommodation = AccommodationService.GetInstance().GetById(reservedAccommodation.Accommodation.Id);
-            reschedulingReservation.NameLabel.Content += reservedAccommodation.Accommodation.Name;
-            reschedulingReservation.DatesLabel.Content += reservedAccommodation.CheckInDate + " - " + reservedAccommodation.CheckOutDate;
+            reschedulingReservation.NameLabel.Content += reservedAccommodation.Accommodation.Name + ", " + reservedAccommodation.Accommodation.Location.State;
+            reschedulingReservation.DatesLabel.Content += reservedAccommodation.CheckInDate.ToString("dd/MM/yyyy HH") + " PM - " + reservedAccommodation.CheckOutDate.ToString("dd/MM/yyyy HH") +" AM";
             reschedulingReservation.MinDaysLabel.Content += accommodation.MinReservationDays.ToString();
         }
 

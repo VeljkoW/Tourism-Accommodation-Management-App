@@ -40,5 +40,43 @@ namespace BookingApp.Services
         {
             return ForumRepository.GetById(Id);
         }
+        public bool isSpecial(int id)
+        {
+            Forum? forum = GetById(id);
+            int ownerNumber = 0;
+            int guestNumber = 0;
+            ownerNumber = GetOwnerCommentNumber(forum);
+            guestNumber = GetUserCommentNumber(forum);
+            if(ownerNumber >= 10 && guestNumber >= 20)
+                return true;
+            else
+                return false;
+        }
+        private int GetOwnerCommentNumber(Forum forum)
+        {
+            int ownerNumber = 0;
+            foreach(GuestPost guestPost in forum.GuestPosts)
+            {
+                User? user = UserService.GetInstance().GetById(guestPost.UserId);
+                if (user.UserType == UserType.Owner)
+                    ownerNumber++;
+            }
+            return ownerNumber;
+        }
+        private int GetUserCommentNumber(Forum forum)
+        {
+            int guestNumber = 0;
+            foreach (GuestPost guestPost in forum.GuestPosts)
+            {
+                User? user = UserService.GetInstance().GetById(guestPost.UserId);
+                if (user.UserType == UserType.Guest)
+                {
+                    foreach(ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
+                        if(forum.LocationId == reservedAccommodation.Accommodation.Location.Id && user.Id == reservedAccommodation.GuestId)
+                            guestNumber++;
+                }
+            }
+            return guestNumber;
+        }
     }
 }

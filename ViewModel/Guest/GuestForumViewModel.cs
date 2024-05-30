@@ -40,6 +40,9 @@ namespace BookingApp.ViewModel.Guest
             GuestForum.PostCommentBox.Visibility = System.Windows.Visibility.Collapsed;
             GuestForum.Comments.Visibility = System.Windows.Visibility.Collapsed;
             GuestForum.CloseButton.Visibility = System.Windows.Visibility.Collapsed;
+            GuestForum.usefulForum.Visibility = System.Windows.Visibility.Collapsed;
+            GuestForum.UsernameLabel.Content += user.Username.ToString();
+            GuestForum.WarningLabel.Visibility = System.Windows.Visibility.Visible;
         }
         public string SelectedChosenState
         {
@@ -113,9 +116,12 @@ namespace BookingApp.ViewModel.Guest
                 if (forum.LocationId == selectedChosenCity.Id)
                 {
                     GuestPost guestPost = new GuestPost();
+                    guestPost.ForumId = forum.Id;
                     guestPost.UserId = user.Id;
                     guestPost.Comment = GuestForum.CommentTextBox.Text;
+                    GuestForum.CommentTextBox.Clear();
                     guestPost.SpecialUser = IsSpecialUser(guestPost, forum);
+                    guestPost.Reports = 0;
                     GuestPostService.GetInstance().Add(guestPost);
                     forum.GuestPosts.Add(guestPost);
                     postItems.Add(guestPost);
@@ -131,12 +137,16 @@ namespace BookingApp.ViewModel.Guest
                 GuestPost guestPost = new GuestPost();
                 guestPost.UserId = user.Id;
                 guestPost.Comment = GuestForum.CommentTextBox.Text;
+                GuestForum.CommentTextBox.Clear();
                 guestPost.SpecialUser = IsSpecialUser(guestPost, forum);
+                guestPost.Reports = 0;
                 GuestPostService.GetInstance().Add(guestPost);
                 forum.GuestPosts.Add(guestPost);
                 forum.IsValid = false;
                 postItems.Add(guestPost);
                 ForumService.GetInstance().Add(forum);
+                guestPost.ForumId = forum.Id;
+                GuestPostService.GetInstance().Update(guestPost);
             }
 
         }
@@ -145,13 +155,29 @@ namespace BookingApp.ViewModel.Guest
             GuestForum.PostCommentBox.Visibility = System.Windows.Visibility.Collapsed;
             GuestForum.Comments.Visibility = System.Windows.Visibility.Collapsed;
             GuestForum.CloseButton.Visibility = System.Windows.Visibility.Collapsed;
+            GuestForum.OpenButton.IsEnabled = true;
             GuestForum.ComboBoxState.IsEnabled = true;
             GuestForum.ComboBoxCity.IsEnabled = true;
+            GuestForum.usefulForum.Visibility = System.Windows.Visibility.Collapsed;
+            GuestForum.WarningLabel.Visibility = System.Windows.Visibility.Visible;
             GuestForum.CommentTextBox.Clear();
             postItems.Clear();
         }
         public void OpenForum() 
         {
+
+            GuestForum.WarningLabel.Visibility = System.Windows.Visibility.Collapsed;
+            GuestForum.OpenButton.IsEnabled = false;
+            foreach (ForumView forum in ForumService.GetInstance().GetAll())
+            {
+                if (forum.LocationId == SelectedChosenCity.Id)
+                {
+                    if (ForumService.GetInstance().isSpecial(forum.Id))
+                    {
+                        GuestForum.usefulForum.Visibility = System.Windows.Visibility.Visible;
+                    }
+                }
+            }
             GuestForum.ComboBoxState.IsEnabled = false;
             GuestForum.ComboBoxCity.IsEnabled = false;
             if (ForumService.GetInstance().GetAll().Count == 0)

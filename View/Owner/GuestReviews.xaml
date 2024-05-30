@@ -16,6 +16,24 @@
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
         <local1:ImagesToImagePaths x:Key="ImagesToImagePaths"/>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
 
         <Style x:Key="ImageHoverStyle" TargetType="Image">
             <Setter Property="Effect">
@@ -33,6 +51,59 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+        <Style x:Key="TabButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabLightColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="Foreground" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTabLightColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
+                                <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -44,63 +115,95 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="1" Grid.Row="1" Margin="30" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="1" Grid.Row="1" Margin="30 10 30 30" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*" MinHeight="110"/>
+                    <RowDefinition Height="2*" MinHeight="110"/>
                     <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="7*"/>
-                </Grid.ColumnDefinitions>
-                <Border CornerRadius="10" Background="Wheat" VerticalAlignment="Center" 
-                        HorizontalAlignment="Left" Padding="10" Margin="10 0 0 0">
-                    <Grid>
-                        <Button Content="{loc:Loc Reviews}" FontSize="18" Width="120" Height="50" Margin="0 0 150 0" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
-                        <Button FontSize="18" Width="120" Height="50" Margin="150 0 0 0"
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="ReviewsButton" Content="{loc:Loc Reviews}" FontSize="18" Width="120" Height="50" Style="{DynamicResource TabButtonStyle}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="15 0 0 15">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="RenovationRequestsButton" Grid.Column="1" FontSize="18" Width="120" Height="50" Style="{DynamicResource TabButtonStyle}"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick">
-                            <Button.ContentTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{loc:Loc Renovation Requests}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                </DataTemplate>
-                            </Button.ContentTemplate>
-                        </Button>
-                    </Grid>
-                </Border>
-                <Grid Grid.Column="1">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{loc:Loc Renovation Requests}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="0 15 15 0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <Button x:Name="SuperOwnerInfoButton" Grid.Column="2" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="SuperOwnerInfoClick" Margin="0 0 175 0">
+                    <Image Source="../../Resources/Images/Owner/info.png" Width="32"/>
+                </Button>
+                <TextBlock Grid.Column="2" x:Name="SuperOwnerInfoLabel" FontSize="15" Text="{loc:Loc In order to become a superowner}" 
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" TextWrapping="Wrap" Margin="50 0 70 10" TextAlignment="Center"/>
+                
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 40">
-                    <Run FontSize="24" Text="{loc:Loc Reviews number:}"/>
-                    <Run FontSize="24" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">
+                        <Run FontSize="24" Text="{loc:Loc Reviews number:}"/>
+                        <Run FontSize="24" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
                     </TextBlock>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 40 0 0">
-                    <Run FontSize="24" Text="{loc:Loc Average Grade:}"/>
-                    <Run FontSize="24" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">
+                        <Run FontSize="24" Text="{loc:Loc Average Grade:}"/>
+                        <Run FontSize="24" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
                     </TextBlock>
-                        <!-- <Image Source="../../Resources/Images/Owner/user128x128.png" Height="64"></Image> -->
-                        <Image Grid.Column="1" x:Name="starImage" Source="../../Resources/Images/Owner/medal.png" Height="64"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 45" Style="{StaticResource ImageHoverStyle}"/>
-                        <Label Grid.Column="1" x:Name="SuperownerLabel" FontSize="24" Content="{loc:Loc You are a Superowner}" FontWeight="DemiBold"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 45 0 0"/>
-
-                    <Button Grid.Column="2" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SuperOwnerInfoClick">
-                        <Image Source="../../Resources/Images/Owner/info.png" Width="32"/>
-                    </Button>
-                    <TextBlock x:Name="SuperOwnerInfoLabel" Grid.Column="2" FontSize="15" Text="{loc:Loc In order to become a superowner}" 
-                       HorizontalAlignment="Center" VerticalAlignment="Bottom" TextWrapping="Wrap" Margin="10 0 10 10"/>
+                    <Image Grid.Column="1" x:Name="starImage" Source="../../Resources/Images/Owner/medal.png" Height="70"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 45" Style="{StaticResource ImageHoverStyle}">
+                        <Image.ToolTip>
+                            <ToolTip>
+                                <TextBlock Text="{loc:Loc In order to become a superowner}" FontSize="16" TextWrapping="Wrap"/>
+                            </ToolTip>
+                        </Image.ToolTip>
+                    </Image>
+                    <Label Grid.Column="1" x:Name="SuperownerLabel" FontSize="28" Content="{loc:Loc You are a Superowner}" FontWeight="DemiBold"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 50 0 0"/>
                 </Grid>
-                <!-- <Button Grid.ColumnSpan="2" Content="Reviews" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
-            <Button Grid.ColumnSpan="2" Content="Renovation&#10;Requests" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick"/> -->
 
-                <ItemsControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0 10 0 0" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
+
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Content="{loc:Loc Reviews}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Margin="0 30 0 0">
+                    
+                </Label>
+                <ItemsControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="0 60 0 0" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10" Background="White"
@@ -157,82 +260,6 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
-
-                <!-- <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right" Margin="0 20 0 0">
-                <ItemsControl x:Name="accommodationItems" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="15" Margin="20 10" Background="WhiteSmoke"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
-                                </Border.Effect>
-                                <Grid Margin="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="4*" MinWidth="600"/>
-                                        <ColumnDefinition Width="*" MinWidth="151"/>
-                                    </Grid.ColumnDefinitions>
-                                    <userControls:ImageSlider Grid.Column="1" MaxHeight="130" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <Border Padding="0 0 20 0" Grid.Column="0">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <Run Text="Guest Username:"/>
-                                                <Run FontWeight="Bold" Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <Run Text="Accommodation:"/>
-                                                <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}"/>
-                                                <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="2" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <Run Text="Cleanliness:"/>          
-                                                <Run Text="{Binding Cleanliness, StringFormat='{}{0}, '}"/>
-                                                <Run Text="Owner Integrity:"/>
-                                                <Run Text="{Binding OwnerIntegrity}"/>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="3" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
-                                                <Run Text="Comment:"/>  
-                                                <Run FontSize="18" Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}"/>
-                                            </TextBlock>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer> -->
-
-                <!-- <Grid Grid.Column="0" Grid.Row="1" Margin="0 20 0 0">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center">
-                        <Run FontSize="32" Text="Reviews number:"/>
-                        <Run FontSize="32" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
-                    </TextBlock>
-                    <TextBlock HorizontalAlignment="Center">
-                        <Run FontSize="32" Text="Average Grade:"/>
-                        <Run FontSize="32" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
-                    </TextBlock>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0">
-                        <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
-                        <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
-                    </StackPanel>
-                    <Label x:Name="SuperownerLabel" FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 60"/>
-                    <Label FontSize="20" Content="How to become a Superowner?" HorizontalAlignment="Center"/>
-                    <Label FontSize="16" 
-                           Content="In order to become a superowner, &#10;you must have more than 50 reviews &#10;and average grade of at least 4.5" 
-                           HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Grid> -->
-
             </Grid>
         </ScrollViewer>
     </Grid>

@@ -66,9 +66,10 @@ namespace BookingApp.Services
         public ObservableCollection<ReservedAccommodation> NotificationUpdate(User user, ObservableCollection<ReservedAccommodation> ReservedAccommodations)
         {
             ReservedAccommodations.Clear();
+            List<Accommodation> accommodations = AccommodationService.GetInstance().GetAll().Where(t => t.OwnerId == user.Id).ToList();
             foreach (ReservedAccommodation tempReservedAccommodation in GetAll())
-                foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
-                    if (tempReservedAccommodation.Accommodation.Id == accommodation.Id && user.Id == accommodation.OwnerId)
+                foreach (Accommodation accommodation in accommodations)
+                    if (tempReservedAccommodation.Accommodation.Id == accommodation.Id)
                     {
                         if (GuestRatingService.GetInstance().GetAll().Count == 0)
                             AvailableForRating(tempReservedAccommodation, ReservedAccommodations);

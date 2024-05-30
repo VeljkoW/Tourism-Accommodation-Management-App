@@ -29,5 +29,9 @@ namespace BookingApp.Services
         {
             return OwnerNotificationRepository.GetById(Id);
         }
+        public void Delete(int Id)
+        {
+            OwnerNotificationRepository.Delete(Id);
+        }
     }
 }

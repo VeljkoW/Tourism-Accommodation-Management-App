@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest"
         mc:Ignorable="d"
-        Title="GuestMainWindow" Height="800" Width="1520" Style="{DynamicResource BackgroundStyle}">
+        Title="GuestMainWindow" Height="800" Width="1520" Style="{DynamicResource BackgroundStyle}" BorderBrush="#56736F" BorderThickness="3">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -16,12 +16,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#71816d"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#71816d"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#bdd9bf"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#bdd9bf"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#bdd9bf"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#bdd9bf"/>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#56736F"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#56736F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -52,8 +52,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Window.Static.Background" Color="#efe5dc"/>
-        <SolidColorBrush x:Key="Window.Static.Border" Color="#efe5dc"/>
+        <SolidColorBrush x:Key="Window.Static.Background" Color="#DDDDDD"/>
+        <SolidColorBrush x:Key="Window.Static.Border" Color="#DDDDDD"/>
         <Style x:Key="BackgroundStyle" TargetType="{x:Type Window}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Window.Static.Background}"/>
@@ -65,6 +65,7 @@
     </Window.Resources>
 
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
@@ -73,14 +74,12 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Image Source="../../Resources/Images/accommodationsLogo.png"  Grid.Column="0" Grid.Row="0"></Image>
-        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Width="150" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 20 0">
+        <Image Source="../../Resources/Images/accommodationsLogo.png"  Grid.Column="0" Grid.Row="0" Height="177" Width="177"></Image>
+        <Button  Style="{DynamicResource ButtonStyle}" Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Width="150" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 20 0">
             <Button.Content>
                 <StackPanel Orientation="Vertical">
                     <Grid Width="60" Height="60">
-                        <!-- Glavna slika (user) -->
                         <Image Source="../../Resources/Images/Guest/user.png" Height="44" Width="44" />
-                        <!-- Mala slika (superGuest) u gornjem desnom uglu -->
                         <Image x:Name="SuperGuestImage" Source="../../Resources/Images/Guest/medal.png" Height="35" Width="35" HorizontalAlignment="Right" VerticalAlignment="Top" />
                     </Grid>
                     <Label x:Name="Username" FontSize="18" HorizontalAlignment="Center"/>
@@ -88,7 +87,7 @@
             </Button.Content>
         </Button>
 
-        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Click="NotificationsClick" Background="Transparent" Width="113" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 170 0">
+        <Button  Style="{DynamicResource ButtonStyle}" Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Click="NotificationsClick" Background="Transparent" Width="113" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 170 0">
             <Button.Content>
                 <StackPanel Orientation="Vertical">
                     <Grid Width="60" Height="60">
@@ -98,7 +97,7 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <Button Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Background="Transparent" Width="71" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 285 0">
+        <Button  Style="{DynamicResource ButtonStyle}" Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Background="Transparent" Width="71" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 285 0">
             <Button.Content>
                 <StackPanel Orientation="Vertical">
                     <Grid Width="60" Height="60">

@@ -14,6 +14,27 @@
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -31,18 +52,18 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <Label Content="{loc:Loc Select the reservation request you want to accept/decline:}"
-                   HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+                   HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Margin="0 10 0 0"/>
             <DataGrid x:Name="RatingGuestsTable" Grid.Row="0" Margin="0 60 0 0"
                       ItemsSource="{Binding GuestReschedulingRequests, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedGuestReschedulingRequest, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False"
+                      AutoGenerateColumns="False" FontSize="16"
                       SelectionMode="Single" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Accommodation Name}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Location}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTemplateColumn Width="70" Header="{loc:Loc Free}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -115,12 +136,12 @@
                     </DockPanel>
                     <DataGrid Grid.Row="0" Margin="0 40 0 20"
                               ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
-                              AutoGenerateColumns="False"
+                              AutoGenerateColumns="False" FontSize="14"
                               SelectionMode="Single" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

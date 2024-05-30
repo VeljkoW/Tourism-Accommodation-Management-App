@@ -22,10 +22,10 @@ namespace BookingApp.View.Tourist
     public partial class TourSuggestionWindow : Window
     {
         TourSuggestionWindowViewModel TourSuggestionWindowViewModel { get; set; }
-        public TourSuggestionWindow(User user)
+        public TourSuggestionWindow(User user, bool isComplex, int complexId)
         {
             InitializeComponent();
-            TourSuggestionWindowViewModel = new TourSuggestionWindowViewModel(this, user);
+            TourSuggestionWindowViewModel = new TourSuggestionWindowViewModel(this, user, isComplex, complexId);
             this.DataContext = TourSuggestionWindowViewModel;
             SetDatePickerBlackoutDates();
         }

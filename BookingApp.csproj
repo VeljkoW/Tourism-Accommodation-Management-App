@@ -28,8 +28,10 @@
 		<None Remove="Resources\Images\Guest\arrowleft.png" />
 		<None Remove="Resources\Images\Guest\arrowright.png" />
 		<None Remove="Resources\Images\Guest\arrowUp.png" />
+		<None Remove="Resources\Images\Guest\attachment.png" />
 		<None Remove="Resources\Images\Guest\bag.png" />
 		<None Remove="Resources\Images\Guest\bed.png" />
+		<None Remove="Resources\Images\Guest\book.png" />
 		<None Remove="Resources\Images\Guest\cancel.png" />
 		<None Remove="Resources\Images\Guest\forum.png" />
 		<None Remove="Resources\Images\Guest\loading.png" />
@@ -38,6 +40,7 @@
 		<None Remove="Resources\Images\Guest\notifications.png" />
 		<None Remove="Resources\Images\Guest\rating.png" />
 		<None Remove="Resources\Images\Guest\refresh.png" />
+		<None Remove="Resources\Images\Guest\shine.png" />
 		<None Remove="Resources\Images\Guest\star.png" />
 		<None Remove="Resources\Images\Guest\superGuest.png" />
 		<None Remove="Resources\Images\Guest\user.png" />
@@ -106,8 +109,11 @@
 	  <Resource Include="Resources\Images\Guest\accepted.png" />
 	  <Resource Include="Resources\Images\Guest\arrowDown.png" />
 	  <Resource Include="Resources\Images\Guest\arrowUp.png" />
+	  <Resource Include="Resources\Images\Guest\attachment.png" />
+	  <Resource Include="Resources\Images\Guest\book.png" />
 	  <Resource Include="Resources\Images\Guest\cancel.png" />
 	  <Resource Include="Resources\Images\Guest\loading.png" />
+	  <Resource Include="Resources\Images\Guest\shine.png" />
 	  <Resource Include="Resources\Images\Owner\background1.jpg" />
 	  <Resource Include="Resources\Images\Guest\medal.png" />
 	  <Resource Include="Resources\Images\Guest\refresh.png" />

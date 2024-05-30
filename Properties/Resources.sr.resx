@@ -281,6 +281,9 @@
     <value>Gost:</value>
     <comment>RenovationRequestPage</comment>
   </data>
+  <data name="GuestRatingValidation" xml:space="preserve">
+    <value>Nakon selektovanja gosta, ocenite čistoću i poštovanje pravila i dodajte komentar!</value>
+  </data>
   <data name="History" xml:space="preserve">
     <value>Istorija</value>
     <comment>Renovation</comment>
@@ -491,5 +494,8 @@
   <data name="Your Accommodations" xml:space="preserve">
     <value>Tvoji Smeštajevi</value>
     <comment>AccommodationRegistration</comment>
+  </data>
+  <data name="Your Reviews" xml:space="preserve">
+    <value>Tvoje recenzije</value>
   </data>
 </root>

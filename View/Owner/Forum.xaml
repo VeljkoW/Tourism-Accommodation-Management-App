@@ -14,6 +14,32 @@
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+        <local1:UserIdToOwnerFlagConverter x:Key="UserIdToOwnerFlagConverter"/>
+        <local1:PostIdToReportVisibilityConverter x:Key="PostIdToReportVisibilityConverter"/>
+        <BitmapImage x:Key="OwnerImage" UriSource="../../Resources/Images/Owner/verified-user.png"/>
+        <BitmapImage x:Key="GuestImage" UriSource="../../Resources/Images/Owner/forum-user.png"/>
+
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ItemsControl">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -28,7 +54,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1.5*" MinHeight="150"/>
                     <RowDefinition Height="4.5*"/>
                 </Grid.RowDefinitions>
                 <Grid>
@@ -60,13 +86,16 @@
                     <TextBlock x:Name="UsefulForumTextBlock" Grid.Column="3" Text="{loc:Loc Useful Forum!}" Margin="20 50 0 0" FontSize="24" FontWeight="Bold"
                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                    <TextBlock Grid.Column="4" FontSize="15" Margin="30 0"
-                               VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
+                    <Button Grid.Column="4" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Click="UsefulForumInfoClick">
+                        <Image Source="../../Resources/Images/Owner/info.png" Width="32"/>
+                    </Button>
+                    <TextBlock x:Name="UsefulForumMessage" Grid.Column="4" FontSize="15" Margin="20 0 20 20"
+                               VerticalAlignment="Bottom" HorizontalAlignment="Center" TextWrapping="Wrap"
                                Text="{loc:Loc usefulForumMessage}"/>
-
                 </Grid>
                 <StackPanel Grid.Row="1">
 
+                    <TextBlock x:Name="LocationInfoTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20"/>
                     <TextBlock x:Name="SelectedLocationTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20">
                         <Run Text="Selected Location: "/>
                         <Run x:Name="SelectedStateRun"/>
@@ -102,8 +131,19 @@
                                             <ColumnDefinition Width="10*"/>
                                             <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="../../Resources/Images/Owner/forum-user.png" Width="48" 
-                                       VerticalAlignment="Center" Margin="0 0 0 40"/>
+                                        <Image Grid.Column="0" Width="48" 
+                                               VerticalAlignment="Center" Margin="0 0 0 40">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Source" Value="{StaticResource GuestImage}"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding UserId, Converter={StaticResource UserIdToOwnerFlagConverter}}" Value="True">
+                                                            <Setter Property="Source" Value="{StaticResource OwnerImage}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
                                         <TextBlock Grid.Column="0" Text="{Binding UserId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="20" Margin="5 40 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
                                         <TextBlock Grid.Column="1" Text="{loc:Loc Comment:}" FontSize="20" Margin="10 5 0 0"/>
@@ -111,12 +151,13 @@
                                             <TextBlock FontSize="18" TextWrapping="Wrap" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
                                         </Border>
 
-                                        <TextBlock Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                    <Run Text="{loc:Loc Report numbers:}"/>
-                                    <Run Text="123"/>
+                                        <TextBlock x:Name="ReportNumbersTextBlock" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                                   Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}">
+                                            <Run Text="{loc:Loc Report numbers:}"/>
+                                            <Run Text="{Binding Reports, UpdateSourceTrigger=PropertyChanged}"/>
                                         </TextBlock>
-                                        <Button Grid.Column="2" Content="{loc:Loc Report}" FontSize="20" Margin="20 10 20 0"
-                                        VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                                        <Button x:Name="ReportNumberButton" Grid.Column="2" Content="{loc:Loc Report}" FontSize="20" Margin="20 10 20 0" Click="ReportClick"
+                                                VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>

@@ -13,5 +13,6 @@ namespace BookingApp.Domain.IRepositories
         OwnerNotification? GetById(int Id);
         int NextId();
         void Add(OwnerNotification OwnerNotification);
+        void Delete(int Id);
     }
 }

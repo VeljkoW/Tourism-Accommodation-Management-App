@@ -59,6 +59,8 @@ namespace BookingApp.Repository.AccommodationRepositories
             _guestPost = _serializer.FromCSV(FilePath);
             GuestPost? GuestPost = _guestPost.Find(c => c.Id == guestPost.Id);
             GuestPost.UserId = guestPost.UserId;
+            GuestPost.Reports = guestPost.Reports;
+            GuestPost.ForumId = guestPost.ForumId;
             GuestPost.Comment = guestPost.Comment;
             GuestPost.SpecialUser = guestPost.SpecialUser;
             _serializer.ToCSV(FilePath, _guestPost);

@@ -22,6 +22,8 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class Forum : Page
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
         public User User { get; set; }
         public OwnerForumViewModel OwnerForumViewModel {  get; set; }
         public OwnerMainWindow OwnerMainWindow { get; set; }
@@ -32,6 +34,13 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             OwnerForumViewModel = new OwnerForumViewModel(this);
             DataContext = OwnerForumViewModel;
+            UsefulForumTextBlock.Visibility = Visibility.Hidden;
+            BookmarkImage.Visibility = Visibility.Hidden;
+            UsefulForumMessage.Visibility = Visibility.Collapsed;
+            if (App.currentLanguage() == ENG)
+                LocationInfoTextBlock.Text = "Select the location first!";
+            else
+                LocationInfoTextBlock.Text = "Prvo izaberite lokaciju!";
         }
 
         private void statePicked(object sender, SelectionChangedEventArgs e)
@@ -42,6 +51,21 @@ namespace BookingApp.View.Owner
         private void cityPicked(object sender, SelectionChangedEventArgs e)
         {
             OwnerForumViewModel.CityPicked();
+        }
+
+        private void ReportClick(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as GuestPost;
+            OwnerForumViewModel.ReportClick(selectedCard);
+
+        }
+
+        private void UsefulForumInfoClick(object sender, RoutedEventArgs e)
+        {
+            if (UsefulForumMessage.Visibility == Visibility.Collapsed)
+                UsefulForumMessage.Visibility = Visibility.Visible;
+            else
+                UsefulForumMessage.Visibility = Visibility.Collapsed;
         }
     }
 }

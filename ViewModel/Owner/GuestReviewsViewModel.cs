@@ -34,11 +34,13 @@ namespace BookingApp.ViewModel.Owner
             NumberOfReviews = OwnerRatings.Count;
             if (OwnerService.GetInstance().isSuperOwner(User.Id))
             {
+                GuestReviews.SuperOwnerInfoButton.Visibility = Visibility.Collapsed;
                 GuestReviews.SuperownerLabel.Visibility = Visibility.Visible;
                 GuestReviews.starImage.Visibility = Visibility.Visible;
             }
             else
             {
+                GuestReviews.SuperOwnerInfoButton.Visibility = Visibility.Visible;
                 GuestReviews.SuperownerLabel.Visibility = Visibility.Collapsed;
                 GuestReviews.starImage.Visibility = Visibility.Collapsed;
             }

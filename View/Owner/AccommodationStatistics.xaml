@@ -15,6 +15,70 @@
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
         <local1:RenovationStartDateToFlag x:Key="RenovationStartDateToFlag"/>
         <local1:LocationIdToLocationName x:Key="LocationIdToLocationName"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -29,7 +93,7 @@
         <Grid Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="3*" MinHeight="300"/>
+                <RowDefinition Height="1.8*" MinHeight="300"/>
                 <RowDefinition Height="*"  MinHeight="170"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -91,10 +155,12 @@
                         </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="{loc:Loc Most occupied year:}" FontSize="18"/>
-                    <Label x:Name="PopularYearLabel" FontSize="18"/>
-                </StackPanel>
+
+                <TextBlock Grid.Row="2" x:Name="AccommodationSelectedValidation" Foreground="Red" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock x:Name="MostOccupiedYearTextBlock" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run Text="{loc:Loc Most occupied year:}" FontSize="18"/>
+                    <Run x:Name="PopularYearLabel" FontSize="18"/>
+                </TextBlock>
             </Grid>
 
             <!--STATISTICs BY MONTH-->
@@ -142,15 +208,17 @@
                         </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="{loc:Loc Most occupied month:}" FontSize="18"/>
-                    <Label x:Name="PopularMonthLabel" FontSize="18"/>
-                </StackPanel>
+
+                <TextBlock Grid.Row="2" x:Name="YearSelectedValidation" Foreground="Red" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock x:Name="MostOccupiedMonthTextBlock" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run Text="{loc:Loc Most occupied month:}" FontSize="18"/>
+                    <Run x:Name="PopularMonthLabel" FontSize="18"/>
+                </TextBlock>
                 
             </Grid>
 
             <!--MOST POPULAR LOCATIONS-->
-            <Grid Grid.Row="2" Grid.Column="0" Margin="0 10 20 0">
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0 30 20 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
@@ -171,21 +239,21 @@
 
                         <Label Content="{Binding MostPopularLocationId1, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="AddAccommodationsClick1"/>
+                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="AddAccommodationsClick1" Style="{DynamicResource ButtonStyle}"/>
 
                         <Label Content="{Binding MostPopularLocationId2, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="AddAccommodationsClick2"/>
+                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="AddAccommodationsClick2" Style="{DynamicResource ButtonStyle}"/>
 
                         <Label Content="{Binding MostPopularLocationId3, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="AddAccommodationsClick3"/>
+                        <Button Content="{loc:Loc Add accommodations}" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="AddAccommodationsClick3" Style="{DynamicResource ButtonStyle}"/>
                     </Grid>
                 </Border>
             </Grid>
 
             <!--MOST UNPOPULAR LOCATIONS-->
-            <Grid Grid.Row="2" Grid.Column="1" Margin="20 10 0 0">
+            <Grid Grid.Row="2" Grid.Column="1" Margin="20 30 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
@@ -206,15 +274,15 @@
 
                         <Label Content="{Binding LeastPopularLocationId1, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="0" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick1"/>
+                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="0" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick1" Style="{DynamicResource ButtonStyle}"/>
 
                         <Label Content="{Binding LeastPopularLocationId2, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="1" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick2"/>
+                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick2" Style="{DynamicResource ButtonStyle}"/>
 
                         <Label Content="{Binding LeastPopularLocationId3, Converter={StaticResource LocationIdToLocationName}}" FontSize="20" Grid.Row="2" Grid.Column="0" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick3"/>
+                        <Button Content="{loc:Loc Close accommodations}" FontSize="18" Grid.Row="2" Grid.Column="1" Margin="5" Click="CloseAccommodationsClick3" Style="{DynamicResource ButtonStyle}"/>
                     </Grid>
                 </Border>
             </Grid>
