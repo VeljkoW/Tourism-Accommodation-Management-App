@@ -130,18 +130,19 @@ namespace BookingApp.ViewModel.Guest
             accommodationForReservations.Clear();
             foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             {
-                countReserved = 0;
-                countSchedule = 0;
-                countReserved = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == accommodation.Id).Count();
-                countSchedule = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodation.Id).Count();
-                if (countReserved == 0 && countSchedule == 0)
+                if (accommodation.MaxGuestNumber >= GuestNumber)
                 {
-                    if (accommodation.MaxGuestNumber >= GuestNumber)
+                    countReserved = 0;
+                    countSchedule = 0;
+                    countReserved = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == accommodation.Id).Count();
+                    countSchedule = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodation.Id).Count();
+                    if (countReserved == 0 && countSchedule == 0)
                     {
+
                         AccommodationForReservation accommodationForReservation = new AccommodationForReservation();
                         accommodationForReservation.AccommodationId = accommodation.Id;
                         accommodationForReservation.GuestNumber = GuestNumber;
-                        for(int i = 1; i <= 5; i++)
+                        for (int i = 1; i <= 5; i++)
                         {
                             AvailableDate availableDate = new AvailableDate();
                             availableDate.checkInDate = DateTime.Today.AddDays(i).AddHours(12);
@@ -206,13 +207,13 @@ namespace BookingApp.ViewModel.Guest
             accommodationForReservations.Clear();
             foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             {
-                countReserved = 0;
-                countSchedule = 0;
-                countReserved = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == accommodation.Id).Count();
-                countSchedule = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodation.Id).Count();
-                if (countReserved == 0 && countSchedule == 0)
+                if (accommodation.MaxGuestNumber >= GuestNumber)
                 {
-                    if (accommodation.MaxGuestNumber >= GuestNumber)
+                    countReserved = 0;
+                    countSchedule = 0;
+                    countReserved = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == accommodation.Id).Count();
+                    countSchedule = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodation.Id).Count();
+                    if (countReserved == 0 && countSchedule == 0)
                     {
                         AccommodationForReservation accommodationForReservation = new AccommodationForReservation();
                         accommodationForReservation.AccommodationId = accommodation.Id;
