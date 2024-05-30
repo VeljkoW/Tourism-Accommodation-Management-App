@@ -13,6 +13,28 @@
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ItemsControl">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+
 
         <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
@@ -69,19 +91,19 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
-            <Label Content="{loc:Loc Select the guest you want to rate:}"
+            <Label Content="{loc:Loc Select the guest you want to rate:}" Margin="0 10 0 0"
                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
             <DataGrid x:Name="RatingGuestsTable" Margin="20 60 20 10"
                       ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False"
+                      AutoGenerateColumns="False" FontSize="16"
                       SelectionMode="Single" IsReadOnly="True" Grid.Row="0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Accommodation Name}" Binding="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToNameConverter}}"/>
                     <DataGridTextColumn Width="*" Header="{loc:Loc Location}" Binding="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToLocation}}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
+                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="60 10" Margin="200 20">
@@ -91,12 +113,12 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*" MinHeight="50"/>
-                        <RowDefinition Height="*" MinHeight="40"/>
+                        <RowDefinition Height="auto" MinHeight="50"/>
+                        <RowDefinition Height="auto" MinHeight="50"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <Label Content="{loc:Loc Rating Guest:}" FontSize="24"/>
-                        <Label Content="{Binding SelectedReservedAccommodations.GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="24"/>
+                        <Label Content="{loc:Loc Rating Guest:}" FontWeight="Bold" FontSize="24"/>
+                        <Label Content="{Binding SelectedReservedAccommodations.GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" FontWeight="Bold" FontSize="24"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="0 5 0 0">
                         <Label Content="{loc:Loc Cleanliness:*}" FontSize="20"/>
@@ -134,11 +156,12 @@
                     </Grid>
                     <Label Content="{loc:Loc Comment:*}" Grid.Row="3" FontSize="20"/>
 
-
-                    <TextBox x:Name="CommentTextBox" Grid.Row="4" FontSize="20"
-                             VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="400"/>
+                    <StackPanel Grid.Row="4" VerticalAlignment="Stretch">
+                        <TextBox x:Name="CommentTextBox" Grid.Row="4" FontSize="20" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="400" Height="80"/>
+                        <TextBlock Grid.Row="4" x:Name="GuestRatingValidation" Text="{loc:Loc GuestRatingValidation}" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                    </StackPanel>
                     <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" Style="{DynamicResource ButtonStyle}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Content="{loc:Loc Rate Guest}" FontSize="24"></Button>
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Content="{loc:Loc Rate Guest}" FontSize="24" Margin="0 5"/>
                 </Grid>
             </Border>
         </Grid>

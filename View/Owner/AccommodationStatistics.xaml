@@ -15,6 +15,30 @@
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
         <local1:RenovationStartDateToFlag x:Key="RenovationStartDateToFlag"/>
         <local1:LocationIdToLocationName x:Key="LocationIdToLocationName"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
 
         <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
@@ -69,7 +93,7 @@
         <Grid Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="3*" MinHeight="300"/>
+                <RowDefinition Height="1.8*" MinHeight="300"/>
                 <RowDefinition Height="*"  MinHeight="170"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -131,10 +155,12 @@
                         </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="{loc:Loc Most occupied year:}" FontSize="18"/>
-                    <Label x:Name="PopularYearLabel" FontSize="18"/>
-                </StackPanel>
+
+                <TextBlock Grid.Row="2" x:Name="AccommodationSelectedValidation" Foreground="Red" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock x:Name="MostOccupiedYearTextBlock" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run Text="{loc:Loc Most occupied year:}" FontSize="18"/>
+                    <Run x:Name="PopularYearLabel" FontSize="18"/>
+                </TextBlock>
             </Grid>
 
             <!--STATISTICs BY MONTH-->
@@ -182,15 +208,17 @@
                         </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Label Content="{loc:Loc Most occupied month:}" FontSize="18"/>
-                    <Label x:Name="PopularMonthLabel" FontSize="18"/>
-                </StackPanel>
+
+                <TextBlock Grid.Row="2" x:Name="YearSelectedValidation" Foreground="Red" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock x:Name="MostOccupiedMonthTextBlock" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run Text="{loc:Loc Most occupied month:}" FontSize="18"/>
+                    <Run x:Name="PopularMonthLabel" FontSize="18"/>
+                </TextBlock>
                 
             </Grid>
 
             <!--MOST POPULAR LOCATIONS-->
-            <Grid Grid.Row="2" Grid.Column="0" Margin="0 10 20 0">
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0 30 20 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
@@ -225,7 +253,7 @@
             </Grid>
 
             <!--MOST UNPOPULAR LOCATIONS-->
-            <Grid Grid.Row="2" Grid.Column="1" Margin="20 10 0 0">
+            <Grid Grid.Row="2" Grid.Column="1" Margin="20 30 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>

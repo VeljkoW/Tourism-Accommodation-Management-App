@@ -18,6 +18,28 @@
         <local1:PostIdToReportVisibilityConverter x:Key="PostIdToReportVisibilityConverter"/>
         <BitmapImage x:Key="OwnerImage" UriSource="../../Resources/Images/Owner/verified-user.png"/>
         <BitmapImage x:Key="GuestImage" UriSource="../../Resources/Images/Owner/forum-user.png"/>
+
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ItemsControl">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -32,7 +54,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1.5*" MinHeight="150"/>
                     <RowDefinition Height="4.5*"/>
                 </Grid.RowDefinitions>
                 <Grid>
@@ -64,13 +86,16 @@
                     <TextBlock x:Name="UsefulForumTextBlock" Grid.Column="3" Text="{loc:Loc Useful Forum!}" Margin="20 50 0 0" FontSize="24" FontWeight="Bold"
                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                    <TextBlock Grid.Column="4" FontSize="15" Margin="30 0"
-                               VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
+                    <Button Grid.Column="4" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Click="UsefulForumInfoClick">
+                        <Image Source="../../Resources/Images/Owner/info.png" Width="32"/>
+                    </Button>
+                    <TextBlock x:Name="UsefulForumMessage" Grid.Column="4" FontSize="15" Margin="20 0 20 20"
+                               VerticalAlignment="Bottom" HorizontalAlignment="Center" TextWrapping="Wrap"
                                Text="{loc:Loc usefulForumMessage}"/>
-
                 </Grid>
                 <StackPanel Grid.Row="1">
 
+                    <TextBlock x:Name="LocationInfoTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20"/>
                     <TextBlock x:Name="SelectedLocationTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20">
                         <Run Text="Selected Location: "/>
                         <Run x:Name="SelectedStateRun"/>

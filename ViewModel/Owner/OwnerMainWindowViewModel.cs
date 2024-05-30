@@ -17,6 +17,7 @@ namespace BookingApp.ViewModel.Owner
 {
     public class OwnerMainWindowViewModel
     {
+        public OwnerNotification SelectedOwnerNotification {  get; set; }
         public User user { get; set; }
         public OwnerMainWindow OwnerMainWindow { get; set; }
         //public GuestReviewsViewModel GuestReviewsViewModel { get; set; }

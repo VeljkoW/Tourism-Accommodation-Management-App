@@ -24,6 +24,8 @@ namespace BookingApp.View.Owner
     /// </summary>
     public partial class AccommodationStatistics : Page
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
         public AccommodationStatisticsViewModel AccommodationStatisticsViewModel {  get; set; }
         public OwnerMainWindow OwnerMainWindow { get; set; }
         public User User { get; set; }
@@ -36,6 +38,15 @@ namespace BookingApp.View.Owner
             DataContext = AccommodationStatisticsViewModel;
             StatisticsByYearTable.IsEnabled = false;
             StatisticsByMonthTable.IsEnabled = false;
+            MostOccupiedYearTextBlock.Visibility = Visibility.Collapsed;
+            MostOccupiedMonthTextBlock.Visibility = Visibility.Collapsed;
+            YearSelectedValidation.Visibility = Visibility.Collapsed;
+            AccommodationSelectedValidation.Visibility = Visibility.Visible;
+            App.LanguageChanged += OnLanguageChanged;
+            if (App.currentLanguage() == ENG)
+                AccommodationSelectedValidation.Text = "Select the accommodation!";
+            else
+                AccommodationSelectedValidation.Text = "Izaberi smeštaj!";
         }
 
         private void AccommodationSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,6 +56,16 @@ namespace BookingApp.View.Owner
             AccommodationStatisticsViewModel.AccommodationStatisticsByYears.Clear();
             AccommodationStatisticsViewModel.AccommodationStatisticsByMonths.Clear();
             AccommodationStatisticsViewModel.UpdateYears();
+            MostOccupiedYearTextBlock.Visibility = Visibility.Visible;
+            MostOccupiedMonthTextBlock.Visibility = Visibility.Collapsed;
+
+            AccommodationSelectedValidation.Visibility = Visibility.Collapsed;
+            YearSelectedValidation.Visibility = Visibility.Visible;
+            if (App.currentLanguage() == ENG)
+                YearSelectedValidation.Text = "Select the year!";
+            else
+                YearSelectedValidation.Text = "Izaberi godinu!";
+
         }
 
         private void YearSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,6 +75,8 @@ namespace BookingApp.View.Owner
                 StatisticsByMonthTable.IsEnabled = true;
                 AccommodationStatisticsViewModel.AccommodationStatisticsByMonths.Clear();
                 AccommodationStatisticsViewModel.UpdateMonths();
+                MostOccupiedMonthTextBlock.Visibility = Visibility.Visible;
+                YearSelectedValidation.Visibility= Visibility.Collapsed;
             }
         }
 
@@ -133,6 +156,23 @@ namespace BookingApp.View.Owner
                 OwnerMainWindow.NavigationButtonBarPressed("AccommodationManagementButton");
                 AccommodationRegistration.ScrollViewerName.ScrollToVerticalOffset(AccommodationRegistration.ScrollViewerName.VerticalOffset + 510);
             });
+        }
+        private void OnLanguageChanged()
+        {
+            if (App.currentLanguage() == ENG)
+            {
+                YearSelectedValidation.Text = "Select the year!";
+                AccommodationSelectedValidation.Text = "Select the accommodation!";
+            }
+            else
+            {
+                YearSelectedValidation.Text = "Izaberi godinu!";
+                AccommodationSelectedValidation.Text = "Izaberi smeštaj!";
+            }
+        }
+        ~AccommodationStatistics()
+        {
+            App.LanguageChanged -= OnLanguageChanged;
         }
     }
 }

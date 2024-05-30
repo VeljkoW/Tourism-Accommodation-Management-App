@@ -139,6 +139,7 @@ namespace BookingApp.ViewModel.Owner
                 ForumPage.BookmarkImage.Visibility = System.Windows.Visibility.Collapsed;
                 ForumPage.UsefulForumTextBlock.Visibility = System.Windows.Visibility.Collapsed;
             }
+            ForumPage.LocationInfoTextBlock.Visibility = System.Windows.Visibility.Hidden;
 
         }
         public bool CanSearchExecute()

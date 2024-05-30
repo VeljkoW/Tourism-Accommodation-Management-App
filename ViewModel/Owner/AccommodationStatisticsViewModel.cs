@@ -64,7 +64,7 @@ namespace BookingApp.ViewModel.Owner
                 }
             }
             if(AccommodationStatisticsByYears.Count != 0)
-                AccommodationStatistics.PopularYearLabel.Content = AccommodationStatisticsByYears[popularYearIndex].Year.ToString();
+                AccommodationStatistics.PopularYearLabel.Text = AccommodationStatisticsByYears[popularYearIndex].Year.ToString();
         }
         public void UpdateMonths()
         {
@@ -82,7 +82,7 @@ namespace BookingApp.ViewModel.Owner
                     maxOccupancy = tempOccupancy;
                 }
             }
-            AccommodationStatistics.PopularMonthLabel.Content = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(AccommodationStatisticsByMonths[popularMonthIndex].Month); //AccommodationStatisticsByMonths[popularMonthIndex].Month.ToString();
+            AccommodationStatistics.PopularMonthLabel.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(AccommodationStatisticsByMonths[popularMonthIndex].Month); //AccommodationStatisticsByMonths[popularMonthIndex].Month.ToString();
         }
     }
 }

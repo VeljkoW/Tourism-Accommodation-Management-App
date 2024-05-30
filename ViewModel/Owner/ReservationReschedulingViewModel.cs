@@ -87,12 +87,12 @@ namespace BookingApp.ViewModel.Owner
         }
         public bool isFreeSlot(GuestReschedulingRequest GuestReschedulingRequest)
         {
+            List<ReservedAccommodation> reservedAccommodations = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == GuestReschedulingRequest.AccommodationId).ToList();
             for (DateTime date = GuestReschedulingRequest.CheckInDate; date <= GuestReschedulingRequest.CheckOutDate; date = date.AddDays(1))
             {
-                foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
+                foreach (ReservedAccommodation reservedAccommodation in reservedAccommodations)
                 {
-                    if (GuestReschedulingRequest.AccommodationId == reservedAccommodation.Accommodation.Id &&
-                        reservedAccommodation.Id != GuestReschedulingRequest.ReservedAccommodationId &&
+                    if (reservedAccommodation.Id != GuestReschedulingRequest.ReservedAccommodationId &&
                         date > reservedAccommodation.CheckInDate &&
                         date < reservedAccommodation.CheckOutDate)
                     {

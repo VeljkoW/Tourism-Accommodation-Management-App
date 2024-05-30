@@ -467,6 +467,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to After selecting the guest, rate cleanliness and following guidelines and add a comment!.
+        /// </summary>
+        internal static string GuestRatingValidation {
+            get {
+                return ResourceManager.GetString("GuestRatingValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to History.
         /// </summary>
         internal static string History {
@@ -1003,6 +1012,15 @@ namespace BookingApp.Properties {
         internal static string Your_Accommodations {
             get {
                 return ResourceManager.GetString("Your Accommodations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Reviews.
+        /// </summary>
+        internal static string Your_Reviews {
+            get {
+                return ResourceManager.GetString("Your Reviews", resourceCulture);
             }
         }
     }
