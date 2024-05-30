@@ -34,6 +34,15 @@ namespace BookingApp.View.Guest.Pages
             reschedulingStatusesViewModel = new ReschedulingStatusesViewModel(this, user);
             InitializeComponent();
             DataContext = reschedulingStatusesViewModel;
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            ReservationsButton.Background = backgroundButtonPressedBrush;
+            Color backgroundButtonColor = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtonBrush = new SolidColorBrush(backgroundButtonColor);
+            StatusesButton.Background = backgroundButtonBrush;
+            Color backgroundButton = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtons = new SolidColorBrush(backgroundButton);
+            HistoryButton.Background = backgroundButtons;
         }
 
         private void ReservationsClick(object sender, RoutedEventArgs e)

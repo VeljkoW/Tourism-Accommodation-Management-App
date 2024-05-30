@@ -35,6 +35,12 @@ namespace BookingApp.View.Guest.Pages
             User = user;
             anywhereAnytimeView = new AnywhereAnytimeViewModel(this);
             this.DataContext = anywhereAnytimeView;
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            AnyButton.Background = backgroundButtonPressedBrush;
+            Color backgroundButtonColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonBrush = new SolidColorBrush(backgroundButtonColor);
+            AccommodationButton.Background = backgroundButtonBrush;
             GuestMainWindow = guestMainWindow;
             openWindow = true;
         }
@@ -68,5 +74,6 @@ namespace BookingApp.View.Guest.Pages
             AnywhereAnytime anywhereAnytime = new AnywhereAnytime(User, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(anywhereAnytime);
         }
+
     }
 }

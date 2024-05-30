@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="ReschedulingReservation" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderBrush="#56736F" BorderThickness="3">
+        Title="ReschedulingReservation" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -17,12 +17,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -86,12 +86,12 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
                             </Trigger>
                             <Trigger Property="IsFocused"  Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -99,7 +99,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Background="#B5AE9F">
+    <Grid Background="#DDDDDD">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MinHeight="60"/>
             <RowDefinition Height="3*"/>
@@ -108,7 +108,7 @@
         <Label Grid.Row="0" x:Name="NameLabel" Content="Check new dates for " FontSize="20" VerticalAlignment="Top" Margin="15 0 0 0" HorizontalAlignment="Center"></Label>
         <Label Grid.Row="0" x:Name="DatesLabel" FontSize="20" Margin="15 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
         <Label Grid.Row="1" x:Name="MinDaysLabel" VerticalAlignment="Top" Content="*Min reservation days " FontSize="13" Margin="10 7 0 40"></Label>
-        <Border BorderBrush="#56736F" Grid.Row="1" BorderThickness="1" Margin="15 10 15 0" CornerRadius="0" Height="130">
+        <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1" Margin="15 10 15 0" CornerRadius="0" Height="130">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30 0 0 0">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                     <Label Content="Check In Date:*" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="20"></Label>
@@ -120,6 +120,6 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" Width="115" Height="50" Content="Send" FontSize="25" Command="{Binding sendRequest}"></Button>
+        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" Width="110" Height="50" Content="Send" FontSize="20" Command="{Binding sendRequest}"></Button>
     </Grid>
 </Window>

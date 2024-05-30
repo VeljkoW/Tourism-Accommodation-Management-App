@@ -20,12 +20,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -65,12 +65,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#B7B7B7"/>
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
@@ -89,12 +89,12 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
                             </Trigger>
                             <Trigger Property="IsFocused"  Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -114,7 +114,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="1" Content="Reviews" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
-            <Grid Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="5*"/>
@@ -128,8 +128,8 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="NumberOfReviews" Grid.Column="1" Grid.Row="0" FontSize="25" Margin="49 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Number of Reviews: "/>
-                <Label x:Name="AverageReviews" Grid.Column="2" Grid.Row="0" FontSize="25" Margin="47 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Average Rating: "/>
-                <Label x:Name="GuestBonus" Grid.Column="3" Grid.Row="0" FontSize="25" Margin="94 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Bonus: "/>
+                <Label x:Name="AverageReviews" Grid.Column="2" Grid.Row="0" FontSize="25" Margin="45 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Average Rating: "/>
+                <Label x:Name="GuestBonus" Grid.Column="3" Grid.Row="0" FontSize="25" Margin="92 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Bonus: "/>
                 <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="4" Grid.Row="0" Height="100"  Width="150" Margin="0 0 57 0" Background="Transparent" BorderThickness="0" ToolTipService.ToolTip="*A guest can become a super-guest if they have at least 10 reservations in the past year.">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" >
@@ -138,11 +138,11 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right">
+                <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
                     <ItemsControl Name="reviewsItems" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="42 10 80 10" Background="White"
+                                <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="52 10 80 10" Background="WhiteSmoke"
                                     HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>

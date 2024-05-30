@@ -43,7 +43,16 @@ namespace BookingApp.View.Guest.Pages
             GuestReservationsViewModel = new GuestReservationsViewModel(this, user);
             DataContext = GuestReservationsViewModel;
             selectedAccommodation = new ReservedAccommodation();
-            GuestMainWindow = guestMainWindow;
+            GuestMainWindow = guestMainWindow; 
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            ReservationsButton.Background = backgroundButtonPressedBrush;
+            Color backgroundButtonColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonBrush = new SolidColorBrush(backgroundButtonColor);
+            StatusesButton.Background = backgroundButtonBrush;
+            Color backgroundButton = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtons = new SolidColorBrush(backgroundButton);
+            HistoryButton.Background = backgroundButtons;
 
         }
 
