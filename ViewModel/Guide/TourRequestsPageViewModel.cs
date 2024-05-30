@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -166,6 +167,23 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        public void Dimm()
+        {
+            DimmingVisible = System.Windows.Visibility.Visible;
+        }
+        private System.Windows.Visibility _dimmed = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility DimmingVisible
+        {
+            get { return _dimmed; }
+            set
+            {
+                if (_dimmed != value)
+                {
+                    _dimmed = value;
+                    OnPropertyChanged(nameof(DimmingVisible));
+                }
+            }
+        }
         private bool _isEnabledToDate;
         public bool IsEnabledToDate
         {
@@ -197,6 +215,7 @@ namespace BookingApp.ViewModel.Guide
         public void ClearPopup()
         {
             TourRequestsPage.VAU.Children.Clear();
+            DimmingVisible = System.Windows.Visibility.Collapsed;
             Load();
         }
         private DateTime oldestDate;

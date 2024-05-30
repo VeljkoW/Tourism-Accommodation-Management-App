@@ -41,8 +41,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock Width="260" Height="36" Text="Most visited tour:" FontSize="30" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="{StaticResource NButtonColor3Text}"/>
+            <TextBlock FontSize="45" FontWeight="Bold" HorizontalAlignment="Left" Width="320" Foreground="{StaticResource NButtonColor3Text}"> Tour statistics:</TextBlock>
             <Button Width="150" Height="40" Command="{Binding ClickInGeneral}" Margin="0 15 0 0" Content="In general" FontSize="18" FontWeight="Bold" VerticalAlignment="Top"></Button>
-            <TextBlock FontSize="45" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}"> Tour statistics:</TextBlock>
             <ComboBox x:Name="YearComboBox" ItemsSource="{Binding ComboBoxYears}" Margin="0 15 160 0" SelectedItem="{Binding SelectedYear}" Width="150" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top"  FontSize="24"/>
             <Button Width="150" Height="40" Command="{Binding ClickSelectedYear}" Margin="0 15 0 0" Content="Selected year" FontSize="18" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right"></Button>
         </Grid>
