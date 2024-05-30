@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using BookingApp.View.Guest.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,14 @@ namespace BookingApp.Repository.AccommodationRepositories
                 return 1;
             }
             return _ownerNotifications.Max(c => c.Id) + 1;
+        }
+
+        public void Delete(int Id)
+        {
+            _ownerNotifications = _serializer.FromCSV(FilePath);
+            OwnerNotification? founded = _ownerNotifications.Find(c => c.Id == Id);
+            _ownerNotifications.Remove(founded);
+            _serializer.ToCSV(FilePath, _ownerNotifications);
         }
     }
 }

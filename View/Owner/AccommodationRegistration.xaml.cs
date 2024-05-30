@@ -42,6 +42,7 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             AccommodationManagementViewModel = new AccommodationManagementViewModel(this, user);
             this.DataContext = AccommodationManagementViewModel;
+            App.LanguageChanged += OnLanguageChanged;
             ValidationErrors();
         }
         public AccommodationRegistration(User user, bool calledFromStatistics)
@@ -82,8 +83,23 @@ namespace BookingApp.View.Owner
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
             AccommodationManagementViewModel.SelectedAccommodation = selectedCard;
+            CloseAccommodationAccept.Visibility = Visibility.Visible;
+        }
+        private void CloseAccommodationAcceptedClick(object sender, RoutedEventArgs e)
+        {
+            CloseAccommodationAccept.Visibility = Visibility.Collapsed;
             AccommodationManagementViewModel.CloseAccommodation();
         }
+
+        private void CloseAccommodationCancelClick(object sender, RoutedEventArgs e)
+        {
+            CloseAccommodationAccept.Visibility = Visibility.Collapsed;
+        }
+
+
+
+
+        //VALIDATION
         public void ValidationErrors()
         {
             if (App.currentLanguage() == ENG)
@@ -111,9 +127,13 @@ namespace BookingApp.View.Owner
         }
         private void AccommodationNameTextChanged(object sender, TextChangedEventArgs e)
         {
+            ValidateAccommodationName();
+        }
+        public void ValidateAccommodationName()
+        {
             if (string.IsNullOrEmpty(NameTextBox.Text) || string.IsNullOrWhiteSpace(NameTextBox.Text))
             {
-                if(App.currentLanguage() == ENG)
+                if (App.currentLanguage() == ENG)
                     AccommodationNameValidation.Text = "Accommodation Name is required!";
                 else
                     AccommodationNameValidation.Text = "Unesite naziv smestaja!";
@@ -134,8 +154,8 @@ namespace BookingApp.View.Owner
             {
                 AccommodationNameValidation.Visibility = Visibility.Hidden;
             }
-        }
 
+        }
         private void AccommodationTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AccommodationTypeValidation.Visibility = Visibility.Hidden;
@@ -143,83 +163,98 @@ namespace BookingApp.View.Owner
 
         private void MaxNumOfGuestsTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(MaxGuestNumberTextBox.NumTextBox.Text) || string.IsNullOrWhiteSpace(MaxGuestNumberTextBox.NumTextBox.Text))
-            {
-                if (App.currentLanguage() == ENG)
-                    MaxNumOfGuestsValidation.Text = "Max number of guests is required!";
-                else
-                    MaxNumOfGuestsValidation.Text = "Unesite naziv smestaja!";
-                MaxNumOfGuestsValidation.Visibility = Visibility.Visible;
-                return;
-            }
-            Regex NumberRegex = new Regex("^[1-9]+[0-9]*$");
-            if (!NumberRegex.Match(MaxGuestNumberTextBox.NumTextBox.Text).Success)
-            {
-                if (App.currentLanguage() == ENG)
-                    MaxNumOfGuestsValidation.Text = "The field can only contain numbers!";
-                else
-                    MaxNumOfGuestsValidation.Text = "Polje moze da sadrzi samo brojeve!";
-                MaxNumOfGuestsValidation.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                MaxNumOfGuestsValidation.Visibility = Visibility.Hidden;
-            }
+            ValidateMaxNumOfGuests();
         }
+        public void ValidateMaxNumOfGuests()
+        {
+            string requiredMessage = App.currentLanguage() == ENG
+                ? "Max number of guests is required!"
+                : "Unesite naziv smestaja!";
 
+            string invalidNumberMessage = App.currentLanguage() == ENG
+                ? "The field can only contain numbers!"
+                : "Polje moze da sadrzi samo brojeve!";
+
+            ValidateNumberField(MaxGuestNumberTextBox.NumTextBox.Text, MaxNumOfGuestsValidation, requiredMessage, invalidNumberMessage);
+
+        }
         private void MinNumOfResDaysTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(MinResDaysTextBox.NumTextBox.Text) || string.IsNullOrWhiteSpace(MinResDaysTextBox.NumTextBox.Text))
-            {
-                if (App.currentLanguage() == ENG)
-                    MinNumOfResDaysValidation.Text = "Min number of res. days is required!";
-                else
-                    MinNumOfResDaysValidation.Text = "Unesite minimalan broj rezervisanih dana!";
-                MinNumOfResDaysValidation.Visibility = Visibility.Visible;
-                return;
-            }
-            Regex NumberRegex = new Regex("^[1-9]+[0-9]*$");
-            if (!NumberRegex.Match(MinResDaysTextBox.NumTextBox.Text).Success)
-            {
-                if (App.currentLanguage() == ENG)
-                    MinNumOfResDaysValidation.Text = "The field can only contain numbers!";
-                else
-                    MinNumOfResDaysValidation.Text = "Polje moze da sadrzi samo brojeve!";
-                MinNumOfResDaysValidation.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                MinNumOfResDaysValidation.Visibility = Visibility.Hidden;
-            }
+            ValidateMinNumOfResDays();
         }
+        public void ValidateMinNumOfResDays()
+        {
+            string requiredMessage = App.currentLanguage() == ENG
+                ? "Min number of res. days is required!"
+                : "Unesite minimalan broj rezervisanih dana!";
 
+            string invalidNumberMessage = App.currentLanguage() == ENG
+                ? "The field can only contain numbers!"
+                : "Polje moze da sadrzi samo brojeve!";
+
+            ValidateNumberField(MinResDaysTextBox.NumTextBox.Text, MinNumOfResDaysValidation, requiredMessage, invalidNumberMessage);
+
+        }
         private void CancelationDaysLimitTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(CancelationDaysLimitTextBox.NumTextBox.Text) || string.IsNullOrWhiteSpace(CancelationDaysLimitTextBox.NumTextBox.Text))
+            ValidateCancelationDaysLimit();
+        }
+        public void ValidateCancelationDaysLimit()
+        {
+            string requiredMessage = App.currentLanguage() == ENG 
+                ? "Cancelation days limit is required!"
+                : "Unesite broj dana za otkazivanje!";
+
+            string invalidNumberMessage = App.currentLanguage() == ENG 
+                ? "The field can only contain numbers!"
+                : "Polje moze da sadrzi samo brojeve!";
+
+            ValidateNumberField(CancelationDaysLimitTextBox.NumTextBox.Text, CancelationDaysLimitValdation, requiredMessage, invalidNumberMessage);
+
+        }
+        private void ValidateNumberField(string text, TextBlock validationBlock, string requiredMessage, string invalidNumberMessage)
+        {
+            if (string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text))
             {
-                if (App.currentLanguage() == ENG)
-                    CancelationDaysLimitValdation.Text = "Cancelation days limit is required!";
-                else
-                    CancelationDaysLimitValdation.Text = "Unesite broj dana za otkazivanje!";
-                CancelationDaysLimitValdation.Visibility = Visibility.Visible;
+                validationBlock.Text = requiredMessage;
+                validationBlock.Visibility = Visibility.Visible;
                 return;
             }
+
             Regex NumberRegex = new Regex("^[1-9]+[0-9]*$");
-            if (!NumberRegex.Match(CancelationDaysLimitTextBox.NumTextBox.Text).Success)
+            if (!NumberRegex.Match(text).Success)
             {
-                if (App.currentLanguage() == ENG)
-                    CancelationDaysLimitValdation.Text = "The field can only contain numbers!";
-                else
-                    CancelationDaysLimitValdation.Text = "Polje moze da sadrzi samo brojeve!";
-                CancelationDaysLimitValdation.Visibility = Visibility.Visible;
+                validationBlock.Text = invalidNumberMessage;
+                validationBlock.Visibility = Visibility.Visible;
                 return;
+            }
+
+            validationBlock.Visibility = Visibility.Hidden;
+        }
+        private void OnLanguageChanged()
+        {
+            ValidateAccommodationName();
+            ValidateMaxNumOfGuests();
+            ValidateMinNumOfResDays();
+            ValidateCancelationDaysLimit();
+            if (App.currentLanguage() == ENG)
+            {
+                AccommodationTypeValidation.Text = "Accommodation Type is required!";
+                StateValidation.Text = "State is required!";
+                CityValidation.Text = "City is required!";
+                ImageValidation.Text = "At least one image has to be added!";
             }
             else
             {
-                CancelationDaysLimitValdation.Visibility = Visibility.Hidden;
+                AccommodationTypeValidation.Text = "Unesite tip smeštaja!";
+                StateValidation.Text = "Unesite državu!";
+                CityValidation.Text = "Unesite grad!";
+                ImageValidation.Text = "Barem jedna slika mora da se doda!";
             }
+        }
+        ~AccommodationRegistration()
+        {
+            App.LanguageChanged -= OnLanguageChanged;
         }
     }
 }

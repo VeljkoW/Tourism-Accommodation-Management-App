@@ -16,11 +16,14 @@ using Notification.Wpf.Classes;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using Notification.Wpf.Constants;
+using System.Text.RegularExpressions;
 
 namespace BookingApp.ViewModel.Owner
 {
     public class AccommodationManagementViewModel : INotifyPropertyChanged
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
         public INotificationManager notificationManager = App.GetNotificationManager();
         private int currentImageIndex = 0;
         public ObservableCollection<string> ImagePaths { get; set; }
@@ -146,7 +149,12 @@ namespace BookingApp.ViewModel.Owner
             UpdateChooseCityComboBox();
             UpdateAccommodationsDisplay("state");
             if (AccommodationsDisplay.Count == 0)
-                notificationManager.Show("Info", "You have no accommodations in this state!", NotificationType.Information);
+            {
+                if(App.currentLanguage() == ENG)
+                    notificationManager.Show("Info", "You have no accommodations in this state!", NotificationType.Information);
+                else
+                    notificationManager.Show("Info", "Nemate smeštaje u ovoj državi!", NotificationType.Information);
+            }
         }
         public void CityChosen()
         {
@@ -158,7 +166,13 @@ namespace BookingApp.ViewModel.Owner
             }
             UpdateAccommodationsDisplay("city");
             if (AccommodationsDisplay.Count == 0)
-                notificationManager.Show("Info", "You have no accommodations in this city!", NotificationType.Information);
+            {
+                if (App.currentLanguage() == ENG)
+                    notificationManager.Show("Info", "You have no accommodations in this city!", NotificationType.Information);
+                else
+                    notificationManager.Show("Info", "Nemate smeštaje u ovom gradu!", NotificationType.Information);
+            }
+
         }
         private void UpdateChooseCityComboBox()
         {

@@ -22,6 +22,7 @@ using System.Windows.Shapes;
 
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
+using ForumModel = BookingApp.Domain.Model.Forum;
 
 namespace BookingApp.View.Owner
 {
@@ -36,10 +37,6 @@ namespace BookingApp.View.Owner
         public User user { get; set; }
         public Accommodation Accommodation { get; set; }
         public AccommodationRegistration AccommodationRegistration { get; set; }
-        public AccommodationStatistics AccommodationStatistics {  get; set; }
-        public ReservationRescheduling ReservationRescheduling { get; set; }
-        public GuestRatingPage GuestRatingPage { get; set; }
-        //public GuestReviews GuestReviews { get; set; }
         public Renovation Renovation { get; set; }
         public RenovationHistory RenovationHistory { get; set; }
         public Forum Forum {  get; set; }
@@ -57,9 +54,6 @@ namespace BookingApp.View.Owner
             NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(user);
-            AccommodationStatistics = new AccommodationStatistics(this);
-            ReservationRescheduling = new ReservationRescheduling(user);
-            GuestRatingPage = new GuestRatingPage(this, user);////////////////////////////////////////////////////////////
             ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
 
@@ -94,17 +88,11 @@ namespace BookingApp.View.Owner
 
         private void GuestRatingClick(object sender, RoutedEventArgs e)
         {
+            GuestRatingPage GuestRatingPage = new GuestRatingPage(this, user);
             NotificationListBox.BorderBrush = Brushes.Gray;
             NotificationListBox.BorderThickness = new Thickness(1);
             mainFrame.Navigate(GuestRatingPage);
             NavigationButtonBarPressed("GuestRatingButton");
-        }
-        private void ListBoxItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            NotificationListBox.BorderBrush = Brushes.Gray;
-            NotificationListBox.BorderThickness = new Thickness(1);
-            mainFrame.Navigate(Forum);
-            NavigationButtonBarPressed("ForumButton");
         }
 
         private void GuestReviewsClick(object sender, RoutedEventArgs e)
@@ -115,13 +103,15 @@ namespace BookingApp.View.Owner
         }
 
         private void AccommodationStatisticsClick(object sender, RoutedEventArgs e)
-        { 
+        {
+            AccommodationStatistics AccommodationStatistics = new AccommodationStatistics(this);
             mainFrame.Navigate(AccommodationStatistics);
             NavigationButtonBarPressed("AccommodationStatisticsButton");
         }
 
         private void ReservationReschedulingClick(object sender, RoutedEventArgs e)
-        { 
+        {
+            ReservationRescheduling ReservationRescheduling = new ReservationRescheduling(user);
             mainFrame.Navigate(ReservationRescheduling);
             NavigationButtonBarPressed("ReservationReschedulingButton");
         }
@@ -195,6 +185,44 @@ namespace BookingApp.View.Owner
         private void ChangeThemeDark(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void NotificationSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotificationListBox.BorderBrush = Brushes.Gray;
+            NotificationListBox.BorderThickness = new Thickness(1);
+            if (OwnerMainWindowViewModel.SelectedOwnerNotification.Root == "Forum")
+            {
+                mainFrame.Navigate(Forum);
+
+                ForumModel? forum = ForumService.GetInstance().GetById(OwnerMainWindowViewModel.SelectedOwnerNotification.ForumId);
+                Location? location = LocationService.GetInstance().GetById(forum.LocationId);
+                var SelectedState = Forum.OwnerForumViewModel.States.FirstOrDefault(t => t.Equals(location.State));
+                Forum.OwnerForumViewModel.SelectedState = SelectedState;
+                LocationService.GetInstance().GetCitiesForState(Forum.OwnerForumViewModel.Cities, SelectedState);
+
+                for (int i = 0; i < Forum.OwnerForumViewModel.Cities.Count(); i++)
+                {
+                    if (Forum.OwnerForumViewModel.Cities[i].Id == location.Id)
+                    {
+                        Forum.OwnerForumViewModel.SelectedCity = Forum.OwnerForumViewModel.Cities[i];
+                        Forum.CitiesComboBox.SelectedIndex = i;
+                        break;
+                    }
+                }
+                Forum.OwnerForumViewModel.SearchExecute();
+
+
+                NavigationButtonBarPressed("ForumButton");
+                OwnerNotificationService.GetInstance().Delete(OwnerMainWindowViewModel.SelectedOwnerNotification.Id);
+            }
+            else if (OwnerMainWindowViewModel.SelectedOwnerNotification.Root == "OwnerRating")
+            {
+                GuestRatingPage GuestRatingPage = new GuestRatingPage(this, user);
+                mainFrame.Navigate(GuestRatingPage);
+                NavigationButtonBarPressed("GuestRatingButton");
+                OwnerNotificationService.GetInstance().Delete(OwnerMainWindowViewModel.SelectedOwnerNotification.Id);
+            }
         }
     }
 }

@@ -34,6 +34,12 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             RenovationRequestPageViewModel = new RenovationRequestPageViewModel(this);
             DataContext = RenovationRequestPageViewModel;
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            RenovationRequestsButton.Background = backgroundButtonPressedBrush;
+            ReviewsButton.Background = basicBackgroundBrush;
         }
 
         private void ReviewsClick(object sender, RoutedEventArgs e)

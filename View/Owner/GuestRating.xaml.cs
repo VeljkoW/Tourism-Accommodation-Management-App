@@ -30,10 +30,6 @@ namespace BookingApp.View.Owner
         public int Cleanliness {  get; set; }
         public int FollowingGuidelines {  get; set; }
         public GuestRatingViewModel GuestRatingViewModel {  get; set; }
-        //public OwnerMainWindow ownerMainWindow { get; set; }
-        //public User user { get; set; }
-        //public List<ReservedAccommodation> ReservedAccommodations { get; set; }
-        //public ReservedAccommodation SelectedReservedAccommodations { get; set; }
         public GuestRating(OwnerMainWindow ownerMainWindow, User user)
         {
             InitializeComponent();
@@ -41,9 +37,6 @@ namespace BookingApp.View.Owner
             this.DataContext = GuestRatingViewModel;
             Cleanliness = 0;
             FollowingGuidelines = 0;
-            //this.user = user;
-            //this.ownerMainWindow = ownerMainWindow;
-            //ReservedAccommodations = new List<ReservedAccommodation>();
         }
 
         private void CleanlinessChecked(object sender, RoutedEventArgs e)
@@ -75,6 +68,5 @@ namespace BookingApp.View.Owner
                 }
             }
         }
-
     }
 }

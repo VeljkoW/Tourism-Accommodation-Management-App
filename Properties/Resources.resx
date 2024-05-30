@@ -281,6 +281,9 @@
     <value>Guest:</value>
     <comment>RenovationRequestPage</comment>
   </data>
+  <data name="GuestRatingValidation" xml:space="preserve">
+    <value>After selecting the guest, rate cleanliness and following guidelines and add a comment!</value>
+  </data>
   <data name="History" xml:space="preserve">
     <value>History</value>
     <comment>Renovation</comment>
@@ -495,5 +498,8 @@
   <data name="Your Accommodations" xml:space="preserve">
     <value>Your Accommodations</value>
     <comment>AccommodationRegistration</comment>
+  </data>
+  <data name="Your Reviews" xml:space="preserve">
+    <value>Your Reviews</value>
   </data>
 </root>

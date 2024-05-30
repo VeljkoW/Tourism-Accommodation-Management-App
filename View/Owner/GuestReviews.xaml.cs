@@ -36,6 +36,12 @@ namespace BookingApp.View.Owner
             GuestReviewsViewModel = new GuestReviewsViewModel(this, User, SelectedOwnerRating);
             DataContext = GuestReviewsViewModel;
             SuperOwnerInfoLabel.Visibility = Visibility.Collapsed;
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            RenovationRequestsButton.Background = basicBackgroundBrush;
+            ReviewsButton.Background = backgroundButtonPressedBrush;
         }
 
         private void RenovationRequestsClick(object sender, RoutedEventArgs e)

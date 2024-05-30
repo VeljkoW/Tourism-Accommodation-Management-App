@@ -13,6 +13,53 @@
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
         <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TabButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabLightColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="Foreground" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTabLightColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
+                                <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -24,32 +71,60 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="1" Grid.Row="1" x:Name="OuterScrollViewer" VerticalScrollBarVisibility="Auto">
-            <Grid Grid.Column="1" Grid.Row="1" Margin="30">
+        <ScrollViewer Grid.Column="1" Grid.Row="1" x:Name="OuterScrollViewer" VerticalScrollBarVisibility="Auto" Margin="30 10 30 30">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1.1*" MaxHeight="120"/>
+                    <RowDefinition Height="2*" MinHeight="110"/>
                     <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
 
-                <Button Content="{loc:Loc Scheduling}" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="SchedulingClick"/>
-                <Button Content="{loc:Loc History}" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
-
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SchedulingButton" Content="{loc:Loc Scheduling}" FontSize="18" Width="120" Height="50" Style="{DynamicResource TabButtonStyle}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Click="SchedulingClick">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="15 0 0 15">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="HistoryButton" Grid.Column="1" FontSize="18" Width="120" Height="50" Style="{DynamicResource TabButtonStyle}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{loc:Loc History}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="0 15 15 0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+                
+                
                 <Label Content="{loc:Loc History of renovation}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                 HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
-                <!-- <DataGrid x:Name="RatingGuestsTable" Grid.Row="1" Margin="20 60 20 40"
-                      ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedScheduledRenovation, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False"
-                      SelectionMode="Single" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="1.2*" Header="Accommodation name" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}"/>
-                </DataGrid.Columns>
-            </DataGrid> -->
 
                 <ItemsControl Grid.Row="1" Margin="0 50 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
@@ -91,79 +166,6 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
-                <!-- <ItemsControl Grid.Row="1" Margin="0 40 0 0" x:Name="ReservationRequestItems" ItemsSource="{Binding ScheduledRenovations, UpdateSourceTrigger=PropertyChanged}" >
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="2"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="10" Margin="10 10" Padding="10" Background="White"
-                                    HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="190">
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
-                                </Border.Effect>
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <StackPanel>
-                                        <TextBlock Grid.Row="0" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 3">
-                                            <Run Text="Accommodation Name:"/>
-                                            <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                                        </TextBlock>
-                                        <TextBlock Grid.Row="1" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 3">
-                                            <Run Text="Start date:" FontSize="20"/>
-                                            <Run FontWeight="Bold" Text="{Binding StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                                        </TextBlock>
-                                        <TextBlock Grid.Row="2" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 3">
-                                            <Run Text="End date:" FontSize="20"/>
-                                            <Run FontWeight="Bold" Text="{Binding EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                                        </TextBlock>
-                                        <TextBlock Grid.Row="3" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                            <Run Text="Renovation details: "/>
-                                            <Run Text="{Binding Details, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl> -->
-
-                <!-- <Grid Grid.Column="1" Grid.Row="1" Margin="20 0 0 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1.5*"/>
-                    <RowDefinition Height="9*"/>
-                </Grid.RowDefinitions>
-
-                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" 
-                        Margin="20 60 20 0" Height="300" VerticalAlignment="Top">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="0 0 0 5">
-                                <Run Text="Accommodation Name:" FontSize="20"/>
-                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                            </TextBlock>
-                            <TextBlock Grid.Row="1" Margin="0 0 0 5">
-                                <Run Text="Start date - End date:" FontSize="20"/>
-                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.StartDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                                <Run Text=" - " FontSize="20"/>
-                                <Run FontWeight="Bold" Text="{Binding SelectedScheduledRenovation.EndDate, StringFormat={}{0:dd/MMM/yyyy}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                            </TextBlock>
-                            <TextBlock Grid.Row="2"  FontSize="20" TextWrapping="Wrap">
-                                <Run Text="Renovation details: "/>
-                                <Run Text="{Binding SelectedScheduledRenovation.Details, UpdateSourceTrigger=PropertyChanged}"/>
-                            </TextBlock>
-                        </Grid>
-                    </ScrollViewer>
-                </Border>
-            </Grid> -->
-
             </Grid>
         </ScrollViewer>
     </Grid>

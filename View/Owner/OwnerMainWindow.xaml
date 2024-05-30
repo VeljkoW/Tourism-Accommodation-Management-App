@@ -63,7 +63,6 @@
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource OwnerTabLightColorBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource OwnerTextColor1Brush}"/>
-            <Setter Property="Foreground" Value="{StaticResource OwnerTextColor1Brush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -111,13 +110,8 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <!-- <Window.Background>
-        <ImageBrush ImageSource="../../Resources/Images/Owner/background1.jpg" />
-        Putanja do tvoje slike
-    </Window.Background> -->
     <Grid Background="{StaticResource OwnerLightBackgroundColorBrush}">
         <Grid.Resources>
-            <!-- Stil za sve TextElemente unutar Grid-a -->
             <Style TargetType="{x:Type TextElement}">
                 <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
             </Style>
@@ -132,7 +126,6 @@
             <ColumnDefinition Width="175*"/>
         </Grid.ColumnDefinitions>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
-        <!-- <Rectangle Grid.Column="1"></Rectangle> -->
 
         <Image Source="../../Resources/Images/accommodationsLogo.png"/>
         <Border BorderThickness="0 0 0 1" BorderBrush="Black"/>
@@ -219,8 +212,9 @@
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
                 <ListBox x:Name="NotificationListBox" ItemsSource="{Binding OwnerNotifications, UpdateSourceTrigger=PropertyChanged}" 
+                         SelectedItem="{Binding SelectedOwnerNotification, UpdateSourceTrigger=PropertyChanged}"
                          Grid.Row="0" Grid.Column="2" Width="350" Height="104" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 20 20 0"
-                         SelectedValuePath="Print" DisplayMemberPath="Print" PreviewMouseDown="ListBoxItem_PreviewMouseDown"/>
+                         SelectedValuePath="Print" DisplayMemberPath="Print" SelectionChanged="NotificationSelectionChanged"/>
 
                 <Button Click="NotificationButtonClick" Grid.Column="3" Margin="0 20 0 25" Background="Transparent" BorderThickness="0"
                         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">

@@ -88,6 +88,39 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style x:Key="ArrowButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="BorderThickness" Value="2"/>
@@ -178,7 +211,7 @@
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Stretch">
                                         <TextBox x:Name="NameTextBox" Text="{Binding Accommodation.Name, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="32" FontSize="20" 
                                              TextChanged="AccommodationNameTextChanged"/>
-                                        <TextBlock x:Name="AccommodationNameValidation" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                        <TextBlock x:Name="AccommodationNameValidation" Text="{Binding AccommodationNameValidationText}" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                                     </StackPanel>
                                 </DockPanel>
 
@@ -371,16 +404,8 @@
                                                     <Run Text="{Binding Path=CancelationDaysLimit}"/>
                                                 </TextBlock>
 
-                                                <Button Grid.Column="0" Grid.Row="4" Content="{loc:Loc Close Accommodation}" Grid.ColumnSpan="2" Height="30" FontSize="18"
-                                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 4" Click="CloseAccommodationClick" Style="{DynamicResource ButtonStyle}">
-                                                    <Button.Template>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Border Background="{TemplateBinding Background}" Padding="5 0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
-                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Button.Template>
-                                                </Button>
+                                                <Button Grid.Column="0" Grid.Row="4" Content="{loc:Loc Close Accommodation}" Grid.ColumnSpan="2" Height="30" FontSize="18" Padding="5 0"
+                                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 4" Click="CloseAccommodationClick" Style="{DynamicResource ButtonStyle2}"/>
                                             </Grid>
                                         </Border>
                                     </Grid>
@@ -391,5 +416,34 @@
                 </Grid>
             </Grid>
         </ScrollViewer>
+        <Grid x:Name="CloseAccommodationAccept" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
+            <Grid Background="{StaticResource OwnerTabDarkColorBrush}" Opacity="0.8"/>
+            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="200" Background="{StaticResource OwnerTabLightColorBrush}"
+                     BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Are you sure you want to close accommodation:" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    <TextBlock Grid.Row="1" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Run Text="{Binding SelectedAccommodation.Name, StringFormat='{}{0}, ', UpdateSourceTrigger=PropertyChanged}"/>
+                        <Run Text="{Binding SelectedAccommodation.Location.State, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Run Text="-"/>
+                        <Run Text="{Binding SelectedAccommodation.Location.City, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBlock>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Yes" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="40 0 0 10" Click="CloseAccommodationAcceptedClick"/>
+                        <Button Grid.Column="1" Content="Cancel" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="0 0 40 10" Click="CloseAccommodationCancelClick"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        
     </Grid>
 </Page>

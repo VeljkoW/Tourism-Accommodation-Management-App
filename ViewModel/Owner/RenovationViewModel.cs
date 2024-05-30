@@ -2,6 +2,7 @@
 using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Owner;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,12 +10,16 @@ using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Schema;
 
 namespace BookingApp.ViewModel.Owner
 {
     public class RenovationViewModel
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public RelayCommand SearchClick => new RelayCommand(execute => SearchExecute(), canExecute => SearchCanExecute());
         public RelayCommand RenovateClick => new RelayCommand(execute => RenovateExecute(), canExecute => RenovateCanExecute());
         //public RelayCommand DeleteRowCommand => new RelayCommand(canExecute => CanDeleteRowExecute());
@@ -74,6 +79,11 @@ namespace BookingApp.ViewModel.Owner
             }
             ScheduledRenovationService.GetInstance().UpdateUpcomingRenovations(User, ScheduledRenovations);
             ResetInputs();
+
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success", "Renovation successfully scheduled!", NotificationType.Success);
+            else
+                notificationManager.Show("Success", "Renoviranje uspešno zakazano!", NotificationType.Success);
         }
         public void ResetInputs()
         {
@@ -84,7 +94,9 @@ namespace BookingApp.ViewModel.Owner
             Renovation.CommentTextBox.IsEnabled = false;
             Renovation.AvailableDatesListBox.IsEnabled = false;
             Renovation.CommentTextBox.Text = string.Empty;
-            //Renovation.AvailableDatesListBox.Items.Refresh();
+
+            Renovation.RenovationDetailsValidation.Visibility = Visibility.Hidden;
+            Renovation.AvailableDatesValidation.Visibility = Visibility.Hidden;
         }
         public bool RenovateCanExecute()
         {
@@ -111,6 +123,7 @@ namespace BookingApp.ViewModel.Owner
 
             Renovation.CommentTextBox.IsEnabled = true;
             Renovation.AvailableDatesListBox.IsEnabled = true;
+            Renovation.Validation2();
         }
         public bool SearchCanExecute()
         {

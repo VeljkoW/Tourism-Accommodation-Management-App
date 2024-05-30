@@ -113,6 +113,8 @@ namespace BookingApp
         public static void ChangeLanguage(string lang)
         {
             TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo(lang);
+            LanguageChanged?.Invoke();
         }
+        public static event Action LanguageChanged;
     }
 }
