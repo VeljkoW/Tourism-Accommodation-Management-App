@@ -41,7 +41,12 @@ namespace BookingApp.ViewModel.Guest
             reservationCancellation.GuestId = reservedAccommodation.GuestId;
             reservationCancellation.CancelDate = DateTime.Now;
             ReservationCancellationService.GetInstance().Add(reservationCancellation);
-
+            ReportOnReservations reportOnReservations = new ReportOnReservations();
+            reportOnReservations.GuestId = reservedAccommodation.GuestId;
+            reportOnReservations.AccommodationId = reservedAccommodation.Accommodation.Id;
+            reportOnReservations.Date = DateTime.Now;
+            reportOnReservations.TypeReport = "Canceled";
+            ReportOnReservationsService.GetInstance().Add(reportOnReservations);
             ReservedAccommodationService.GetInstance().Delete(reservedAccommodation);
             GuestReservationsViewModel.reservedAccommodations.Clear();
             foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().Update(GuestReservationsViewModel.user))

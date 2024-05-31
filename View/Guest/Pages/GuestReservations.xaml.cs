@@ -109,5 +109,11 @@ namespace BookingApp.View.Guest.Pages
             ReservationHistory reservationHistory = new ReservationHistory(user, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(reservationHistory);
         }
+
+        private void PdfClick(object sender, RoutedEventArgs e)
+        {
+            GuestCreatePdf guestCreatePdf = new GuestCreatePdf();
+            guestCreatePdf.Show();
+        }
     }
 }

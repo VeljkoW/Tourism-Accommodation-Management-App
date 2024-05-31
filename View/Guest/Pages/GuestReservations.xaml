@@ -102,6 +102,51 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="F">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background11" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border11" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background11" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border11" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background11" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border11" Color="Transparent"/>
+        <Style x:Key="ButtonStyle11" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background11}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border11}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background11}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border11}"/>
+                            </Trigger>
+                            <!--<Trigger Property="IsFocused"  Value="true">
+                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
+                    </Trigger>-->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -130,6 +175,16 @@
                     <Button x:Name="HistoryButton" Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
                 </StackPanel>
             </Border>
+            <Button x:Name="PdfButton" Style="{DynamicResource ButtonStyle11}" Grid.Column="2" Grid.Row="0" BorderThickness="0" Width="100" Height="100" Click="PdfClick" Background="Transparent"  HorizontalAlignment="Right" Margin="0 0 100 0" VerticalAlignment="Center" ToolTipService.ToolTip="*Report on Schedule/Cancelled Reservations.">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical">
+                        <Grid Width="50" Height="50">
+                            <Image Source="../../../Resources/Images/Guest/pdf.png" Height="40" Width="40"></Image>
+                        </Grid>
+                        <Label FontSize="18" Content="Pdf" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
             <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
                 <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
                     <ItemsControl.ItemTemplate>
