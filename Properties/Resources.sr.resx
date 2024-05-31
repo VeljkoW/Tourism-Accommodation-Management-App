@@ -150,6 +150,15 @@
   <data name="Add Image" xml:space="preserve">
     <value>Dodaj sliku</value>
   </data>
+  <data name="Are you sure you want to cancel renovation" xml:space="preserve">
+    <value>Da li si siguran da želiš da otkažeš renoviranje?</value>
+  </data>
+  <data name="Are you sure you want to close accommodation" xml:space="preserve">
+    <value>Da li si siguran da želiš da zatvoriš smeštaj?</value>
+  </data>
+  <data name="Are you sure you want to close this renovation request" xml:space="preserve">
+    <value>Da li si siguran da želiš da zatvoriš ovaj zahtev?</value>
+  </data>
   <data name="Available dates:*" xml:space="preserve">
     <value>Dostupni Datumi:*</value>
     <comment>Renovation</comment>
@@ -157,6 +166,9 @@
   <data name="Average Grade:" xml:space="preserve">
     <value>Srednja ocena:</value>
     <comment>GuestReviews</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Otkaži</value>
   </data>
   <data name="Cancel Renovation" xml:space="preserve">
     <value>Otkaži Renoviranje</value>
@@ -306,6 +318,9 @@
   <data name="Level of Renovation Request:" xml:space="preserve">
     <value>Nivo Zahteva za Renoviranje:</value>
     <comment>RenovationRequestPage</comment>
+  </data>
+  <data name="Level of request:" xml:space="preserve">
+    <value>Nivo zahteva:</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Lokacija</value>
@@ -486,6 +501,9 @@
   </data>
   <data name="Year" xml:space="preserve">
     <value>Godina</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Da</value>
   </data>
   <data name="You are a Superowner" xml:space="preserve">
     <value>Ti si Super-vlasnik!</value>

@@ -110,6 +110,39 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -231,5 +264,38 @@
                 </ItemsControl>
             </Grid>
         </ScrollViewer>
+        <Grid x:Name="CloseRenovationRequestAccept" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
+            <Grid Background="{StaticResource OwnerTabDarkColorBrush}" Opacity="0.8"/>
+            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="250" Background="{StaticResource OwnerTabLightColorBrush}"
+                    BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{loc:Loc Are you sure you want to close this renovation request}" TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    <TextBlock Grid.Row="1" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Run x:Name="SelectedAccommodationNameRun"/>
+                        <Run x:Name="SelectedAccommodationStateRun"/>
+                        <Run Text="-"/>
+                        <Run x:Name="SelectedAccommodationCityRun"/>
+                    </TextBlock>
+                    <TextBlock Grid.Row="2" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Run Text="{loc:Loc Level of request:}"/>
+                        <Run x:Name="SelectedLevelOfRequest"/>
+                    </TextBlock>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="{loc:Loc Yes}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="40 0 0 15" Click="CloseRenovationRequestAcceptClick"/>
+                        <Button Grid.Column="1" Content="{loc:Loc Cancel}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="0 0 40 15" Click="CloseRenovationRequestCancelClick"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

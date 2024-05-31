@@ -423,6 +423,7 @@ namespace BookingApp.ViewModel.Owner
         public void CloseAccommodation()
         {
             AccommodationsDisplay.Remove(SelectedAccommodation);
+            ReservedAccommodationService.GetInstance().DeleteByAccommodationId(SelectedAccommodation.Id);
             AccommodationService.GetInstance().DeleteById(SelectedAccommodation.Id);
         }
     }

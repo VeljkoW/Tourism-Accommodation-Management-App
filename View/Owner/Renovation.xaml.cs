@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
 using BookingApp.ViewModel.Owner;
 using System;
@@ -46,6 +47,7 @@ namespace BookingApp.View.Owner
 
             RenovationDetailsValidation.Visibility = Visibility.Hidden;
             AvailableDatesValidation.Visibility = Visibility.Hidden;
+            CancelRenovationAccept.Visibility = Visibility.Hidden;
             App.LanguageChanged += OnLanguageChanged;
             ValidationErrors();
         }
@@ -59,8 +61,29 @@ namespace BookingApp.View.Owner
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as ScheduledRenovation;
             RenovationViewModel.SelectedScheduledRenovation = selectedCard;
-            RenovationViewModel.DeleteRowExecute(selectedCard);
+            Accommodation? accommodation = AccommodationService.GetInstance().GetById(selectedCard.AccommodationId);
+            SelectedAccommodationNameRun.Text = accommodation.Name;
+            SelectedAccommodationStateRun.Text = accommodation.Location.State;
+            SelectedAccommodationCityRun.Text = accommodation.Location.City;
+            CancelRenovationAccept.Visibility = Visibility.Visible;
         }
+        private void CancelRenovationAcceptedClick(object sender, RoutedEventArgs e)
+        {
+            RenovationViewModel.DeleteRowExecute(RenovationViewModel.SelectedScheduledRenovation);
+            CancelRenovationAccept.Visibility = Visibility.Hidden;
+        }
+
+        private void CancelRenovationCancelClick(object sender, RoutedEventArgs e)
+        {
+
+            CancelRenovationAccept.Visibility = Visibility.Hidden;
+        }
+
+
+
+
+
+        //VALIDATION
         public void ValidationErrors()
         {
             if (App.currentLanguage() == ENG)
@@ -222,5 +245,6 @@ namespace BookingApp.View.Owner
         {
             App.LanguageChanged -= OnLanguageChanged;
         }
+
     }
 }

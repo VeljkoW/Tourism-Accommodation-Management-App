@@ -84,6 +84,9 @@ namespace BookingApp.View.Owner
             var selectedCard = ((FrameworkElement)sender).DataContext as Accommodation;
             AccommodationManagementViewModel.SelectedAccommodation = selectedCard;
             CloseAccommodationAccept.Visibility = Visibility.Visible;
+            SelectedAccommodationNameRun.Text = selectedCard.Name + ",";
+            SelectedAccommodationStateRun.Text = selectedCard.Location.State;
+            SelectedAccommodationCityRun.Text = selectedCard.Location.City;
         }
         private void CloseAccommodationAcceptedClick(object sender, RoutedEventArgs e)
         {

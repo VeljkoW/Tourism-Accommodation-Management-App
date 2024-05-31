@@ -151,6 +151,33 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to cancel renovation?.
+        /// </summary>
+        internal static string Are_you_sure_you_want_to_cancel_renovation {
+            get {
+                return ResourceManager.GetString("Are you sure you want to cancel renovation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to close accommodation?.
+        /// </summary>
+        internal static string Are_you_sure_you_want_to_close_accommodation {
+            get {
+                return ResourceManager.GetString("Are you sure you want to close accommodation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to close this request?.
+        /// </summary>
+        internal static string Are_you_sure_you_want_to_close_this_renovation_request {
+            get {
+                return ResourceManager.GetString("Are you sure you want to close this renovation request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Available Dates:*.
         /// </summary>
         internal static string Available_dates__ {
@@ -165,6 +192,15 @@ namespace BookingApp.Properties {
         internal static string Average_Grade_ {
             get {
                 return ResourceManager.GetString("Average Grade:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -526,6 +562,15 @@ namespace BookingApp.Properties {
         internal static string Level_of_Renovation_Request_ {
             get {
                 return ResourceManager.GetString("Level of Renovation Request:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level of request:.
+        /// </summary>
+        internal static string Level_of_request_ {
+            get {
+                return ResourceManager.GetString("Level of request:", resourceCulture);
             }
         }
         
@@ -994,6 +1039,15 @@ namespace BookingApp.Properties {
         internal static string Year {
             get {
                 return ResourceManager.GetString("Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

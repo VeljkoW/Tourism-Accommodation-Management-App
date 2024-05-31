@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
       xmlns:loc="clr-namespace:BookingApp.Localization"
-      xmlns:val="clr-namespace:BookingApp.Validation"
       xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
@@ -211,7 +210,7 @@
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Stretch">
                                         <TextBox x:Name="NameTextBox" Text="{Binding Accommodation.Name, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="32" FontSize="20" 
                                              TextChanged="AccommodationNameTextChanged"/>
-                                        <TextBlock x:Name="AccommodationNameValidation" Text="{Binding AccommodationNameValidationText}" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                        <TextBlock x:Name="AccommodationNameValidation" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                                     </StackPanel>
                                 </DockPanel>
 
@@ -426,24 +425,23 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="Are you sure you want to close accommodation:" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    <TextBlock Grid.Row="0" Text="{loc:Loc Are you sure you want to close accommodation}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                     <TextBlock Grid.Row="1" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Run Text="{Binding SelectedAccommodation.Name, StringFormat='{}{0}, ', UpdateSourceTrigger=PropertyChanged}"/>
-                        <Run Text="{Binding SelectedAccommodation.Location.State, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Run x:Name="SelectedAccommodationNameRun"/>
+                        <Run x:Name="SelectedAccommodationStateRun"/>
                         <Run Text="-"/>
-                        <Run Text="{Binding SelectedAccommodation.Location.City, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Run x:Name="SelectedAccommodationCityRun"/>
                     </TextBlock>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Yes" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="40 0 0 10" Click="CloseAccommodationAcceptedClick"/>
-                        <Button Grid.Column="1" Content="Cancel" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="0 0 40 10" Click="CloseAccommodationCancelClick"/>
+                        <Button Grid.Column="0" Content="{loc:Loc Yes}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="40 0 0 10" Click="CloseAccommodationAcceptedClick"/>
+                        <Button Grid.Column="1" Content="{loc:Loc Cancel}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="0 0 40 10" Click="CloseAccommodationCancelClick"/>
                     </Grid>
                 </Grid>
             </Border>
         </Grid>
-        
     </Grid>
 </Page>

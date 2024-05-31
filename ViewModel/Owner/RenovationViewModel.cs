@@ -57,6 +57,10 @@ namespace BookingApp.ViewModel.Owner
                 }
             }
             ScheduledRenovationService.GetInstance().UpdateUpcomingRenovations(User, ScheduledRenovations);
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success", "You have successfully cancelled this renovation!", NotificationType.Success);
+            else
+                notificationManager.Show("Success", "Usesno ste otkazali renoviranje smeštaja!", NotificationType.Success);
         }
         public void RenovateExecute()
         {
