@@ -15,6 +15,8 @@ using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Domain.IRepositories;
 using Notification.Wpf;
 using BookingApp.Localization;
+using QuestPDF;
+using QuestPDF.Infrastructure;
 
 namespace BookingApp
 {
@@ -25,6 +27,8 @@ namespace BookingApp
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            QuestPDF.Settings.License = LicenseType.Community;
+
             _services = new ServiceCollection();
             _services.AddSingleton<ImageService>();
             _services.AddSingleton<IImageRepository,ImageRepository>();

@@ -215,15 +215,15 @@
                                    FontSize="15" Grid.Row="0"/>
                             <DockPanel Grid.Row="1" VerticalAlignment="Center">
                                 <TextBlock Text="{loc:Loc Start Date:*}" FontSize="15"/>
-                                <DatePicker Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
+                                <DatePicker x:Name="StartDatePicker" Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
                             </DockPanel>
                             <DockPanel Grid.Row="2" VerticalAlignment="Center">
                                 <TextBlock Text="{loc:Loc End Date:*}" FontSize="15" Margin="0 0 6 0"/>
-                                <DatePicker Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
+                                <DatePicker x:Name="EndDatePicker" Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
                             </DockPanel>
 
                             <Button Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" Height="82" Width="140" FontSize="19.5"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="DownloadReservationReportClick">
                                 <Button.ContentTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{loc:Loc Download Reservation Report}" TextWrapping="Wrap" VerticalAlignment="Center"/>
