@@ -59,6 +59,11 @@ namespace BookingApp.ViewModel.Owner
             OwnerMainWindow.NotificationListBox.Items.Refresh();
 
             GuestRatingPage.CommentTextBox.Text = string.Empty;
+
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success!", "Guest successfully rated!", NotificationType.Success);
+            else
+                notificationManager.Show("Uspeh!", "Gost uspešno ocenjen!", NotificationType.Success);
         }
         public bool RateGuestCanExecute()
         {

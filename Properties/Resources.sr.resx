@@ -183,7 +183,7 @@
   <data name="Cancellation" xml:space="preserve">
     <value>Otkazivanja</value>
   </data>
-  <data name="Check Reservations:" xml:space="preserve">
+  <data name="Check Reservations" xml:space="preserve">
     <value>Proveri Rezervacije</value>
     <comment>ReservationRescheduling</comment>
   </data>
@@ -274,6 +274,9 @@
   <data name="Free" xml:space="preserve">
     <value>Slobodno</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Gost</value>
   </data>
   <data name="Guest Rating" xml:space="preserve">
     <value>Ocenjivanje Gostiju</value>
@@ -366,6 +369,9 @@
   <data name="Notifications" xml:space="preserve">
     <value>Obaveštenja</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Vlasnik</value>
+  </data>
   <data name="Owner Integrity:" xml:space="preserve">
     <value>Korektnost vlasnika:</value>
     <comment>GuestReviews</comment>
@@ -449,6 +455,12 @@
     <value>Izaberi gosta kog želiš da oceniš:</value>
     <comment>GuestRating</comment>
   </data>
+  <data name="Select the location first" xml:space="preserve">
+    <value>Prvo izaberi lokaciju!</value>
+  </data>
+  <data name="Select the Reservation Request first" xml:space="preserve">
+    <value>Prvo izaberi zahtev za rezervaciju!</value>
+  </data>
   <data name="Select the reservation request you want to accept/decline:" xml:space="preserve">
     <value>Izaberi zahtev za rezervaciju koji želiš da povrdiš/odbiješ:</value>
     <comment>ReservationRescheduling</comment>
@@ -456,6 +468,9 @@
   <data name="Selected Guest" xml:space="preserve">
     <value>Izabrani gost</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Selected Reservation Request" xml:space="preserve">
+    <value>Izabrani zahtev za rezervaciju</value>
   </data>
   <data name="Start date:" xml:space="preserve">
     <value>Početni Datum:</value>

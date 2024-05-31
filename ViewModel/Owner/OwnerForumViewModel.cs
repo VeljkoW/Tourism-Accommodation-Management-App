@@ -92,6 +92,10 @@ namespace BookingApp.ViewModel.Owner
             ForumModel.GuestPosts.Add(guestPost);
             Posts.Add(guestPost);
             ForumService.GetInstance().Update(ForumModel);
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success!", "Post successfully added!", NotificationType.Success);
+            else
+                notificationManager.Show("Uspeh!", "Uspešno postavljena objava!", NotificationType.Success);
         }
         public bool CanPostExecute()
         {

@@ -183,8 +183,8 @@
   <data name="Cancellation" xml:space="preserve">
     <value>Cancellation</value>
   </data>
-  <data name="Check Reservations:" xml:space="preserve">
-    <value>Check Reservations:</value>
+  <data name="Check Reservations" xml:space="preserve">
+    <value>Check Reservations</value>
     <comment>ReservationRescheduling</comment>
   </data>
   <data name="Check-in Date" xml:space="preserve">
@@ -274,6 +274,9 @@
   <data name="Free" xml:space="preserve">
     <value>Free</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
   </data>
   <data name="Guest Rating" xml:space="preserve">
     <value>Guest Rating</value>
@@ -366,6 +369,9 @@
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
   <data name="Owner Integrity:" xml:space="preserve">
     <value>Owner Integrity:</value>
     <comment>GuestReviews</comment>
@@ -449,6 +455,12 @@
     <value>Select the guest you want to rate:</value>
     <comment>GuestRating</comment>
   </data>
+  <data name="Select the location first" xml:space="preserve">
+    <value>Select the location first!</value>
+  </data>
+  <data name="Select the Reservation Request first" xml:space="preserve">
+    <value>Select the reservation request first!</value>
+  </data>
   <data name="Select the reservation request you want to accept/decline:" xml:space="preserve">
     <value>Select the reservation request you want to accept/decline:</value>
     <comment>ReservationRescheduling</comment>
@@ -456,6 +468,9 @@
   <data name="Selected Guest" xml:space="preserve">
     <value>Selected Guest</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Selected Reservation Request" xml:space="preserve">
+    <value>Selected reservation request</value>
   </data>
   <data name="Start date:" xml:space="preserve">
     <value>Start Date:</value>
