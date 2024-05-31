@@ -24,12 +24,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -93,12 +93,12 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
                             </Trigger>
                             <Trigger Property="IsFocused"  Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -116,7 +116,7 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="0.5*"/>
@@ -126,11 +126,11 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 8 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="White" CornerRadius="15">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 8 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="WhiteSmoke" CornerRadius="15">
                 <StackPanel Orientation="Horizontal">
-                    <Button Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
-                    <Button Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
-                    <Button Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
+                    <Button x:Name="ReservationsButton" Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
+                    <Button x:Name="StatusesButton" Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
+                    <Button x:Name="HistoryButton" Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
                 </StackPanel>
             </Border>
             <Label Grid.Row="1" Grid.Column="0" Content="*Pending reschedule requests" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></Label>
@@ -138,7 +138,7 @@
                 <ItemsControl Name="guestReschedulingRequestsItems" ItemsSource="{Binding guestReschedulingRequests}" Grid.Row="1" Grid.Column="0">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 20 10" Background="White"
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 20 10" Background="WhiteSmoke"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>

@@ -34,6 +34,15 @@ namespace BookingApp.View.Guest.Pages
             GuestMainWindow = guestMainWindow;
             GuestReservationHistoryViewModel = new GuestReservationHistoryViewModel(this, user);
             DataContext = GuestReservationHistoryViewModel;
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            ReservationsButton.Background = backgroundButtonPressedBrush;
+            Color backgroundButtonColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonBrush = new SolidColorBrush(backgroundButtonColor);
+            StatusesButton.Background = backgroundButtonBrush;
+            Color backgroundButton = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtons = new SolidColorBrush(backgroundButton);
+            HistoryButton.Background = backgroundButtons;
         }
 
         private void RescheduleClick(object sender, RoutedEventArgs e)
@@ -64,9 +73,9 @@ namespace BookingApp.View.Guest.Pages
             reserved = ReservedAccommodationService.GetInstance().GetById(selectedCard.Id);
             if ((DateTime.Now - reserved.CheckOutDate).Days <= 5 && reserved.CheckOutDate < DateTime.Now)
             {
-            GuestRate guestRate = new GuestRate(user, selectedCard);
-            guestRate.Show();
-            guestRate.Focus();
+                GuestRate guestRate = new GuestRate(user, selectedCard);
+                guestRate.Show();
+                guestRate.Focus();
             }
             else
             {

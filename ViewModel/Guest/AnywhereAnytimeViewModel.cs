@@ -33,6 +33,8 @@ namespace BookingApp.ViewModel.Guest
             superOwnerAccommodations = new ObservableCollection<Accommodation>();
             noSuperOwnerAccommodations = new ObservableCollection<Accommodation>();
             accommodationForReservations = new List<AccommodationForReservation>();
+
+            AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
             //printDates = new ObservableCollection<AvailableDate>();
             //foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             //{
@@ -69,6 +71,8 @@ namespace BookingApp.ViewModel.Guest
 
         public void SearchExecute()
         {
+
+            AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
             DateTime CheckInDate = DateTime.Now;
             DateTime CheckOutDate = DateTime.Now;
             if (!string.IsNullOrEmpty(AnywhereAnytime.CheckInDate.InputDateBox.Text) && !string.IsNullOrEmpty(AnywhereAnytime.CheckOutDate.InputDateBox.Text))
@@ -87,6 +91,12 @@ namespace BookingApp.ViewModel.Guest
             {
                 ReservationDays = Convert.ToInt32(AnywhereAnytime.TextBoxReservationDays.InputTextBox.Text.Trim());
                 if (ReservationDays <= 0) return;
+            }
+            if(string.IsNullOrEmpty(AnywhereAnytime.CheckInDate.InputDateBox.Text) && string.IsNullOrEmpty(AnywhereAnytime.CheckOutDate.InputDateBox.Text)
+                && string.IsNullOrEmpty(AnywhereAnytime.TextBoxGuestNumber.InputTextBox.Text) && string.IsNullOrEmpty(AnywhereAnytime.TextBoxReservationDays.InputTextBox.Text))
+            {
+                AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Visible;
+                return;
             }
             if (string.IsNullOrEmpty(AnywhereAnytime.CheckInDate.InputDateBox.Text) && string.IsNullOrEmpty(AnywhereAnytime.CheckOutDate.InputDateBox.Text))
             {
@@ -118,7 +128,15 @@ namespace BookingApp.ViewModel.Guest
                 //Accommodations.Add(accommodation);
             }
             AddSortAccommodations();
-            AnywhereAnytime.accommodationItems.ItemsSource = Accommodations;
+            if (Accommodations.Count != 0)
+            {
+                AnywhereAnytime.accommodationItems.ItemsSource = Accommodations;
+                AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Visible;
+            }
         }
         private List<Accommodation> SearchAccommodation(int GuestNumber, int ReservationDays)
         {
@@ -138,7 +156,6 @@ namespace BookingApp.ViewModel.Guest
                     countSchedule = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodation.Id).Count();
                     if (countReserved == 0 && countSchedule == 0)
                     {
-
                         AccommodationForReservation accommodationForReservation = new AccommodationForReservation();
                         accommodationForReservation.AccommodationId = accommodation.Id;
                         accommodationForReservation.GuestNumber = GuestNumber;
@@ -291,17 +308,16 @@ namespace BookingApp.ViewModel.Guest
         private bool AreDatesAvailable(DateTime startDate, DateTime endDate, int reservationDays, int accommodationId)
         {
             if (!CheckDates(startDate, endDate, reservationDays)) return false;
+            List<ReservedAccommodation> reservedAccommodations = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == accommodationId).ToList();
+            List<ScheduledRenovation> scheduledRenovations = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodationId).ToList();
 
             for (DateTime date = startDate; date <= startDate.AddDays(reservationDays); date = date.AddDays(1))
             {
-                foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                    if (accommodationId == reservedAccommodation.Accommodation.Id)
-                        if (!CheckReservedDates(date, reservedAccommodation)) return false;
-                            
+                foreach (ReservedAccommodation reservedAccommodation in reservedAccommodations)
+                    if (!CheckReservedDates(date, reservedAccommodation)) return false;
 
-                foreach (ScheduledRenovation scheduledRenovation in ScheduledRenovationService.GetInstance().GetAll())
-                    if (scheduledRenovation.AccommodationId == accommodationId)
-                        if (!CheckRenovationDates(date, scheduledRenovation)) return false;
+                foreach (ScheduledRenovation scheduledRenovation in scheduledRenovations)
+                    if (!CheckRenovationDates(date, scheduledRenovation)) return false;
             }
             return true;
         }

@@ -38,6 +38,7 @@ namespace BookingApp.ViewModel.Guest
             Accommodations = new ObservableCollection<Accommodation>();
             superOwnerAccommodations = new ObservableCollection<Accommodation>();
             noSuperOwnerAccommodations = new ObservableCollection<Accommodation>();
+            GuestAccommodationsPage.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
             foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             {
                 Image image = new Image();
@@ -81,6 +82,8 @@ namespace BookingApp.ViewModel.Guest
 
         public void SearchExecute()
         {
+
+            GuestAccommodationsPage.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
             string Name = "";
             string State = "";
             string City = "";
@@ -126,6 +129,15 @@ namespace BookingApp.ViewModel.Guest
                 //Accommodations.Add(accommodation);
             }
             AddSortAccommodations();
+            if (Accommodations.Count == 0)
+            {
+                GuestAccommodationsPage.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+
+                GuestAccommodationsPage.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
         private List<Accommodation> SearchAccommodation(string Name, string City, string State,
             AccommodationType? AccommodationType, int GuestNumber, int ReservationDays)
