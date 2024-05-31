@@ -63,7 +63,7 @@ namespace BookingApp.View.Owner
                     page.Size(PageSizes.A4);
                     page.Margin(2, Unit.Centimetre);
                     page.PageColor(Colors.White);
-                    page.DefaultTextStyle(x => x.FontSize(20));
+                    page.DefaultTextStyle(x => x.FontSize(12));
 
                     //page.Header().Height(100).Background(Colors.Grey.Lighten1);
                     //page.Content().Background(Colors.Grey.Lighten3);
@@ -77,24 +77,81 @@ namespace BookingApp.View.Owner
                                 .Text("Reservations Report")
                                 .FontSize(30)
                                 .FontColor(Colors.Blue.Medium)
+                                .SemiBold()
+                                .AlignCenter();
+
+                            column.Item()
+                                .Text($"Accommodation: {ReservationReschedulingViewModel.SelectedAccommodation.Name}, {ReservationReschedulingViewModel.SelectedAccommodation.Location.State} - {ReservationReschedulingViewModel.SelectedAccommodation.Location.City}")
+                                .FontSize(16)
+                                .FontColor(Colors.BlueGrey.Medium)
                                 .SemiBold();
 
                             column.Item()
-                                .Row(row =>
-                                {
-                                    
-                                });
-                        });
+                                .Text($"Start date: {startDate.ToString("dd.MM.yyyy hhtt")}")
+                                .FontSize(16)
+                                .FontColor(Colors.BlueGrey.Medium)
+                                .SemiBold();
 
-                    page.Content()
+                            column.Item()
+                                .Text($"End date: {endDate.ToString("dd.MM.yyyy hhtt")}")
+                                .FontSize(16)
+                                .FontColor(Colors.BlueGrey.Medium)
+                                .SemiBold();
+                        });
+                    if (reservations.Count() > 0)
+                    {
+                        page.Content()
                         .PaddingVertical(1, Unit.Centimetre)
-                        .Column(x =>
+                        .Table(table =>
                         {
-                            x.Spacing(20);
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.ConstantColumn(50);
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                            });
+                            table.Header(header =>
+                            {
+                                header.Cell().Element(CellStyle).Text("#");
+                                header.Cell().Element(CellStyle).Text("Guest username");
+                                header.Cell().Element(CellStyle).Text("Check-in date");
+                                header.Cell().Element(CellStyle).Text("Check-out date");
 
-                            x.Item().Text(Placeholders.LoremIpsum());
-                            x.Item().Image(Placeholders.Image(200, 100));
+                                static IContainer CellStyle(IContainer container)
+                                {
+                                    return container.DefaultTextStyle(x => x.SemiBold()).Padding(5).Background(Colors.Grey.Medium);
+                                }
+                            });
+                            for (int i = 0; i < reservations.Count(); i++)
+                            {
+                                User? user = UserService.GetInstance().GetById(reservations[i].GuestId);
+                                string checkInDateFormatted = reservations[i].CheckInDate.ToString("dd.MM.yyyy hhtt");
+                                string checkOutDateFormatted = reservations[i].CheckOutDate.ToString("dd.MM.yyyy hhtt");
+
+                                var backgroundColor = i % 2 == 0 ? Colors.White : Colors.Grey.Lighten3;
+
+                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(i.ToString());
+                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(user.Username);
+                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(checkInDateFormatted);
+                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(checkOutDateFormatted);
+
+                                static IContainer CellStyle(IContainer container)
+                                {
+                                    return container.Padding(5).BorderBottom(1).BorderColor(Colors.Grey.Lighten2);
+                                }
+                            }
                         });
+                    }
+                    else
+                    {
+                        page.Content()
+                            .PaddingVertical(1, Unit.Centimetre)
+                            .Text("There are no reservations in this period for this accommodation")
+                            .FontSize(16)
+                            .SemiBold();
+                    }
+                    
 
                     page.Footer()
                         .AlignCenter()
@@ -106,7 +163,6 @@ namespace BookingApp.View.Owner
                 });
             });
             document.GeneratePdf(downloadsPath);
-            document.ShowInPreviewer();
         }
     }
 }
