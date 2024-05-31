@@ -47,7 +47,7 @@ namespace BookingApp.Services
             int guestNumber = 0;
             ownerNumber = GetOwnerCommentNumber(forum);
             guestNumber = GetUserCommentNumber(forum);
-            if(ownerNumber >= 10 && guestNumber >= 20)
+            if(ownerNumber >= 1 && guestNumber >= 2)////////////////////////////////////////////////////////////////////////////////
                 return true;
             else
                 return false;
