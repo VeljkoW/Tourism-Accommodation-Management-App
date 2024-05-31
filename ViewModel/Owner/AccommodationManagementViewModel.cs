@@ -425,6 +425,10 @@ namespace BookingApp.ViewModel.Owner
             AccommodationsDisplay.Remove(SelectedAccommodation);
             ReservedAccommodationService.GetInstance().DeleteByAccommodationId(SelectedAccommodation.Id);
             AccommodationService.GetInstance().DeleteById(SelectedAccommodation.Id);
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success!", "Accommodation successfully closed!", NotificationType.Success);
+            else
+                notificationManager.Show("Uspeh!", "Smeštaj uspešno zatvoren!", NotificationType.Success);
         }
     }
 }

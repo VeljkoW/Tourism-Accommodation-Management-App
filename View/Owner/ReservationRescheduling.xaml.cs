@@ -65,10 +65,6 @@ namespace BookingApp.View.Owner
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontSize(12));
 
-                    //page.Header().Height(100).Background(Colors.Grey.Lighten1);
-                    //page.Content().Background(Colors.Grey.Lighten3);
-                    //page.Footer().Height(50).Background(Colors.Grey.Lighten1);
-
 
                     page.Header()
                         .Column(column =>
@@ -120,7 +116,7 @@ namespace BookingApp.View.Owner
 
                                 static IContainer CellStyle(IContainer container)
                                 {
-                                    return container.DefaultTextStyle(x => x.SemiBold()).Padding(5).Background(Colors.Grey.Medium);
+                                    return container.DefaultTextStyle(x => x.SemiBold()).PaddingBottom(5).PaddingTop(5).Background(Colors.Grey.Medium);
                                 }
                             });
                             for (int i = 0; i < reservations.Count(); i++)
@@ -138,7 +134,7 @@ namespace BookingApp.View.Owner
 
                                 static IContainer CellStyle(IContainer container)
                                 {
-                                    return container.Padding(5).BorderBottom(1).BorderColor(Colors.Grey.Lighten2);
+                                    return container.PaddingBottom(5).PaddingTop(5).BorderBottom(1).BorderColor(Colors.Grey.Lighten2);
                                 }
                             }
                         });
@@ -151,7 +147,6 @@ namespace BookingApp.View.Owner
                             .FontSize(16)
                             .SemiBold();
                     }
-                    
 
                     page.Footer()
                         .AlignCenter()
@@ -163,6 +158,18 @@ namespace BookingApp.View.Owner
                 });
             });
             document.GeneratePdf(downloadsPath);
+        }
+
+        private void ReservationRequestsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(ReservationRequestsTable.SelectedItem != null)
+            {
+                CancelRenovationAccept.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                CancelRenovationAccept.Visibility = Visibility.Visible;
+            }
         }
     }
 }

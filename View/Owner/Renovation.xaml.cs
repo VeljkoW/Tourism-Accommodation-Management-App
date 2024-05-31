@@ -50,6 +50,7 @@ namespace BookingApp.View.Owner
             CancelRenovationAccept.Visibility = Visibility.Hidden;
             App.LanguageChanged += OnLanguageChanged;
             ValidationErrors();
+
         }
 
         private void HistoryClick(object sender, RoutedEventArgs e)

@@ -42,6 +42,78 @@
         <Style TargetType="ItemsControl">
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
         </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -81,7 +153,8 @@
                               SelectionChanged="cityPicked"
                               SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities"/>
 
-                    <Button Grid.Column="2" Content="{loc:Loc Search}" FontSize="24" VerticalAlignment="Center" Height="40" Margin="0 0 30 0" Command="{Binding SearchClick}"/>
+                    <Button Grid.Column="2" Content="{loc:Loc Search}" FontSize="24" VerticalAlignment="Center" Height="40" Margin="0 0 30 0" 
+                            Style="{DynamicResource ButtonStyle}" Command="{Binding SearchClick}"/>
 
                     <Image x:Name="BookmarkImage" Grid.Column="3" Source="../../Resources/Images/Owner/bookmark.png" Height="64" Width="64" 
                            VerticalAlignment="Center" Margin="20 0 0 50"/>
@@ -96,7 +169,7 @@
                                Text="{loc:Loc usefulForumMessage}"/>
                 </Grid>
                 <StackPanel Grid.Row="1">
-                    <TextBlock x:Name="LocationInfoTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                    <TextBlock x:Name="LocationInfoTextBlock" Text="{loc:Loc Select the location first}" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20"/>
                     <TextBlock x:Name="SelectedLocationTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20">
                         <Run Text="Selected Location: "/>
                         <Run x:Name="SelectedStateRun"/>
@@ -111,21 +184,21 @@
                                 <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="../../Resources/Images/Owner/verified-user.png" Width="48" 
-                                   VerticalAlignment="Center" Margin="0 0 0 40"/>
-                            <TextBlock Grid.Column="0" Text="{Binding User.Username}" FontWeight="Bold" FontSize="20" Margin="0 40 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                   VerticalAlignment="Center" Margin="15 10 0 40"/>
+                            <TextBlock Grid.Column="0" Text="{Binding User.Username}" FontWeight="Bold" FontSize="20" Margin="10 50 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                             <TextBlock Grid.Column="1" Text="{loc:Loc Comment:}" FontSize="20" Margin="10 5 0 0"/>
                             <TextBox x:Name="PostCommentTextBox" Grid.Column="1" Margin="10 35 10 10" FontSize="20"
                                  TextWrapping="Wrap"/>
 
                             <Button Grid.Column="2" Content="{loc:Loc Post}" FontSize="24" Margin="20 0 20 10"
-                                VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Command="{Binding PostClick}"/>
+                                VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Command="{Binding PostClick}" Style="{DynamicResource ButtonStyle}"/>
                         </Grid>
                     </Border>
                     <ItemsControl x:Name="CommentsItemsControl" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 20 0">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Height="160" Margin="0 10 0 10">
+                                <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Height="160" Margin="0 10 0 10" Background="{StaticResource OwnerTabLightColorBrush}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1.5*"/>
@@ -148,7 +221,7 @@
                                         <TextBlock Grid.Column="0" Text="{Binding UserId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="20" Margin="5 45 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
                                         <TextBlock Grid.Column="1" Text="{loc:Loc Comment:}" FontSize="20" Margin="10 5 0 0"/>
-                                        <Border Grid.Column="1" Margin="10 35 10 10" BorderThickness="1" BorderBrush="Black" Padding="5">
+                                        <Border Grid.Column="1" Margin="10 35 10 10" BorderThickness="1" BorderBrush="Black" Padding="5" Background="WhiteSmoke">
                                             <TextBlock FontSize="18" TextWrapping="Wrap" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
                                         </Border>
 
@@ -169,7 +242,7 @@
                                             <Run Text="{loc:Loc Report numbers:}"/>
                                             <Run Text="{Binding Reports, UpdateSourceTrigger=PropertyChanged}"/>
                                         </TextBlock>
-                                        <Button x:Name="ReportNumberButton" Grid.Column="2" Content="{loc:Loc Report}" FontSize="20" Margin="20 10 20 0" Click="ReportClick"
+                                        <Button x:Name="ReportNumberButton" Grid.Column="2" Content="{loc:Loc Report}" FontSize="20" Margin="20 10 20 0" Click="ReportClick" Style="{DynamicResource ButtonStyle2}"
                                                 VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}"/>
                                     </Grid>
                                 </Border>
