@@ -63,6 +63,7 @@
 		<None Remove="Resources\Images\Owner\hotelBlue.png" />
 		<None Remove="Resources\Images\Owner\info.png" />
 		<None Remove="Resources\Images\Owner\medal.png" />
+		<None Remove="Resources\Images\Owner\owner.png" />
 		<None Remove="Resources\Images\Owner\record.png" />
 		<None Remove="Resources\Images\Owner\renovation.png" />
 		<None Remove="Resources\Images\Owner\rescheduling.png" />
@@ -122,6 +123,7 @@
 	  <Resource Include="Resources\Images\Owner\hotelBlue.png" />
 	  <Resource Include="Resources\Images\Owner\info.png" />
 	  <Resource Include="Resources\Images\Owner\medal.png" />
+	  <Resource Include="Resources\Images\Owner\owner.png" />
 	  <Resource Include="Resources\Images\Owner\renovation.png" />
 	</ItemGroup>
 

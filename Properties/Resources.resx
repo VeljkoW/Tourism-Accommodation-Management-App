@@ -150,6 +150,15 @@
   <data name="Add Image" xml:space="preserve">
     <value>Add Image</value>
   </data>
+  <data name="Are you sure you want to cancel renovation" xml:space="preserve">
+    <value>Are you sure you want to cancel renovation?</value>
+  </data>
+  <data name="Are you sure you want to close accommodation" xml:space="preserve">
+    <value>Are you sure you want to close accommodation?</value>
+  </data>
+  <data name="Are you sure you want to close this renovation request" xml:space="preserve">
+    <value>Are you sure you want to close this request?</value>
+  </data>
   <data name="Available dates:*" xml:space="preserve">
     <value>Available Dates:*</value>
     <comment>Renovation</comment>
@@ -157,6 +166,9 @@
   <data name="Average Grade:" xml:space="preserve">
     <value>Average Grade:</value>
     <comment>GuestReviews</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Cancel Renovation" xml:space="preserve">
     <value>Cancel Renovation</value>
@@ -306,6 +318,9 @@
   <data name="Level of Renovation Request:" xml:space="preserve">
     <value>Level of Renovation Request:</value>
     <comment>RenovationRequestPage</comment>
+  </data>
+  <data name="Level of request:" xml:space="preserve">
+    <value>Level of request:</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
@@ -490,6 +505,9 @@
   </data>
   <data name="Year" xml:space="preserve">
     <value>Year</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
   <data name="You are a Superowner" xml:space="preserve">
     <value>You are a Superowner!</value>

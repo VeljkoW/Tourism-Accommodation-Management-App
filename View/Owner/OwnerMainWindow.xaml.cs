@@ -43,6 +43,7 @@ namespace BookingApp.View.Owner
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
         public ObservableCollection<OwnerNotification> OwnerNotifications { get; set; }
         public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
+        public AccommodationStatistics AccommodationStatistics {  get; set; }
         public OwnerMainWindow(User user)
         {
             App.ChangeLanguage(ENG);
@@ -63,6 +64,7 @@ namespace BookingApp.View.Owner
             Renovation = new Renovation(this);
             RenovationHistory = new RenovationHistory(this);
             Forum = new Forum(this);
+            AccommodationStatistics = new AccommodationStatistics(this);
             mainFrame.Navigate(AccommodationRegistration);
 
             if (OwnerNotifications.Count == 0)
@@ -104,7 +106,7 @@ namespace BookingApp.View.Owner
 
         private void AccommodationStatisticsClick(object sender, RoutedEventArgs e)
         {
-            AccommodationStatistics AccommodationStatistics = new AccommodationStatistics(this);
+            //AccommodationStatistics AccommodationStatistics = new AccommodationStatistics(this);
             mainFrame.Navigate(AccommodationStatistics);
             NavigationButtonBarPressed("AccommodationStatisticsButton");
         }

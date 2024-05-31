@@ -49,6 +49,10 @@ namespace BookingApp.Services
         {
             ReservedAccommodationRepository.Delete(reservedAccommodation);
         }
+        public void DeleteByAccommodationId(int accommodationId)
+        {
+            ReservedAccommodationRepository.DeleteByAccommodationId(accommodationId);
+        }
         public void UpdateDatesByReschedulingRequest(GuestReschedulingRequest GuestReschedulingRequest)
         {
             ReservedAccommodationRepository.UpdateDatesByReschedulingRequest(GuestReschedulingRequest);

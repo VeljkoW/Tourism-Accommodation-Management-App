@@ -72,7 +72,21 @@ namespace BookingApp.View.Owner
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as RenovationRequest;
             RenovationRequestPageViewModel.SelectedRenovationRequest = selectedCard;
+            Accommodation? accommodation = AccommodationService.GetInstance().GetById(selectedCard.AccommodationId);
+            SelectedAccommodationNameRun.Text = accommodation?.Name + ",";
+            SelectedAccommodationStateRun.Text = accommodation?.Location.State;
+            SelectedAccommodationCityRun.Text = accommodation?.Location.City;
+            SelectedLevelOfRequest.Text = selectedCard.Level.ToString();
+            CloseRenovationRequestAccept.Visibility = Visibility.Visible;
+        }
+        private void CloseRenovationRequestAcceptClick(object sender, RoutedEventArgs e)
+        {
             RenovationRequestPageViewModel.CloseRequest();
+            CloseRenovationRequestAccept.Visibility = Visibility.Collapsed;
+        }
+        private void CloseRenovationRequestCancelClick(object sender, RoutedEventArgs e)
+        {
+            CloseRenovationRequestAccept.Visibility = Visibility.Collapsed;
         }
     }
 }

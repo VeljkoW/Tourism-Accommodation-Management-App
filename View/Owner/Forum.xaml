@@ -16,6 +16,8 @@
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
         <local1:UserIdToOwnerFlagConverter x:Key="UserIdToOwnerFlagConverter"/>
         <local1:PostIdToReportVisibilityConverter x:Key="PostIdToReportVisibilityConverter"/>
+        <local1:PostIdToOwnerFlagConverter x:Key="PostIdToOwnerFlagConverter"/>
+        <local1:BoolToViewImage x:Key="BoolToViewImage"/>
         <BitmapImage x:Key="OwnerImage" UriSource="../../Resources/Images/Owner/verified-user.png"/>
         <BitmapImage x:Key="GuestImage" UriSource="../../Resources/Images/Owner/forum-user.png"/>
 
@@ -51,7 +53,7 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*" MinHeight="150"/>
@@ -94,7 +96,6 @@
                                Text="{loc:Loc usefulForumMessage}"/>
                 </Grid>
                 <StackPanel Grid.Row="1">
-
                     <TextBlock x:Name="LocationInfoTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20"/>
                     <TextBlock x:Name="SelectedLocationTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20">
                         <Run Text="Selected Location: "/>
@@ -102,7 +103,7 @@
                         <Run Text="-"/>
                         <Run x:Name="SelectedCityRun"/>
                     </TextBlock>
-                    <Border x:Name="MainPostBorder" Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Height="160" Margin="0 30 0 50">
+                    <Border x:Name="MainPostBorder" Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Height="160" Margin="0 30 20 50">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1.5*"/>
@@ -121,7 +122,7 @@
                                 VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Command="{Binding PostClick}"/>
                         </Grid>
                     </Border>
-                    <ItemsControl x:Name="CommentsItemsControl" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl x:Name="CommentsItemsControl" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 20 0">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Height="160" Margin="0 10 0 10">
@@ -132,7 +133,7 @@
                                             <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
                                         <Image Grid.Column="0" Width="48" 
-                                               VerticalAlignment="Center" Margin="0 0 0 40">
+                                               VerticalAlignment="Center" Margin="5 10 0 40">
                                             <Image.Style>
                                                 <Style TargetType="Image">
                                                     <Setter Property="Source" Value="{StaticResource GuestImage}"/>
@@ -144,12 +145,24 @@
                                                 </Style>
                                             </Image.Style>
                                         </Image>
-                                        <TextBlock Grid.Column="0" Text="{Binding UserId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="20" Margin="5 40 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Column="0" Text="{Binding UserId, Converter={StaticResource GuestIdToUsernameConverter}}" FontSize="20" Margin="5 45 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
                                         <TextBlock Grid.Column="1" Text="{loc:Loc Comment:}" FontSize="20" Margin="10 5 0 0"/>
                                         <Border Grid.Column="1" Margin="10 35 10 10" BorderThickness="1" BorderBrush="Black" Padding="5">
                                             <TextBlock FontSize="18" TextWrapping="Wrap" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
                                         </Border>
+
+                                        <!--Special guest-->
+                                        <Image Source="../../Resources/Images/Owner/star.png" Height="30" Grid.Column="2" Margin="0 10 0 0" 
+                                               VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding SpecialUser, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToViewImage}}"/>
+                                        <TextBlock x:Name="SpeacialGuestTextBlock" Text="Special Guest" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                                   Visibility="{Binding SpecialUser, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToViewImage}}"/>
+                                        <!--Owner-->
+                                        <Image Source="../../Resources/Images/Owner/owner.png" Height="30" Grid.Column="2" Margin="0 10 0 0" 
+                                               VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding Id, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PostIdToOwnerFlagConverter}}"/>
+                                        <TextBlock x:Name="OwnerTextBlock" Text="Owner" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                                   Visibility="{Binding Id, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PostIdToOwnerFlagConverter}}"/>
+
 
                                         <TextBlock x:Name="ReportNumbersTextBlock" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
                                                    Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}">
