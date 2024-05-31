@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.View.Guest.Windows;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ namespace BookingApp.ViewModel.Guest
 {
     public class GuestRenovationViewModel
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public GuestRenovation GuestRenovation { get; set; }
         public ReservedAccommodation ReservedAccommodation { get; set; }
 
@@ -45,6 +47,7 @@ namespace BookingApp.ViewModel.Guest
 
             GuestRenovation.GuestRate.RenovationButton.IsEnabled = false;
             GuestRenovation.GuestRate.RenovationButton.Content = "Renovation sent";
+            notificationManager.Show("Success", "Renovation Request Successfully sent!", NotificationType.Success);
 
         }
 

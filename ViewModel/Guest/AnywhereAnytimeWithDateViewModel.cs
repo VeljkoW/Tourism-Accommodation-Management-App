@@ -2,6 +2,7 @@
 using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace BookingApp.ViewModel.Guest
     public class AnywhereAnytimeWithDateViewModel : INotifyPropertyChanged
     {
         private int currentImageIndex = 0;
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public User user { get; set; }
 
         public ObservableCollection<string> ImagePaths { get; set; }
@@ -112,6 +114,7 @@ namespace BookingApp.ViewModel.Guest
             ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
             AnywhereAnytimeViewModel.SearchExecute();
             anywhereAnytimeWithDate.Close();
+            notificationManager.Show("Success", "Accommodation Successfully reserved!", NotificationType.Success);
         }
     }
 }

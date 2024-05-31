@@ -11,6 +11,7 @@ using BookingApp.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -19,7 +20,7 @@ namespace BookingApp.ViewModel.Guest
         private int currentImageIndex = 0;
         public ObservableCollection<string> ImagePaths { get; set; }
         public RelayCommand attachImage => new RelayCommand(execute => AddImageExecute());
-
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public RelayCommand rateIt => new RelayCommand(execute => RateIt(), canExecute => CanRateIt());
         public RelayCommand DeleteImageCommand => new RelayCommand(execute => DeleteImage(), canExecute => CanDeleteImage());
         public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
@@ -167,6 +168,7 @@ namespace BookingApp.ViewModel.Guest
             OwnerNotificationService.GetInstance().Add(ownerNotification);
 
             GuestRate.Close();
+            notificationManager.Show("Success", "Owner Successfully rated!", NotificationType.Success);
         }
 
         public bool CanRateIt()

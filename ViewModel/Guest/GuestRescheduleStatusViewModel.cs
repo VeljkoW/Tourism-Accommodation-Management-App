@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.View.Guest.Windows;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ namespace BookingApp.ViewModel.Guest
     public class GuestRescheduleStatusViewModel
     {
         public User user {  get; set; }
-
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public RescheduleStatus rescheduleStatus { get; set; }
 
         public ObservableCollection<GuestReschedulingRequest> guestReschedulingRequests { get; set; }

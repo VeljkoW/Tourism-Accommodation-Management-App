@@ -3,6 +3,7 @@ using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace BookingApp.ViewModel.Guest
 {
     public class GuestReschedulingRequestViewModel
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public ReschedulingReservation reschedulingReservation { get; set; }
 
         public ReservedAccommodation reservedAccommodation { get; set; }
@@ -47,6 +49,7 @@ namespace BookingApp.ViewModel.Guest
 
             GuestReschedulingRequestService.GetInstance().Add(request);
             reschedulingReservation.Close();
+            notificationManager.Show("Success", "Rescheduling Request Successfully sent!", NotificationType.Success);
         }
 
         public bool AvailableSendRequest()

@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using Image = BookingApp.Domain.Model.Image;
 using System.ComponentModel;
 using System.Windows.Data;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -23,7 +24,7 @@ namespace BookingApp.ViewModel.Guest
 
         private int currentImageIndex = 0;
         public User user { get; set; }
-
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public ObservableCollection<string> ImagePaths { get; set; }
         public GuestReservations GuestReservations { get; set; }
         public ObservableCollection<AvailableDate> printDates { get; set; }
@@ -263,6 +264,7 @@ namespace BookingApp.ViewModel.Guest
             ReportOnReservationsService.GetInstance().Add(reportOnReservations);
             ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
             GuestReservations.Close();
+            notificationManager.Show("Success", "Accommodation Successfully reserved!", NotificationType.Success);
         }
         public void AvailableDates_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

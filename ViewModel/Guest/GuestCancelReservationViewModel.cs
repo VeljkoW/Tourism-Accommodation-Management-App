@@ -2,6 +2,7 @@
 using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace BookingApp.ViewModel.Guest
 {
     public class GuestCancelReservationViewModel
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public ReservedAccommodation reservedAccommodation { get; set; }
 
         public GuestCancelReservation GuestCancelReservation { get; set; }
@@ -52,7 +54,8 @@ namespace BookingApp.ViewModel.Guest
             foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().Update(GuestReservationsViewModel.user))
                 GuestReservationsViewModel.reservedAccommodations.Add(reservedAccommodation);
             GuestCancelReservation.Close();
-            
+            notificationManager.Show("Success", "Reservation Successfully cancelled!", NotificationType.Success);
+
         }
     }
 }
