@@ -38,6 +38,8 @@
 		<None Remove="Resources\Images\Guest\logout.png" />
 		<None Remove="Resources\Images\Guest\medal.png" />
 		<None Remove="Resources\Images\Guest\notifications.png" />
+		<None Remove="Resources\Images\Guest\pdf.jpg" />
+		<None Remove="Resources\Images\Guest\pdf.png" />
 		<None Remove="Resources\Images\Guest\rating.png" />
 		<None Remove="Resources\Images\Guest\refresh.png" />
 		<None Remove="Resources\Images\Guest\shine.png" />
@@ -113,6 +115,7 @@
 	  <Resource Include="Resources\Images\Guest\book.png" />
 	  <Resource Include="Resources\Images\Guest\cancel.png" />
 	  <Resource Include="Resources\Images\Guest\loading.png" />
+	  <Resource Include="Resources\Images\Guest\pdf.png" />
 	  <Resource Include="Resources\Images\Guest\shine.png" />
 	  <Resource Include="Resources\Images\Owner\background1.jpg" />
 	  <Resource Include="Resources\Images\Guest\medal.png" />

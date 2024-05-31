@@ -112,6 +112,12 @@ namespace BookingApp.ViewModel.Guest
                     break;
                 }
             }
+            ReportOnReservations reportOnReservations = new ReportOnReservations();
+            reportOnReservations.GuestId = user.Id;
+            reportOnReservations.AccommodationId = reservedAccommodation.Accommodation.Id;
+            reportOnReservations.Date = DateTime.Now;
+            reportOnReservations.TypeReport = "Reserved";
+            ReportOnReservationsService.GetInstance().Add(reportOnReservations);
             ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
             AnywhereAnytimeViewModel.SearchExecute();
             AnywhereAnytimeWithoutDate.Close();
