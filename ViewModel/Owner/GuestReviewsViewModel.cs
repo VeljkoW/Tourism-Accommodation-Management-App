@@ -9,11 +9,15 @@ using System.Windows;
 using System.Threading.Tasks;
 using BookingApp.View.Owner;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Owner
 {
     public class GuestReviewsViewModel
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
+        public INotificationManager notificationManager = App.GetNotificationManager();
         private int currentImageIndex = 0;
         public User User { get; set; }
         public int NumberOfReviews { get; set; }

@@ -37,10 +37,6 @@ namespace BookingApp.View.Owner
             UsefulForumTextBlock.Visibility = Visibility.Hidden;
             BookmarkImage.Visibility = Visibility.Hidden;
             UsefulForumMessage.Visibility = Visibility.Collapsed;
-            if (App.currentLanguage() == ENG)
-                LocationInfoTextBlock.Text = "Select the location first!";
-            else
-                LocationInfoTextBlock.Text = "Prvo izaberite lokaciju!";
         }
 
         private void statePicked(object sender, SelectionChangedEventArgs e)

@@ -85,14 +85,14 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1" Grid.Row="1" Margin="30 0 30 30">
+        <Grid Grid.Column="1" Grid.Row="1" Margin="30 0 30 20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <Label Content="{loc:Loc Select the reservation request you want to accept/decline:}"
                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Margin="0 10 0 0"/>
-            <DataGrid x:Name="RatingGuestsTable" Grid.Row="0" Margin="0 60 0 0"
+            <DataGrid x:Name="ReservationRequestsTable" Grid.Row="0" Margin="0 60 0 0" SelectionChanged="ReservationRequestsSelectionChanged"
                       ItemsSource="{Binding GuestReschedulingRequests, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedGuestReschedulingRequest, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False" FontSize="16"
@@ -119,7 +119,7 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="{loc:Loc Selected Guest}" Grid.Column="0"
+                <Label Content="{loc:Loc Selected Reservation Request}" Grid.Column="0"
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
                 <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Margin="0 40 0 0">
                     <Grid>
@@ -154,9 +154,9 @@
                                         <ColumnDefinition Width="*" MinWidth="220"/>
                                         <ColumnDefinition Width="*" MinWidth="220"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Content="{loc:Loc Decline}" Grid.Column="0" Height="60" Width="200" FontSize="24" Style="{DynamicResource ButtonStyle}"
+                                    <Button Content="{loc:Loc Decline}" Grid.Column="1" Height="60" Width="200" FontSize="24" Style="{DynamicResource ButtonStyle}"
                                             HorizontalAlignment="Center" Command="{Binding DeclineClick}" VerticalAlignment="Center"/>
-                                    <Button Content="{loc:Loc Accept}" Command="{Binding AcceptClick}" Grid.Column="1" Height="60" Width="200" FontSize="24"
+                                    <Button Content="{loc:Loc Accept}" Command="{Binding AcceptClick}" Grid.Column="0" Height="60" Width="200" FontSize="24"
                                             HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource ButtonStyle}"/>
                                 </Grid>
                             </Grid>
@@ -165,18 +165,18 @@
 
 
                         <Grid x:Name="CancelRenovationAccept">
-                            <Grid Background="{StaticResource OwnerTabDarkColorBrush}" Opacity="0.8"/>
-                            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto" Height="auto" Padding="30" Background="{StaticResource OwnerTabLightColorBrush}"
+                            <Grid Background="{StaticResource OwnerTabDarkColorBrush}" Opacity="0.9"/>
+                            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="160" Padding="30" Background="{StaticResource OwnerTabLightColorBrush}"
                                     BorderBrush="Black" BorderThickness="1" CornerRadius="10">
                                 <Grid>
-                                    <TextBlock Grid.Row="0" Text="Select the guest first!" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="0" Text="{loc:Loc Select the Reservation Request first}" TextAlignment="Center" TextWrapping="Wrap" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
                         </Grid>
                     </Grid>
                 </Border>
 
-                <Label Content="{loc:Loc Check Reservations:}" Grid.Column="1" 
+                <Label Content="{loc:Loc Check Reservations}" Grid.Column="1"
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
                 <Grid Grid.Column="1"  Margin="20 40 0 0">
                     <Grid.RowDefinitions>
@@ -203,13 +203,13 @@
                     <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="5" Margin="0 0 0 0">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1.5*" MinHeight="50"/>
+                                <RowDefinition Height="*" MinHeight="50"/>
                                 <RowDefinition Height="*" MinHeight="30"/>
                                 <RowDefinition Height="*" MinHeight="30"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition Width="3.5*"/>
+                                <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock TextWrapping="Wrap" Text="{loc:Loc For the selected accommodation choose start and end date you want the report for:}" 
                                    FontSize="15" Grid.Row="0"/>
@@ -222,8 +222,8 @@
                                 <DatePicker x:Name="EndDatePicker" Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
                             </DockPanel>
 
-                            <Button Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" Height="82" Width="140" FontSize="19.5"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="DownloadReservationReportClick">
+                            <Button Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" Height="82" Width="140" FontSize="19.5" Style="{DynamicResource ButtonStyle}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="DownloadReservationReportClick" Command="{Binding DownloadReservationReportCommand}">
                                 <Button.ContentTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{loc:Loc Download Reservation Report}" TextWrapping="Wrap" VerticalAlignment="Center"/>
