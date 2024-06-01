@@ -5,54 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
-        Title="GuestCreatePdf" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-     <Window.Resources>
-     <Style x:Key="FocusVisual">
-         <Setter Property="Control.Template">
-             <Setter.Value>
-                 <ControlTemplate>
-                     <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
-                 </ControlTemplate>
-             </Setter.Value>
-         </Setter>
-     </Style>
-     <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
-     <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
-     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
-     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
-     <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
-     <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
-     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-         <Setter Property="BorderThickness" Value="1"/>
-         <Setter Property="Padding" Value="0"/>
-         <Setter Property="Template">
-             <Setter.Value>
-                 <ControlTemplate TargetType="{x:Type Button}">
-                     <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                         <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                     </Border>
-                     <ControlTemplate.Triggers>
-                         <Trigger Property="IsDefaulted" Value="true">
-                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                         </Trigger>
-                         <Trigger Property="IsMouseOver" Value="true">
-                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                         </Trigger>
-                         <Trigger Property="IsFocused"  Value="true">
-                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                         </Trigger>
-                     </ControlTemplate.Triggers>
-                 </ControlTemplate>
-             </Setter.Value>
-         </Setter>
-     </Style>
-     <Style x:Key="Focus">
+        Title="GuestCreatePdf" Height="350" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding
+            Modifiers="Control" 
+            Key="C"
+            Command="{Binding createPdf}"/>
+        <KeyBinding
+            Modifiers="Control"
+            Key="I"
+            Command="{Binding FocusStartDatePicker}"/>
+        <KeyBinding
+            Modifiers="Control"
+            Key="O"
+            Command="{Binding FocusEndDatePicker}"/>
+        <KeyBinding
+            Modifiers="Control"
+            Key="R"
+            Command="{Binding FocusReservedRadioButton}"/>
+        <KeyBinding
+            Modifiers="Control"
+            Key="D"
+            Command="{Binding FocusCancelledRadioButton}"/>
+        <KeyBinding
+          Modifiers="Control"
+          Key="E"
+          Command="{Binding Exit}"/>
+    </Window.InputBindings>
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused"  Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Focus">
          <Setter Property="Control.Template">
              <Setter.Value>
                  <ControlTemplate>
@@ -101,29 +127,39 @@
  <Grid Background="#DDDDDD">
      <Grid.RowDefinitions>
          <RowDefinition Height="1*" MinHeight="60"/>
-         <RowDefinition Height="5*"/>
+         <RowDefinition Height="6*"/>
          <RowDefinition Height="2*"/>
-         <RowDefinition Height="2*" MinHeight="120"/>
+         <RowDefinition Height="3*"/>
      </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="Check dates for PDF" FontSize="20" VerticalAlignment="Center" Margin="0 20 0 0" HorizontalAlignment="Center"></Label>
-        <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1" Margin="15 10 15 0" CornerRadius="0" Height="120">
-         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 0" Orientation="Vertical">
-             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                 <Label Content="Start Date:*" HorizontalAlignment="Left" Margin="0 0 0 0" FontSize="20"></Label>
-                 <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="startDatePicker" HorizontalAlignment="Right" FontSize="20" Margin="60 0 0 0"></DatePicker>
-             </StackPanel>
-             <StackPanel Orientation="Horizontal">
-                 <Label Content="End Date:*" HorizontalAlignment="Left" Margin="0 0 0 0" FontSize="20"></Label>
-                 <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="endOutDatePicker" HorizontalAlignment="Right" FontSize="20" Margin="67 0 0 0"></DatePicker>
-             </StackPanel>
-         </StackPanel>
-     </Border>
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0 30 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <RadioButton Background="WhiteSmoke" x:Name="PdfRadioButton1" Content="Reserved" FontSize="20" GroupName="PdfRadioButton" 
+        <Label Grid.Row="0" Content="Check dates for PDF" FontSize="20" VerticalAlignment="Center" Margin="0 10 0 0" HorizontalAlignment="Center"></Label>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="10">
+        <Grid Grid.Row="1" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0" Content="Start Date:*" HorizontalAlignment="Left" Margin="25 0 0 0" FontSize="20"></Label>
+            <DatePicker Grid.Row="0" Grid.Column="1"  Background="WhiteSmoke" BorderBrush="WhiteSmoke" Height="40" x:Name="startDatePicker"  SelectedDateChanged="changedStartDate" HorizontalAlignment="Center" FontSize="20"></DatePicker>
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ValidateStartDate" HorizontalAlignment="Center"  FontSize="10" Foreground="Red"></TextBlock>
+            <Label Grid.Row="2" Grid.Column="0" Content="End Date:*" HorizontalAlignment="Left" Margin="25 0 0 0" FontSize="20"></Label>
+            <DatePicker Grid.Row="2" Grid.Column="1" Background="WhiteSmoke" BorderBrush="WhiteSmoke" Height="40" x:Name="endDatePicker" SelectedDateChanged="changedEndDate" HorizontalAlignment="Center" FontSize="20"></DatePicker>
+            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="ValidateEndDate" HorizontalAlignment="Center"  FontSize="10" Foreground="Red"></TextBlock>
+        </Grid>
+        </Border>
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0 10 0 0" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <RadioButton Background="WhiteSmoke" x:Name="PdfRadioButton1" Content="Reserved" FontSize="20" GroupName="PdfRadioButton"
                 Checked="PdfRadioButtonChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
             <RadioButton Background="WhiteSmoke" x:Name="PdfRadioButton2" Content="Cancelled" FontSize="20" GroupName="PdfRadioButton" 
                 Checked="PdfRadioButtonChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
         </StackPanel>
-        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Width="110" Height="50" Content="Create" FontSize="20" Command="{Binding createPdf}"></Button>
+        <TextBlock x:Name="ValidateRadioButton" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 33 0 0" FontSize="10" Foreground="Red"></TextBlock>
+        <Button x:Name="CreateButton" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Width="110" Height="50" Margin="5" Content="Create" FontSize="20" Command="{Binding createPdf}"></Button>
  </Grid>
 </Window>

@@ -23,10 +23,10 @@
         </Style>
         <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -168,7 +168,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 0 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="WhiteSmoke" CornerRadius="15">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="42 0 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="WhiteSmoke" CornerRadius="15">
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="ReservationsButton" Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
                     <Button x:Name="StatusesButton" Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>

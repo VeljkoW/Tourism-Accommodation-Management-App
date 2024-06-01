@@ -6,6 +6,20 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
         Title="GuestCancelReservation" Height="200" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+    <Window.InputBindings>
+        <KeyBinding
+        Modifiers="Control" 
+        Key="Y"
+        Command="{Binding cancelReservation}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="N"
+        Command="{Binding closeWindow}"/>
+        <KeyBinding
+  Modifiers="Control"
+  Key="E"
+  Command="{Binding Exit}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -18,10 +32,10 @@
         </Style>
         <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
