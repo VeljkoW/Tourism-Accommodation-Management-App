@@ -39,7 +39,7 @@ namespace BookingApp.Services
             {
                 for(int i = 0; i < 5; i++)
                 {
-                    tourScheduleForward[i] = tourSchedules[i];
+                    tourScheduleForward.Add(tourSchedules[i]);
                 }
                 Add(new TourCouponAward(userId, tourScheduleForward));
                 TourCouponService.GetInstance().Add(new TourCoupon(userId, "Tour Coupon", "Coupon awarded because you attended 5 different tours in the past year!", DateTime.Now, 6, CouponStatus.Valid));
