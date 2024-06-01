@@ -112,7 +112,7 @@ namespace BookingApp.View.Guest.Pages
 
         private void PdfClick(object sender, RoutedEventArgs e)
         {
-            GuestCreatePdf guestCreatePdf = new GuestCreatePdf();
+            GuestCreatePdf guestCreatePdf = new GuestCreatePdf(user);
             guestCreatePdf.Show();
         }
     }

@@ -6,7 +6,49 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:local1="clr-namespace:BookingApp.ViewModel.Guest"
         mc:Ignorable="d"
-        Title="GuestReservation" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="GuestReservation" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Focusable="True">
+    <Window.InputBindings>
+        <KeyBinding
+        Modifiers="Control" 
+        Key="D"
+        Command="{Binding DaysTextBox}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="I"
+        Command="{Binding FocusStartDatePicker}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="O"
+        Command="{Binding FocusEndDatePicker}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="L"
+        Command="{Binding List}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="P"
+        Command="{Binding Previous}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="N"
+        Command="{Binding Next}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="G"
+        Command="{Binding GuestNumber}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="S"
+        Command="{Binding ReservationSearchButton}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="R"
+        Command="{Binding ReservationClickButton}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="E"
+        Command="{Binding Exit}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -134,20 +176,23 @@
 
             <Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" CornerRadius="20" Margin="5" BorderThickness="2" BorderBrush="Black">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5 10 0 10">
+                    <StackPanel Orientation="Horizontal" Margin="5 10 0 0">
                         <Label Grid.Row="1" Grid.Column="3" FontSize="17">Check-in date:*</Label>
-                        <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="CheckInDatePicker" Margin="20 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                        <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" SelectedDateChanged="ChangedStartDate" x:Name="CheckInDatePicker" Margin="20 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5 10 0 10">
+                    <TextBlock x:Name="ValidateStartDate" HorizontalAlignment="Center" FontSize="10" Margin="130 0 0 0" Foreground="Red"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5 10 0 0">
                         <Label Grid.Row="1" Grid.Column="3" FontSize="17">Check-out date:*</Label>
-                        <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="CheckOutDatePicker" Margin="9 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                        <DatePicker Background="WhiteSmoke" SelectedDateChanged="ChangedEndDate" BorderBrush="WhiteSmoke" x:Name="CheckOutDatePicker" Margin="9 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="3 10 0 10">
+                    <TextBlock x:Name="ValidateEndDate" HorizontalAlignment="Center" FontSize="10" Margin="130 0 0 0" Foreground="Red"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="3 10 0 0">
                         <Label Grid.Row="2" Grid.Column="3" FontSize="17">Reservation days:*</Label>
-                        <TextBox Background="WhiteSmoke" x:Name="ReservationDaysTextBox" FontSize="15" Grid.Row="2" Grid.Column="3" Width="180" Height="30"
-                        Foreground="Gray" GotFocus="ReservationDays_Clicked" LostFocus="ReservationDays_NotClicked"></TextBox>
+                        <TextBox Background="WhiteSmoke" PreviewKeyDown="DaysTextBox_PreviewKeyDown" x:Name="ReservationDaysTextBox" FontSize="15" Grid.Row="2" Grid.Column="3" Width="180" Height="30"
+                        Foreground="Gray" GotFocus="ReservationDays_Clicked" LostFocus="ReservationDays_NotClicked" TextChanged="InputDays"></TextBox>
                     </StackPanel>
-                    <StackPanel Margin="5 20 5 10">
+                    <TextBlock x:Name="ValidateTextBoxDays" HorizontalAlignment="Center" FontSize="10" Margin="130 0 0 0" Foreground="Red"></TextBlock>
+                    <StackPanel Margin="5 10 5 15">
                         <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" FontSize="17" Grid.Column="3" Width="120" Height="40" Command="{Binding ReservationSearchButton}">Search</Button>
                     </StackPanel>
                 </StackPanel>
@@ -156,8 +201,9 @@
             <ListBox Background="WhiteSmoke" x:Name="AvailableDates" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" FontSize="20" Margin="10 0 10 10" SelectionChanged="AvailableDates_SelectionChanged" SelectedValuePath="PrintAvailableDate" DisplayMemberPath="PrintAvailableDate"></ListBox>
             <Button Style="{DynamicResource ButtonStyle}" x:Name="ReservationButton" Grid.Row="5" Grid.Column="3" Width="120" FontSize="15" Height="40" Command="{Binding ReservationClickButton}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">Reservation</Button>
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="17" Margin="5 0 0 0" Content="Guest Number:*"></Label>
-            <TextBox Background="WhiteSmoke" x:Name="GuestNumberTextBox" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" FontSize="15" Margin="75 0 25 0" Width="200" Height="30" Foreground="Gray"
-                     GotFocus="GuestNumber_Clicked" LostFocus="GuestNumber_NotClicked" ></TextBox>
+            <TextBox Background="WhiteSmoke" PreviewKeyDown="GuestCommentTextBox_PreviewKeyDown" x:Name="GuestNumberTextBox" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" FontSize="15" Margin="75 0 25 0" Width="200" Height="30" Foreground="Gray"
+                     GotFocus="GuestNumber_Clicked" LostFocus="GuestNumber_NotClicked" TextChanged="InputGuestNumber" ></TextBox>
+            <TextBlock x:Name="ValidateTextBoxGuest" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="10" Margin="50 0 0 13" Foreground="Red"></TextBlock>
         </Grid>
     </Grid>
 </Window>

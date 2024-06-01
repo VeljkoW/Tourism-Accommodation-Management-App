@@ -6,7 +6,26 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="ReschedulingReservation" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+        Title="ReschedulingReservation" Height="350" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+    <Window.InputBindings>
+        <KeyBinding
+        Modifiers="Control"
+        Key="I"
+        Command="{Binding FocusStartDatePicker}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="O"
+        Command="{Binding FocusEndDatePicker}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="S"
+        Command="{Binding sendRequest}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="E"
+        Command="{Binding Exit}"/>
+
+    </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -103,22 +122,30 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MinHeight="60"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*" MinHeight="120"/>
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" x:Name="NameLabel" Content="Check new dates for " FontSize="20" VerticalAlignment="Top" Margin="15 0 0 0" HorizontalAlignment="Center"></Label>
-        <Label Grid.Row="0" x:Name="DatesLabel" FontSize="20" Margin="15 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
-        <Label Grid.Row="1" x:Name="MinDaysLabel" VerticalAlignment="Top" Content="*Min reservation days " FontSize="13" Margin="10 7 0 40"></Label>
-        <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1" Margin="15 10 15 0" CornerRadius="0" Height="130">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30 0 0 0">
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <Label Content="Check In Date:*" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="20"></Label>
-                    <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="checkInDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="20" Margin="75 0 0 0"></DatePicker>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Check Out Date:*" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="20"></Label>
-                    <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="checkOutDatePicker" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="20" Margin="58 0 0 0"></DatePicker>
-                </StackPanel>
-            </StackPanel>
+        <Label Grid.Row="0" x:Name="NameLabel" Content="Check new dates for " FontSize="20" VerticalAlignment="Top"  HorizontalAlignment="Center"></Label>
+        <Label Grid.Row="0" x:Name="DatesLabel" FontSize="20" Margin="0 10 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
+        <Label Grid.Row="1" x:Name="MinDaysLabel" VerticalAlignment="Top" Content="*Min reservation days " Margin="15 0 0 0" FontSize="13" ></Label>
+        <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1" Margin="15 25 15 0" CornerRadius="0" >
+            <Grid Grid.Row="1" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Check In Date:*" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="20"></Label>
+                <DatePicker Grid.Row="0" Grid.Column="1" Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="checkInDatePicker" SelectedDateChanged="SelectInDate" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="20" Margin="0 0 10 0"></DatePicker>
+                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ValidateStartDate" HorizontalAlignment="Center" Margin="32 0 0 0"  FontSize="10" Foreground="Red"></TextBlock>
+                <Label Grid.Row="2" Grid.Column="0" Content="Check Out Date:*" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="20"></Label>
+                <DatePicker Grid.Row="2" Grid.Column="1" Background="WhiteSmoke" BorderBrush="WhiteSmoke" x:Name="checkOutDatePicker" SelectedDateChanged="SelectOutDate" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Right" FontSize="20" Margin="0 0 10 0"></DatePicker>
+                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="ValidateEndDate" HorizontalAlignment="Center" Margin="32 0 0 0" FontSize="10" Foreground="Red"></TextBlock>
+            </Grid>
         </Border>
         <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" Width="110" Height="50" Content="Send" FontSize="20" Command="{Binding sendRequest}"></Button>
     </Grid>

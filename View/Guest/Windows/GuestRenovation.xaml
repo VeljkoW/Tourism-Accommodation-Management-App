@@ -6,7 +6,33 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
         Title="GuestRenovation" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding
+         Modifiers="Control"
+         Key="T"
+         Command="{Binding AddCommentTextBox}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="S"
+         Command="{Binding SendButton}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="L"
+         Command="{Binding Level}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="E"
+         Command="{Binding Exit}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="Right"
+         Command="{Binding GoRight}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="Left"
+         Command="{Binding GoLeft}"/>
+    </Window.InputBindings>
+<Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -118,8 +144,10 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="AccommodationInformation" FontSize="25" Content="Accommodation name: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" Content="Add comment:*" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 0 0 0"/>
-        <TextBox Background="WhiteSmoke" x:Name="CommentTextBox" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10"/>
+        <TextBox Background="WhiteSmoke" x:Name="CommentTextBox" PreviewKeyDown="CommentTextBox_PreviewKeyDown" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10 10 15" TextChanged="InputTextChanged"/>
+        <TextBlock x:Name="ValidateTextBox" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontSize="12" Foreground="Red"></TextBlock>
         <Label Grid.Row="3" Grid.Column="0" FontSize="20" Content="Choose a level:*" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
+        <TextBlock x:Name="ValidateRadioButton" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  VerticalAlignment="Bottom" Margin="220 0 0 2" FontSize="12" Foreground="Red"></TextBlock>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="160 0 0 0" VerticalAlignment="Center">
             <RadioButton Background="WhiteSmoke" x:Name="Level1" Content="1" FontSize="20" GroupName="LevelsRadioButton" 
                   Checked="LevelChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>

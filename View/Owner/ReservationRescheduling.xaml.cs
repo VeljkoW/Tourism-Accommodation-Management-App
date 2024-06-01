@@ -36,6 +36,7 @@ namespace BookingApp.View.Owner
             this.User = User;
             ReservationReschedulingViewModel = new ReservationReschedulingViewModel(this, User);
             DataContext = ReservationReschedulingViewModel;
+            
         }
 
         private void AccommodationSelectionChanged(object sender, SelectionChangedEventArgs e)

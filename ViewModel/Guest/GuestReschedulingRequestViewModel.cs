@@ -18,7 +18,9 @@ namespace BookingApp.ViewModel.Guest
         public ReschedulingReservation reschedulingReservation { get; set; }
 
         public ReservedAccommodation reservedAccommodation { get; set; }
-
+        public RelayCommand FocusStartDatePicker => new RelayCommand(execute => FocusStartDate());
+        public RelayCommand FocusEndDatePicker => new RelayCommand(execute => FocusEndDate());
+        public RelayCommand Exit => new RelayCommand(execute => CloseWindow());
         public User User { get; set; }
 
         public Accommodation? accommodation { get; set; }
@@ -35,7 +37,18 @@ namespace BookingApp.ViewModel.Guest
             reschedulingReservation.DatesLabel.Content += reservedAccommodation.CheckInDate.ToString("dd/MM/yyyy HH") + " PM - " + reservedAccommodation.CheckOutDate.ToString("dd/MM/yyyy HH") +" AM";
             reschedulingReservation.MinDaysLabel.Content += accommodation.MinReservationDays.ToString();
         }
-
+        public void CloseWindow()
+        {
+            reschedulingReservation.Close();
+        }
+        public void FocusStartDate()
+        {
+            reschedulingReservation.checkInDatePicker.IsDropDownOpen = true;
+        }
+        public void FocusEndDate()
+        {
+            reschedulingReservation.checkOutDatePicker.IsDropDownOpen = true;
+        }
         public void SendRequest()
         {
             DateTime checkIn = reschedulingReservation.checkInDatePicker.SelectedDate ?? DateTime.Now;
@@ -65,6 +78,9 @@ namespace BookingApp.ViewModel.Guest
             {
                 return false;
             }
+
+            reschedulingReservation.checkInDatePicker.IsDropDownOpen = false;
+            reschedulingReservation.checkOutDatePicker.IsDropDownOpen = false;
             return true;
         }
     }

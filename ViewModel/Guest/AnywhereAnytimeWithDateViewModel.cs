@@ -32,6 +32,10 @@ namespace BookingApp.ViewModel.Guest
 
         public RelayCommand ReservationClickButton => new RelayCommand(execute => ReservationClick());
 
+        public RelayCommand NextImage1 => new RelayCommand(execute => Next());
+        public RelayCommand PreviousImage1 => new RelayCommand(execute => Previous());
+
+        public RelayCommand Exit => new RelayCommand(execute => CloseWindow());
         public AnywhereAnytimeWithDateViewModel(AnywhereAnytimeViewModel anywhereAnytimeViewModel, AnywhereAnytimeWithDate anywhereAnytimeWithDate, AccommodationForReservation accommodationForReservation)
         {
             ImagePaths = new ObservableCollection<string>();
@@ -54,7 +58,10 @@ namespace BookingApp.ViewModel.Guest
                 PropertyChanged(this, new PropertyChangedEventArgs(str));
             }
         }
-
+        public void CloseWindow()
+        {
+            anywhereAnytimeWithDate.Close();
+        }
         public int CurrentImageIndex
         {
             get { return currentImageIndex; }
@@ -65,6 +72,25 @@ namespace BookingApp.ViewModel.Guest
                     currentImageIndex = value;
                     OnPropertyChanged(nameof(CurrentImageIndex));
                 }
+            }
+        }
+        public void Next()
+        {
+            if (CurrentImageIndex < TotalImages - 1)
+            {
+                CurrentImageIndex++;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
+            }
+        }
+
+        public void Previous() 
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImagePath));
             }
         }
         public void NextImage(object sender, RoutedEventArgs e)
@@ -110,8 +136,9 @@ namespace BookingApp.ViewModel.Guest
             reportOnReservations.AccommodationId = reservedAccommodation.Accommodation.Id;
             reportOnReservations.Date = DateTime.Now;
             reportOnReservations.TypeReport = "Reserved";
-            ReportOnReservationsService.GetInstance().Add(reportOnReservations);
             ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
+            reportOnReservations.ReservedId = reservedAccommodation.Id;
+            ReportOnReservationsService.GetInstance().Add(reportOnReservations);
             AnywhereAnytimeViewModel.SearchExecute();
             anywhereAnytimeWithDate.Close();
             notificationManager.Show("Success", "Accommodation Successfully reserved!", NotificationType.Success);

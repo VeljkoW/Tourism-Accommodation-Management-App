@@ -18,10 +18,10 @@ namespace BookingApp.ViewModel.Guest
 
         public GuestCancelReservation GuestCancelReservation { get; set; }
 
+        public RelayCommand Exit => new RelayCommand(execute => CloseWindow1());
         public GuestReservationsViewModel GuestReservationsViewModel { get; set; }
 
         public RelayCommand cancelReservation => new RelayCommand(execute => CancelReservation());
-
         public RelayCommand closeWindow => new RelayCommand(execute => CloseWindow());
         public GuestCancelReservationViewModel(ReservedAccommodation selectedReservedAccommodation, GuestCancelReservation guestCancelReservation, GuestReservationsViewModel guestReservationsViewModel) 
         { 
@@ -35,7 +35,10 @@ namespace BookingApp.ViewModel.Guest
         {
             GuestCancelReservation.Close();
         }
-
+        public void CloseWindow1()
+        {
+            GuestCancelReservation.Close();
+        }
         public void CancelReservation()
         {
             ReservationCancellation reservationCancellation = new ReservationCancellation();
@@ -46,8 +49,9 @@ namespace BookingApp.ViewModel.Guest
             ReportOnReservations reportOnReservations = new ReportOnReservations();
             reportOnReservations.GuestId = reservedAccommodation.GuestId;
             reportOnReservations.AccommodationId = reservedAccommodation.Accommodation.Id;
+            reportOnReservations.ReservedId = reservedAccommodation.Id;
             reportOnReservations.Date = DateTime.Now;
-            reportOnReservations.TypeReport = "Canceled";
+            reportOnReservations.TypeReport = "Cancelled";
             ReportOnReservationsService.GetInstance().Add(reportOnReservations);
             ReservedAccommodationService.GetInstance().Delete(reservedAccommodation);
             GuestReservationsViewModel.reservedAccommodations.Clear();

@@ -5,7 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
-        Title="AnywhereAnytimeWithDate" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="AnywhereAnytimeWithDate" Height="400" Width="500" FocusManager.IsFocusScope="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding
+     Modifiers="Control" 
+     Key="R"
+     Command="{Binding ReservationClickButton}"/>
+        <KeyBinding
+Modifiers="Control" 
+Key="N"
+Command="{Binding NextImage1}"/>
+        <KeyBinding
+Modifiers="Control" 
+Key="P"
+Command="{Binding PreviousImage1}"/>
+        <KeyBinding
+  Modifiers="Control"
+  Key="E"
+  Command="{Binding Exit}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">

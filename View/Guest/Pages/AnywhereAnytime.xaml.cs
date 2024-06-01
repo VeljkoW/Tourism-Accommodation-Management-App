@@ -53,13 +53,18 @@ namespace BookingApp.View.Guest.Pages
             {
                 AccommodationForReservation accommodationForReservation = anywhereAnytimeView.accommodationForReservations.Where(t => t.AccommodationId == selectedCard.Id).First();
                 AnywhereAnytimeWithDate anywhereAnytimeWithDate = new AnywhereAnytimeWithDate(anywhereAnytimeView, accommodationForReservation, User);
+                this.Focusable = false;
                 anywhereAnytimeWithDate.Show();
+                anywhereAnytimeWithDate.Focusable = true;
+
             }
             else
             {
                 AccommodationForReservation accommodationForReservation = anywhereAnytimeView.accommodationForReservations.Where(t => t.AccommodationId == selectedCard.Id).First();
                 AnywhereAnytimeWithoutDate anywhereAnytimeWithoutDate = new AnywhereAnytimeWithoutDate(anywhereAnytimeView, accommodationForReservation, User);
+                this.Focusable = false;
                 anywhereAnytimeWithoutDate.Show();
+                anywhereAnytimeWithoutDate.Focusable = true;
             }
             //GuestAccommodationsViewModel.ClickedOnCard(sender, e);
         }

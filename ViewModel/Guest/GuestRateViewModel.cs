@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
 using Notification.Wpf;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -25,9 +26,20 @@ namespace BookingApp.ViewModel.Guest
         public RelayCommand DeleteImageCommand => new RelayCommand(execute => DeleteImage(), canExecute => CanDeleteImage());
         public RelayCommand PreviousImageCommand => new RelayCommand(execute => PreviousImage(), canExecute => CanPreviousImage());
         public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
+        public RelayCommand FocusCleanlinessRadioButton => new RelayCommand(execute => CleanlinessRadioButton());
+        public RelayCommand FocusOwnerIntegrityRadioButton => new RelayCommand(execute => OwnerRadioButton());
+        public RelayCommand AddCommentTextBox => new RelayCommand(execute => AddComment());
+        public RelayCommand RenovationButton => new RelayCommand(execute => Renovation());
+
+        public RelayCommand GoRight => new RelayCommand(execute => Right());
+        public RelayCommand GoLeft => new RelayCommand(execute => Left());
+
         public ObservableCollection<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
+        public RelayCommand Next => new RelayCommand(execute => NextImage());
+        public RelayCommand Previous => new RelayCommand(execute => PreviousImage());
 
+        public RelayCommand Exit => new RelayCommand(execute => CloseWindow());
         public ObservableCollection<string> strings { get; set; }
 
         public GuestRate GuestRate { get; set; }
@@ -65,7 +77,174 @@ namespace BookingApp.ViewModel.Guest
                 PropertyChanged(this, new PropertyChangedEventArgs(str));
             }
         }
+        public void CloseWindow()
+        {
+            GuestRate.Close();
+        }
+        public void Left()
+        {
+            if (GuestRate.Cleanliness1.IsFocused == true || GuestRate.Cleanliness2.IsFocused == true || GuestRate.Cleanliness3.IsFocused == true
+                || GuestRate.Cleanliness4.IsFocused == true || GuestRate.Cleanliness5.IsFocused == true)
+            {
+                if (GuestRate.Cleanliness1.IsChecked == true)
+                {
+                    GuestRate.Cleanliness1.IsChecked = false;
+                    GuestRate.Cleanliness5.IsChecked = true;
+                    GuestRate.Cleanliness5.Focus();
+                }
+                else if (GuestRate.Cleanliness2.IsChecked == true)
+                {
+                    GuestRate.Cleanliness2.IsChecked = false;
+                    GuestRate.Cleanliness1.IsChecked = true;
+                    GuestRate.Cleanliness1.Focus();
+                }
+                else if (GuestRate.Cleanliness3.IsChecked == true)
+                {
+                    GuestRate.Cleanliness3.IsChecked = false;
+                    GuestRate.Cleanliness2.IsChecked = true;
+                    GuestRate.Cleanliness2.Focus();
+                }
+                else if (GuestRate.Cleanliness4.IsChecked == true)
+                {
+                    GuestRate.Cleanliness4.IsChecked = false;
+                    GuestRate.Cleanliness3.IsChecked = true;
+                    GuestRate.Cleanliness3.Focus();
+                }
+                else if (GuestRate.Cleanliness5.IsChecked == true)
+                {
+                    GuestRate.Cleanliness5.IsChecked = false;
+                    GuestRate.Cleanliness4.IsChecked = true;
+                    GuestRate.Cleanliness4.Focus();
+                }
+            }
+            if (GuestRate.Integrity1.IsFocused == true || GuestRate.Integrity2.IsFocused == true || GuestRate.Integrity3.IsFocused == true
+                || GuestRate.Integrity4.IsFocused == true || GuestRate.Integrity5.IsFocused == true)
+            {
+                if (GuestRate.Integrity1.IsChecked == true)
+                {
+                    GuestRate.Integrity1.IsChecked = false;
+                    GuestRate.Integrity5.IsChecked = true;
+                    GuestRate.Integrity5.Focus();
+                }
+                else if (GuestRate.Integrity2.IsChecked == true)
+                {
+                    GuestRate.Integrity2.IsChecked = false;
+                    GuestRate.Integrity1.IsChecked = true;
+                    GuestRate.Integrity1.Focus();
+                }
+                else if (GuestRate.Integrity3.IsChecked == true)
+                {
+                    GuestRate.Integrity3.IsChecked = false;
+                    GuestRate.Integrity2.IsChecked = true;
+                    GuestRate.Integrity2.Focus();
+                }
+                else if (GuestRate.Integrity4.IsChecked == true)
+                {
+                    GuestRate.Integrity4.IsChecked = false;
+                    GuestRate.Integrity3.IsChecked = true;
+                    GuestRate.Integrity3.Focus();
+                }
+                else if (GuestRate.Integrity5.IsChecked == true)
+                {
+                    GuestRate.Integrity5.IsChecked = false;
+                    GuestRate.Integrity4.IsChecked = true;
+                    GuestRate.Integrity4.Focus();
+                }
+            }
+        }
+        public void Right() 
+        {
+            if (GuestRate.Cleanliness1.IsFocused == true || GuestRate.Cleanliness2.IsFocused == true || GuestRate.Cleanliness3.IsFocused == true 
+                || GuestRate.Cleanliness4.IsFocused == true || GuestRate.Cleanliness5.IsFocused == true)
+            {
+                if (GuestRate.Cleanliness1.IsChecked == true)
+                {
+                    GuestRate.Cleanliness1.IsChecked = false;
+                    GuestRate.Cleanliness2.IsChecked = true;
+                    GuestRate.Cleanliness2.Focus();
+                }
+                else if (GuestRate.Cleanliness2.IsChecked == true)
+                {
+                    GuestRate.Cleanliness2.IsChecked = false;
+                    GuestRate.Cleanliness3.IsChecked = true;
+                    GuestRate.Cleanliness3.Focus();
+                }
+                else if (GuestRate.Cleanliness3.IsChecked == true)
+                {
+                    GuestRate.Cleanliness3.IsChecked = false;
+                    GuestRate.Cleanliness4.IsChecked = true;
+                    GuestRate.Cleanliness4.Focus();
+                }
+                else if (GuestRate.Cleanliness4.IsChecked == true)
+                {
+                    GuestRate.Cleanliness4.IsChecked = false;
+                    GuestRate.Cleanliness5.IsChecked = true;
+                    GuestRate.Cleanliness5.Focus();
+                }
+                else if (GuestRate.Cleanliness5.IsChecked == true)
+                {
+                    GuestRate.Cleanliness5.IsChecked = false;
+                    GuestRate.Cleanliness1.IsChecked = true;
+                    GuestRate.Cleanliness1.Focus();
+                }
+            }
+            if(GuestRate.Integrity1.IsFocused == true || GuestRate.Integrity2.IsFocused == true || GuestRate.Integrity3.IsFocused == true
+                || GuestRate.Integrity4.IsFocused == true || GuestRate.Integrity5.IsFocused == true)
+            {
+                if (GuestRate.Integrity1.IsChecked == true)
+                {
+                    GuestRate.Integrity1.IsChecked = false;
+                    GuestRate.Integrity2.IsChecked = true;
+                    GuestRate.Integrity2.Focus();
+                }
+                else if (GuestRate.Integrity2.IsChecked == true)
+                {
+                    GuestRate.Integrity2.IsChecked = false;
+                    GuestRate.Integrity3.IsChecked = true;
+                    GuestRate.Integrity3.Focus();
+                }
+                else if (GuestRate.Integrity3.IsChecked == true)
+                {
+                    GuestRate.Integrity3.IsChecked = false;
+                    GuestRate.Integrity4.IsChecked = true;
+                    GuestRate.Integrity4.Focus();
+                }
+                else if (GuestRate.Integrity4.IsChecked == true)
+                {
+                    GuestRate.Integrity4.IsChecked = false;
+                    GuestRate.Integrity5.IsChecked = true;
+                    GuestRate.Integrity5.Focus();
+                }
+                else if (GuestRate.Integrity5.IsChecked == true)
+                {
+                    GuestRate.Integrity5.IsChecked = false;
+                    GuestRate.Integrity1.IsChecked = true;
+                    GuestRate.Integrity1.Focus();
+                }
+            }
+        }
+        public void CleanlinessRadioButton()
+        {
+            GuestRate.Cleanliness1.IsChecked = true;
+            GuestRate.Cleanliness1.Focus();
 
+        }
+        public void OwnerRadioButton() 
+        {
+            GuestRate.Integrity1.IsChecked = true;
+            GuestRate.Integrity1.Focus();
+        }
+        public void AddComment() 
+        {
+            GuestRate.CommentTextBox.Focus();
+        }
+       
+        public void Renovation()
+        {
+            GuestRenovation guestRenovation = new GuestRenovation(GuestRate, ReservedAccommodation);
+            guestRenovation.Show();
+        }
+        
         public void DeleteImage()
         {
             try

@@ -20,6 +20,8 @@ namespace BookingApp.Domain.Model
 
         private int accommodationId { get; set; }
 
+        private int reservedId { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
@@ -55,6 +57,21 @@ namespace BookingApp.Domain.Model
                 {
                     accommodationId = value;
                     OnPropertyChanged(nameof(accommodationId));
+                }
+            }
+        }
+        public int ReservedId
+        {
+            get
+            {
+                return reservedId;
+            }
+            set
+            {
+                if (value != reservedId)
+                {
+                    reservedId = value;
+                    OnPropertyChanged(nameof(reservedId));
                 }
             }
         }
@@ -111,7 +128,8 @@ namespace BookingApp.Domain.Model
                 AccommodationId.ToString(),
                 GuestId.ToString(),
                 Date.ToString(),
-                TypeReport.ToString()
+                TypeReport.ToString(),
+                ReservedId.ToString()
             };
             return csvValues;
         }
@@ -122,6 +140,7 @@ namespace BookingApp.Domain.Model
             GuestId = Convert.ToInt32(values[2]);
             Date = Convert.ToDateTime(values[3]);
             TypeReport = values[4];
+            ReservedId = Convert.ToInt32(values[5]);
         }
     }
 }

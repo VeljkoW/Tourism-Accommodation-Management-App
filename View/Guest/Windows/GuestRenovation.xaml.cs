@@ -32,6 +32,10 @@ namespace BookingApp.View.Guest.Windows
             guestRenovationViewModel = new GuestRenovationViewModel(this, reservedAccommodation);
             DataContext = guestRenovationViewModel;
             Level = 0;
+            ValidateRadioButton.Text = "*Select level!";
+            ValidateRadioButton.Visibility = Visibility.Visible;
+            ValidateTextBox.Text = "*Input comment!";
+            ValidateTextBox.Visibility = Visibility.Visible;
         }
 
         private void LevelChecked(object sender, RoutedEventArgs e)
@@ -40,6 +44,7 @@ namespace BookingApp.View.Guest.Windows
             {
                 if (radioButton.IsChecked == true)
                 {
+                    ValidateRadioButton.Visibility = Visibility.Hidden;
                     if (radioButton.Name == "Level1")
                         Level = 1;
                     else if (radioButton.Name == "Level2")
@@ -51,6 +56,35 @@ namespace BookingApp.View.Guest.Windows
                     else if (radioButton.Name == "Level5")
                         Level = 5;
                 }
+            }
+        }
+
+        private void InputTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(CommentTextBox.Text) || string.IsNullOrWhiteSpace(CommentTextBox.Text))
+            {
+
+                ValidateTextBox.Text = "*Input comment!";
+                ValidateTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ValidateTextBox.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void CommentTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                // Ukloni fokus sa TextBox
+                Keyboard.ClearFocus();
+
+                // Postavi fokus na Window
+                FocusManager.SetFocusedElement(this, this);
+
+                // Spreči dalje procesiranje događaja
+                e.Handled = true;
             }
         }
     }
