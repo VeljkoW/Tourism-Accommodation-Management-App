@@ -36,12 +36,16 @@ namespace BookingApp.View.Guide.Pages
         private FinishedToursPage tourReviewsPage;
         private TourRequestsPage tourRequestsPage;
         private TourRequestStatisticsPage tourRequestStatisticsPage;
+        private ComplexTourRequestsPage complexTourRequestsPage;
+        public static int UserId;
         public GuideMainPage(User user)
         {
             InitializeComponent();
             User = user;
+            UserId = user.Id;
             UserName = User.Username;
             GuideMainPageViewModel = new GuideMainPageViewModel(user);
+            GuideMainPageViewModel.Resigned += Logout;
             DataContext = GuideMainPageViewModel;
             BurgerMenu burgerMenu = new BurgerMenu(this);
             BurgerMenu.Children.Add(burgerMenu);
@@ -49,6 +53,7 @@ namespace BookingApp.View.Guide.Pages
             tourStatistics = new TourStatistics(User);
             tourReviewsPage = new FinishedToursPage(this, User);
             tourRequestsPage = new TourRequestsPage();
+            complexTourRequestsPage = new ComplexTourRequestsPage();
             tourRequestStatisticsPage = new TourRequestStatisticsPage();
             Frame.Navigate(upcomingTours);
         }
@@ -58,6 +63,10 @@ namespace BookingApp.View.Guide.Pages
             NavigationService.Navigate(createTourForm);
         }
         //ClickUpcommingTour
+        public void Logout()
+        {
+            ClickLogout(1,new RoutedEventArgs());
+        }
         public void ClickLogout(object sender, RoutedEventArgs e)
         {
             SignInForm signInForm = new SignInForm();
@@ -84,6 +93,11 @@ namespace BookingApp.View.Guide.Pages
         {
             Frame.Navigate(tourRequestsPage);
         }
+        public void ClickComplexTourSuggestions(object sender, RoutedEventArgs e)
+        {
+            complexTourRequestsPage.Load();
+            Frame.Navigate(complexTourRequestsPage);
+        }
 
         public void ClickTourSuggestionsStatistics(object sender, RoutedEventArgs e)
         {
@@ -98,6 +112,10 @@ namespace BookingApp.View.Guide.Pages
         {
             defaultBurger.Visibility = Visibility.Visible;
             this.BurgerMenu.Visibility = Visibility.Collapsed;
+        }
+        public void Navigate(Page page)
+        {
+            NavigationService.Navigate(page);
         }
     }
 }

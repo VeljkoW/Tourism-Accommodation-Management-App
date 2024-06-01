@@ -20,6 +20,19 @@ namespace BookingApp.ViewModel.Guide
     public class TourRequestStatisticsPageViewModel : INotifyPropertyChanged
     {
         public RelayCommand ClickGoBack => new RelayCommand(execute => ClickGoBackExecute());
+        public RelayCommand ClearFilter => new RelayCommand(execute => ClearFilterExecute());
+
+        private void ClearFilterExecute()
+        {
+            Year = 0;
+            _selectedLanguage = "";
+            _selectedCity = "";
+            _selectedState = "";
+            TourRequestStatisticsPage.StateCombobox.Text="";
+            TourRequestStatisticsPage.CityCombobox.Text="";
+            LoadStatistics();
+        }
+
         private void ClickGoBackExecute()
         {
             TourRequestStatisticsPage.NavigationService.GoBack();
@@ -50,16 +63,18 @@ namespace BookingApp.ViewModel.Guide
             get { return _selectedLanguage; }
             set
             {
-                if (_selectedLanguage != value)
+                if (!string.IsNullOrEmpty(value))
                 {
-                    _selectedLanguage = value;
+                    _selectedCity = "";
+                    _selectedState = "";
+                    TourRequestStatisticsPage.StateCombobox.Text = "";
+                    TourRequestStatisticsPage.CityCombobox.Text = "";
+                    OnPropertyChanged(nameof(SelectedCity));
+                    OnPropertyChanged(nameof(SelectedState));
                     OnPropertyChanged();
-                    if (!string.IsNullOrEmpty(SelectedLanguage))
-                    {
-                        SelectedState = "";
-                        SelectedCity = "";
-                    }
+                    _selectedLanguage = value;
                 }
+                OnPropertyChanged();
                 FilterStatistics();
             }
         }
@@ -78,7 +93,7 @@ namespace BookingApp.ViewModel.Guide
                         // Clear city when a state is selected
                         SelectedCity = "";
                     }
-                    SelectedLanguage = "";
+                    _selectedLanguage = "";
                 }
                 if (SelectedState != "" && SelectedState != null)
                 {
@@ -91,9 +106,9 @@ namespace BookingApp.ViewModel.Guide
                         }
                     }
                     SelectedCity = Cities.First();
-                    SelectedLanguage = "";
+                    _selectedLanguage = "";
                 }
-                    FilterStatistics();
+                FilterStatistics();
             }
         }
         private string _selectedCity = "";
@@ -107,7 +122,7 @@ namespace BookingApp.ViewModel.Guide
                     _selectedCity = value;
                     OnPropertyChanged();
                     FilterStatistics();
-                    SelectedLanguage = "";
+                    _selectedLanguage = "";
                 }
             }
         }

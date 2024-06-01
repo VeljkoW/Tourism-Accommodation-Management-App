@@ -49,8 +49,7 @@ namespace BookingApp.View.Guide.Pages
         }
         private void ComplexRequests(object sender, RoutedEventArgs e)
         {
-            //TODO: VELJKO
-            page.ClickTourSuggestions(sender, e);
+            page.ClickComplexTourSuggestions(sender, e);
         }
         private void FinishedTours(object sender, RoutedEventArgs e)
         {

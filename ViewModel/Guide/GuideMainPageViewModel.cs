@@ -17,6 +17,14 @@ namespace BookingApp.ViewModel.Guide
 {
     public class GuideMainPageViewModel : INotifyPropertyChanged
     {
+        public RelayCommand ResignCommand => new RelayCommand(execute => ResignCommandExecute());
+
+        private void ResignCommandExecute()
+        {
+            TourService.GetInstance().Resign(user.Id);
+            Resigned?.Invoke();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private string _userName;
 
@@ -32,11 +40,15 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        private User user;
+        public Action Resigned;
         public GuideMainPageViewModel(User user)
         {
             VKeyboard.Listen<System.Windows.Controls.TextBox>(e => e.Text);
             VKeyboard.Config(typeof(KeyboardCustom));
+            this.user = user;
             UserName = user.Username;
+            SuperGuideService.GetInstance().UpdateSuperGuide(user.Id);
         }
         protected virtual void OnPropertyChanged(string propertyName)
         {

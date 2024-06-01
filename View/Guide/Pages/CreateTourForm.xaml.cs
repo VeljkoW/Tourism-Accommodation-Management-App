@@ -58,5 +58,10 @@ namespace BookingApp.View.Guide.Pages
         {
             StateBoxEventHandler?.Invoke();
         }
+
+        private void CheckConversions(object sender, TextChangedEventArgs e)
+        {
+            CreateTourFormViewModel.CheckConversions(sender,e);
+        }
     }
 }

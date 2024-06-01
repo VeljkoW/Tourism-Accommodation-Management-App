@@ -199,7 +199,12 @@ namespace BookingApp.ViewModel.Guide
 
         private bool ClickCreateCanExecute()
         {
-            if (KeyPointStrings.Count() < 2 || Dates.Count() < 1 || RelativeImagePaths.Count() < 1) { return false; }
+            if (KeyPointStrings.Count() < 2 || Dates.Count() < 1 || RelativeImagePaths.Count() < 1 ||
+                Name.Equals("")  || Duration<1 || MaxTourists<1 || Description.Equals("") ||
+                SelectedCity==null) 
+            {
+                return false; 
+            }
             return true;
         }
         public List<int> HoursList { get; set; }
@@ -235,7 +240,7 @@ namespace BookingApp.ViewModel.Guide
             }
         }
         private List<string> toBeDeleted = new List<string>();
-        private string _name;
+        private string _name= "";
         public new string Name
         {
             get => _name;
@@ -248,7 +253,7 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
-        private int _duration;
+        private int _duration=1;
         public int Duration
         {
             get => _duration;
@@ -256,12 +261,14 @@ namespace BookingApp.ViewModel.Guide
             {
                 if (value != _duration)
                 {
+                    bool isInteger = int.TryParse(value.ToString(), out _);
+                    IsDurationInteger = isInteger;
                     _duration = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private int _maxTourists;
+        private int _maxTourists=1;
         public int MaxTourists
         {
             get => _maxTourists;
@@ -269,12 +276,39 @@ namespace BookingApp.ViewModel.Guide
             {
                 if (value != _maxTourists)
                 {
+                    bool isInteger = int.TryParse(value.ToString(), out _);
+                    IsTouristsInteger = isInteger;
                     _maxTourists = value;
                     OnPropertyChanged();
                 }
             }
         }
-        //CurrentKeyPoint
+        private bool _isTouristsInteger;
+        public bool IsTouristsInteger
+        {
+            get => _isTouristsInteger;
+            set
+            {
+                if (value != _isTouristsInteger)
+                {
+                    _isTouristsInteger = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isDurationInteger;
+        public bool IsDurationInteger
+        {
+            get => _isDurationInteger;
+            set
+            {
+                if (value != _isDurationInteger)
+                {
+                    _isDurationInteger = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _currentKeyPoint;
         public string CurrentKeyPoint
         {
@@ -370,7 +404,7 @@ namespace BookingApp.ViewModel.Guide
         public string CurrentImagePath;
         public int TotalImages => RelativeImagePaths.Count;
 
-        private string _description;
+        private string _description="";
 
         public string Description
         {
@@ -387,6 +421,9 @@ namespace BookingApp.ViewModel.Guide
         private CreateTourForm createTourForm;
         public Action OnClickedGoBack { get; set; }
         public CreateTourFormViewModel() { }
+        public void CheckConversions(object o,TextChangedEventArgs e)
+        {
+        }
         public CreateTourFormViewModel(CreateTourForm createTourForm, User user)
         {
             this.createTourForm=createTourForm;

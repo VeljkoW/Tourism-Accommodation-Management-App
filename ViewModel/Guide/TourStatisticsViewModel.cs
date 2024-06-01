@@ -19,6 +19,7 @@ namespace BookingApp.ViewModel.Guide
         public RelayCommand ClickInGeneral => new RelayCommand(execute => ClickInGeneralExecute());
         public RelayCommand ClickSelectedYear => new RelayCommand(execute => ClickSelectedYearExecute());
         public RelayCommand ClickGoBack => new RelayCommand(execute => ClickGoBackExecute());
+        public RelayCommand GeneratePDF => new RelayCommand(execute => GeneratePDFExecute());
 
         private void ClickGoBackExecute(){
             TourStatisticsPage.NavigationService.GoBack();

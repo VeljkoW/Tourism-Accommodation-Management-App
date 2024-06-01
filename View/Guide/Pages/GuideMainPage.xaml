@@ -79,7 +79,7 @@
                     Log out
                 </TextBlock>
             </Button>
-            <Button Grid.Row="7" Background="{StaticResource GuideButtonColor}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}">
+            <Button Command="{Binding ResignCommand}" Grid.Row="7" Background="{StaticResource GuideButtonColor}" Foreground="{StaticResource NButtonColor3Text}" BorderBrush="{StaticResource NButtonColor3}">
                 <TextBlock>
                     Resign
                 </TextBlock>

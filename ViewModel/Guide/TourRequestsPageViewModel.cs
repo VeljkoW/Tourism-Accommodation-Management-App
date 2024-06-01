@@ -59,7 +59,6 @@ namespace BookingApp.ViewModel.Guide
                 {
                     _acceptTourCard = value;
                     OnPropertyChanged(nameof(AcceptTourCard));
-                    ClearPopup();
                     TourRequestsPage.VAU.Children.Add(AcceptTourCard);
                 }
             }
@@ -167,23 +166,6 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
-        public void Dimm()
-        {
-            DimmingVisible = System.Windows.Visibility.Visible;
-        }
-        private System.Windows.Visibility _dimmed = System.Windows.Visibility.Collapsed;
-        public System.Windows.Visibility DimmingVisible
-        {
-            get { return _dimmed; }
-            set
-            {
-                if (_dimmed != value)
-                {
-                    _dimmed = value;
-                    OnPropertyChanged(nameof(DimmingVisible));
-                }
-            }
-        }
         private bool _isEnabledToDate;
         public bool IsEnabledToDate
         {
@@ -195,6 +177,16 @@ namespace BookingApp.ViewModel.Guide
                     _isEnabledToDate = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+        private bool _isDimOverlayVisible = false;
+        public bool IsDimOverlayVisible
+        {
+            get { return _isDimOverlayVisible; }
+            set
+            {
+                _isDimOverlayVisible = value;
+                OnPropertyChanged();
             }
         }
         public List<Location> Locations = new List<Location>();
@@ -212,10 +204,14 @@ namespace BookingApp.ViewModel.Guide
             TourRequestsPage.FilterUpdateEvent += FilterUpdated;
             Load();
         }
+        public void Dimm()
+        {
+            IsDimOverlayVisible = true;
+        }
         public void ClearPopup()
         {
             TourRequestsPage.VAU.Children.Clear();
-            DimmingVisible = System.Windows.Visibility.Collapsed;
+            IsDimOverlayVisible= false;
             Load();
         }
         private DateTime oldestDate;
