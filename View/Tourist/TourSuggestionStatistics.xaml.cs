@@ -25,18 +25,21 @@ namespace BookingApp.View.Tourist
     {
         public TourSuggestionStatisticsViewModel TourSuggestionStatisticsViewModel { get; set; }
         public User User;
-        public TourSuggestionStatistics(User user)
+        public TourSuggestionStatistics(User user, bool demo,TouristMainWindowViewModel touristMainWindowViewModel)
         {
             InitializeComponent();
             User = user;
-            TourSuggestionStatisticsViewModel = new TourSuggestionStatisticsViewModel(this,User);
+            TourSuggestionStatisticsViewModel = new TourSuggestionStatisticsViewModel(this,User,demo, touristMainWindowViewModel);
             this.DataContext = TourSuggestionStatisticsViewModel;
         }
         private void LoadedFunctions(object sender, RoutedEventArgs e)
         {
             CenterWindow();
         }
-
+        public void EndDemoMode(object sender, MouseButtonEventArgs e)
+        {
+            TourSuggestionStatisticsViewModel.EndDemoMode();
+        }
         private void Year1ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TourSuggestionStatisticsViewModel.Year1ComboBoxSelectionChanged(sender, e);

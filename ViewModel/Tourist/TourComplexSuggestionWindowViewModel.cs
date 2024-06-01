@@ -43,7 +43,7 @@ namespace BookingApp.ViewModel.Tourist
         }
         public void AddExecute()
         {
-            TourSuggestionWindow tourSuggestionWindow = new TourSuggestionWindow(User, true,ComplexId);
+            TourSuggestionWindow tourSuggestionWindow = new TourSuggestionWindow(User, true,ComplexId,false, null);
             tourSuggestionWindow.Owner = TourComplexSuggestionWindow;
             tourSuggestionWindow.Closed += (s, e) => Update();
             tourSuggestionWindow.ShowDialog();
