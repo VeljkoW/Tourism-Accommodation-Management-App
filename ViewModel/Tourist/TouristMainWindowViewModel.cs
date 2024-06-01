@@ -340,6 +340,7 @@ namespace BookingApp.ViewModel.Tourist
         void UpdateTourSuggestions()
         {
             TourSuggestions.Clear();
+            TourSuggestionService.GetInstance().CheckForExpiryDate(User.Id);
             foreach (TourSuggestion ts in TourSuggestionService.GetInstance().GetAll())
             {
                 if (User.Id == ts.UserId)
@@ -352,6 +353,8 @@ namespace BookingApp.ViewModel.Tourist
         void UpdateComplexTourSuggestions()
         {
             ComplexTourSuggestions.Clear();
+            TourSuggestionComplexService.GetInstance().CheckForExpiryDate(User.Id);
+            TourComplexSuggestionService.GetInstance().UpdateStatus(User.Id);
             foreach(TourComplexSuggestion tcs in TourComplexSuggestionService.GetInstance().GetAll().Where(t => t.UserId == User.Id))
             {
                 ComplexTourSuggestions.Add(tcs);

@@ -46,5 +46,23 @@ namespace BookingApp.Services
         {
             return GetAll().Where(t => t.ComplexTourId == complexId).ToList();
         }
+        public void CheckForExpiryDate(int id)
+        {
+            List<TourSuggestion> tourSuggestions = GetAll().Where(u => u.UserId == id).ToList();
+            foreach(var tourSuggestion in tourSuggestions)
+            {
+                if(tourSuggestion.Status == TourSuggestionStatus.Pending)
+                {
+                    TimeSpan timeDifference = tourSuggestion.FromDate - DateTime.Now;
+
+                    if (timeDifference.TotalHours < 48)
+                    {
+                        tourSuggestion.Status = TourSuggestionStatus.Rejected;
+                        Update(tourSuggestion);
+                    }
+                }
+            }
+
+        }
     }
 }

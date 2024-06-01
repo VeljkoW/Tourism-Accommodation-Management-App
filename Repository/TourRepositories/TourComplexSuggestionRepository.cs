@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.Serializer;
+using BookingApp.View.Tourist.ListComponents;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,16 @@ namespace BookingApp.Repository.TourRepositories
         {
             _tourComplexSuggestions = _serializer.FromCSV(FilePath);
             return _tourComplexSuggestions.Find(c => c.Id == Id);
+        }
+        public TourComplexSuggestion? Update(TourComplexSuggestion tourComplexSuggestion)
+        {
+            TourComplexSuggestion? oldTourComplexSuggestion = GetById(tourComplexSuggestion.Id);
+            if (oldTourComplexSuggestion is null) return null;
+            oldTourComplexSuggestion.TourSuggestions = tourComplexSuggestion.TourSuggestions;
+            oldTourComplexSuggestion.Status = tourComplexSuggestion.Status;
+            oldTourComplexSuggestion.UserId = tourComplexSuggestion.UserId;
+            _serializer.ToCSV(FilePath, _tourComplexSuggestions);
+            return oldTourComplexSuggestion;
         }
     }
 }
