@@ -748,17 +748,17 @@ namespace BookingApp.ViewModel.Tourist
 
                     await Task.Delay(1000, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "E";
-                    await Task.Delay(1000, cancellationToken);
+                    await Task.Delay(500, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "En";
-                    await Task.Delay(1000, cancellationToken);
+                    await Task.Delay(500, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "Eng";
-                    await Task.Delay(1000, cancellationToken);
+                    await Task.Delay(500, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "Engl";
-                    await Task.Delay(1000, cancellationToken);
+                    await Task.Delay(500, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "Engli";
-                    await Task.Delay(1000, cancellationToken);
+                    await Task.Delay(500, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "Englis";
-                    await Task.Delay(1000, cancellationToken);
+                    await Task.Delay(500, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "English";
                     await Task.Delay(1000, cancellationToken);
                     SearchToursExecute();
