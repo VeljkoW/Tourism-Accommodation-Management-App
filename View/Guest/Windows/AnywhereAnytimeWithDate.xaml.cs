@@ -36,6 +36,7 @@ namespace BookingApp.View.Guest.Windows
             AnywhereAnytimeViewModel = anywhereAnytimeViewModel;
             anywhereAnytimeWithDateViewModel = new AnywhereAnytimeWithDateViewModel(AnywhereAnytimeViewModel, this, accommodationForReservation);
             this.DataContext = anywhereAnytimeWithDateViewModel;
+          
         }
 
         private void PreviousImageButton_Click(object sender, RoutedEventArgs e)

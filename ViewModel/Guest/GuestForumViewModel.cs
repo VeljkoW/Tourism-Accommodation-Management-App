@@ -3,6 +3,7 @@ using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
 using BookingApp.View.Owner;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,7 @@ namespace BookingApp.ViewModel.Guest
         public ObservableCollection<Location> CitiesForChoosing { get; set; }
         private string selectedChosenState { get; set; }
         private Location selectedChosenCity { get; set; }
-
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public ObservableCollection<GuestPost> postItems { get; set; }
         public RelayCommand OpenButtonClick => new RelayCommand(execute => OpenForum(), canExecute => CanOpenForum());
         public RelayCommand CloseButtonClick => new RelayCommand(execute => CloseForum());

@@ -40,6 +40,7 @@ namespace BookingApp.Repository.AccommodationRepositories
             ReportOnReservations.TypeReport = reportOnReservations.TypeReport;
             ReportOnReservations.Date = reportOnReservations.Date;
             ReportOnReservations.GuestId = reportOnReservations.GuestId;
+            ReportOnReservations.ReservedId = reportOnReservations.ReservedId;
             _serializer.ToCSV(FilePath, _report);
         }
         public List<ReportOnReservations> GetAll()
