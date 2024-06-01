@@ -8,21 +8,21 @@
         Title="AnywhereAnytimeWithDate" Height="400" Width="500" FocusManager.IsFocusScope="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.InputBindings>
         <KeyBinding
-     Modifiers="Control" 
-     Key="R"
-     Command="{Binding ReservationClickButton}"/>
+         Modifiers="Control" 
+         Key="R"
+         Command="{Binding ReservationClickButton}"/>
         <KeyBinding
-Modifiers="Control" 
-Key="N"
-Command="{Binding NextImage1}"/>
+        Modifiers="Control" 
+        Key="N"
+        Command="{Binding NextImage1}"/>
         <KeyBinding
-Modifiers="Control" 
-Key="P"
-Command="{Binding PreviousImage1}"/>
+        Modifiers="Control" 
+        Key="P"
+        Command="{Binding PreviousImage1}"/>
         <KeyBinding
-  Modifiers="Control"
-  Key="E"
-  Command="{Binding Exit}"/>
+          Modifiers="Control"
+          Key="E"
+          Command="{Binding Exit}"/>
     </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
@@ -131,12 +131,12 @@ Command="{Binding PreviousImage1}"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="AccommodationName" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Content="" FontSize="20" Margin="10 0 10 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
-            <Button Grid.Column="0" Grid.Row="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Click="PreviousImageButton_Click">
+            <Button ToolTipService.ToolTip="Ctrl+P" Grid.Column="0" Grid.Row="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Click="PreviousImageButton_Click">
                 <Button.Content>
                     <Image Source="../../../Resources/Images/Guest/arrowleft.png"></Image>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="3" Grid.Row="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NextImageButton_Click">
+            <Button ToolTipService.ToolTip="Ctrl+N" Grid.Column="3" Grid.Row="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Click="NextImageButton_Click">
                 <Button.Content>
                     <Image Source="../../../Resources/Images/Guest/arrowright.png"></Image>
                 </Button.Content>
@@ -144,7 +144,7 @@ Command="{Binding PreviousImage1}"/>
             <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"  Margin="5" BorderThickness="2" BorderBrush="Black">
                 <Image Source="{Binding CurrentImagePath}" Stretch="UniformToFill"/>
             </Border>
-            <Button Style="{DynamicResource ButtonStyle}" x:Name="ReservationButton" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="120" FontSize="15" Height="40" Command="{Binding ReservationClickButton}" VerticalAlignment="Center" HorizontalAlignment="Center" >Reservation</Button>
+            <Button ToolTipService.ToolTip="Ctrl+R" Style="{DynamicResource ButtonStyle}" x:Name="ReservationButton" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="120" FontSize="15" Height="40" Command="{Binding ReservationClickButton}" VerticalAlignment="Center" HorizontalAlignment="Center" >Reservation</Button>
         </Grid>
     </Grid>
 </Window>

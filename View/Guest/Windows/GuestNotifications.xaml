@@ -71,12 +71,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="Transparent"/>
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
@@ -137,8 +137,8 @@
                                 </Style.Setters>
                             </Style>
                         </DataTemplate.Resources>
-                       
-                        <Border x:Name="BorderBlock" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="20" Margin="5 5 5 5"  Background="WhiteSmoke"
+
+                        <Border x:Name="BorderBlock" ToolTipService.ToolTip="Ctrl+C" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="20" Margin="5 5 5 5"  Background="WhiteSmoke"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center" KeyDown="ClickEnter" MouseLeftButtonDown="ClickedOnCard" Cursor="Hand">
                             
                             <Border.Effect>

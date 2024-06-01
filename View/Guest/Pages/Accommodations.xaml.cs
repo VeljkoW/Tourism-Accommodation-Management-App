@@ -26,6 +26,7 @@ namespace BookingApp.View.Guest.Pages
         {
             InitializeComponent();
             User = user;
+            MainGrid.Focus();
             GuestAccommodationsViewModel = new GuestAccommodationsViewModel(this, user);
             this.DataContext = GuestAccommodationsViewModel;
             Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#56736F");
@@ -54,5 +55,27 @@ namespace BookingApp.View.Guest.Pages
             GuestMainWindow.mainFrame.Navigate(anywhereAnytime);
         }
 
+        private void NameTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            //{
+            //    // Ukloni fokus sa TextBox
+            //    Keyboard.ClearFocus();
+
+            //    // Postavi fokus na Window
+            //    FocusManager.SetFocusedElement(MainGrid, MainGrid);
+
+            //    // Spreči dalje procesiranje događaja
+            //    e.Handled = true;
+            //}
+        }
+
+        private void ClickEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ClickedOnCard(sender, e);
+            }
+        }
     }
 }

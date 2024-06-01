@@ -114,7 +114,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="1" Content="Reviews" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
-            <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD">
+            <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD" Focusable="True" x:Name="MainGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="5*"/>
@@ -130,7 +130,7 @@
                 <Label x:Name="NumberOfReviews" Grid.Column="1" Grid.Row="0" FontSize="25" Margin="49 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Number of Reviews: "/>
                 <Label x:Name="AverageReviews" Grid.Column="2" Grid.Row="0" FontSize="25" Margin="45 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Average Rating: "/>
                 <Label x:Name="GuestBonus" Grid.Column="3" Grid.Row="0" FontSize="25" Margin="92 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Bonus: "/>
-                <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="4" Grid.Row="0" Height="100"  Width="150" Margin="0 0 57 0" Background="Transparent" BorderThickness="0" ToolTipService.ToolTip="*A guest can become a super-guest if they have at least 10 reservations in the past year.">
+                <Button Style="{DynamicResource ButtonStyle1}" x:Name="SuperGuestIcon" Grid.Column="4" Grid.Row="0" Height="100"  Width="150" Margin="0 0 57 0" Background="Transparent" BorderThickness="0" ToolTipService.ToolTip="*A guest can become a super-guest if they have at least 10 reservations in the past year.">
                     <Button.Content>
                         <StackPanel Orientation="Vertical" >
                             <Image x:Name="SuperGuestImage"  Source="../../../Resources/Images/Guest/medal.png" Height="60"  Width="60" HorizontalAlignment="Center" VerticalAlignment="Top"></Image>

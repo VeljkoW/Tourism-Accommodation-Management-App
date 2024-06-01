@@ -132,7 +132,7 @@
          <RowDefinition Height="3*"/>
      </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Check dates for PDF" FontSize="20" VerticalAlignment="Center" Margin="0 10 0 0" HorizontalAlignment="Center"></Label>
-        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="10">
+        <Border Grid.Row="1" BorderBrush="Black" CornerRadius="15" BorderThickness="1" Margin="10">
         <Grid Grid.Row="1" Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -146,20 +146,20 @@
             </Grid.RowDefinitions>
             
             <Label Grid.Row="0" Grid.Column="0" Content="Start Date:*" HorizontalAlignment="Left" Margin="25 0 0 0" FontSize="20"></Label>
-            <DatePicker Grid.Row="0" Grid.Column="1"  Background="WhiteSmoke" BorderBrush="WhiteSmoke" Height="40" x:Name="startDatePicker"  SelectedDateChanged="changedStartDate" HorizontalAlignment="Center" FontSize="20"></DatePicker>
+                <DatePicker ToolTipService.ToolTip="Ctrl+I" Grid.Row="0" Grid.Column="1"  Background="WhiteSmoke" BorderBrush="WhiteSmoke" Height="40" x:Name="startDatePicker"  SelectedDateChanged="changedStartDate" HorizontalAlignment="Center" FontSize="20"></DatePicker>
             <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ValidateStartDate" HorizontalAlignment="Center"  FontSize="10" Foreground="Red"></TextBlock>
             <Label Grid.Row="2" Grid.Column="0" Content="End Date:*" HorizontalAlignment="Left" Margin="25 0 0 0" FontSize="20"></Label>
-            <DatePicker Grid.Row="2" Grid.Column="1" Background="WhiteSmoke" BorderBrush="WhiteSmoke" Height="40" x:Name="endDatePicker" SelectedDateChanged="changedEndDate" HorizontalAlignment="Center" FontSize="20"></DatePicker>
+                <DatePicker ToolTipService.ToolTip="Ctrl+O" Grid.Row="2" Grid.Column="1" Background="WhiteSmoke" BorderBrush="WhiteSmoke" Height="40" x:Name="endDatePicker" SelectedDateChanged="changedEndDate" HorizontalAlignment="Center" FontSize="20"></DatePicker>
             <TextBlock Grid.Row="3" Grid.Column="1" x:Name="ValidateEndDate" HorizontalAlignment="Center"  FontSize="10" Foreground="Red"></TextBlock>
         </Grid>
         </Border>
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0 10 0 0" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <RadioButton Background="WhiteSmoke" x:Name="PdfRadioButton1" Content="Reserved" FontSize="20" GroupName="PdfRadioButton"
+            <RadioButton ToolTipService.ToolTip="Ctrl+R" Background="WhiteSmoke" x:Name="PdfRadioButton1" Content="Reserved" FontSize="20" GroupName="PdfRadioButton"
                 Checked="PdfRadioButtonChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="PdfRadioButton2" Content="Cancelled" FontSize="20" GroupName="PdfRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+D" Background="WhiteSmoke" x:Name="PdfRadioButton2" Content="Cancelled" FontSize="20" GroupName="PdfRadioButton" 
                 Checked="PdfRadioButtonChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
         </StackPanel>
         <TextBlock x:Name="ValidateRadioButton" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 33 0 0" FontSize="10" Foreground="Red"></TextBlock>
-        <Button x:Name="CreateButton" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Width="110" Height="50" Margin="5" Content="Create" FontSize="20" Command="{Binding createPdf}"></Button>
+        <Button ToolTipService.ToolTip="Ctrl+C" x:Name="CreateButton" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Width="110" Height="50" Margin="5" Content="Create" FontSize="20" Command="{Binding createPdf}"></Button>
  </Grid>
 </Window>

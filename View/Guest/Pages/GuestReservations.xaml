@@ -9,6 +9,28 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1520"
       Title="GuestReservations">
+    <Page.InputBindings>
+        <KeyBinding
+      Modifiers="Control" 
+      Key="Q"
+      Command="{Binding ReservationsTab}"/>
+        <KeyBinding
+     Modifiers="Control" 
+     Key="W"
+     Command="{Binding ReschedulingTab}"/>
+        <KeyBinding
+     Modifiers="Control" 
+     Key="H"
+     Command="{Binding HistoryTab}"/>
+        <KeyBinding
+     Modifiers="Control"
+     Key="C"
+     Command="{Binding FirstCardSelect}"/>
+        <KeyBinding
+        Modifiers="Control" 
+        Key="P"
+        Command="{Binding PdfCreate}"/>
+    </Page.InputBindings>
     <Page.Resources>
 
         <local1:DateTimeToHourConverter x:Key="DateTimeToHourConverter"/>
@@ -158,7 +180,7 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
-        <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD">
+        <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD" Focusable="True" x:Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
@@ -170,12 +192,12 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="42 0 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="WhiteSmoke" CornerRadius="15">
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ReservationsButton" Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
-                    <Button x:Name="StatusesButton" Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
-                    <Button x:Name="HistoryButton" Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
+                    <Button x:Name="ReservationsButton" ToolTipService.ToolTip="Ctrl+Q" Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
+                    <Button x:Name="StatusesButton" ToolTipService.ToolTip="Ctrl+W" Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
+                    <Button x:Name="HistoryButton" ToolTipService.ToolTip="Ctrl+H" Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
                 </StackPanel>
             </Border>
-            <Button x:Name="PdfButton" Style="{DynamicResource ButtonStyle11}" Grid.Column="2" Grid.Row="0" BorderThickness="0" Width="100" Height="100" Click="PdfClick" Background="Transparent"  HorizontalAlignment="Right" Margin="0 0 100 0" VerticalAlignment="Center" ToolTipService.ToolTip="*Report on Schedule/Cancelled Reservations.">
+            <Button x:Name="PdfButton" Style="{DynamicResource ButtonStyle11}" Grid.Column="2" Grid.Row="0" BorderThickness="0" Width="100" Height="100" Click="PdfClick" Background="Transparent"  HorizontalAlignment="Right" Margin="0 0 100 0" VerticalAlignment="Center" ToolTipService.ToolTip="*(Ctrl+P)Report on Schedule/Cancelled Reservations.">
                 <Button.Content>
                     <StackPanel Orientation="Vertical">
                         <Grid Width="50" Height="50">
@@ -186,11 +208,18 @@
                 </Button.Content>
             </Button>
             <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
-                <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+                <ItemsControl x:Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
+                            <DataTemplate.Resources>
+                                <Style TargetType="Border">
+                                    <Style.Setters>
+                                        <Setter Property="Focusable" Value="True"/>
+                                    </Style.Setters>
+                                </Style>
+                            </DataTemplate.Resources>
                             <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8"  Margin="87 10 80 10" Background="WhiteSmoke"
-                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                              HorizontalAlignment="Stretch" ToolTipService.ToolTip="Ctrl+C" x:Name="BorderBlock" VerticalAlignment="Center" Focusable="True">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
@@ -236,14 +265,13 @@
                                             </TextBlock>
                                             <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" FontSize="17" Margin="0 10 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
                                                 <Run Text="{Binding CheckInDate, Converter={StaticResource DateTimeToHourConverter}}" />
-                                                <Run Text="PM   " />
+                                                <Run Text="    " />
                                                 <Run Text="{Binding CheckOutDate, Converter={StaticResource DateTimeToHourConverter}}" />
-                                                <Run Text="AM" />   
                                             </TextBlock>
                                             <!--<TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=CheckInDate}" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=CheckOutDate}" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15 0 0 0"/>-->
-                                            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
-                                            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
+                                            <Button Style="{DynamicResource ButtonStyle}" Focusable="True"  Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
+                                            <Button Style="{DynamicResource ButtonStyle}" Focusable="True"  Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
                                         </Grid>
                                     </Border>
                                 </Grid>

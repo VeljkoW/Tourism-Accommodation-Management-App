@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest"
         mc:Ignorable="d"
-        Title="GuestMainWindow" Height="800" Width="1520" Style="{DynamicResource BackgroundStyle}" >
-    
+        Title="GuestMainWindow" Height="800" Width="1520" WindowState="Maximized" Style="{DynamicResource BackgroundStyle}" >
+    <Window.InputBindings>
+        <KeyBinding
+        Modifiers="Control" 
+        Key="A"
+        Command="{Binding Accommodation}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="R"
+         Command="{Binding Reservations}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="V"
+         Command="{Binding Reviews}"/>
+        <KeyBinding
+        Modifiers="Control"
+        Key="F"
+        Command="{Binding Forum}"/>
+        <KeyBinding
+        Modifiers="Control" 
+        Key="L"
+        Command="{Binding LogOut}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="T"
+         Command="{Binding Tutorial}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="N"
+         Command="{Binding Notifications}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -133,7 +162,7 @@
             </Button.Content>
         </Button>
 
-        <Button x:Name="NotificationsButton"  Style="{DynamicResource ButtonStyle1}" Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Click="NotificationsClick" Background="Transparent" Width="113" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 170 0">
+        <Button x:Name="NotificationsButton" ToolTipService.ToolTip="Ctrl+N"  Style="{DynamicResource ButtonStyle1}" Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Click="NotificationsClick" Background="Transparent" Width="113" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 170 0">
             <Button.Content>
                 <StackPanel Orientation="Vertical">
                     <Grid Width="60" Height="60">
@@ -143,7 +172,7 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <Button  x:Name="TutorialButton"  Style="{DynamicResource ButtonStyle1}" Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Background="Transparent" Width="71" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 285 0">
+        <Button  x:Name="TutorialButton" ToolTipService.ToolTip="Ctrl+T"  Style="{DynamicResource ButtonStyle1}" Grid.Column="1" Grid.Row="0" BorderThickness="0" Height="100" Background="Transparent" Width="71" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 285 0" Click="TutorialClick">
             <Button.Content>
                 <StackPanel Orientation="Vertical">
                     <Grid Width="60" Height="60">
@@ -155,7 +184,7 @@
         </Button>
         <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="0 0 0 1" BorderBrush="Black"/>
         <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BorderThickness="0 0 1 0" BorderBrush="Black"/>
-        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="3" ></Frame>
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="2"></Frame>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.2*"/>
@@ -164,7 +193,7 @@
                 <RowDefinition Height="1.2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="AccommodationButton" Style="{DynamicResource ButtonStyle}" Grid.Row="0" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AccommodationsClick">
+            <Button x:Name="AccommodationButton" ToolTipService.ToolTip="Ctrl+A" Style="{DynamicResource ButtonStyle}" Grid.Row="0" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AccommodationsClick">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal"  Margin="0 0 27 0">
                         <Image Source="../../Resources/Images/Guest/bed.png" Height="30" Width="30" Margin="0 2.5 0 0"></Image>
@@ -172,7 +201,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button x:Name="ReservationsButton" Style="{DynamicResource ButtonStyle}" Grid.Row="1" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReservationClick">
+            <Button x:Name="ReservationsButton" ToolTipService.ToolTip="Ctrl+R" Style="{DynamicResource ButtonStyle}" Grid.Row="1" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReservationClick">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal" Margin="0 0 80 0">
                         <Image Source="../../Resources/Images/Guest/bag.png" Height="30" Width="30" Margin="0 0 0 2"></Image>
@@ -180,7 +209,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button x:Name="ReviewsButton" Style="{DynamicResource ButtonStyle}" Grid.Row="2" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReviewsClick">
+            <Button x:Name="ReviewsButton" ToolTipService.ToolTip="Ctrl+V" Style="{DynamicResource ButtonStyle}" Grid.Row="2" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ReviewsClick">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal" Margin="0 0 125 0">
                         <Image Source="../../Resources/Images/Guest/rating.png" Height="30" Width="30" Margin="0 0 0 6"></Image>
@@ -188,7 +217,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button x:Name="ForumButton" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ForumClick">
+            <Button x:Name="ForumButton" ToolTipService.ToolTip="Ctrl+F" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Height="110" Width="320" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ForumClick">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal" Margin="0 0 142 0">
                         <Image Source="../../Resources/Images/Guest/forum.png" Height="30" Width="30" Margin="0 2.5 0 0"></Image>
@@ -201,7 +230,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Style="{DynamicResource ButtonStyle}" Margin="0 20 0 0"  Grid.Column="0" Click="LogOutClick" Height="60" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource ButtonStyle}" ToolTipService.ToolTip="Ctrl+L" Margin="0 20 0 0"  Grid.Column="0" Click="LogOutClick" Height="60" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../../Resources/Images/Guest/logout.png" Height="20" Width="20" Margin="0 5 0 0"></Image>

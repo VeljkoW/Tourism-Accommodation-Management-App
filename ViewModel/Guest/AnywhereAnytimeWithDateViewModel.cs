@@ -45,7 +45,7 @@ namespace BookingApp.ViewModel.Guest
             AccommodationForReservation = accommodationForReservation;
             reservedAccommodation = new ReservedAccommodation();
             accommodation = AccommodationService.GetInstance().GetById(accommodationForReservation.AccommodationId);
-            anywhereAnytimeWithDate.AccommodationName.Content += "Accommodation: " + accommodation.Name + ", " + accommodation.Location.State + " - " + accommodation.Location.City + "\n" + accommodationForReservation.AvailableDates[0].checkInDate.ToString() + " - " + accommodationForReservation.AvailableDates[0].checkOutDate.ToString();
+            anywhereAnytimeWithDate.AccommodationName.Content += "Accommodation: " + accommodation.Name + ", " + accommodation.Location.State + " - " + accommodation.Location.City + "\n" + accommodationForReservation.AvailableDates[0].checkInDate.ToString("dd/MM/yyyy HHtt") + " - " + accommodationForReservation.AvailableDates[0].checkOutDate.ToString("dd/MM/yyyy HHtt");
             foreach (Image image in accommodation.Images)
                 ImagePaths.Add(image.Path);
         }

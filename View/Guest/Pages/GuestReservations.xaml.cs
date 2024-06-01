@@ -40,6 +40,7 @@ namespace BookingApp.View.Guest.Pages
         {
             InitializeComponent();
             this.user = user;
+            MainGrid.Focus();
             GuestReservationsViewModel = new GuestReservationsViewModel(this, user);
             DataContext = GuestReservationsViewModel;
             selectedAccommodation = new ReservedAccommodation();
