@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
-        Title="GuestCancelReservation" Height="200" Width="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+        Title="GuestCancelReservation" Height="200" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
     <Window.InputBindings>
         <KeyBinding
         Modifiers="Control" 
@@ -113,18 +113,21 @@
         </Style>
     </Window.Resources>
     <Grid Background="#DDDDDD">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="AccommodationInfo" Grid.Row="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
-        <Border Background="Transparent" Grid.Row="1" BorderBrush="black" BorderThickness="0.5" Height="32" Margin="15" CornerRadius="0">
+        <TextBlock x:Name="AccommodationInfo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <Border Background="Transparent" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="black" BorderThickness="0.5" Height="32" Margin="15" CornerRadius="10">
             <Label Content="Are you sure you want to cancel the reservation?" FontSize="15" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         </Border>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 0 0 10">
-            <Button Style="{DynamicResource ButtonStyle}" Content="YES" Margin="80 0 0 0" Width="70" Height="30" Command="{Binding cancelReservation}"></Button>
-            <Button Style="{DynamicResource ButtonStyle}" Content="NO" Margin="130 0 0 0" Width="70" Height="30" Command="{Binding closeWindow}"></Button>
-        </StackPanel>
+        <Button Grid.Row="2" Grid.Column="0" ToolTipService.ToolTip="Ctrl+Y" Style="{DynamicResource ButtonStyle}" Content="YES" Width="70" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding cancelReservation}"></Button>
+        <Button Grid.Row="2" Grid.Column="1" ToolTipService.ToolTip="Ctrl+N" Style="{DynamicResource ButtonStyle}" Content="NO" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70" Height="30" Command="{Binding closeWindow}"></Button>
+        
     </Grid>
 </Window>

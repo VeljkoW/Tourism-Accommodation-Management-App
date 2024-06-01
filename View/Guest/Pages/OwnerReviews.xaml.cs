@@ -31,6 +31,7 @@ namespace BookingApp.View.Guest.Pages
             this.user = user;
             OwnerReviewsViewModel = new OwnerReviewsViewModel(this, user);
             DataContext = OwnerReviewsViewModel;
+            MainGrid.Focus();
         }
     }
 }

@@ -170,13 +170,13 @@ namespace BookingApp.Domain.Model
                 if(isAccepted == true)
                 {
                     string str = "Your request for a change of reservation\nhas been accepted.\n";
-                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString() + "\nCheck Out: " + checkOutDate.ToString();
+                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString("dd/MM/yyyy HHtt") + "\nCheck Out: " + checkOutDate.ToString("dd/MM/yyyy HHtt");
                     return str;
                 }
                 else
                 {
                     string str = "The request to reschedule the reservation\nhas been declined. Please select new dates.\n";
-                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString() + "\nCheck Out: " + checkOutDate.ToString();
+                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString("dd/MM/yyyy HHtt") + "\nCheck Out: " + checkOutDate.ToString("dd/MM/yyyy HHtt");
                     return str;
                 }
             }

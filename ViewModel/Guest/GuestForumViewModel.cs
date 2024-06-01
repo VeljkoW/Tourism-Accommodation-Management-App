@@ -29,7 +29,9 @@ namespace BookingApp.ViewModel.Guest
         public ObservableCollection<GuestPost> postItems { get; set; }
         public RelayCommand OpenButtonClick => new RelayCommand(execute => OpenForum(), canExecute => CanOpenForum());
         public RelayCommand CloseButtonClick => new RelayCommand(execute => CloseForum());
-
+        public RelayCommand FirstComboBox => new RelayCommand(execute => FirstComboBoxSelect());
+        public RelayCommand SecondComboBox => new RelayCommand(execute => SecondComboBoxSelect());
+        public RelayCommand CommentTextBox => new RelayCommand(execute => CommentTextBoxFocus());
         public RelayCommand PostButtonClick => new RelayCommand(execute => PostComment(), canExecute => CanPostComment());
         public GuestForumViewModel(GuestForum guestForum, User user)
         {
@@ -44,6 +46,19 @@ namespace BookingApp.ViewModel.Guest
             GuestForum.usefulForum.Visibility = System.Windows.Visibility.Collapsed;
             GuestForum.UsernameLabel.Content += user.Username.ToString();
             GuestForum.WarningLabel.Visibility = System.Windows.Visibility.Visible;
+        }
+        public void FirstComboBoxSelect()
+        {
+            GuestForum.ComboBoxState.IsDropDownOpen = true;
+        }
+        public void SecondComboBoxSelect()
+        {
+            GuestForum.ComboBoxCity.Focusable = true;
+            GuestForum.ComboBoxCity.IsDropDownOpen = true;
+        }
+        public void CommentTextBoxFocus()
+        {
+            GuestForum.CommentTextBox.Focus();
         }
         public string SelectedChosenState
         {
@@ -128,6 +143,7 @@ namespace BookingApp.ViewModel.Guest
                     postItems.Add(guestPost);
                     ForumService.GetInstance().Update(forum);
                     findForum = true;
+                    GuestForum.CommentTextBox.Focusable = false;
                     break;
                 }
             }
@@ -148,6 +164,7 @@ namespace BookingApp.ViewModel.Guest
                 ForumService.GetInstance().Add(forum);
                 guestPost.ForumId = forum.Id;
                 GuestPostService.GetInstance().Update(guestPost);
+                GuestForum.CommentTextBox.Focusable = false;
             }
 
         }

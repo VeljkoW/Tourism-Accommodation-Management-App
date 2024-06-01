@@ -28,7 +28,8 @@ namespace BookingApp.ViewModel.Guest
             reservedAccommodation = selectedReservedAccommodation;
             GuestCancelReservation = guestCancelReservation;
             GuestReservationsViewModel = guestReservationsViewModel;
-            GuestCancelReservation.AccommodationInfo.Content += selectedReservedAccommodation.Accommodation.Name + ", Location: " + selectedReservedAccommodation.Accommodation.Location.State + " - " + selectedReservedAccommodation.Accommodation.Location.City;
+            GuestCancelReservation.AccommodationInfo.Text += selectedReservedAccommodation.Accommodation.Name + ", " + selectedReservedAccommodation.Accommodation.Location.State + " - " + selectedReservedAccommodation.Accommodation.Location.City
+                + selectedReservedAccommodation.CheckInDate.ToString(",  dd/MM/yyyy HHtt") + " - " + selectedReservedAccommodation.CheckOutDate.ToString("dd/MM/yyyy HHtt");
         }
 
         public void CloseWindow()

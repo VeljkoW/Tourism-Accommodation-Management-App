@@ -104,12 +104,12 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
-            <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
-            <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
-            <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
-            <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
-            <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+            <SolidColorBrush x:Key="Button.Static.Background1" Color="Transparent"/>
+            <SolidColorBrush x:Key="Button.Static.Border1" Color="Transparent"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#B7B7B7"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#B7B7B7"/>
+            <SolidColorBrush x:Key="Button.Pressed.Background1" Color="Transparent"/>
+            <SolidColorBrush x:Key="Button.Pressed.Border1" Color="Transparent"/>
             <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                 <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
@@ -160,12 +160,12 @@
 
             <Label x:Name="AccommodationName" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Content="Accommodation Name: " FontSize="20" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
             <Label x:Name="AccommodationLocation" Grid.Column="3" Grid.Row="0" Content="Location: " FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
-            <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PreviousImageButton_Click">
+            <Button  ToolTipService.ToolTip="Ctrl+P" Style="{DynamicResource ButtonStyle1}" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="PreviousImageButton_Click">
                 <Button.Content>
                     <Image Source="../../../Resources/Images/Guest/arrowleft.png"></Image>
                 </Button.Content>
             </Button>
-            <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NextImageButton_Click">
+            <Button  ToolTipService.ToolTip="Ctrl+N" Style="{DynamicResource ButtonStyle1}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NextImageButton_Click">
                 <Button.Content>
                     <Image Source="../../../Resources/Images/Guest/arrowright.png"></Image>
                 </Button.Content>
@@ -178,30 +178,30 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5 10 0 0">
                         <Label Grid.Row="1" Grid.Column="3" FontSize="17">Check-in date:*</Label>
-                        <DatePicker Background="WhiteSmoke" BorderBrush="WhiteSmoke" SelectedDateChanged="ChangedStartDate" x:Name="CheckInDatePicker" Margin="20 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                        <DatePicker  ToolTipService.ToolTip="Ctrl+I" Background="WhiteSmoke" BorderBrush="WhiteSmoke" SelectedDateChanged="ChangedStartDate" x:Name="CheckInDatePicker" Margin="20 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
                     </StackPanel>
                     <TextBlock x:Name="ValidateStartDate" HorizontalAlignment="Center" FontSize="10" Margin="130 0 0 0" Foreground="Red"></TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="5 10 0 0">
                         <Label Grid.Row="1" Grid.Column="3" FontSize="17">Check-out date:*</Label>
-                        <DatePicker Background="WhiteSmoke" SelectedDateChanged="ChangedEndDate" BorderBrush="WhiteSmoke" x:Name="CheckOutDatePicker" Margin="9 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                        <DatePicker  ToolTipService.ToolTip="Ctrl+O" Background="WhiteSmoke" SelectedDateChanged="ChangedEndDate" BorderBrush="WhiteSmoke" x:Name="CheckOutDatePicker" Margin="9 0 0 0" FontSize="15" Grid.Row="1" Grid.Column="3" Width="180" Height="30" DisplayDateStart="{x:Static sys:DateTime.Today}"/>
                     </StackPanel>
                     <TextBlock x:Name="ValidateEndDate" HorizontalAlignment="Center" FontSize="10" Margin="130 0 0 0" Foreground="Red"></TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="3 10 0 0">
                         <Label Grid.Row="2" Grid.Column="3" FontSize="17">Reservation days:*</Label>
-                        <TextBox Background="WhiteSmoke" PreviewKeyDown="DaysTextBox_PreviewKeyDown" x:Name="ReservationDaysTextBox" FontSize="15" Grid.Row="2" Grid.Column="3" Width="180" Height="30"
+                        <TextBox  ToolTipService.ToolTip="Ctrl+D" Background="WhiteSmoke" PreviewKeyDown="DaysTextBox_PreviewKeyDown" x:Name="ReservationDaysTextBox" FontSize="15" Grid.Row="2" Grid.Column="3" Width="180" Height="30"
                         Foreground="Gray" GotFocus="ReservationDays_Clicked" LostFocus="ReservationDays_NotClicked" TextChanged="InputDays"></TextBox>
                     </StackPanel>
                     <TextBlock x:Name="ValidateTextBoxDays" HorizontalAlignment="Center" FontSize="10" Margin="130 0 0 0" Foreground="Red"></TextBlock>
                     <StackPanel Margin="5 10 5 15">
-                        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="2" FontSize="17" Grid.Column="3" Width="120" Height="40" Command="{Binding ReservationSearchButton}">Search</Button>
+                        <Button  ToolTipService.ToolTip="Ctrl+S" Style="{DynamicResource ButtonStyle}" Grid.Row="2" FontSize="17" Grid.Column="3" Width="120" Height="40" Command="{Binding ReservationSearchButton}">Search</Button>
                     </StackPanel>
                 </StackPanel>
             </Border>
             <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="*Please select a date." FontSize="12" Margin="5 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
-            <ListBox Background="WhiteSmoke" x:Name="AvailableDates" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" FontSize="20" Margin="10 0 10 10" SelectionChanged="AvailableDates_SelectionChanged" SelectedValuePath="PrintAvailableDate" DisplayMemberPath="PrintAvailableDate"></ListBox>
-            <Button Style="{DynamicResource ButtonStyle}" x:Name="ReservationButton" Grid.Row="5" Grid.Column="3" Width="120" FontSize="15" Height="40" Command="{Binding ReservationClickButton}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">Reservation</Button>
+            <ListBox  ToolTipService.ToolTip="Ctrl+L" Background="WhiteSmoke" x:Name="AvailableDates" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" FontSize="20" Margin="10 0 10 10" SelectionChanged="AvailableDates_SelectionChanged" SelectedValuePath="PrintAvailableDate" DisplayMemberPath="PrintAvailableDate"></ListBox>
+            <Button  ToolTipService.ToolTip="Ctrl+R" Style="{DynamicResource ButtonStyle}" x:Name="ReservationButton" Grid.Row="5" Grid.Column="3" Width="120" FontSize="15" Height="40" Command="{Binding ReservationClickButton}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">Reservation</Button>
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="17" Margin="5 0 0 0" Content="Guest Number:*"></Label>
-            <TextBox Background="WhiteSmoke" PreviewKeyDown="GuestCommentTextBox_PreviewKeyDown" x:Name="GuestNumberTextBox" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" FontSize="15" Margin="75 0 25 0" Width="200" Height="30" Foreground="Gray"
+            <TextBox  ToolTipService.ToolTip="Ctrl+G" Background="WhiteSmoke" PreviewKeyDown="GuestCommentTextBox_PreviewKeyDown" x:Name="GuestNumberTextBox" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" FontSize="15" Margin="75 0 25 0" Width="200" Height="30" Foreground="Gray"
                      GotFocus="GuestNumber_Clicked" LostFocus="GuestNumber_NotClicked" TextChanged="InputGuestNumber" ></TextBox>
             <TextBlock x:Name="ValidateTextBoxGuest" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="10" Margin="50 0 0 13" Foreground="Red"></TextBlock>
         </Grid>

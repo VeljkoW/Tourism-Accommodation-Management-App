@@ -47,7 +47,7 @@ namespace BookingApp.ViewModel.Guest
         {
             GuestNotifications.Close();
         }
-        private void SelectFirstCard1()
+        private void SelectFirstCard()
         {
             var container = GuestNotifications.reviewsItems.ItemContainerGenerator.ContainerFromIndex(0) as ContentPresenter;
             if (container != null)
@@ -62,7 +62,7 @@ namespace BookingApp.ViewModel.Guest
         }
         public void Cards()
         {
-            SelectFirstCard1();
+            SelectFirstCard();
         }
         public void Refresh(object sender, RoutedEventArgs e)
         {

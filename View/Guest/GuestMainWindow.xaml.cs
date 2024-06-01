@@ -18,6 +18,7 @@ using BookingApp.View.Guest.Pages;
 using BookingApp.View.Guest.Windows;
 using Image = BookingApp.Domain.Model.Image;
 using BookingApp.ViewModel.Guest;
+using BookingApp.ViewModel;
 
 namespace BookingApp.View.Guest
 {
@@ -37,6 +38,8 @@ namespace BookingApp.View.Guest
 
         public OwnerReviews OwnerReviews { get; set; }
         public Accommodations Accommodations { get; set; }
+
+       
         public GuestMainWindow(User user)
         {
             InitializeComponent();
@@ -48,12 +51,11 @@ namespace BookingApp.View.Guest
             NavigationButtonBarPressed("AccommodationButton");
             mainFrame.Navigate(Accommodations);
         }
-        private void LogOut(object sender, RoutedEventArgs e)
-        {
-        }
+
         private void AccommodationsClick(object sender, RoutedEventArgs e)
         { 
             mainFrame.Navigate(Accommodations);
+            Accommodations.MainGrid.Focus();
             NavigationButtonBarPressed("AccommodationButton");
         }
 
@@ -61,6 +63,7 @@ namespace BookingApp.View.Guest
         {
             GuestReservations = new GuestReservations(user, this);
             mainFrame.Navigate(GuestReservations);
+            GuestReservations.MainGrid.Focus();
             NavigationButtonBarPressed("ReservationsButton");
         }
 
@@ -68,6 +71,7 @@ namespace BookingApp.View.Guest
         {
             OwnerReviews = new OwnerReviews(user);
             mainFrame.Navigate(OwnerReviews);
+            OwnerReviews.MainGrid.Focus();
             NavigationButtonBarPressed("ReviewsButton");
         }
 
@@ -75,6 +79,7 @@ namespace BookingApp.View.Guest
         {
             GuestForum = new GuestForum(user);
             mainFrame.Navigate(GuestForum);
+            GuestForum.MainGrid.Focus();
             NavigationButtonBarPressed("ForumButton");
         }
 
@@ -87,6 +92,8 @@ namespace BookingApp.View.Guest
 
         private void TutorialClick(object sender, RoutedEventArgs e)
         {
+            GuestTutorial guestTutorial = new GuestTutorial();
+            guestTutorial.Show();
         }
 
         private void NotificationsClick(object sender, RoutedEventArgs e)
