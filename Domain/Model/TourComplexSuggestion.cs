@@ -47,7 +47,7 @@ namespace BookingApp.Domain.Model
                 for (int i = 0; i < TourSuggestionIds.Length; i++)
                 {
                     TourSuggestion? suggestion = new TourSuggestion();
-                    suggestion = TourSuggestionService.GetInstance().GetById(Convert.ToInt32(TourSuggestionIds[i]));
+                    suggestion = TourSuggestionComplexService.GetInstance().GetById(Convert.ToInt32(TourSuggestionIds[i]));
                     if (suggestion != null)
                     {
                         TourSuggestions.Add(suggestion);
