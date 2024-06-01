@@ -61,19 +61,14 @@ namespace BookingApp.Services
                 {
                     bool attended = false;
 
-                    foreach (TourReservation tourReservation in tourReservations)
+                    foreach (TourReservation tourReservation in tourReservations.Where(t => t.TourScheduleId == tourSchedule.Id))
                     {
-                        if (tourReservation.TourScheduleId == tourSchedule.Id)
+                        foreach (TourPerson tourPerson in tourReservation.People.Where(t => t.KeyPointId != -1))
                         {
-                            foreach (TourPerson tourPerson in tourReservation.People)
-                            {
-                                if (tourPerson.KeyPointId != -1)
-                                {
-                                    attended = true;
-                                    break;
-                                }
-                            }
+                            attended = true;
+                            break;
                         }
+
                         if (attended)
                         {
                             break;
