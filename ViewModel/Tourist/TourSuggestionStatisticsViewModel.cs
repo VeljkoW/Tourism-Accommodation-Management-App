@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 
@@ -17,20 +19,73 @@ namespace BookingApp.ViewModel.Tourist
     public class TourSuggestionStatisticsViewModel
     {
         public TourSuggestionStatistics TourSuggestionStatistics { get; set; }
+        public TouristMainWindowViewModel TouristMainWindowViewModel { get; set; }
         public SeriesCollection LanguageData { get; set; } = new SeriesCollection();
         public SeriesCollection LocationData { get; set; } = new SeriesCollection();
         public RelayCommand ClickBoBack => new RelayCommand(execute => GoBackExecute());
         public RelayCommand ClickInGeneral => new RelayCommand(execute => InGeneralExecute());
         public RelayCommand ClickPrintPDF => new RelayCommand(execute => PrintPDFExecute());
         public User User;
-        public TourSuggestionStatisticsViewModel(TourSuggestionStatistics tourSuggestionStatistics, User user)
+        public bool Demo;
+        public CancellationTokenSource CancellationTokenSource;
+        public TourSuggestionStatisticsViewModel(TourSuggestionStatistics tourSuggestionStatistics, User user,bool demo,TouristMainWindowViewModel touristMainWindowViewModel)
         {
             TourSuggestionStatistics = tourSuggestionStatistics;
+            TouristMainWindowViewModel = touristMainWindowViewModel;
             this.User = user;
+            this.Demo = demo;
             AddYearsToComboBoxes();
             PopulateRequestsByLanguageGraph();
             PopulateRequestsByLocationGraph();
             InGeneralExecute();
+            if (Demo)
+            {
+                StartDemo();
+            }
+        }
+        public void EndDemoMode()
+        {
+            TourSuggestionStatistics.TourSuggestionStatisticsOverlay.Visibility = Visibility.Collapsed;
+            CancellationTokenSource.Cancel();
+            TouristMainWindowViewModel.EndDemoMode();
+            GoBackExecute();
+        }
+    
+        public async void StartDemo()
+        {
+            TourSuggestionStatistics.TourSuggestionStatisticsOverlay.Visibility = Visibility.Visible;
+            CancellationTokenSource = new CancellationTokenSource();
+            try
+            {
+                CancellationToken cancellationToken = CancellationTokenSource.Token;
+                await Task.Delay(1000, cancellationToken);
+                try
+                {
+                    TourSuggestionStatistics.Year1ComboBox.SelectedIndex = 0;
+                }
+                catch
+                {
+
+                }
+                await Task.Delay(1000, cancellationToken);
+                try
+                {
+                    TourSuggestionStatistics.Year2ComboBox.SelectedIndex = 0;
+                }
+                catch
+                {
+                
+                }
+                await Task.Delay(1000, cancellationToken);
+                InGeneralExecute();
+                await Task.Delay(1000, cancellationToken);
+                GoBackExecute();
+            }
+            catch
+            {
+                EndDemoMode();
+            }
+
         }
         public void AddYearsToComboBoxes()
         {

@@ -9,27 +9,142 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using BookingApp.Services;
+using System.Threading;
 
 namespace BookingApp.ViewModel.Tourist
 {
     public class TourSuggestionWindowViewModel
     {
         public TourSuggestionWindow TourSuggestionWindow { get; set; }
+        public TouristMainWindowViewModel? TouristMainWindowViewModel { get; set; }
         public User User { get; set; }
         public bool IsComplex { get; set; }
+        public bool Demo { get; set; }
         public int ComplexId { get; set; }
         public RelayCommand ClickCancel => new RelayCommand(execute => CancelExecute());
         public RelayCommand ClickSuggest => new RelayCommand(execute => SuggestExecute());
+        public CancellationTokenSource CancellationTokenSource;
 
-        public TourSuggestionWindowViewModel(TourSuggestionWindow tourSuggestionWindow, User user, bool isComplex, int complexId)
+        public TourSuggestionWindowViewModel(TourSuggestionWindow tourSuggestionWindow, User user, bool isComplex, int complexId, bool demo, TouristMainWindowViewModel touristMainWindowViewModel)
         {
             TourSuggestionWindow = tourSuggestionWindow;
             User = user;
             IsComplex = isComplex;
             ComplexId = complexId;
+            Demo = demo;
+            this.TouristMainWindowViewModel = touristMainWindowViewModel;
             AddStatesToComboBox(LocationService.GetInstance().GetAll());
+            if(Demo)
+            {
+                StartDemo();
+            }
         }
+        public void EndDemoMode()
+        {
+            TourSuggestionWindow.TourSuggestionWindowOverlay.Visibility = Visibility.Collapsed;
+            CancellationTokenSource.Cancel();
+            TouristMainWindowViewModel.EndDemoMode();
+            CancelExecute();
+        }
+        public async void StartDemo()
+        {
+            TourSuggestionWindow.TourSuggestionWindowOverlay.Visibility = Visibility.Visible;
+            CancellationTokenSource = new CancellationTokenSource();
+            try
+            {
+                CancellationToken cancellationToken = CancellationTokenSource.Token;
+                await Task.Delay(1000, cancellationToken);
+                TourSuggestionWindow.NumberOfPeopleTextBox.Text = "1";
+                await Task.Delay(1000, cancellationToken);
+                int numberOfPeople;
+                if (int.TryParse(TourSuggestionWindow.NumberOfPeopleTextBox.Text, out numberOfPeople))
+                {
+                    foreach (StackPanel stackpanel in TourSuggestionWindow.TextBoxesPanel.Children)
+                    {
+                        foreach (var child in stackpanel.Children)
+                        {
+                            if (child is TextBox textBox)
+                            {
+                                if (textBox.Name == "nameTextBox")
+                                {
+                                    textBox.Text = "J";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "Jo";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "Joh";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "John";
+                                    await Task.Delay(500, cancellationToken);
+                                }
+                                else if (textBox.Name == "surnameTextBox")
+                                {
+                                    textBox.Text = "S";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "Sm";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "Smi";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "Smit";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "Smith";
+                                    await Task.Delay(500, cancellationToken);
+                                }
+                                else if (textBox.Name == "ageTextBox")
+                                {
+                                    textBox.Text = "3";
+                                    await Task.Delay(500, cancellationToken);
+                                    textBox.Text = "31";
+                                    await Task.Delay(500, cancellationToken);
+                                }
+                            }
+                        }
+                    }
+                }
+                await Task.Delay(1000, cancellationToken);
+                TourSuggestionWindow.LanguageTextBox.Text = "D";
+                await Task.Delay(500, cancellationToken);
+                TourSuggestionWindow.LanguageTextBox.Text = "Du";
+                await Task.Delay(500, cancellationToken);
+                TourSuggestionWindow.LanguageTextBox.Text = "Dut";
+                await Task.Delay(500, cancellationToken);
+                TourSuggestionWindow.LanguageTextBox.Text = "Dutc";
+                await Task.Delay(500, cancellationToken);
+                TourSuggestionWindow.LanguageTextBox.Text = "Dutch";
+                await Task.Delay(1000, cancellationToken);
+                try
+                {
+                    TourSuggestionWindow.StateComboBox.SelectedIndex = 0;
+                }
+                catch
+                {
 
+                }
+                await Task.Delay(1000, cancellationToken);
+                try
+                {
+                    TourSuggestionWindow.CityComboBox.SelectedIndex = 0;
+                }
+                catch
+                {
+
+                }
+                await Task.Delay(1000, cancellationToken);
+                TourSuggestionWindow.StartDatePicker.Text = "26-Sep-24";
+                await Task.Delay(1000, cancellationToken);
+                TourSuggestionWindow.EndDatePicker.Text = "05-Dec-24";
+                await Task.Delay(1000, cancellationToken);
+                TourSuggestionWindow.DescriptionTextBox.Text = ":";
+                await Task.Delay(1000, cancellationToken);
+                TourSuggestionWindow.DescriptionTextBox.Text = ":D";
+                await Task.Delay(1000, cancellationToken);
+                CancelExecute();
+            }
+            catch
+            {
+                EndDemoMode();
+            }
+
+        }
         public void GenerateTextBoxes(object sender, TextChangedEventArgs e)
         {
             
