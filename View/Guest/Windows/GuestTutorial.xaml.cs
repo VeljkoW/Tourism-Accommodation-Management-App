@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,18 @@ namespace BookingApp.View.Guest.Windows
     public partial class GuestTutorial : Window
     {
         private DispatcherTimer timer;
+        public RelayCommand PlayVideo1 => new RelayCommand(execute => PlayVideo());
+        public RelayCommand PauseVideo1 => new RelayCommand(execute => PauseVideo());
+        public RelayCommand StopVideo1 => new RelayCommand(execute => StopVideo());
+        public RelayCommand Left1 => new RelayCommand(execute => LeftClick());
+        public RelayCommand Right1 => new RelayCommand(execute => RightClick());
+        public RelayCommand Exit => new RelayCommand(execute => CloseWin());
         public GuestTutorial()
         {
             InitializeComponent();
             InitializeVideoPlayer();
-            //videoPlayer.Source = new Uri("../../Resource/Video/proba.mp4", UriKind.RelativeOrAbsolute);
-            string videoPath = "../../../Resources/Video/proba.mp4";
+            DataContext = this;
+            string videoPath = "../../../Resources/Video/tutorial.mp4";
             videoPlayer.Source = new Uri(videoPath, UriKind.RelativeOrAbsolute);
         }
         private void InitializeVideoPlayer()
@@ -43,18 +50,30 @@ namespace BookingApp.View.Guest.Windows
                 timelineSlider.Value = videoPlayer.Position.TotalSeconds;
             }
         }
-        private void PlayVideo()
+        public void LeftClick()
+        {
+            videoPlayer.Position = videoPlayer.Position.Subtract(TimeSpan.FromSeconds(10));
+        }
+        public void RightClick()
+        {
+            videoPlayer.Position = videoPlayer.Position.Add(TimeSpan.FromSeconds(10));
+        }
+        public void CloseWin() 
+        {
+            Close();
+        }
+        public void PlayVideo()
         {
             videoPlayer.Play();
             timer.Start();
         }
 
-        private void PauseVideo()
+        public void PauseVideo()
         {
             videoPlayer.Pause();
             timer.Stop();
         }
-        private void StopVideo()
+        public void StopVideo()
         {
             videoPlayer.Stop();
             timer.Stop();

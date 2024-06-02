@@ -406,7 +406,7 @@ namespace BookingApp.ViewModel.Guest
 
                 if (currentStartDate == startDate.AddDays(31) || counterDates == 5)
                 {
-                    notificationManager.Show("Info", "In the entered date range, there are no available slots. Here are some recommended dates", NotificationType.Information);
+                   
                     break;
                 } 
 

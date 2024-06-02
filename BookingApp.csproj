@@ -115,7 +115,7 @@
 		<None Remove="Resources\Images\Tour\PlitvickaJezera.jpg" />
 		<None Remove="Resources\Images\Tour\PlitvickaJezera2.jpg" />
 		<None Remove="Resources\Images\view.png" />
-		<None Remove="Resources\Video\proba.mp4" />
+		<None Remove="Resources\Video\tutorial.mp4" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -265,7 +265,7 @@
 		<Resource Include="Resources\Images\TourReview\stock-photo-happy-funny-bearded-man-taking-selfie-and-showing-thumbs-up-in-manhattan-hipster-tourist-posing-523994248.jpg" />
 		<Resource Include="Resources\Images\TourReview\tourist.jpg" />
 		<Resource Include="Resources\Images\Tour\613a18aa2534ab00185376eb.jpg" />
-		<Resource Include="Resources\Video\proba.mp4" />
+		<Resource Include="Resources\Video\tutorial.mp4" />
   </ItemGroup>
 
 	<ItemGroup>
