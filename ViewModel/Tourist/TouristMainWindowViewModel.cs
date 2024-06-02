@@ -39,6 +39,7 @@ namespace BookingApp.ViewModel.Tourist
         public RelayCommand ClickTourSuggestion => new RelayCommand(execute => TourSuggestionExecute(false));
         public RelayCommand ClickTourSuggestionStatistics => new RelayCommand(execute => TourSuggestionStatisticsExecute(false));
         public RelayCommand ClickTourComplexSuggestion => new RelayCommand(execute => TourComplexSuggestionExecute());
+        public RelayCommand ClickSearchBox => new RelayCommand(execute => SearchBoxExecute());
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private ObservableCollection<TourSuggestion> tourSuggestions { get; set; }
@@ -711,7 +712,30 @@ namespace BookingApp.ViewModel.Tourist
             TouristMainWindow.TouristMainWindowOverlay.Visibility = Visibility.Collapsed;
             if (TabBeforeDemo != -1)
             {
-                TouristMainWindow.Tab.SelectedIndex = TabBeforeDemo;
+                if(TabBeforeDemo == 0)
+                {
+                    ToursTabExecute();
+                }
+                else if(TabBeforeDemo == 1)
+                {
+                    OngoingToursTabExecute();
+                }
+                else if(TabBeforeDemo == 2)
+                {
+                    FinishedToursTabExecute();
+                }
+                else if(TabBeforeDemo == 3)
+                {
+                    ReservationsTabExecute();
+                }
+                else if(TabBeforeDemo == 4)
+                {
+                    SuggestionsTabExecute();
+                }
+                else
+                {
+                    CouponsTabExecute();
+                }
                 CollapseSearchBarExecute();
             }
         }
@@ -737,15 +761,7 @@ namespace BookingApp.ViewModel.Tourist
                         CollapseSearchBarExecute();
                     }
                     await Task.Delay(1000,cancellationToken);
-
-                    TextBox textBox = TouristMainWindow.SearchBarTextBox;
-                    if (textBox.Text == "Search tours...")
-                    {
-                        textBox.Text = string.Empty;
-                        textBox.Foreground = Brushes.Black;
-                    }
-                    TouristMainWindow.SearchBarGrid.Visibility = Visibility.Visible;
-
+                    SearchBoxExecute();
                     await Task.Delay(1000, cancellationToken);
                     TouristMainWindow.LanguageTextBox.Text = "E";
                     await Task.Delay(500, cancellationToken);
@@ -806,6 +822,16 @@ namespace BookingApp.ViewModel.Tourist
         {
             if(DemoActive) { return false; }
             return true;
+        }
+        public void SearchBoxExecute()
+        {
+            TextBox textBox = TouristMainWindow.SearchBarTextBox;
+            if (textBox.Text == "Search tours...")
+            {
+                textBox.Text = string.Empty;
+                textBox.Foreground = Brushes.Black;
+            }
+            TouristMainWindow.SearchBarGrid.Visibility = Visibility.Visible;
         }
     }
 }

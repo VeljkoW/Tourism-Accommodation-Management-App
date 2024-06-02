@@ -14,6 +14,9 @@
         <KeyBinding Command="{Binding ClickReservationsTab}" Key="F4"/>
         <KeyBinding Command="{Binding ClickSuggestionsTab}" Key="F5"/>
         <KeyBinding Command="{Binding ClickCouponsTab}" Key="F6"/>
+        <KeyBinding Command="{Binding ClickDemo}" Key="F7"/>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding ClickNotificationButton}" />
+        <KeyBinding Key="S" Modifiers="Control" Command="{Binding ClickSearchBox}"/>
     </Window.InputBindings>
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
@@ -136,6 +139,7 @@
                             <Button Width="30" Height="25" Margin="0,5,30,5" HorizontalAlignment="Right" Grid.Column="1" Background="{StaticResource BorderColorBrush}" Cursor="Hand" Command="{Binding ClickSearchTours}" x:Name="SearchBarButton">
                                 <Image Source="pack://application:,,,/Resources/Images/Tourist/search.png" Width="17" Height="17"/>
                             </Button>
+                            <TextBlock Text="Ctrl + S" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" Margin="0 0 0 5" Foreground="#f2d8bf"/>
                         </Grid>
                     </Border>
                     <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10" x:Name="OngoingToursTabHeader" Visibility="Collapsed">
@@ -195,7 +199,7 @@
                         </Button.Effect>
                         <Image Source="../../Resources/Images/Tourist/bell.png" Width="23" Height="23"/>
                     </Button>
-
+                    <TextBlock Text="Ctrl + N" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" Margin="0 0 0 5" Foreground="#f2d8bf"/>
                     <Border Grid.Column="6" BorderThickness="1,1,0,1" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="10,0,0,10">
                         <Grid>
                             <Grid.RowDefinitions>
