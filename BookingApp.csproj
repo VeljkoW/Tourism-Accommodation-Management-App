@@ -54,28 +54,46 @@
 		<None Remove="Resources\Images\Owner\arrow-up.png" />
 		<None Remove="Resources\Images\Owner\background1.jpg" />
 		<None Remove="Resources\Images\Owner\bell.png" />
+		<None Remove="Resources\Images\Owner\bellWhite.png" />
 		<None Remove="Resources\Images\Owner\bookmark.png" />
+		<None Remove="Resources\Images\Owner\bookmarkWhite.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
+		<None Remove="Resources\Images\Owner\check-boxWhite.png" />
+		<None Remove="Resources\Images\Owner\enovationWhite.png" />
 		<None Remove="Resources\Images\Owner\forum-user.png" />
 		<None Remove="Resources\Images\Owner\forum.png" />
+		<None Remove="Resources\Images\Owner\forumUserWhite.png" />
+		<None Remove="Resources\Images\Owner\forumWhite.png" />
 		<None Remove="Resources\Images\Owner\guest-rating.png" />
+		<None Remove="Resources\Images\Owner\guestRatingWhite.png" />
+		<None Remove="Resources\Images\Owner\guestReviewWhite.png" />
 		<None Remove="Resources\Images\Owner\hotel.png" />
 		<None Remove="Resources\Images\Owner\hotelBlue.png" />
+		<None Remove="Resources\Images\Owner\hotelWhite.png" />
 		<None Remove="Resources\Images\Owner\info.png" />
+		<None Remove="Resources\Images\Owner\keyWhite.png" />
+		<None Remove="Resources\Images\Owner\logo.png" />
 		<None Remove="Resources\Images\Owner\medal.png" />
 		<None Remove="Resources\Images\Owner\owner.png" />
 		<None Remove="Resources\Images\Owner\record.png" />
 		<None Remove="Resources\Images\Owner\renovation.png" />
+		<None Remove="Resources\Images\Owner\renovationWhite.png" />
 		<None Remove="Resources\Images\Owner\rescheduling.png" />
+		<None Remove="Resources\Images\Owner\reschedulingWhite.png" />
 		<None Remove="Resources\Images\Owner\review.png" />
 		<None Remove="Resources\Images\Owner\serbia-flag.png" />
 		<None Remove="Resources\Images\Owner\star.png" />
+		<None Remove="Resources\Images\Owner\starWhite.png" />
 		<None Remove="Resources\Images\Owner\statistics.png" />
+		<None Remove="Resources\Images\Owner\statisticsWhite.png" />
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
+		<None Remove="Resources\Images\Owner\user-verificationWhite.png" />
 		<None Remove="Resources\Images\Owner\user.png" />
 		<None Remove="Resources\Images\Owner\user128x128.png" />
+		<None Remove="Resources\Images\Owner\userWhite.png" />
 		<None Remove="Resources\Images\Owner\verified-user.png" />
 		<None Remove="Resources\Images\Owner\x-box.png" />
+		<None Remove="Resources\Images\Owner\x-boxWhite.png" />
     <None Remove="Resources\Images\ratetour.png" />
     <None Remove="Resources\Images\report.png" />
     <None Remove="Resources\Images\star.png" />
@@ -118,10 +136,20 @@
 	  <Resource Include="Resources\Images\Guest\medal.png" />
 	  <Resource Include="Resources\Images\Guest\refresh.png" />
 	  <Resource Include="Resources\Images\Guest\superGuest.png" />
+	  <Resource Include="Resources\Images\Owner\bellWhite.png" />
 	  <Resource Include="Resources\Images\Owner\bookmark.png" />
+	  <Resource Include="Resources\Images\Owner\bookmarkWhite.png" />
+	  <Resource Include="Resources\Images\Owner\check-boxWhite.png" />
 	  <Resource Include="Resources\Images\Owner\forum-user.png" />
+	  <Resource Include="Resources\Images\Owner\forumUserWhite.png" />
+	  <Resource Include="Resources\Images\Owner\forumWhite.png" />
+	  <Resource Include="Resources\Images\Owner\guestRatingWhite.png" />
+	  <Resource Include="Resources\Images\Owner\guestReviewWhite.png" />
 	  <Resource Include="Resources\Images\Owner\hotelBlue.png" />
+	  <Resource Include="Resources\Images\Owner\hotelWhite.png" />
 	  <Resource Include="Resources\Images\Owner\info.png" />
+	  <Resource Include="Resources\Images\Owner\keyWhite.png" />
+	  <Resource Include="Resources\Images\Owner\logo.png" />
 	  <Resource Include="Resources\Images\Owner\medal.png" />
 	  <Resource Include="Resources\Images\Owner\owner.png" />
 	  <Resource Include="Resources\Images\Owner\renovation.png" />
@@ -186,16 +214,23 @@
 		<Resource Include="Resources\Images\Owner\guest-rating.png" />
 		<Resource Include="Resources\Images\Owner\hotel.png" />
 		<Resource Include="Resources\Images\Owner\record.png" />
+		<Resource Include="Resources\Images\Owner\renovationWhite.png" />
 		<Resource Include="Resources\Images\Owner\rescheduling.png" />
+		<Resource Include="Resources\Images\Owner\reschedulingWhite.png" />
 		<Resource Include="Resources\Images\Owner\review.png" />
 		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
 		<Resource Include="Resources\Images\Owner\star.png" />
+		<Resource Include="Resources\Images\Owner\starWhite.png" />
 		<Resource Include="Resources\Images\Owner\statistics.png" />
+		<Resource Include="Resources\Images\Owner\statisticsWhite.png" />
 		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
+		<Resource Include="Resources\Images\Owner\user-verificationWhite.png" />
 		<Resource Include="Resources\Images\Owner\user.png" />
 		<Resource Include="Resources\Images\Owner\user128x128.png" />
+		<Resource Include="Resources\Images\Owner\userWhite.png" />
 		<Resource Include="Resources\Images\Owner\verified-user.png" />
 		<Resource Include="Resources\Images\Owner\x-box.png" />
+		<Resource Include="Resources\Images\Owner\x-boxWhite.png" />
 		<Resource Include="Resources\Images\Tourist\bell.png" />
 		<Resource Include="Resources\Images\Tourist\coupon.png" />
 		<Resource Include="Resources\Images\Tourist\live.png" />
@@ -219,6 +254,11 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Settings.settings</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\Guide\Pages\UserControlTourist.xaml.cs">
 	    <SubType>Code</SubType>
@@ -245,5 +285,12 @@
 	  <EmbeddedResource Update="Properties\Resources.sr.resx">
 	    <Generator></Generator>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
 	</ItemGroup>
 </Project>

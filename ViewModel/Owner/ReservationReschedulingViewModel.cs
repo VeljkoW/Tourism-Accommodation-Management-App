@@ -206,6 +206,7 @@ namespace BookingApp.ViewModel.Owner
                     notificationManager.Show("Info", "There are no reservation request to accept/decline", NotificationType.Information);
                 else
                     notificationManager.Show("Info", "ne postoje zahtevi za renoviranje na koje treba da se odgovori", NotificationType.Information);
+                ReservationRescheduling.CancelRenovationAccept.Visibility = System.Windows.Visibility.Visible;
             }
         }
         public void UpdateGuestReschedulingRequests()
@@ -225,11 +226,28 @@ namespace BookingApp.ViewModel.Owner
         {
             foreach (GuestReschedulingRequest GuestReschedulingRequest in GuestReschedulingRequests)
             {
-                if (isFreeSlot(GuestReschedulingRequest))
-                    GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/check-box.png";
+                /*if (isFreeSlot(GuestReschedulingRequest))
+                {
+                    if(App.currentTheme() == "Light")
+                        GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/check-box.png";
+                    else
+                        GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/check-boxWhite.png";
+                }
                 else
-                    GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/x-box.png";
-
+                {
+                    if (App.currentTheme() == "Light")
+                        GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/x-box.png";
+                    else
+                        GuestReschedulingRequest.ImagePath = "../../Resources/Images/Owner/x-boxWhite.png";
+                }*/
+                if (isFreeSlot(GuestReschedulingRequest))
+                {
+                    GuestReschedulingRequest.IsFreeText = "Yes";
+                }
+                else
+                {
+                    GuestReschedulingRequest.IsFreeText = "No";
+                }
             }
         }
         public bool isFreeSlot(GuestReschedulingRequest GuestReschedulingRequest)

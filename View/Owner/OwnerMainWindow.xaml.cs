@@ -23,13 +23,14 @@ using System.Windows.Shapes;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
 using ForumModel = BookingApp.Domain.Model.Forum;
+using System.ComponentModel;
 
 namespace BookingApp.View.Owner
 {
     /// <summary>
     /// Interaction logic for OwnerMainWindow.xaml
     /// </summary>
-    public partial class OwnerMainWindow : Window
+    public partial class OwnerMainWindow : Window, INotifyPropertyChanged
     {
         public const string SRB = "sr-RS";
         public const string ENG = "en-US";
@@ -43,13 +44,46 @@ namespace BookingApp.View.Owner
         public ObservableCollection<ReservedAccommodation> ReservedAccommodations { get; set; }
         public ObservableCollection<OwnerNotification> OwnerNotifications { get; set; }
         public OwnerMainWindowViewModel OwnerMainWindowViewModel { get; set; }
+        private string currentNavigationButton {  get; set; }
+        public string CurrentNavigationButton
+        {
+            get { return currentNavigationButton; }
+            set
+            {
+                if (currentNavigationButton != value)
+                {
+                    currentNavigationButton = value;
+                    NavigationButtonBarPressed(currentNavigationButton);
+                    OnPropertyChanged(nameof(currentNavigationButton));
+                }
+            }
+        }
+        public SolidColorBrush backgroundButtonPressedBrush { get; set; }
+        public SolidColorBrush basicBackgroundBrush { get; set; }
+        public SolidColorBrush basicDarkBackgroundBrush { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
         //public AccommodationStatistics AccommodationStatistics {  get; set; }
         public OwnerMainWindow(User user)
         {
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            Color basicDarkBackgroundColor = (Color)FindResource("OwnerTabDarkColor");
+            basicDarkBackgroundBrush = new SolidColorBrush(basicDarkBackgroundColor);
             App.ChangeLanguage(ENG);
             InitializeComponent();
             OwnerMainWindowViewModel = new OwnerMainWindowViewModel(this, user);
             DataContext = OwnerMainWindowViewModel;
+            ChangeThemeLight();
+            App.ThemeChanged += OnThemeChanged;
 
             this.user = user;
             NotificationListBox.Visibility = Visibility.Collapsed;
@@ -64,7 +98,6 @@ namespace BookingApp.View.Owner
             Renovation = new Renovation(this);
             RenovationHistory = new RenovationHistory(this);
             Forum = new Forum(this);
-            //AccommodationStatistics = new AccommodationStatistics(this);
             mainFrame.Navigate(AccommodationRegistration);
 
             if (OwnerNotifications.Count == 0)
@@ -73,7 +106,7 @@ namespace BookingApp.View.Owner
                 NotificationListBox.BorderThickness = new Thickness(1);
                 NewNotificationImage.Visibility = Visibility.Collapsed;
             }
-            NavigationButtonBarPressed("AccommodationManagementButton");
+            CurrentNavigationButton = "AccommodationManagementButton";
             ChangeLanguageENG();
         }
         private void LogOut(object sender, RoutedEventArgs e)
@@ -85,7 +118,8 @@ namespace BookingApp.View.Owner
         private void AccommodationManagementClick(object sender, RoutedEventArgs e)
         { 
             mainFrame.Navigate(AccommodationRegistration);
-            NavigationButtonBarPressed("AccommodationManagementButton");
+            //NavigationButtonBarPressed("AccommodationManagementButton");
+            CurrentNavigationButton = "AccommodationManagementButton";
         }
 
         private void GuestRatingClick(object sender, RoutedEventArgs e)
@@ -94,40 +128,46 @@ namespace BookingApp.View.Owner
             NotificationListBox.BorderBrush = Brushes.Gray;
             NotificationListBox.BorderThickness = new Thickness(1);
             mainFrame.Navigate(GuestRatingPage);
-            NavigationButtonBarPressed("GuestRatingButton");
+            //NavigationButtonBarPressed("GuestRatingButton");
+            CurrentNavigationButton = "GuestRatingButton";
         }
 
         private void GuestReviewsClick(object sender, RoutedEventArgs e)
         {
             GuestReviews GuestReviews = new GuestReviews(this);
             mainFrame.Navigate(GuestReviews);
-            NavigationButtonBarPressed("GuestReviewsButton");
+            //NavigationButtonBarPressed("GuestReviewsButton");
+            CurrentNavigationButton = "GuestReviewsButton";
         }
 
         private void AccommodationStatisticsClick(object sender, RoutedEventArgs e)
         {
             AccommodationStatistics AccommodationStatistics = new AccommodationStatistics(this);
             mainFrame.Navigate(AccommodationStatistics);
-            NavigationButtonBarPressed("AccommodationStatisticsButton");
+            //NavigationButtonBarPressed("AccommodationStatisticsButton");
+            CurrentNavigationButton = "AccommodationStatisticsButton";
         }
 
         private void ReservationReschedulingClick(object sender, RoutedEventArgs e)
         {
             ReservationRescheduling ReservationRescheduling = new ReservationRescheduling(user);
             mainFrame.Navigate(ReservationRescheduling);
-            NavigationButtonBarPressed("ReservationReschedulingButton");
+            //NavigationButtonBarPressed("ReservationReschedulingButton");
+            CurrentNavigationButton = "ReservationReschedulingButton";
         }
 
         private void RenovationClick(object sender, RoutedEventArgs e)
         { 
             mainFrame.Navigate(Renovation);
-            NavigationButtonBarPressed("RenovationButton");
+            //NavigationButtonBarPressed("RenovationButton");
+            CurrentNavigationButton = "RenovationButton";
         }
 
         private void ForumClick(object sender, RoutedEventArgs e)
         { 
             mainFrame.Navigate(Forum);
-            NavigationButtonBarPressed("ForumButton");
+            //NavigationButtonBarPressed("ForumButton");
+            CurrentNavigationButton = "ForumButton";
         }
 
         private void NotificationButtonClick(object sender, RoutedEventArgs e)
@@ -140,39 +180,55 @@ namespace BookingApp.View.Owner
         }
         public void NavigationButtonBarPressed(string buttonName)
         {
-            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
-            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
-            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
-            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
-
-            AccommodationManagementButton.Background = buttonName == "AccommodationManagementButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
-            AccommodationStatisticsButton.Background = buttonName == "AccommodationStatisticsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
-            ReservationReschedulingButton.Background = buttonName == "ReservationReschedulingButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
-            GuestRatingButton.Background = buttonName == "GuestRatingButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
-            GuestReviewsButton.Background = buttonName == "GuestReviewsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
-            RenovationButton.Background = buttonName == "RenovationButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
-            ForumButton.Background = buttonName == "ForumButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            if (App.currentTheme() == "Light")
+            {
+                AccommodationManagementButton.Background = buttonName == "AccommodationManagementButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+                AccommodationStatisticsButton.Background = buttonName == "AccommodationStatisticsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+                ReservationReschedulingButton.Background = buttonName == "ReservationReschedulingButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+                GuestRatingButton.Background = buttonName == "GuestRatingButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+                GuestReviewsButton.Background = buttonName == "GuestReviewsButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+                RenovationButton.Background = buttonName == "RenovationButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+                ForumButton.Background = buttonName == "ForumButton" ? backgroundButtonPressedBrush : basicBackgroundBrush;
+            }
+            else
+            {
+                AccommodationManagementButton.Background = buttonName == "AccommodationManagementButton" ? backgroundButtonPressedBrush : basicDarkBackgroundBrush;
+                AccommodationStatisticsButton.Background = buttonName == "AccommodationStatisticsButton" ? backgroundButtonPressedBrush : basicDarkBackgroundBrush;
+                ReservationReschedulingButton.Background = buttonName == "ReservationReschedulingButton" ? backgroundButtonPressedBrush : basicDarkBackgroundBrush;
+                GuestRatingButton.Background = buttonName == "GuestRatingButton" ? backgroundButtonPressedBrush : basicDarkBackgroundBrush;
+                GuestReviewsButton.Background = buttonName == "GuestReviewsButton" ? backgroundButtonPressedBrush : basicDarkBackgroundBrush;
+                RenovationButton.Background = buttonName == "RenovationButton" ? backgroundButtonPressedBrush : basicDarkBackgroundBrush;
+                ForumButton.Background = buttonName == "ForumButton" ? backgroundButtonPressedBrush : basicDarkBackgroundBrush;
+            }
         }
 
         private void ChangeLanguageSRB(object sender, RoutedEventArgs e)
         {
             App.ChangeLanguage(SRB);
-            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
-            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
-            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
-            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
-            ENGButton.Background = basicBackgroundBrush;
-            SRBButton.Background = backgroundButtonPressedBrush;
+            if (App.currentTheme() == "Light")
+            {
+                ENGButton.Background = basicBackgroundBrush;
+                SRBButton.Background = backgroundButtonPressedBrush;
+            }
+            else
+            {
+                ENGButton.Background = basicDarkBackgroundBrush;
+                SRBButton.Background = backgroundButtonPressedBrush;
+            }
         }
         private void ChangeLanguageENG()
         {
             App.ChangeLanguage(ENG);
-            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
-            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
-            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
-            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
-            ENGButton.Background = backgroundButtonPressedBrush;
-            SRBButton.Background = basicBackgroundBrush;
+            if(App.currentTheme() == "Light")
+            {
+                ENGButton.Background = backgroundButtonPressedBrush;
+                SRBButton.Background = basicBackgroundBrush;
+            }
+            else
+            {
+                ENGButton.Background = backgroundButtonPressedBrush;
+                SRBButton.Background = basicDarkBackgroundBrush;
+            }
         }
         private void ChangeLanguageENG(object sender, RoutedEventArgs e)
         {
@@ -181,12 +237,23 @@ namespace BookingApp.View.Owner
 
         private void ChangeThemeLight(object sender, RoutedEventArgs e)
         {
+            ChangeThemeLight();
+        }
+        public void ChangeThemeLight()
+        {
+            LightThemeButton.Background = backgroundButtonPressedBrush;
+            DarkThemeButton.Background = basicBackgroundBrush;
+
+            App.ChangeTheme("Light");
+
 
         }
-
         private void ChangeThemeDark(object sender, RoutedEventArgs e)
         {
+            LightThemeButton.Background = basicDarkBackgroundBrush;
+            DarkThemeButton.Background = backgroundButtonPressedBrush;
 
+            App.ChangeTheme("Dark");
         }
 
         private void NotificationSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -224,6 +291,60 @@ namespace BookingApp.View.Owner
                 mainFrame.Navigate(GuestRatingPage);
                 NavigationButtonBarPressed("GuestRatingButton");
                 OwnerNotificationService.GetInstance().Delete(OwnerMainWindowViewModel.SelectedOwnerNotification.Id);
+            }
+        }
+        private void OnThemeChanged()
+        {
+            NavigationButtonBarPressed(CurrentNavigationButton);
+            if(App.currentTheme() == "Light")
+            {
+                AccommodationManagementImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/hotel.png"));
+                AccommodationStatisticsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/statistics.png"));
+                ReservationReschedulingImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/rescheduling.png"));
+                GuestRatingImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/guest-rating.png"));
+                GuestReviewsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/review.png"));
+                RenovationImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/renovation.png"));
+                ForumImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/forum.png"));
+                NotificationBellImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/bell.png"));
+                OwnerUserImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/user.png"));
+                
+                MainWindowGrid.Background = new SolidColorBrush(Colors.White);
+                if(App.currentLanguage() == ENG)
+                {
+                    ENGButton.Background = backgroundButtonPressedBrush;
+                    SRBButton.Background = basicBackgroundBrush;
+                }
+                else
+                {
+                    ENGButton.Background = basicBackgroundBrush;
+                    SRBButton.Background = backgroundButtonPressedBrush;
+                }
+            }
+            else
+            {
+                AccommodationManagementImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/hotelWhite.png"));
+                AccommodationStatisticsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/statisticsWhite.png"));
+                ReservationReschedulingImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/reschedulingWhite.png"));
+                GuestRatingImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/guestRatingWhite.png"));
+                GuestReviewsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/guestReviewWhite.png"));
+                RenovationImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/renovationWhite.png"));
+                ForumImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/forumWhite.png"));
+                NotificationBellImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/bellWhite.png"));
+                OwnerUserImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/userWhite.png"));
+
+                Color OwnerDarkBackgroundColor = (Color)FindResource("OwnerDarkBackgroundColor");
+                SolidColorBrush OwnerDarkBackgroundColorBrush = new SolidColorBrush(OwnerDarkBackgroundColor);
+                MainWindowGrid.Background = OwnerDarkBackgroundColorBrush;
+                if (App.currentLanguage() == ENG)
+                {
+                    ENGButton.Background = backgroundButtonPressedBrush;
+                    SRBButton.Background = basicDarkBackgroundBrush;
+                }
+                else
+                {
+                    ENGButton.Background = basicDarkBackgroundBrush;
+                    SRBButton.Background = backgroundButtonPressedBrush;
+                }
             }
         }
     }

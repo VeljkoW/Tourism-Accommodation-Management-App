@@ -36,6 +36,7 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             AccommodationStatisticsViewModel = new AccommodationStatisticsViewModel(this);
             DataContext = AccommodationStatisticsViewModel;
+            GridsVisibility();
             StatisticsByYearTable.IsEnabled = false;
             StatisticsByMonthTable.IsEnabled = false;
             MostOccupiedYearTextBlock.Visibility = Visibility.Collapsed;
@@ -43,6 +44,8 @@ namespace BookingApp.View.Owner
             YearSelectedValidation.Visibility = Visibility.Collapsed;
             AccommodationSelectedValidation.Visibility = Visibility.Visible;
             App.LanguageChanged += OnLanguageChanged;
+            App.ThemeChanged += OnThemeChanged;
+            OnThemeChanged();
             if (App.currentLanguage() == ENG)
                 AccommodationSelectedValidation.Text = "Select the accommodation!";
             else
@@ -115,7 +118,7 @@ namespace BookingApp.View.Owner
             //AccommodationRegistration.CityComboBox.SelectedItem = SelectedLocation;
 
             OwnerMainWindow.mainFrame.Navigate(AccommodationRegistration);
-            OwnerMainWindow.NavigationButtonBarPressed("AccommodationManagementButton");
+            OwnerMainWindow.CurrentNavigationButton = "AccommodationManagementButton";
         }
 
         private void CloseAccommodationsClick1(object sender, RoutedEventArgs e)
@@ -153,9 +156,85 @@ namespace BookingApp.View.Owner
             AccommodationRegistration.Dispatcher.Invoke(() =>
             {
                 OwnerMainWindow.mainFrame.Navigate(AccommodationRegistration);
-                OwnerMainWindow.NavigationButtonBarPressed("AccommodationManagementButton");
+                OwnerMainWindow.CurrentNavigationButton = "AccommodationManagementButton";
                 AccommodationRegistration.ScrollViewerName.ScrollToVerticalOffset(AccommodationRegistration.ScrollViewerName.VerticalOffset + 510);
             });
+        }
+
+        public void GridsVisibility()
+        {
+            switch (AccommodationStatisticsViewModel.CheckLocations())
+            {
+                case 0:
+                    MostPopularGrid1.Visibility = Visibility.Collapsed;
+                    MostPopularGrid2.Visibility = Visibility.Collapsed;
+                    MostPopularGrid3.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid1.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid2.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid3.Visibility = Visibility.Collapsed;
+                    break;
+                case 1:
+                    MostPopularGrid1.Visibility = Visibility.Visible;
+                    MostPopularGrid2.Visibility = Visibility.Collapsed;
+                    MostPopularGrid3.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid1.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid2.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid3.Visibility = Visibility.Collapsed;
+                    break;
+                case 2:
+                    MostPopularGrid1.Visibility = Visibility.Visible;
+                    MostPopularGrid2.Visibility = Visibility.Visible;
+                    MostPopularGrid3.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid1.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid2.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid3.Visibility = Visibility.Collapsed;
+                    break;
+                case 3:
+                    MostPopularGrid1.Visibility = Visibility.Visible;
+                    MostPopularGrid2.Visibility = Visibility.Visible;
+                    MostPopularGrid3.Visibility = Visibility.Visible;
+                    MostUnpopularGrid1.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid2.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid3.Visibility = Visibility.Collapsed;
+                    break;
+                case 4:
+                    MostPopularGrid1.Visibility = Visibility.Visible;
+                    MostPopularGrid2.Visibility = Visibility.Visible;
+                    MostPopularGrid3.Visibility = Visibility.Visible;
+                    MostUnpopularGrid1.Visibility = Visibility.Visible;
+                    MostUnpopularGrid2.Visibility = Visibility.Collapsed;
+                    MostUnpopularGrid3.Visibility = Visibility.Collapsed;
+                    break;
+                case 5:
+                    MostPopularGrid1.Visibility = Visibility.Visible;
+                    MostPopularGrid2.Visibility = Visibility.Visible;
+                    MostPopularGrid3.Visibility = Visibility.Visible;
+                    MostUnpopularGrid1.Visibility = Visibility.Visible;
+                    MostUnpopularGrid2.Visibility = Visibility.Visible;
+                    MostUnpopularGrid3.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    MostPopularGrid1.Visibility = Visibility.Visible;
+                    MostPopularGrid2.Visibility = Visibility.Visible;
+                    MostPopularGrid3.Visibility = Visibility.Visible;
+                    MostUnpopularGrid1.Visibility = Visibility.Visible;
+                    MostUnpopularGrid2.Visibility = Visibility.Visible;
+                    MostUnpopularGrid3.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+        public void OnThemeChanged()
+        {
+            if (App.currentTheme() == "Light")
+            {
+                var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
+            else
+            {
+                var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
         }
         private void OnLanguageChanged()
         {
