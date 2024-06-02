@@ -236,6 +236,9 @@
     <value>Komentar:*</value>
     <comment>GuestRating</comment>
   </data>
+  <data name="Date:" xml:space="preserve">
+    <value>Datum:</value>
+  </data>
   <data name="Decline" xml:space="preserve">
     <value>Odbij</value>
     <comment>ReservationRescheduling</comment>
@@ -499,6 +502,9 @@
   <data name="Theme" xml:space="preserve">
     <value>Tema</value>
   </data>
+  <data name="There are no more guests to rate" xml:space="preserve">
+    <value>Nema više gostiju za ocenjivanje</value>
+  </data>
   <data name="Type:" xml:space="preserve">
     <value>Tip:</value>
   </data>
@@ -523,6 +529,9 @@
   <data name="You are a Superowner" xml:space="preserve">
     <value>Ti si Super-vlasnik!</value>
     <comment>GuestReviews</comment>
+  </data>
+  <data name="You successfully rated all the guests" xml:space="preserve">
+    <value>Uspešno su ocenjeni svi gosti!</value>
   </data>
   <data name="Your Accommodations" xml:space="preserve">
     <value>Tvoji Smeštajevi</value>

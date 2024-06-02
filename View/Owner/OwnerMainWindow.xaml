@@ -9,16 +9,6 @@
         Title="OwnerMainWindow" Height="1080" Width="1920"
         WindowState="Maximized">
     <Window.Resources>
-        <Color x:Key="BackgroundColor">#579BB1</Color>
-        <Color x:Key="ButtonPressedColor">#154c79</Color>
-        <Color x:Key="BorderColor">#000033</Color>
-        <Color x:Key="TextColor">#403022</Color>
-        <Color x:Key="TabColor">#ebd3bc</Color>
-        <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
-        <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}"/>
-        <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
-        <SolidColorBrush x:Key="TabColorBrush" Color="{StaticResource TabColor}"/>
-        <SolidColorBrush x:Key="ButtonPressedColorBrush" Color="{StaticResource ButtonPressedColor}"/>
 
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
@@ -29,12 +19,7 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
         </Style>
-        <!-- <Style x:Key="TabButtonStyle" TargetType="Button">
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}"/>
-        </Style> -->
+        
         <Style TargetType="ListBox">
             <Setter Property="BorderBrush" Value="Red"/>
             <Setter Property="BorderThickness" Value="4"/>
@@ -110,7 +95,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Background="{StaticResource OwnerLightBackgroundColorBrush}">
+    <Grid x:Name="MainWindowGrid" Background="White">
         <Grid.Resources>
             <Style TargetType="{x:Type TextElement}">
                 <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
@@ -127,7 +112,7 @@
         </Grid.ColumnDefinitions>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
-        <Image Source="../../Resources/Images/accommodationsLogo.png"/>
+        <Image Source="../../Resources/Images/Owner/logo.png"/>
         <Border BorderThickness="0 0 0 1" BorderBrush="Black"/>
         <Border Grid.Column="1" BorderThickness="0 0 0 1" BorderBrush="Black" Grid.ColumnSpan="2">
             <Grid>
@@ -140,7 +125,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 20 0 0">
-                    <Button x:Name="ENGButton" Content="ENG" Width="64" Height="64" FontSize="20" Click="ChangeLanguageENG" Style="{DynamicResource TabButtonStyle}">
+                    <Button x:Name="ENGButton" Content="ENG" Width="64" Height="64" FontSize="20" Click="ChangeLanguageENG" Style="{DynamicResource OwnerTabButtonStyle}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
@@ -155,7 +140,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button x:Name="SRBButton" Content="SRB" Width="64" Height="64" FontSize="20" Click="ChangeLanguageSRB" Style="{DynamicResource TabButtonStyle}">
+                    <Button x:Name="SRBButton" Content="SRB" Width="64" Height="64" FontSize="20" Click="ChangeLanguageSRB" Style="{DynamicResource OwnerTabButtonStyle}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
@@ -171,11 +156,11 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-                <Label x:Name="LanguageLabel" Grid.Column="0" Content="{loc:Loc Language}"
+                <Label x:Name="LanguageLabel" Grid.Column="0" Content="{loc:Loc Language}" Style="{DynamicResource OwnerLabel}"
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 20 0 0">
-                    <Button x:Name="LightThemeButton" Content="Light" Width="64" Height="64" FontSize="20" Click="ChangeThemeLight" Style="{DynamicResource TabButtonStyle}">
+                    <Button x:Name="LightThemeButton" Content="Light" Width="64" Height="64" FontSize="20" Click="ChangeThemeLight" Style="{DynamicResource OwnerTabButtonStyle}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
@@ -190,7 +175,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button x:Name="DarkThemeButton" Content="Dark" Width="64" Height="64" FontSize="20" Click="ChangeThemeDark" Style="{DynamicResource TabButtonStyle}">
+                    <Button x:Name="DarkThemeButton" Content="Dark" Width="64" Height="64" FontSize="20" Click="ChangeThemeDark" Style="{DynamicResource OwnerTabButtonStyle}">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
@@ -206,9 +191,7 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-
-
-                <Label x:Name="ThemeLabel" Grid.Column="1" Content="{loc:Loc Theme}"
+                <Label x:Name="ThemeLabel" Grid.Column="1" Content="{loc:Loc Theme}" Style="{DynamicResource OwnerLabel}"
                        FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
 
                 <ListBox x:Name="NotificationListBox" ItemsSource="{Binding OwnerNotifications, UpdateSourceTrigger=PropertyChanged}" 
@@ -217,17 +200,18 @@
                          SelectedValuePath="Print" DisplayMemberPath="Print" SelectionChanged="NotificationSelectionChanged"/>
 
                 <Button Click="NotificationButtonClick" Grid.Column="3" Margin="0 20 0 25" Background="Transparent" BorderThickness="0"
-                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{DynamicResource OwnerTabButtonStyle}">
                     <Grid>
-                        <Image Source="../../Resources/Images/Owner/bell.png" Height="64" Width="64" 
+                        <Image x:Name="NotificationBellImage" Source="../../Resources/Images/Owner/bell.png" Height="64" Width="64" 
                                HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Image x:Name="NewNotificationImage" Source="../../Resources/Images/Owner/record.png" Height="16" Margin="25 0 0 0"
                                HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Label Content="{loc:Loc Notifications}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                        <Label Content="{loc:Loc Notifications}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                               Style="{DynamicResource OwnerLabel}"/>
                     </Grid>
                 </Button>
 
-                <Image Grid.Column="4" Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
+                <Image x:Name="OwnerUserImage" Grid.Column="4" Source="../../Resources/Images/Owner/user.png" Height="64" Width="64" 
                         VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0"/>
                 <Image Grid.Column="4" x:Name="starImage" Source="../../Resources/Images/Owner/medal.png" Height="32" Width="32" 
                         VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40 60 0 0" Style="{StaticResource ImageHoverStyle}">
@@ -238,7 +222,7 @@
                     </Image.ToolTip>
                 </Image>
                     <Label Grid.Column="4" Content="{Binding user.Username, UpdateSourceTrigger=PropertyChanged}"
-                    FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 25"/>
+                    FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 26" Style="{DynamicResource OwnerLabel}"/>
                 <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16" Margin="0 0 0 10">
                     <Hyperlink Click="LogOut">
                         <TextBlock Text="{loc:Loc Log out}"/>
@@ -258,51 +242,51 @@
                 <RowDefinition Height="*" MinHeight="40"/>
             </Grid.RowDefinitions>
             <Button x:Name="AccommodationManagementButton" Grid.Row="0" Grid.Column="0" Click="AccommodationManagementClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                    FontSize="20" Style="{DynamicResource OwnerTabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/hotel.png" Width="43" Margin="0 0 10 0"/>
+                    <Image x:Name="AccommodationManagementImage" Source="../../Resources/Images/Owner/hotel.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="{loc:Loc Accommodation Management}" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="AccommodationStatisticsButton" Grid.Row="1" Grid.Column="0" Click="AccommodationStatisticsClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                    FontSize="20" Style="{DynamicResource OwnerTabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/statistics.png" Width="43" Margin="0 0 10 0"/>
+                    <Image x:Name="AccommodationStatisticsImage" Source="../../Resources/Images/Owner/statistics.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="{loc:Loc Accommodation Statistics}" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ReservationReschedulingButton" Grid.Row="2" Grid.Column="0" Click="ReservationReschedulingClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                    FontSize="20" Style="{DynamicResource OwnerTabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/rescheduling.png" Width="43" Margin="0 0 10 0"/>
+                    <Image x:Name="ReservationReschedulingImage" Source="../../Resources/Images/Owner/rescheduling.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="{loc:Loc Reservation Rescheduling}" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="GuestRatingButton" Grid.Row="3" Grid.Column="0" Click="GuestRatingClick"
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                    FontSize="20" Style="{DynamicResource OwnerTabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/guest-rating.png" Width="43" Margin="0 0 10 0"/>
+                    <Image x:Name="GuestRatingImage" Source="../../Resources/Images/Owner/guest-rating.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="{loc:Loc Guest Rating}" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="GuestReviewsButton" Grid.Row="4" Grid.Column="0" Click="GuestReviewsClick"
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                    FontSize="20" Style="{DynamicResource OwnerTabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/review.png" Width="43" Margin="0 0 10 0"/>
+                    <Image x:Name="GuestReviewsImage" Source="../../Resources/Images/Owner/review.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="{loc:Loc Guest Reviews}" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="RenovationButton" Grid.Row="5" Grid.Column="0" Click="RenovationClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                    FontSize="20" Style="{DynamicResource OwnerTabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/renovation.png" Width="43" Margin="0 0 10 0"/>
+                    <Image x:Name="RenovationImage" Source="../../Resources/Images/Owner/renovation.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="{loc:Loc Renovation}" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>
             <Button x:Name="ForumButton" Grid.Row="6" Grid.Column="0" Click="ForumClick" 
-                    FontSize="20" Style="{DynamicResource TabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
+                    FontSize="20" Style="{DynamicResource OwnerTabButtonStyle}" HorizontalContentAlignment="Left" Padding="40 0 0 0">
                 <DockPanel>
-                    <Image Source="../../Resources/Images/Owner/forum.png" Width="43" Margin="0 0 10 0"/>
+                    <Image x:Name="ForumImage" Source="../../Resources/Images/Owner/forum.png" Width="43" Margin="0 0 10 0"/>
                     <TextBlock Text="{loc:Loc Forum}" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </DockPanel>
             </Button>

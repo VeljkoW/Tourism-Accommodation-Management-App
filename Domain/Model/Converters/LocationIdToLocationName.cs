@@ -16,7 +16,14 @@ namespace BookingApp.Domain.Model.Converters
             int locationId = (int)value;
             Location? location = new Location();
             location = LocationService.GetInstance().GetById(locationId);
-            return location.State + " - " + location.City;
+            if(location != null)
+            {
+                return location.State + " - " + location.City;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

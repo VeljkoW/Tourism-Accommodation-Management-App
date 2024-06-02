@@ -43,6 +43,8 @@ namespace BookingApp.View.Owner
             AccommodationManagementViewModel = new AccommodationManagementViewModel(this, user);
             this.DataContext = AccommodationManagementViewModel;
             App.LanguageChanged += OnLanguageChanged;
+            App.ThemeChanged += OnThemeChanged;
+            OnThemeChanged();
             ValidationErrors();
         }
         public AccommodationRegistration(User user, bool calledFromStatistics)
@@ -99,9 +101,34 @@ namespace BookingApp.View.Owner
             CloseAccommodationAccept.Visibility = Visibility.Collapsed;
         }
 
+        public void OnThemeChanged()
+        {
+            Color OwnerTabLightColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush OwnerTabLightColorBrush = new SolidColorBrush(OwnerTabLightColor);
+            Color OwnerTabDarkColor = (Color)FindResource("OwnerTabDarkColor");
+            SolidColorBrush OwnerTabDarkColorBrush = new SolidColorBrush(OwnerTabDarkColor);
+            Color OwnerTabPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush OwnerTabPressedColorBrush = new SolidColorBrush(OwnerTabPressedColor); 
 
-
-
+            if (App.currentTheme() == "Light")
+            {
+                AccommodationRegistrationBorder.Background = OwnerTabLightColorBrush;
+                ChooseLocationBorder.Background = OwnerTabLightColorBrush;
+                CloseAccommodationAcceptBorder.Background = OwnerTabLightColorBrush;
+                var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
+            else
+            {
+                Color OwnerDarkBackgroundColor = (Color)FindResource("OwnerDarkBackgroundColor");
+                SolidColorBrush OwnerDarkBackgroundColorBrush = new SolidColorBrush(OwnerDarkBackgroundColor);
+                AccommodationRegistrationBorder.Background = OwnerTabDarkColorBrush;
+                ChooseLocationBorder.Background = OwnerTabDarkColorBrush;
+                CloseAccommodationAcceptBorder.Background = OwnerDarkBackgroundColorBrush;
+                var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
+        }
         //VALIDATION
         public void ValidationErrors()
         {

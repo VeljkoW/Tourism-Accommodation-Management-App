@@ -38,12 +38,55 @@ namespace BookingApp.ViewModel.Owner
             AccommodationStatisticsByYears = new ObservableCollection<AccommodationStatisticsByYear>();
             AccommodationStatisticsByMonths = new ObservableCollection<AccommodationStatisticsByMonth>();
             AccommodationsStatisticsByLocations = AccommodationStatisticsService.GetInstance().UpdateLocations(User);
-            MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
-            MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
-            MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
-            LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
-            LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
-            LeastPopularLocationId3 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 3].LocationId;
+            CheckLocations();
+            //MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+            //MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+            //MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+            //LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+            //LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
+            //LeastPopularLocationId3 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 3].LocationId;
+        }
+        public int CheckLocations()
+        {
+            switch (AccommodationsStatisticsByLocations.Count)
+            {
+                case 0:
+                    break;
+                case 1:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    break;
+                case 2:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    break;
+                case 3:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    break;
+                case 4:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+                    break;
+                case 5:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+                    LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
+                    break;
+                default:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+                    LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
+                    LeastPopularLocationId3 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 3].LocationId;
+                    break;
+            }
+            return AccommodationsStatisticsByLocations.Count;
         }
         public void UpdateYears()
         {

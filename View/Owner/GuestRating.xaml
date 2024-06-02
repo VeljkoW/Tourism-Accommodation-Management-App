@@ -34,6 +34,9 @@
         <Style TargetType="ItemsControl">
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
         </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
 
 
         <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
@@ -91,22 +94,57 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
-            <Label Content="{loc:Loc Select the guest you want to rate:}" Margin="0 10 0 0"
-                   HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+            <Label x:Name="SelectTheGuestLabel" Content="{loc:Loc Select the guest you want to rate:}" Margin="0 10 0 0"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Style="{DynamicResource OwnerLabel}"/>
             <DataGrid x:Name="RatingGuestsTable" Margin="20 60 20 10"
                       ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False" FontSize="16"
+                      AutoGenerateColumns="False" FontSize="16" Style="{DynamicResource OwnerDataGrid}"
                       SelectionMode="Single" IsReadOnly="True" Grid.Row="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Accommodation Name}" Binding="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToNameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Location}" Binding="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToLocation}}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Guest Username}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                           Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Accommodation Name}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                           Text="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToNameConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Location}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                           Text="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToLocation}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-in Date}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                           Text="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-out Date}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                           Text="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="60 10" Margin="200 20">
+            <Border x:Name="RateGuestBorder" Grid.Row="1" BorderBrush="{StaticResource OwnerButtonPressedColorBrush}"  BorderThickness="1" CornerRadius="10" Padding="60 10" Margin="200 20">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -117,51 +155,69 @@
                         <RowDefinition Height="auto" MinHeight="50"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <Label Content="{loc:Loc Rating Guest:}" FontWeight="Bold" FontSize="24"/>
-                        <Label Content="{Binding SelectedReservedAccommodations.GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" FontWeight="Bold" FontSize="24"/>
+                        <Label Content="{loc:Loc Rating Guest:}" FontWeight="Bold" FontSize="24" Style="{DynamicResource OwnerLabel}"/>
+                        <Label Content="{Binding SelectedReservedAccommodations.GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" 
+                               FontWeight="Bold" FontSize="24" Style="{DynamicResource OwnerLabel}"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="0 5 0 0">
-                        <Label Content="{loc:Loc Cleanliness:*}" FontSize="20"/>
+                        <Label Content="{loc:Loc Cleanliness:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                         <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Width="220">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <RadioButton x:Name="Cleanliness1" Content="1" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="Cleanliness2" Content="2" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="Cleanliness3" Content="3" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="Cleanliness4" Content="4" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="Cleanliness5" Content="5" FontSize="20" GroupName="CleanlinessRadioButton" 
-                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                             Checked="CleanlinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                             </StackPanel>
                         </Border>
                     </Grid>
                     <Grid Grid.Row="2" Margin="0 5 0 0">
-                        <Label Content="{loc:Loc Following guidelines:*}" FontSize="20"/>
+                        <Label Content="{loc:Loc Following guidelines:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                         <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Width="220">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <RadioButton x:Name="FollowingGuidelines1" Content="1" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
-                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="FollowingGuidelines2" Content="2" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
-                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="FollowingGuidelines3" Content="3" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
-                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="FollowingGuidelines4" Content="4" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
-                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                                 <RadioButton x:Name="FollowingGuidelines5" Content="5" FontSize="20" GroupName="FollowingGuidelinesRadioButton" 
-                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                                         Checked="FollowingGuidelinesChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" Style="{DynamicResource OwnerRadioButton}"/>
                             </StackPanel>
                         </Border>
                     </Grid>
-                    <Label Content="{loc:Loc Comment:*}" Grid.Row="3" FontSize="20"/>
+                    <Label Content="{loc:Loc Comment:*}" Grid.Row="3" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
 
                     <StackPanel Grid.Row="4" VerticalAlignment="Stretch">
                         <TextBox x:Name="CommentTextBox" Grid.Row="4" FontSize="20" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="400" Height="80"/>
                         <TextBlock Grid.Row="4" x:Name="GuestRatingValidation" Text="{loc:Loc GuestRatingValidation}" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                     </StackPanel>
-                    <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" Style="{DynamicResource ButtonStyle}"
+                    <Button x:Name="RateGuestButton" Command="{Binding RateGuest}" Grid.Row="5" Width="200" Height="60" Style="{DynamicResource OwnerButtonStyle}"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Content="{loc:Loc Rate Guest}" FontSize="24" Margin="0 5"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid x:Name="NoGuestsToRateMessage" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
+            <Grid Background="{StaticResource OwnerTabDarkColorBrush}" Opacity="0.9"/>
+            <Border x:Name="NoGuestsToRateMessageBorder" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Width="500" Height="200" Background="{StaticResource OwnerTabLightColorBrush}"
+                    BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{loc:Loc There are no more guests to rate}" FontSize="22" 
+                       HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 30" Style="{DynamicResource OwnerTextBlock}"/>
+                    <TextBlock Grid.Row="1" Text="{loc:Loc You successfully rated all the guests}" FontSize="24" FontWeight="Bold"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 0 0 0" Style="{DynamicResource OwnerTextBlock}"/>
                 </Grid>
             </Border>
         </Grid>

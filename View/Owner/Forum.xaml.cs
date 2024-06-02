@@ -37,6 +37,8 @@ namespace BookingApp.View.Owner
             UsefulForumTextBlock.Visibility = Visibility.Hidden;
             BookmarkImage.Visibility = Visibility.Hidden;
             UsefulForumMessage.Visibility = Visibility.Collapsed;
+            App.ThemeChanged += OnThemeChanged;
+            OnThemeChanged();
         }
 
         private void statePicked(object sender, SelectionChangedEventArgs e)
@@ -62,6 +64,32 @@ namespace BookingApp.View.Owner
                 UsefulForumMessage.Visibility = Visibility.Visible;
             else
                 UsefulForumMessage.Visibility = Visibility.Collapsed;
+        }
+        private void OnThemeChanged()
+        {
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            Color basicDarkBackgroundColor = (Color)FindResource("OwnerTabDarkColor");
+            SolidColorBrush basicDarkBackgroundBrush = new SolidColorBrush(basicDarkBackgroundColor);
+
+            if (App.currentTheme() == "Light")
+            {
+                BookmarkImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/bookmark.png"));
+                OwnerMainPostImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/verified-user.png"));
+
+                var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
+            else
+            {
+                BookmarkImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/bookmarkWhite.png"));
+                OwnerMainPostImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Owner/user-verificationWhite.png"));
+
+                var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
         }
     }
 }

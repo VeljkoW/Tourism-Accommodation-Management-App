@@ -143,7 +143,7 @@ namespace BookingApp.Domain.Model
 
 
         //owner - accepting or declining the request
-        public string imagePath { get; set; }
+        private string imagePath { get; set; }
         public string ImagePath
         {
             get
@@ -156,6 +156,22 @@ namespace BookingApp.Domain.Model
                 {
                     imagePath = value;
                     OnPropertyChanged(nameof(imagePath));
+                }
+            }
+        }
+        private string isFreeText { get; set; }
+        public string IsFreeText
+        {
+            get
+            {
+                return isFreeText;
+            }
+            set
+            {
+                if (value != isFreeText)
+                {
+                    isFreeText = value;
+                    OnPropertyChanged(nameof(isFreeText));
                 }
             }
         }
