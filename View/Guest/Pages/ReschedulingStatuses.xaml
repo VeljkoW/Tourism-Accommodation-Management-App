@@ -149,7 +149,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 8 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="WhiteSmoke" CornerRadius="15">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="42 8 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="WhiteSmoke" CornerRadius="15">
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="ReservationsButton" ToolTipService.ToolTip="Ctrl+Q" Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
                     <Button x:Name="StatusesButton" ToolTipService.ToolTip="Ctrl+W" Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
@@ -220,7 +220,7 @@
                                 </Style>
                             </DataTemplate.Resources>
                             <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="50 10 20 10"  Background="White"
-                                HorizontalAlignment="Stretch" ToolTipService.ToolTip="Ctrl+V" Focusable="True" x:Name="BorderBlock2" VerticalAlignment="Center">
+                                HorizontalAlignment="Stretch" ToolTipService.ToolTip="Ctrl+V"  KeyDown="ClickEnter" Focusable="True" MouseLeftButtonDown="ClickedOnCard" Cursor="Hand" x:Name="BorderBlock2" VerticalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
@@ -255,11 +255,11 @@
                                                 </Image.Style>
                                             </Image>
                                             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  FontSize="20" HorizontalAlignment="Left" Margin="10 5 0 0">
-                                            <Run Text="New Check In Date: " FontStyle="Italic" FontWeight="Medium"/>
+                                            <Run Text="Check In Date: " FontStyle="Italic" FontWeight="Medium"/>
                                             <Run Text="{Binding CheckInDate, Converter={StaticResource DateTimeToHourConverter}}" />   
                                             </TextBlock>
                                             <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  FontSize="20" HorizontalAlignment="Left" Margin="10 5 0 0">
-                                            <Run Text="New Check Out Date: " FontStyle="Italic" FontWeight="Medium"/>
+                                            <Run Text="Check Out Date: " FontStyle="Italic" FontWeight="Medium"/>
                                             <Run Text="{Binding CheckOutDate, Converter={StaticResource DateTimeToHourConverter}}" />
                                             </TextBlock>
                                         </Grid>

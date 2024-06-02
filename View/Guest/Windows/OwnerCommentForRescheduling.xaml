@@ -1,0 +1,22 @@
+﻿<Window x:Class="BookingApp.View.Guest.Windows.OwnerCommentForRescheduling"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
+        mc:Ignorable="d"
+        Title="OwnerCommentForRescheduling" Height="300" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.InputBindings>
+        <KeyBinding
+   Modifiers="Control"
+   Key="E"
+   Command="{Binding Exit}"/>
+    </Window.InputBindings>
+    <Grid Background="#DDDDDD" x:Name="MainGrid" Focusable="True">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Owner comment for your rescheduling request"  FontSize="20"></TextBlock>
+        <TextBlock x:Name="Name" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Medium"  Margin="0 27 0 0" FontSize="20"></TextBlock>
+        <TextBlock x:Name="Date" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0 55 0 0" FontSize="20"></TextBlock>
+        <TextBlock Margin="35 90 35 45" Background="WhiteSmoke" x:Name="Comment" TextWrapping="Wrap" Padding="10 5 10 5" FontSize="20"></TextBlock>
+        <TextBlock x:Name="Accept" HorizontalAlignment="Center"  VerticalAlignment="Top"  Margin="0 225 0 13" FontSize="20"></TextBlock>
+    </Grid>
+</Window>

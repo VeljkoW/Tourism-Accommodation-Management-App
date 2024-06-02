@@ -114,9 +114,9 @@ namespace BookingApp.ViewModel.Guest
         }
         public AccommodationType ReturnType() 
         {
-            if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("Apartment")) return AccommodationType.Apartment;
+            if (GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectionBoxItem.Equals("Apartment")) return AccommodationType.Apartment;
 
-            else if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("House")) return AccommodationType.House;
+            else if (GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectionBoxItem.Equals("House")) return AccommodationType.House;
 
             else return AccommodationType.Hut;
         }
@@ -135,7 +135,7 @@ namespace BookingApp.ViewModel.Guest
             if (!GuestAccommodationsPage.TextBoxCity.InputTextBox.Text.Trim().Equals("")) City = GuestAccommodationsPage.TextBoxCity.InputTextBox.Text.Trim();
 
             AccommodationType? accommodationType = null;
-            if (GuestAccommodationsPage.ComboBoxType.SelectedItem != null && !GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("")) accommodationType = ReturnType();
+            if (GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectedItem != null && !GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectionBoxItem.Equals("")) accommodationType = ReturnType();
 
             int GuestNumber = 0;
             if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxGuestNumber.InputTextBox.Text) && IsNumeric(GuestAccommodationsPage.TextBoxGuestNumber.InputTextBox.Text))
