@@ -315,6 +315,8 @@ namespace BookingApp.ViewModel.Guest
             reportOnReservations.AccommodationId = reservedAccommodation.Accommodation.Id;
             reportOnReservations.Date = DateTime.Now;
             reportOnReservations.TypeReport = "Reserved";
+            reportOnReservations.CheckInDate = reservedAccommodation.CheckInDate;
+            reportOnReservations.CheckOutDate = reservedAccommodation.CheckOutDate;
             ReservedAccommodationService.GetInstance().Add(reservedAccommodation);
             reportOnReservations.ReservedId = reservedAccommodation.Id;
             ReportOnReservationsService.GetInstance().Add(reportOnReservations);

@@ -31,6 +31,9 @@ namespace BookingApp.Services
         {
             ReportOnReservationsRepository.Update(reportOnReservations);
         }
-
+        public ReportOnReservations GetById(int id)
+        {
+            return ReportOnReservationsRepository.GetById(id);
+        }
     }
 }
