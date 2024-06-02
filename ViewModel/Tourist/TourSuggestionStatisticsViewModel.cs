@@ -12,7 +12,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
+using Microsoft.Win32;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
 
 namespace BookingApp.ViewModel.Tourist
 {
@@ -162,9 +164,70 @@ namespace BookingApp.ViewModel.Tourist
             TourSuggestionStatistics.PercentageToursRejected.Text = percentageOfToursRejected.ToString();
             TourSuggestionStatistics.AverageNumberOfTouristsAccepted.Text = averageNumberOfTouristsAccepted.ToString();
         }
+        public string GetSaveFilePath()
+        {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+            saveFileDialog.Title = "Save PDF";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                return saveFileDialog.FileName;
+            }
+            return null;
+        }
         public void PrintPDFExecute()
         {
+            string filePath = GetSaveFilePath();
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                GeneratePDF(filePath);
+                MessageBox.Show($"PDF generated successfully at {filePath}");
+            }
+        }
+        public void GeneratePDF(string filePath)
+        {
+            using (var document = new PdfDocument())
+            {
+                var page = document.AddPage();
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
 
+                const double leftMargin = 40;
+                const double rightMargin = 40;
+                const double topMargin = 40;
+                const double bottomMargin = 40;
+
+                var borderLeft = leftMargin - 10;
+                var borderTop = topMargin - 10;
+                var borderRight = page.Width - rightMargin + 10;
+                var borderBottom = page.Height - bottomMargin + 10; 
+
+                using (var gfx = XGraphics.FromPdfPage(page))
+                {
+                    var font = new XFont("Arial", 12, XFontStyle.Bold);
+                    var brush = XBrushes.Black;
+
+                    var borderPen = new XPen(XColors.Black, 2);
+                    gfx.DrawRectangle(borderPen, borderLeft, borderTop, borderRight - borderLeft, borderBottom - borderTop);
+
+                    var titleFormat = new XStringFormat();
+                    titleFormat.Alignment = XStringAlignment.Center;
+                    gfx.DrawString("Tour Suggestion Statistics", font, brush, new XRect(0, topMargin, page.Width, 20), XStringFormats.Center);
+
+                    gfx.DrawLine(borderPen, borderLeft, topMargin + 25, borderRight, topMargin + 25);
+
+                    string yearText1 = string.IsNullOrEmpty(TourSuggestionStatistics.Year1ComboBox.Text) ? "general" : TourSuggestionStatistics.Year1ComboBox.Text;
+                    string yearText2 = string.IsNullOrEmpty(TourSuggestionStatistics.Year2ComboBox.Text) ? "general" : TourSuggestionStatistics.Year2ComboBox.Text;
+
+                    var yPos = topMargin + 40;
+                    gfx.DrawString($"Percentage of Tours Accepted in {yearText1}: {TourSuggestionStatistics.PercentageToursAccepted.Text} %", font, brush, new XPoint(leftMargin, yPos));
+                    yPos += 20;
+                    gfx.DrawString($"Percentage of Tours Rejected in {yearText1}: {TourSuggestionStatistics.PercentageToursRejected.Text} %", font, brush, new XPoint(leftMargin, yPos));
+                    yPos += 20;
+                    gfx.DrawString($"Average Number of Tourists Accepted in {yearText2}: {TourSuggestionStatistics.AverageNumberOfTouristsAccepted.Text}", font, brush, new XPoint(leftMargin, yPos));
+                }
+
+                document.Save(filePath);
+            }
         }
     }
 }
