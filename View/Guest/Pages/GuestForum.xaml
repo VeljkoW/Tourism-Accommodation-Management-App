@@ -94,12 +94,12 @@ Command="{Binding CommentTextBox}"/>
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="Transparent"/>
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
@@ -170,7 +170,7 @@ Command="{Binding CommentTextBox}"/>
                         <ComboBox x:Name="ComboBoxState" ToolTipService.ToolTip="Ctrl+S" FontSize="20" PreviewKeyDown="StateComboBox_PreviewKeyDown" Grid.Column="0" Grid.Row="0"  Height="32" Width="180" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding StatesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedChosenState, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="statePick" />
                         <ComboBox x:Name="ComboBoxCity" ToolTipService.ToolTip="Ctrl+C" FontSize="20" Grid.Column="1" Grid.Row="0" Margin="10 0 0 0" Height="32" Width="180" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CitiesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities" SelectedItem="{Binding SelectedChosenCity, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cityPick" />
                         <Button Style="{DynamicResource ButtonStyle}" ToolTipService.ToolTip="Ctrl+O" x:Name="OpenButton" VerticalAlignment="Center" Margin="10 0 0 0" FontSize="20" Content="Open" Grid.Column="2" Grid.Row="0" Command="{Binding OpenButtonClick}" Height="32" Width="130"/>
-                        <Button  x:Name="usefulForum" Height="40" Width="170" Margin="30 0 0 0" Visibility="Visible"  Background="Transparent" BorderThickness="0" ToolTipService.ToolTip="*A forum becomes useful when it receives 10 comments from the owner and 20 comments from guests">
+                        <Button Style="{DynamicResource ButtonStyle1}" x:Name="usefulForum" Height="40" Width="170" Margin="30 0 0 0" Visibility="Visible"  Background="Transparent" BorderThickness="0" ToolTipService.ToolTip="*A forum becomes useful when it receives 10 comments from the owner and 20 comments from guests">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                 <Image Source="../../../Resources/Images/Guest/book.png" Height="39" Width="39" VerticalAlignment="Center"></Image>
