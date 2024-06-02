@@ -34,6 +34,7 @@
 		<None Remove="Resources\Images\Guest\book.png" />
 		<None Remove="Resources\Images\Guest\cancel.png" />
 		<None Remove="Resources\Images\Guest\forum.png" />
+		<None Remove="Resources\Images\Guest\leftforward.png" />
 		<None Remove="Resources\Images\Guest\loading.png" />
 		<None Remove="Resources\Images\Guest\logout.png" />
 		<None Remove="Resources\Images\Guest\medal.png" />
@@ -42,6 +43,7 @@
 		<None Remove="Resources\Images\Guest\pdf.png" />
 		<None Remove="Resources\Images\Guest\rating.png" />
 		<None Remove="Resources\Images\Guest\refresh.png" />
+		<None Remove="Resources\Images\Guest\rightforward.png" />
 		<None Remove="Resources\Images\Guest\shine.png" />
 		<None Remove="Resources\Images\Guest\star.png" />
 		<None Remove="Resources\Images\Guest\superGuest.png" />
@@ -78,9 +80,12 @@
 		<None Remove="Resources\Images\Owner\user128x128.png" />
 		<None Remove="Resources\Images\Owner\verified-user.png" />
 		<None Remove="Resources\Images\Owner\x-box.png" />
+		<None Remove="Resources\Images\pause.png" />
+		<None Remove="Resources\Images\play.png" />
     <None Remove="Resources\Images\ratetour.png" />
     <None Remove="Resources\Images\report.png" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\stop.png" />
 		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
 		<None Remove="Resources\Images\TourReview\hqdefault.jpg" />
@@ -115,8 +120,10 @@
 	  <Resource Include="Resources\Images\Guest\attachment.png" />
 	  <Resource Include="Resources\Images\Guest\book.png" />
 	  <Resource Include="Resources\Images\Guest\cancel.png" />
+	  <Resource Include="Resources\Images\Guest\leftforward.png" />
 	  <Resource Include="Resources\Images\Guest\loading.png" />
 	  <Resource Include="Resources\Images\Guest\pdf.png" />
+	  <Resource Include="Resources\Images\Guest\rightforward.png" />
 	  <Resource Include="Resources\Images\Guest\shine.png" />
 	  <Resource Include="Resources\Images\Owner\background1.jpg" />
 	  <Resource Include="Resources\Images\Guest\medal.png" />
@@ -152,6 +159,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Remove="Resources\Images\accommodationsLogo.png" />
+		<Content Remove="Resources\Images\pause.png" />
+		<Content Remove="Resources\Images\play.png" />
+		<Content Remove="Resources\Images\stop.png" />
       <Content Remove="Resources\Images\Tourist\bell.png" />
       <Content Remove="Resources\Images\Tourist\coupon.png" />
       <Content Remove="Resources\Images\Tourist\live.png" />
@@ -200,6 +210,9 @@
 		<Resource Include="Resources\Images\Owner\user128x128.png" />
 		<Resource Include="Resources\Images\Owner\verified-user.png" />
 		<Resource Include="Resources\Images\Owner\x-box.png" />
+		<Resource Include="Resources\Images\Guest\pause.png" />
+		<Resource Include="Resources\Images\Guest\play.png" />
+		<Resource Include="Resources\Images\Guest\stop.png" />
 		<Resource Include="Resources\Images\Tourist\bell.png" />
 		<Resource Include="Resources\Images\Tourist\coupon.png" />
 		<Resource Include="Resources\Images\Tourist\live.png" />
