@@ -112,9 +112,9 @@ namespace BookingApp.View.Owner
 
             if (App.currentTheme() == "Light")
             {
-                AccommodationRegistrationBorder.Background = OwnerTabLightColorBrush;
-                ChooseLocationBorder.Background = OwnerTabLightColorBrush;
-                CloseAccommodationAcceptBorder.Background = OwnerTabLightColorBrush;
+                //AccommodationRegistrationBorder.Background = OwnerTabLightColorBrush;
+                //ChooseLocationBorder.Background = OwnerTabLightColorBrush;
+                //CloseAccommodationAcceptBorder.Background = OwnerTabLightColorBrush;
                 var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
                 Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
             }
@@ -122,9 +122,9 @@ namespace BookingApp.View.Owner
             {
                 Color OwnerDarkBackgroundColor = (Color)FindResource("OwnerDarkBackgroundColor");
                 SolidColorBrush OwnerDarkBackgroundColorBrush = new SolidColorBrush(OwnerDarkBackgroundColor);
-                AccommodationRegistrationBorder.Background = OwnerTabDarkColorBrush;
-                ChooseLocationBorder.Background = OwnerTabDarkColorBrush;
-                CloseAccommodationAcceptBorder.Background = OwnerDarkBackgroundColorBrush;
+                //AccommodationRegistrationBorder.Background = OwnerTabDarkColorBrush;
+                //ChooseLocationBorder.Background = OwnerTabDarkColorBrush;
+                //CloseAccommodationAcceptBorder.Background = OwnerDarkBackgroundColorBrush;
                 var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
                 Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
             }

@@ -152,13 +152,13 @@ namespace BookingApp.View.Owner
                     break;
                 }
             }
-
             AccommodationRegistration.Dispatcher.Invoke(() =>
             {
-                OwnerMainWindow.mainFrame.Navigate(AccommodationRegistration);
-                OwnerMainWindow.CurrentNavigationButton = "AccommodationManagementButton";
+                
                 AccommodationRegistration.ScrollViewerName.ScrollToVerticalOffset(AccommodationRegistration.ScrollViewerName.VerticalOffset + 510);
             });
+            OwnerMainWindow.mainFrame.Navigate(AccommodationRegistration);
+            OwnerMainWindow.CurrentNavigationButton = "AccommodationManagementButton";
         }
 
         public void GridsVisibility()

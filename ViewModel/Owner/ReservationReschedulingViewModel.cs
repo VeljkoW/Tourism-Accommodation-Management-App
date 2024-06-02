@@ -120,7 +120,7 @@ namespace BookingApp.ViewModel.Owner
 
                                 var backgroundColor = i % 2 == 0 ? Colors.LightBlue.Lighten5 : Colors.Grey.Lighten2;
 
-                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(i.ToString());
+                                table.Cell().Element(CellStyle).Background(backgroundColor).Text((i+1).ToString());
                                 table.Cell().Element(CellStyle).Background(backgroundColor).Text(user.Username);
                                 table.Cell().Element(CellStyle).Background(backgroundColor).Text(checkInDateFormatted);
                                 table.Cell().Element(CellStyle).Background(backgroundColor).Text(checkOutDateFormatted);

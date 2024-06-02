@@ -6,6 +6,33 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
         Title="GuestTutorial" Height="650" Width="1000"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    
+        <Window.InputBindings>
+            <KeyBinding
+                Modifiers="Control" 
+                Key="P"
+                Command="{Binding PlayVideo1}"/>
+            <KeyBinding
+                Modifiers="Control"
+                Key="H"
+                Command="{Binding PauseVideo1}"/>
+            <KeyBinding
+                Modifiers="Control"
+                Key="S"
+                Command="{Binding StopVideo1}"/>
+            <KeyBinding
+     Modifiers="Control"
+     Key="L"
+     Command="{Binding Left1}"/>
+            <KeyBinding
+     Modifiers="Control"
+     Key="R"
+     Command="{Binding Right1}"/>
+            <KeyBinding
+Modifiers="Control"
+Key="E"
+Command="{Binding Exit}"/>
+        </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -97,7 +124,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </Window.Resources>
     <Grid Background="#DDDDDD">
         <MediaElement x:Name="videoPlayer" Width="800" Height="450" Margin="80,40,80,130" LoadedBehavior="Manual" UnloadedBehavior="Stop" MediaEnded="VideoPlayer_MediaEnded"/>
