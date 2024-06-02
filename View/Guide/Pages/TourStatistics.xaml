@@ -55,6 +55,6 @@
                 <ItemsControl ItemsSource="{Binding UserControlTourStatistics}"/>
             </ScrollViewer>
         </Grid>
-        <Button Grid.Row="3" Width="200" Height="40" Content="Export tour statistics" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right"></Button>
+        <Button Command="{Binding GeneratePDF}" Grid.Row="3" Width="200" Height="40" Content="Export tour statistics" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right"></Button>
     </Grid>
 </Page>
