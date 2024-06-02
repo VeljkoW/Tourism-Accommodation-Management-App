@@ -270,7 +270,7 @@
                         <Label Grid.Row="0" Grid.Column="0" Content="{loc:Loc Choose your Accommodation:*}" FontSize="22" Margin="80 0 0 0"
                                VerticalAlignment="Top" HorizontalAlignment="Left" Style="{DynamicResource OwnerLabel}"/>
                         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40 5 80 0">
-                            <ComboBox Grid.Row="0" Grid.Column="1" Height="30" 
+                            <ComboBox Grid.Row="0" Grid.Column="1" Height="30" Style="{DynamicResource OwnerComboBox}"
                                   x:Name="AccommodationComboBox" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintAccommodation" DisplayMemberPath="PrintAccommodation"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" SelectedItem="{Binding SelectedAccommodation}" SelectionChanged="AccommodationSelectionChanged"/>
                             <TextBlock x:Name="AccommodationValidation" Grid.Row="1" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
