@@ -155,7 +155,7 @@
                                         <ColumnDefinition Width="0.2*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <lvc:CartesianChart Grid.Column="0" Series="{Binding LanguageData}" DisableAnimations="True" Margin="20">
+                                    <lvc:CartesianChart Name="LanguageChart" Grid.Column="0" Series="{Binding LanguageData}" DisableAnimations="True" Margin="20">
                                         <lvc:CartesianChart.AxisX>
                                             <lvc:Axis Title="Language" FontSize="15" Foreground="{StaticResource TextColorBrush}"/>
                                         </lvc:CartesianChart.AxisX>
@@ -168,7 +168,7 @@
                                         </lvc:CartesianChart.AxisY>
                                     </lvc:CartesianChart>
 
-                                    <lvc:CartesianChart Grid.Column="2" Series="{Binding LocationData}" DisableAnimations="True" Margin="20">
+                                    <lvc:CartesianChart Name="LocationChart" Grid.Column="2" Series="{Binding LocationData}" DisableAnimations="True" Margin="20">
                                         <lvc:CartesianChart.AxisX>
                                             <lvc:Axis Title="Location" FontSize="15" Foreground="{StaticResource TextColorBrush}"/>
                                         </lvc:CartesianChart.AxisX>
