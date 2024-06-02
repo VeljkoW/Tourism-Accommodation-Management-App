@@ -46,6 +46,7 @@ namespace BookingApp.View.Guest.Windows
         {
             ReschedulingStatuses rescheduleStatus = new ReschedulingStatuses(User, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(rescheduleStatus);
+            GuestMainWindow.NavigationButtonBarPressed("ReservationsButton");
             Close();
         }
 

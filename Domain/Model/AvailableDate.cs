@@ -28,7 +28,7 @@ namespace BookingApp.Domain.Model
         {
             get
             {
-                return checkInDate.ToString("dd/MM/yyyy HHtt") + "  -  " + checkOutDate.ToString("dd/MM/yyyy HHtt");
+                return checkInDate.ToString() + "  -  " + checkOutDate.ToString();
             }
             set
             {

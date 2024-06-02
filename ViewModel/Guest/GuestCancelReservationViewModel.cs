@@ -53,6 +53,8 @@ namespace BookingApp.ViewModel.Guest
             reportOnReservations.ReservedId = reservedAccommodation.Id;
             reportOnReservations.Date = DateTime.Now;
             reportOnReservations.TypeReport = "Cancelled";
+            reportOnReservations.CheckInDate = DateTime.Now;
+            reportOnReservations.CheckOutDate = DateTime.Now;
             ReportOnReservationsService.GetInstance().Add(reportOnReservations);
             ReservedAccommodationService.GetInstance().Delete(reservedAccommodation);
             GuestReservationsViewModel.reservedAccommodations.Clear();
