@@ -101,7 +101,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Guest Username}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -109,7 +109,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Accommodation Name}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -117,7 +117,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Location}" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -125,7 +125,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-in Date}" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -133,7 +133,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-out Date}" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -142,7 +142,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="isFreeTextBlock" Text="{Binding IsFreeText, UpdateSourceTrigger=PropertyChanged}" 
-                                           Style="{DynamicResource OwnerTextBlock}" HorizontalAlignment="Center"/>
+                                           Style="{DynamicResource OwnerDataGridTextBlock}" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -246,7 +246,7 @@
                             <DataGridTemplateColumn Width="1.5*" Header="{loc:Loc Guest Username}" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                                    Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -254,7 +254,7 @@
                             <DataGridTemplateColumn Width="2*" Header="{loc:Loc Check-in Date}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                                    Text="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -262,7 +262,7 @@
                             <DataGridTemplateColumn Width="2*" Header="{loc:Loc Check-out Date}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                                    Text="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

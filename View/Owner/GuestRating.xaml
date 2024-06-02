@@ -105,7 +105,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Guest Username}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -113,7 +113,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Accommodation Name}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToNameConverter}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -121,7 +121,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Location}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding Accommodation.Id, Converter={StaticResource AccommodationIdToLocation}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -129,7 +129,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-in Date}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -137,7 +137,7 @@
                     <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-out Date}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
                                            Text="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

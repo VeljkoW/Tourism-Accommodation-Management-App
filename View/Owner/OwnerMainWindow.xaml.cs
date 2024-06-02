@@ -37,6 +37,8 @@ namespace BookingApp.View.Owner
 
         public User user { get; set; }
         public Accommodation Accommodation { get; set; }
+        public AccommodationStatistics AccommodationStatistics { get; set; }
+        public ReservationRescheduling ReservationRescheduling {  get; set; }
         public AccommodationRegistration AccommodationRegistration { get; set; }
         public Renovation Renovation { get; set; }
         public RenovationHistory RenovationHistory { get; set; }
@@ -89,6 +91,8 @@ namespace BookingApp.View.Owner
             NotificationListBox.Visibility = Visibility.Collapsed;
             Accommodation = new Accommodation();
             AccommodationRegistration = new AccommodationRegistration(user);
+            AccommodationStatistics = new AccommodationStatistics(this);
+            ReservationRescheduling = new ReservationRescheduling(user);
             ReservedAccommodations = new ObservableCollection<ReservedAccommodation>();
             ReservedAccommodationService.GetInstance().NotificationUpdate(user, ReservedAccommodations);
 
@@ -142,7 +146,7 @@ namespace BookingApp.View.Owner
 
         private void AccommodationStatisticsClick(object sender, RoutedEventArgs e)
         {
-            AccommodationStatistics AccommodationStatistics = new AccommodationStatistics(this);
+            //AccommodationStatistics AccommodationStatistics = new AccommodationStatistics(this);
             mainFrame.Navigate(AccommodationStatistics);
             //NavigationButtonBarPressed("AccommodationStatisticsButton");
             CurrentNavigationButton = "AccommodationStatisticsButton";
@@ -150,7 +154,7 @@ namespace BookingApp.View.Owner
 
         private void ReservationReschedulingClick(object sender, RoutedEventArgs e)
         {
-            ReservationRescheduling ReservationRescheduling = new ReservationRescheduling(user);
+            //ReservationRescheduling ReservationRescheduling = new ReservationRescheduling(user);
             mainFrame.Navigate(ReservationRescheduling);
             //NavigationButtonBarPressed("ReservationReschedulingButton");
             CurrentNavigationButton = "ReservationReschedulingButton";
