@@ -27,6 +27,7 @@ namespace BookingApp.View.Guest.Pages
         public GuestMainWindow GuestMainWindow { get; set; }
 
         public ReschedulingStatusesViewModel reschedulingStatusesViewModel { get; set; }
+
         public ReschedulingStatuses(User user, GuestMainWindow guestMainWindow)
         {
             this.user = user;
@@ -43,6 +44,7 @@ namespace BookingApp.View.Guest.Pages
             Color backgroundButton = (Color)ColorConverter.ConvertFromString("#56736F");
             SolidColorBrush backgroundButtons = new SolidColorBrush(backgroundButton);
             HistoryButton.Background = backgroundButtons;
+            MainGrid.Focus();
         }
 
         private void ReservationsClick(object sender, RoutedEventArgs e)
@@ -63,6 +65,19 @@ namespace BookingApp.View.Guest.Pages
         {
             ReservationHistory reservationHistory = new ReservationHistory(user, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(reservationHistory);
+        }
+
+        private void ClickedOnCard(object sender, RoutedEventArgs e)
+        {
+            reschedulingStatusesViewModel.ClickedOnCard(sender, e);
+        }
+
+        private void ClickEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ClickedOnCard(sender, e);
+            }
         }
     }
 }

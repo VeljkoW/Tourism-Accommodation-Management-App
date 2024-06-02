@@ -13,5 +13,6 @@ namespace BookingApp.Domain.IRepositories
         TourComplexSuggestion? GetById(int Id);
         int NextId();
         void Add(TourComplexSuggestion newTourComplexSuggestion);
+        TourComplexSuggestion? Update(TourComplexSuggestion tourComplexSuggestion);
     }
 }

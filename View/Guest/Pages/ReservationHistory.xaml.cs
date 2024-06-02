@@ -43,6 +43,7 @@ namespace BookingApp.View.Guest.Pages
             Color backgroundButton = (Color)ColorConverter.ConvertFromString("#74877A");
             SolidColorBrush backgroundButtons = new SolidColorBrush(backgroundButton);
             HistoryButton.Background = backgroundButtons;
+            MainGrid.Focus();
         }
 
         private void RescheduleClick(object sender, RoutedEventArgs e)

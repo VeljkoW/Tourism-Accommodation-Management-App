@@ -16,7 +16,6 @@ namespace BookingApp.ViewModel.Guest
         public ObservableCollection<GuestRating> GuestRatings {  get; set; }
        
         public User user { get; set; }
-
         public OwnerReviews OwnerReviews { get; set; }
         public OwnerReviewsViewModel(OwnerReviews ownerReviews, User user)
         {
@@ -44,6 +43,6 @@ namespace BookingApp.ViewModel.Guest
             }
 
             OwnerReviews.GuestBonus.Content += GuestBonusService.GetInstance().GetBonus(user).ToString();
-        }
+        } 
     }
 }

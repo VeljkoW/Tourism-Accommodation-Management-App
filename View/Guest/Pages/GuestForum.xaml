@@ -9,6 +9,32 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1520"
       Title="GuestForum">
+    <Page.InputBindings>
+        <KeyBinding
+    Modifiers="Control" 
+    Key="S"
+    Command="{Binding FirstComboBox}"/>
+        <KeyBinding
+Modifiers="Control" 
+Key="C"
+Command="{Binding SecondComboBox}"/>
+        <KeyBinding
+Modifiers="Control" 
+Key="T"
+Command="{Binding CommentTextBox}"/>
+        <KeyBinding
+    Modifiers="Control"
+    Key="E"
+    Command="{Binding CloseButtonClick}"/>
+        <KeyBinding
+    Modifiers="Control"
+    Key="O"
+    Command="{Binding OpenButtonClick}"/>
+        <KeyBinding
+    Modifiers="Control" 
+    Key="P"
+    Command="{Binding PostButtonClick}"/>
+    </Page.InputBindings>
     <Page.Resources>
         <local1:BoolIsSpecialToString x:Key="BoolIsSpecialToString"/>
         <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
@@ -25,10 +51,10 @@
         </Style>
         <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -115,7 +141,7 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Content="Forum" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14 0 0 0" FontWeight="Medium" FontSize="40"/>
-        <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD">
+        <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD" Focusable="True" x:Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="5*"/>
@@ -141,12 +167,15 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Padding="10 10 10 10" VerticalAlignment="Center" Margin="42 0 42 0" Height="55" Background="WhiteSmoke" CornerRadius="8">
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox x:Name="ComboBoxState" FontSize="20" Grid.Column="0" Grid.Row="0"  Height="32" Width="180" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding StatesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedChosenState, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="statePick" />
-                        <ComboBox x:Name="ComboBoxCity" FontSize="20" Grid.Column="1" Grid.Row="0" Margin="10 0 0 0" Height="32" Width="180" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CitiesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities" SelectedItem="{Binding SelectedChosenCity, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cityPick" />
-                        <Button Style="{DynamicResource ButtonStyle}" x:Name="OpenButton" VerticalAlignment="Center" Margin="10 0 0 0" FontSize="20" Content="Open" Grid.Column="2" Grid.Row="0" Command="{Binding OpenButtonClick}" Height="32" Width="130"/>
-                        <Button  x:Name="usefulForum" Height="40" Width="40" Margin="30 0 0 0" Visibility="Visible"  Background="Transparent" BorderThickness="0" ToolTipService.ToolTip="*A forum becomes useful when it receives 10 comments from the owner and 20 comments from guests">
+                        <ComboBox x:Name="ComboBoxState" ToolTipService.ToolTip="Ctrl+S" FontSize="20" PreviewKeyDown="StateComboBox_PreviewKeyDown" Grid.Column="0" Grid.Row="0"  Height="32" Width="180" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding StatesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedChosenState, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="statePick" />
+                        <ComboBox x:Name="ComboBoxCity" ToolTipService.ToolTip="Ctrl+C" FontSize="20" Grid.Column="1" Grid.Row="0" Margin="10 0 0 0" Height="32" Width="180" VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding CitiesForChoosing, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities" SelectedItem="{Binding SelectedChosenCity, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cityPick" />
+                        <Button Style="{DynamicResource ButtonStyle}" ToolTipService.ToolTip="Ctrl+O" x:Name="OpenButton" VerticalAlignment="Center" Margin="10 0 0 0" FontSize="20" Content="Open" Grid.Column="2" Grid.Row="0" Command="{Binding OpenButtonClick}" Height="32" Width="130"/>
+                        <Button  x:Name="usefulForum" Height="40" Width="170" Margin="30 0 0 0" Visibility="Visible"  Background="Transparent" BorderThickness="0" ToolTipService.ToolTip="*A forum becomes useful when it receives 10 comments from the owner and 20 comments from guests">
                             <Button.Content>
+                                <StackPanel Orientation="Horizontal">
                                 <Image Source="../../../Resources/Images/Guest/book.png" Height="39" Width="39" VerticalAlignment="Center"></Image>
+                                <Label FontSize="20" FontWeight="Medium"  VerticalAlignment="Center" Margin="0 0 0 5" >Useful forum</Label>
+                                </StackPanel>
                             </Button.Content>
                         </Button>
                     </StackPanel>
@@ -172,8 +201,8 @@
                         <Image Source="../../../Resources/Images/Guest/user.png" Height="30" Width="30"></Image>
                         <Label x:Name="UsernameLabel"  Content="Guest: " Padding="15 4 0 7" FontSize="20"></Label>
                     </StackPanel>
-                    <TextBox x:Name="CommentTextBox" Grid.Row="1" Grid.Column="1"  BorderThickness="1" BorderBrush="Gray" TextWrapping="Wrap" Grid.ColumnSpan="3" Margin="0 0 17 0" FontSize="20"></TextBox>
-                    <Button Style="{DynamicResource ButtonStyle}" VerticalAlignment="Center" Margin="0 5 17 5" FontSize="20" Content="Post" HorizontalAlignment="Right" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Command="{Binding PostButtonClick}" Height="32" Width="130"/>
+                    <TextBox x:Name="CommentTextBox" ToolTipService.ToolTip="Ctrl+T" Grid.Row="1" PreviewKeyDown="CommentTextBox_PreviewKeyDown" Grid.Column="1"  BorderThickness="1" BorderBrush="Gray" TextWrapping="Wrap" Grid.ColumnSpan="3" Margin="0 0 17 0" FontSize="20"></TextBox>
+                    <Button Style="{DynamicResource ButtonStyle}" ToolTipService.ToolTip="Ctrl+P" VerticalAlignment="Center" Margin="0 5 17 5" FontSize="20" Content="Post" HorizontalAlignment="Right" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Command="{Binding PostButtonClick}" Height="32" Width="130"/>
                 </Grid>
             </Border>
             <ScrollViewer x:Name="Comments" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="42 0 0 0" >
@@ -213,7 +242,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <Button Style="{DynamicResource ButtonStyle}" x:Name="CloseButton" Grid.Row="4" Grid.Column="3" Margin="69 2 90 2" Width="130" Height="32" Command="{Binding CloseButtonClick}" FontSize="20">Close</Button>
+            <Button Style="{DynamicResource ButtonStyle}" ToolTipService.ToolTip="Ctrl+E" x:Name="CloseButton" Grid.Row="4" Grid.Column="3" Margin="69 2 90 2" Width="130" Height="32" Command="{Binding CloseButtonClick}" FontSize="20">Close</Button>
         </Grid>
     </Grid>
 </Page>

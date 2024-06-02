@@ -16,6 +16,11 @@ using GuestAccommodationsPage = BookingApp.View.Guest.Pages.Accommodations;
 using OwnerModel = BookingApp.Domain.Model.Owner;
 using System.Collections.ObjectModel;
 using System.DirectoryServices;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Image = BookingApp.Domain.Model.Image;
+using Acc = BookingApp.View.Guest.Pages.Accommodations;
+using Any = BookingApp.View.Guest.Pages.AnywhereAnytime;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -31,6 +36,11 @@ namespace BookingApp.ViewModel.Guest
         ObservableCollection<Accommodation> noSuperOwnerAccommodations { get; set; }
 
         public RelayCommand SearchButtonClick => new RelayCommand(execute => SearchExecute());
+
+        public RelayCommand AccommodationTab => new RelayCommand(execute => AccommodationsTab());
+        public RelayCommand AnyTab => new RelayCommand(execute => AnysTab());
+        public RelayCommand NameBox => new RelayCommand(execute => NameSearchBox());
+        public RelayCommand CardsSelect => new RelayCommand(execute => SelectCard());
         public GuestAccommodationsViewModel(GuestAccommodationsPage GuestAccommodationsPage, User user)
         {
             this.user = user;
@@ -50,6 +60,37 @@ namespace BookingApp.ViewModel.Guest
             }
             AddSortAccommodations();
             GuestAccommodationsPage.accommodationItems.ItemsSource = Accommodations;
+        }
+        public void AccommodationsTab()
+        {
+            Acc accommodations = new Acc(user, GuestAccommodationsPage.GuestMainWindow);
+            GuestAccommodationsPage.GuestMainWindow.mainFrame.Navigate(accommodations);
+        }
+        public void AnysTab() 
+        {
+            Any anywhereAnytime = new Any(user, GuestAccommodationsPage.GuestMainWindow);
+            GuestAccommodationsPage.GuestMainWindow.mainFrame.Navigate(anywhereAnytime);
+        }
+        public void NameSearchBox()
+        {
+            GuestAccommodationsPage.TextBoxName.InputTextBox.Focus();
+        }
+        private void SelectFirstCard()
+        {
+            var container = GuestAccommodationsPage.accommodationItems.ItemContainerGenerator.ContainerFromIndex(0) as ContentPresenter;
+            if (container != null)
+            {
+                var contentTemplate = container.ContentTemplate;
+                var textBlock = contentTemplate.FindName("BorderBlock", container) as Border;
+                if (textBlock != null)
+                {
+                    Keyboard.Focus(textBlock); // Focus the TextBlock or other inner element
+                }
+            }
+        }
+        public void SelectCard()
+        {
+            SelectFirstCard();
         }
         public void AddSortAccommodations()
         {
@@ -73,9 +114,9 @@ namespace BookingApp.ViewModel.Guest
         }
         public AccommodationType ReturnType() 
         {
-            if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("Apartment")) return AccommodationType.Apartment;
+            if (GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectionBoxItem.Equals("Apartment")) return AccommodationType.Apartment;
 
-            else if (GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("House")) return AccommodationType.House;
+            else if (GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectionBoxItem.Equals("House")) return AccommodationType.House;
 
             else return AccommodationType.Hut;
         }
@@ -94,7 +135,7 @@ namespace BookingApp.ViewModel.Guest
             if (!GuestAccommodationsPage.TextBoxCity.InputTextBox.Text.Trim().Equals("")) City = GuestAccommodationsPage.TextBoxCity.InputTextBox.Text.Trim();
 
             AccommodationType? accommodationType = null;
-            if (GuestAccommodationsPage.ComboBoxType.SelectedItem != null && !GuestAccommodationsPage.ComboBoxType.SelectionBoxItem.Equals("")) accommodationType = ReturnType();
+            if (GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectedItem != null && !GuestAccommodationsPage.ComboBoxType.InputComboBox.SelectionBoxItem.Equals("")) accommodationType = ReturnType();
 
             int GuestNumber = 0;
             if (!string.IsNullOrEmpty(GuestAccommodationsPage.TextBoxGuestNumber.InputTextBox.Text) && IsNumeric(GuestAccommodationsPage.TextBoxGuestNumber.InputTextBox.Text))

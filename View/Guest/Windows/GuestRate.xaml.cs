@@ -33,6 +33,13 @@ namespace BookingApp.View.Guest.Windows
             ReservedAccommodation = reservedAccommodation;
             Cleanliness = 0;
             Integrity = 0;
+            ValidateRadioButtonClean.Text = "*Select rate!";
+            ValidateRadioButtonClean.Visibility = Visibility.Visible;
+            ValidateRadioButtonOwner.Text = "*Select rate!";
+            ValidateRadioButtonOwner.Visibility = Visibility.Visible;
+            ValidateTextBox.Text = "*Input comment!";
+            ValidateTextBox.Visibility = Visibility.Visible;
+
         }
 
         private void RenovationClick(object sender, RoutedEventArgs e)
@@ -46,6 +53,7 @@ namespace BookingApp.View.Guest.Windows
             {
                 if (radioButton.IsChecked == true)
                 {
+                    ValidateRadioButtonClean.Visibility = Visibility.Hidden;
                     if (radioButton.Name == "Cleanliness1")
                         Cleanliness = 1;
                     else if (radioButton.Name == "Cleanliness2")
@@ -65,6 +73,8 @@ namespace BookingApp.View.Guest.Windows
             {
                 if (radioButton.IsChecked == true)
                 {
+
+                    ValidateRadioButtonOwner.Visibility = Visibility.Hidden;
                     if (radioButton.Name == "Integrity1")
                         Integrity = 1;
                     else if (radioButton.Name == "Integrity2")
@@ -79,5 +89,33 @@ namespace BookingApp.View.Guest.Windows
             }
         }
 
+        private void InputTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(CommentTextBox.Text) || string.IsNullOrWhiteSpace(CommentTextBox.Text))
+            {
+
+                ValidateTextBox.Text = "*Input comment!";
+                ValidateTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ValidateTextBox.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void CommentTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                // Ukloni fokus sa TextBox
+                Keyboard.ClearFocus();
+
+                // Postavi fokus na Window
+                FocusManager.SetFocusedElement(this, this);
+
+                // Spreči dalje procesiranje događaja
+                e.Handled = true;
+            }
+        }
     }
 }

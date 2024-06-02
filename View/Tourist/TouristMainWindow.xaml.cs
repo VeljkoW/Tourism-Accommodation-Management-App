@@ -41,7 +41,7 @@ namespace BookingApp.View.Tourist
             this.DataContext = TouristMainWindowViewModel;
         }
 
-        private void SearchBoxClicked(Object sender, RoutedEventArgs e)
+        public void SearchBoxClicked(Object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             if (textBox.Text == "Search tours...")
@@ -66,7 +66,10 @@ namespace BookingApp.View.Tourist
         {
             CenterWindow();
         }
-
+        public void EndDemoMode(object sender, MouseButtonEventArgs e)
+        {
+            TouristMainWindowViewModel.EndDemoMode();
+        }
         private void CenterWindow()
         {
             double SWidth = SystemParameters.PrimaryScreenWidth;

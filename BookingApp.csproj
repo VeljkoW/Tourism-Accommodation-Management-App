@@ -34,12 +34,16 @@
 		<None Remove="Resources\Images\Guest\book.png" />
 		<None Remove="Resources\Images\Guest\cancel.png" />
 		<None Remove="Resources\Images\Guest\forum.png" />
+		<None Remove="Resources\Images\Guest\leftforward.png" />
 		<None Remove="Resources\Images\Guest\loading.png" />
 		<None Remove="Resources\Images\Guest\logout.png" />
 		<None Remove="Resources\Images\Guest\medal.png" />
 		<None Remove="Resources\Images\Guest\notifications.png" />
+		<None Remove="Resources\Images\Guest\pdf.jpg" />
+		<None Remove="Resources\Images\Guest\pdf.png" />
 		<None Remove="Resources\Images\Guest\rating.png" />
 		<None Remove="Resources\Images\Guest\refresh.png" />
+		<None Remove="Resources\Images\Guest\rightforward.png" />
 		<None Remove="Resources\Images\Guest\shine.png" />
 		<None Remove="Resources\Images\Guest\star.png" />
 		<None Remove="Resources\Images\Guest\superGuest.png" />
@@ -94,9 +98,12 @@
 		<None Remove="Resources\Images\Owner\verified-user.png" />
 		<None Remove="Resources\Images\Owner\x-box.png" />
 		<None Remove="Resources\Images\Owner\x-boxWhite.png" />
+		<None Remove="Resources\Images\pause.png" />
+		<None Remove="Resources\Images\play.png" />
     <None Remove="Resources\Images\ratetour.png" />
     <None Remove="Resources\Images\report.png" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\stop.png" />
 		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
 		<None Remove="Resources\Images\TourReview\hqdefault.jpg" />
@@ -108,6 +115,7 @@
 		<None Remove="Resources\Images\Tour\PlitvickaJezera.jpg" />
 		<None Remove="Resources\Images\Tour\PlitvickaJezera2.jpg" />
 		<None Remove="Resources\Images\view.png" />
+		<None Remove="Resources\Video\proba.mp4" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -130,7 +138,10 @@
 	  <Resource Include="Resources\Images\Guest\attachment.png" />
 	  <Resource Include="Resources\Images\Guest\book.png" />
 	  <Resource Include="Resources\Images\Guest\cancel.png" />
+	  <Resource Include="Resources\Images\Guest\leftforward.png" />
 	  <Resource Include="Resources\Images\Guest\loading.png" />
+	  <Resource Include="Resources\Images\Guest\pdf.png" />
+	  <Resource Include="Resources\Images\Guest\rightforward.png" />
 	  <Resource Include="Resources\Images\Guest\shine.png" />
 	  <Resource Include="Resources\Images\Owner\background1.jpg" />
 	  <Resource Include="Resources\Images\Guest\medal.png" />
@@ -176,6 +187,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Remove="Resources\Images\accommodationsLogo.png" />
+		<Content Remove="Resources\Images\pause.png" />
+		<Content Remove="Resources\Images\play.png" />
+		<Content Remove="Resources\Images\stop.png" />
       <Content Remove="Resources\Images\Tourist\bell.png" />
       <Content Remove="Resources\Images\Tourist\coupon.png" />
       <Content Remove="Resources\Images\Tourist\live.png" />
@@ -192,6 +206,7 @@
 		<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Notification.Wpf" Version="8.0.0" />
+		<PackageReference Include="PdfSharpCore" Version="1.3.63" />
 		<PackageReference Include="QuestPDF" Version="2024.3.10" />
 		<Resource Include="Resources\Images\accommodationsLogo.png" />
 		<Resource Include="Resources\Images\Guest\arrowleft.png" />
@@ -231,6 +246,9 @@
 		<Resource Include="Resources\Images\Owner\verified-user.png" />
 		<Resource Include="Resources\Images\Owner\x-box.png" />
 		<Resource Include="Resources\Images\Owner\x-boxWhite.png" />
+		<Resource Include="Resources\Images\Guest\pause.png" />
+		<Resource Include="Resources\Images\Guest\play.png" />
+		<Resource Include="Resources\Images\Guest\stop.png" />
 		<Resource Include="Resources\Images\Tourist\bell.png" />
 		<Resource Include="Resources\Images\Tourist\coupon.png" />
 		<Resource Include="Resources\Images\Tourist\live.png" />
@@ -247,6 +265,7 @@
 		<Resource Include="Resources\Images\TourReview\stock-photo-happy-funny-bearded-man-taking-selfie-and-showing-thumbs-up-in-manhattan-hipster-tourist-posing-523994248.jpg" />
 		<Resource Include="Resources\Images\TourReview\tourist.jpg" />
 		<Resource Include="Resources\Images\Tour\613a18aa2534ab00185376eb.jpg" />
+		<Resource Include="Resources\Video\proba.mp4" />
   </ItemGroup>
 
 	<ItemGroup>

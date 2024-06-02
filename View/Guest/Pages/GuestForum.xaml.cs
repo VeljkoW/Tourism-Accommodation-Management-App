@@ -27,6 +27,7 @@ namespace BookingApp.View.Guest.Pages
         public GuestForum(User user)
         {
             InitializeComponent();
+            MainGrid.Focus();
             User = user;
             GuestForumViewModel = new GuestForumViewModel(this, User);
             this.DataContext = GuestForumViewModel;
@@ -40,6 +41,36 @@ namespace BookingApp.View.Guest.Pages
         private void cityPick(object sender, SelectionChangedEventArgs e)
         {
             GuestForumViewModel.cityPick();
+        }
+
+        private void StateComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                // Ukloni fokus sa TextBox
+                Keyboard.ClearFocus();
+
+                // Postavi fokus na Window
+                FocusManager.SetFocusedElement(MainGrid, MainGrid);
+
+                // Spreči dalje procesiranje događaja
+                e.Handled = true;
+            }
+        }
+
+        private void CommentTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                // Ukloni fokus sa TextBox
+                Keyboard.ClearFocus();
+
+                // Postavi fokus na Window
+                FocusManager.SetFocusedElement(MainGrid, MainGrid);
+
+                // Spreči dalje procesiranje događaja
+                e.Handled = true;
+            }
         }
     }
 }

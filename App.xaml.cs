@@ -105,6 +105,8 @@ namespace BookingApp
             _services.AddSingleton<TourComplexSuggestionService>();
             _services.AddSingleton<IOwnerReportRepository, OwnerReportRepository>();
             _services.AddSingleton<OwnerReportService>();
+            _services.AddSingleton<IReportOnReservationsRepository, ReportOnReservationsRepository>();
+            _services.AddSingleton<ReportOnReservationsService>();
             _serviceProvider = _services.BuildServiceProvider();
 
             SignInForm signInForm = new SignInForm();

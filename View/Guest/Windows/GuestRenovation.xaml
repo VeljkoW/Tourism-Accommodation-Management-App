@@ -6,7 +6,33 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
         Title="GuestRenovation" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding
+         Modifiers="Control"
+         Key="T"
+         Command="{Binding AddCommentTextBox}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="S"
+         Command="{Binding SendButton}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="L"
+         Command="{Binding Level}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="E"
+         Command="{Binding Exit}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="Right"
+         Command="{Binding GoRight}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="Left"
+         Command="{Binding GoLeft}"/>
+    </Window.InputBindings>
+<Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -18,10 +44,10 @@
         </Style>
         <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#ffdd55"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#ffdd55"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -118,18 +144,20 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="AccommodationInformation" FontSize="25" Content="Accommodation name: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" Content="Add comment:*" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 0 0 0"/>
-        <TextBox Background="WhiteSmoke" x:Name="CommentTextBox" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10"/>
+        <TextBox ToolTipService.ToolTip="Ctrl+T" Background="WhiteSmoke" x:Name="CommentTextBox" PreviewKeyDown="CommentTextBox_PreviewKeyDown" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 10 10 15" TextChanged="InputTextChanged"/>
+        <TextBlock x:Name="ValidateTextBox" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontSize="12" Foreground="Red"></TextBlock>
         <Label Grid.Row="3" Grid.Column="0" FontSize="20" Content="Choose a level:*" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
+        <TextBlock x:Name="ValidateRadioButton" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  VerticalAlignment="Bottom" Margin="220 0 0 2" FontSize="12" Foreground="Red"></TextBlock>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="160 0 0 0" VerticalAlignment="Center">
-            <RadioButton Background="WhiteSmoke" x:Name="Level1" Content="1" FontSize="20" GroupName="LevelsRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+L" Background="WhiteSmoke" x:Name="Level1" Content="1" FontSize="20" GroupName="LevelsRadioButton" 
                   Checked="LevelChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Level2" Content="2" FontSize="20" GroupName="LevelsRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+L" Background="WhiteSmoke" x:Name="Level2" Content="2" FontSize="20" GroupName="LevelsRadioButton" 
                   Checked="LevelChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Level3" Content="3" FontSize="20" GroupName="LevelsRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+L" Background="WhiteSmoke" x:Name="Level3" Content="3" FontSize="20" GroupName="LevelsRadioButton" 
                   Checked="LevelChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Level4" Content="4" FontSize="20" GroupName="LevelsRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+L" Background="WhiteSmoke" x:Name="Level4" Content="4" FontSize="20" GroupName="LevelsRadioButton" 
                   Checked="LevelChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Level5" Content="5" FontSize="20" GroupName="LevelsRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+L" Background="WhiteSmoke" x:Name="Level5" Content="5" FontSize="20" GroupName="LevelsRadioButton" 
                   Checked="LevelChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
         </StackPanel>
         <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" FontSize="12" Content="*Level 1 - Minor improvements are desirable but not essential." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
@@ -137,7 +165,7 @@
         <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" FontSize="12" Content=" Level 3 - Several bothersome issues requiring renovation." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
         <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" FontSize="12" Content=" Level 4 - Significant issues necessitating renovation." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
         <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" FontSize="12" Content=" Level 5 - Accommodation is in poor condition and not worth renting without renovation." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
-        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="9" Grid.Column="1" Width="200" Height="50" Content="Send" FontSize="25" Command="{Binding SendButton}"/>
+        <Button  ToolTipService.ToolTip="Ctrl+S" Style="{DynamicResource ButtonStyle}" Grid.Row="9" Grid.Column="1" Width="200" Height="50" Content="Send" FontSize="25" Command="{Binding SendButton}"/>
     </Grid>
     
 </Window>

@@ -16,7 +16,7 @@ namespace BookingApp.Domain.Model.Converters
             if (value is DateTime dateTime)
             {
                 // Vraća samo datum i sate
-                return dateTime.ToString("dd/MM/yyyy HH");
+                return dateTime.ToString("dd/MM/yyyy HHtt");
             }
             return value;
         }
