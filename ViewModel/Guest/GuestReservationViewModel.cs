@@ -204,7 +204,11 @@ namespace BookingApp.ViewModel.Guest
                     currentStartDate = currentStartDate.AddDays(1);
                     currentEndDate = currentStartDate.AddDays(reservationDays);
 
-                    if (counterDates == 5) break;
+                    if (counterDates == 5)
+                    {
+                        notificationManager.Show("Info", "In the entered date range, there are no available slots. Here are some recommended dates", NotificationType.Information);
+                        break;
+                    } 
 
                     if (AreDatesAvailable(currentStartDate, currentEndDate, reservationDays))
                     {

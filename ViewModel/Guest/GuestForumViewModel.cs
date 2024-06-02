@@ -144,6 +144,7 @@ namespace BookingApp.ViewModel.Guest
                     ForumService.GetInstance().Update(forum);
                     findForum = true;
                     GuestForum.CommentTextBox.Focusable = false;
+                    notificationManager.Show("Success!", "New post added", NotificationType.Success);
                     break;
                 }
             }
@@ -164,6 +165,7 @@ namespace BookingApp.ViewModel.Guest
                 ForumService.GetInstance().Add(forum);
                 guestPost.ForumId = forum.Id;
                 GuestPostService.GetInstance().Update(guestPost);
+                notificationManager.Show("Success!", "New post added", NotificationType.Success);
                 GuestForum.CommentTextBox.Focusable = false;
             }
 

@@ -16,6 +16,7 @@ using System.Windows.Input;
 using Image = BookingApp.Domain.Model.Image;
 using Acc = BookingApp.View.Guest.Pages.Accommodations;
 using Any = BookingApp.View.Guest.Pages.AnywhereAnytime;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -23,6 +24,7 @@ namespace BookingApp.ViewModel.Guest
     {
         public User user { get; set; }
         public AnywhereAnytime AnywhereAnytime { get; set; }
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         ObservableCollection<Accommodation> superOwnerAccommodations { get; set; }
         ObservableCollection<Accommodation> noSuperOwnerAccommodations { get; set; }
@@ -402,7 +404,11 @@ namespace BookingApp.ViewModel.Guest
                 currentStartDate = currentStartDate.AddDays(1);
                 currentEndDate = currentStartDate.AddDays(reservationDays);
 
-                if (currentStartDate == startDate.AddDays(31) || counterDates == 5) break;
+                if (currentStartDate == startDate.AddDays(31) || counterDates == 5)
+                {
+                    notificationManager.Show("Info", "In the entered date range, there are no available slots. Here are some recommended dates", NotificationType.Information);
+                    break;
+                } 
 
                 if (AreDatesAvailable(currentStartDate, currentEndDate, reservationDays, accommodationId))
                 {
