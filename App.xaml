@@ -166,7 +166,8 @@
         </Style>
         <Style x:Key="OwnerDataGrid" TargetType="DataGrid">
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OwnerButtonPressedColorBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
@@ -176,9 +177,11 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
                     <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="LightGray"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
                     <Setter Property="Foreground" Value="WhiteSmoke"/>
+                    <Setter Property="Background" Value="#151D30"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -216,6 +219,17 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="OwnerTextBlock" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                    <Setter Property="Foreground" Value="Black"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                    <Setter Property="Foreground" Value="White"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="OwnerDataGridTextBlock" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
