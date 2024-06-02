@@ -204,26 +204,43 @@ namespace BookingApp.ViewModel.Tourist
                 using (var gfx = XGraphics.FromPdfPage(page))
                 {
                     var font = new XFont("Arial", 12, XFontStyle.Bold);
+                    var TitleFont = new XFont("Arial", 20, XFontStyle.Bold);
                     var brush = XBrushes.Black;
+                    var accentBrush = XBrushes.Red;
 
                     var borderPen = new XPen(XColors.Black, 2);
                     gfx.DrawRectangle(borderPen, borderLeft, borderTop, borderRight - borderLeft, borderBottom - borderTop);
 
                     var titleFormat = new XStringFormat();
                     titleFormat.Alignment = XStringAlignment.Center;
-                    gfx.DrawString("Tour Suggestion Statistics", font, brush, new XRect(0, topMargin, page.Width, 20), XStringFormats.Center);
+                    gfx.DrawString("Tour Suggestion Statistics", TitleFont, accentBrush, new XRect(0, topMargin, page.Width, 20), XStringFormats.Center);
 
-                    gfx.DrawLine(borderPen, borderLeft, topMargin + 25, borderRight, topMargin + 25);
+                    gfx.DrawLine(borderPen, borderLeft, topMargin + 29, borderRight, topMargin + 29);
 
                     string yearText1 = string.IsNullOrEmpty(TourSuggestionStatistics.Year1ComboBox.Text) ? "general" : TourSuggestionStatistics.Year1ComboBox.Text;
                     string yearText2 = string.IsNullOrEmpty(TourSuggestionStatistics.Year2ComboBox.Text) ? "general" : TourSuggestionStatistics.Year2ComboBox.Text;
 
-                    var yPos = topMargin + 40;
+                    var yPos = topMargin + 55;
                     gfx.DrawString($"Percentage of Tours Accepted in {yearText1}: {TourSuggestionStatistics.PercentageToursAccepted.Text} %", font, brush, new XPoint(leftMargin, yPos));
                     yPos += 20;
                     gfx.DrawString($"Percentage of Tours Rejected in {yearText1}: {TourSuggestionStatistics.PercentageToursRejected.Text} %", font, brush, new XPoint(leftMargin, yPos));
                     yPos += 20;
                     gfx.DrawString($"Average Number of Tourists Accepted in {yearText2}: {TourSuggestionStatistics.AverageNumberOfTouristsAccepted.Text}", font, brush, new XPoint(leftMargin, yPos));
+
+                    yPos += 40; 
+                    var flavorFont = new XFont("Arial", 10, XFontStyle.Regular);
+                    var flavorBrush = XBrushes.Gray;
+                    gfx.DrawString("Thank you for using our tour statistics service.", flavorFont, flavorBrush, new XPoint(leftMargin, yPos));
+                    yPos += 15;
+                    gfx.DrawString("We strive to provide the best tour experiences based on your preferences and feedback.", flavorFont, flavorBrush, new XPoint(leftMargin, yPos));
+                    yPos += 15;
+                    gfx.DrawString("If you have any questions or need further assistance, please contact our support team.", flavorFont, flavorBrush, new XPoint(leftMargin, yPos));
+                    yPos += 15;
+                    gfx.DrawString("We hope you enjoy your tours and look forward to serving you again!", flavorFont, flavorBrush, new XPoint(leftMargin, yPos));
+                    yPos += 15;
+                    gfx.DrawString("Best regards,", flavorFont, flavorBrush, new XPoint(leftMargin, yPos));
+                    yPos += 15;
+                    gfx.DrawString("The Tour Statistics Team", flavorFont, flavorBrush, new XPoint(leftMargin, yPos));
                 }
 
                 document.Save(filePath);
