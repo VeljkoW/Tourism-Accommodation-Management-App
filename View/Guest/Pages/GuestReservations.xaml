@@ -9,6 +9,28 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1520"
       Title="GuestReservations">
+    <Page.InputBindings>
+        <KeyBinding
+      Modifiers="Control" 
+      Key="Q"
+      Command="{Binding ReservationsTab}"/>
+        <KeyBinding
+     Modifiers="Control" 
+     Key="W"
+     Command="{Binding ReschedulingTab}"/>
+        <KeyBinding
+     Modifiers="Control" 
+     Key="H"
+     Command="{Binding HistoryTab}"/>
+        <KeyBinding
+     Modifiers="Control"
+     Key="C"
+     Command="{Binding FirstCardSelect}"/>
+        <KeyBinding
+        Modifiers="Control" 
+        Key="P"
+        Command="{Binding PdfCreate}"/>
+    </Page.InputBindings>
     <Page.Resources>
 
         <local1:DateTimeToHourConverter x:Key="DateTimeToHourConverter"/>
@@ -21,12 +43,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -90,13 +112,58 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
                             </Trigger>
                             <Trigger Property="IsFocused"  Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
                             </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="F">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background11" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border11" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background11" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border11" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background11" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border11" Color="Transparent"/>
+        <Style x:Key="ButtonStyle11" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background11}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border11}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background11}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border11}"/>
+                            </Trigger>
+                            <!--<Trigger Property="IsFocused"  Value="true">
+                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
+                    </Trigger>-->
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -113,7 +180,7 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Content="Reservations" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" FontWeight="Medium" FontSize="40"/>
-        <Grid Grid.Row="1" Grid.Column="1" >
+        <Grid Grid.Row="1" Grid.Column="1" Background="#DDDDDD" Focusable="True" x:Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
@@ -123,19 +190,36 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50 0 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="White" CornerRadius="15">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="42 0 0 0" HorizontalAlignment="Left" Height="80" Width="660" Background="WhiteSmoke" CornerRadius="15">
                 <StackPanel Orientation="Horizontal">
-                    <Button Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
-                    <Button Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
-                    <Button Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
+                    <Button x:Name="ReservationsButton" ToolTipService.ToolTip="Ctrl+Q" Style="{DynamicResource ButtonStyle1}" Content="Reservations" Width="200" Height="45" Margin="20 0 10 0" BorderThickness="0"  VerticalAlignment="Center" FontSize="18" Click="ReservationsClick" ></Button>
+                    <Button x:Name="StatusesButton" ToolTipService.ToolTip="Ctrl+W" Style="{DynamicResource ButtonStyle1}" Content="Rescheduling statuses" Width="200" Height="45" Margin="0 0 10 0" BorderThickness="0" VerticalAlignment="Center" FontSize="18" Click="RescheduleClick"></Button>
+                    <Button x:Name="HistoryButton" ToolTipService.ToolTip="Ctrl+H" Style="{DynamicResource ButtonStyle1}" Content="History" Width="200" Height="45" FontSize="18" BorderThickness="0"   VerticalAlignment="Center" Click="HistoryClick"></Button>
                 </StackPanel>
             </Border>
-            <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right">
-                <ItemsControl Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+            <Button x:Name="PdfButton" Style="{DynamicResource ButtonStyle11}" Grid.Column="2" Grid.Row="0" BorderThickness="0" Width="100" Height="100" Click="PdfClick" Background="Transparent"  HorizontalAlignment="Right" Margin="0 0 100 0" VerticalAlignment="Center" ToolTipService.ToolTip="*(Ctrl+P)Report on Schedule/Cancelled Reservations.">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical">
+                        <Grid Width="50" Height="50">
+                            <Image Source="../../../Resources/Images/Guest/pdf.png" Height="40" Width="40"></Image>
+                        </Grid>
+                        <Label FontSize="18" Content="Pdf" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
+                <ItemsControl x:Name="reservationsItems" ItemsSource="{Binding reservedAccommodations}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8"  Margin="42 10 80 10" Background="White"
-                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <DataTemplate.Resources>
+                                <Style TargetType="Border">
+                                    <Style.Setters>
+                                        <Setter Property="Focusable" Value="True"/>
+                                    </Style.Setters>
+                                </Style>
+                            </DataTemplate.Resources>
+                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8"  Margin="87 10 80 10" Background="WhiteSmoke"
+                              HorizontalAlignment="Stretch" ToolTipService.ToolTip="Ctrl+C" x:Name="BorderBlock" VerticalAlignment="Center" Focusable="True">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
@@ -181,14 +265,13 @@
                                             </TextBlock>
                                             <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" FontSize="17" Margin="0 10 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
                                                 <Run Text="{Binding CheckInDate, Converter={StaticResource DateTimeToHourConverter}}" />
-                                                <Run Text="PM   " />
+                                                <Run Text="    " />
                                                 <Run Text="{Binding CheckOutDate, Converter={StaticResource DateTimeToHourConverter}}" />
-                                                <Run Text="AM" />   
                                             </TextBlock>
                                             <!--<TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=CheckInDate}" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                                             <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=CheckOutDate}" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15 0 0 0"/>-->
-                                            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
-                                            <Button Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
+                                            <Button Style="{DynamicResource ButtonStyle}" Focusable="True"  Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Content="Rescheduling" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="ReschedulingClick"/>
+                                            <Button Style="{DynamicResource ButtonStyle}" Focusable="True"  Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Content="Cancel" FontSize="15" HorizontalAlignment="Left" Width="100" Height="40" Click="CancelClick"  />
                                         </Grid>
                                     </Border>
                                 </Grid>

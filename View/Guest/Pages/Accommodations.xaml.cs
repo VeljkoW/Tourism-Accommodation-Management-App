@@ -26,108 +26,17 @@ namespace BookingApp.View.Guest.Pages
         {
             InitializeComponent();
             User = user;
+            MainGrid.Focus();
             GuestAccommodationsViewModel = new GuestAccommodationsViewModel(this, user);
             this.DataContext = GuestAccommodationsViewModel;
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            AnyButton.Background = backgroundButtonPressedBrush;
+            Color backgroundButtonColor = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtonBrush = new SolidColorBrush(backgroundButtonColor);
+            AccommodationButton.Background = backgroundButtonBrush;
             GuestMainWindow = guestMainWindow;
         }
-
-        //private void AccommodationName_Clicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (textBox.Text == "Name")
-        //    {
-        //        textBox.Text = string.Empty;
-        //        textBox.Foreground = Brushes.Black;
-        //    }
-
-        //}
-        //private void AccommodationName_NotClicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (string.IsNullOrWhiteSpace(textBox.Text))
-        //    {
-        //        textBox.Text = "Name";
-        //        textBox.Foreground = Brushes.Gray;
-        //    }
-        //}
-        //private void AccommodationState_Clicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (textBox.Text == "State")
-        //    {
-        //        textBox.Text = string.Empty;
-        //        textBox.Foreground = Brushes.Black;
-        //    }
-
-        //}
-        //private void AccommodationState_NotClicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (string.IsNullOrWhiteSpace(textBox.Text))
-        //    {
-        //        textBox.Text = "State";
-        //        textBox.Foreground = Brushes.Gray;
-        //    }
-        //}
-
-        //private void AccommodationCity_Clicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (textBox.Text == "City")
-        //    {
-        //        textBox.Text = string.Empty;
-        //        textBox.Foreground = Brushes.Black;
-        //    }
-
-        //}
-        //private void AccommodationCity_NotClicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (string.IsNullOrWhiteSpace(textBox.Text))
-        //    {
-        //        textBox.Text = "City";
-        //        textBox.Foreground = Brushes.Gray;
-        //    }
-        //}
-
-        //private void GuestNumber_Clicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (textBox.Text == "Guest")
-        //    {
-        //        textBox.Text = string.Empty;
-        //        textBox.Foreground = Brushes.Black;
-        //    }
-
-        //}
-        //private void GuestNumber_NotClicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (string.IsNullOrWhiteSpace(textBox.Text))
-        //    {
-        //        textBox.Text = "Guest";
-        //        textBox.Foreground = Brushes.Gray;
-        //    }
-        //}
-        //private void ReservationDays_Clicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (textBox.Text == "Days")
-        //    {
-        //        textBox.Text = string.Empty;
-        //        textBox.Foreground = Brushes.Black;
-        //    }
-
-        //}
-        //private void ReservationDays_NotClicked(Object sender, RoutedEventArgs e)
-        //{
-        //    TextBox textBox = (TextBox)sender;
-        //    if (string.IsNullOrWhiteSpace(textBox.Text))
-        //    {
-        //        textBox.Text = "Days";
-        //        textBox.Foreground = Brushes.Gray;
-        //    }
-        //}
 
         public void ClickedOnCard(object sender, RoutedEventArgs e)
         {
@@ -144,6 +53,29 @@ namespace BookingApp.View.Guest.Pages
         {
             AnywhereAnytime anywhereAnytime = new AnywhereAnytime(User, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(anywhereAnytime);
+        }
+
+        private void NameTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            //{
+            //    // Ukloni fokus sa TextBox
+            //    Keyboard.ClearFocus();
+
+            //    // Postavi fokus na Window
+            //    FocusManager.SetFocusedElement(MainGrid, MainGrid);
+
+            //    // Spreči dalje procesiranje događaja
+            //    e.Handled = true;
+            //}
+        }
+
+        private void ClickEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ClickedOnCard(sender, e);
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ namespace BookingApp.View.Guest.Windows
         {
             InitializeComponent();
             User = user;
-            GuestNotificationsViewModel = new GuestNotificationsViewModel(User);
+            GuestNotificationsViewModel = new GuestNotificationsViewModel(User, this);
             DataContext = GuestNotificationsViewModel;
             GuestMainWindow = guestMainWindow;
         }
@@ -46,7 +46,13 @@ namespace BookingApp.View.Guest.Windows
         {
             ReschedulingStatuses rescheduleStatus = new ReschedulingStatuses(User, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(rescheduleStatus);
+            GuestMainWindow.NavigationButtonBarPressed("ReservationsButton");
             Close();
+        }
+
+        private void ClickEnter(object sender, KeyEventArgs e)
+        {
+            ClickedOnCard(sender, e);
         }
     }
 }

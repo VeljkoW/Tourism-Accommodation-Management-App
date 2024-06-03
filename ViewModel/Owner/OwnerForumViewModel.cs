@@ -28,6 +28,7 @@ namespace BookingApp.ViewModel.Owner
         public RelayCommand SearchClick => new RelayCommand(execute => SearchExecute(), canExecute => CanSearchExecute());
         public RelayCommand PostClick => new RelayCommand(execute => PostExecute(), canExecute => CanPostExecute());
         
+        public bool HasAccommodations {  get; set; }
         public List<string> States { get; set; }
         public ObservableCollection<Location> Cities { get; set; }
         private string selectedState { get; set; }
@@ -86,11 +87,15 @@ namespace BookingApp.ViewModel.Owner
             guestPost.ForumId = ForumModel.Id;
             guestPost.UserId = User.Id;
             guestPost.Comment = ForumPage.PostCommentTextBox.Text;
-            guestPost.SpecialUser = true;
+            guestPost.SpecialUser = false;
             GuestPostService.GetInstance().Add(guestPost);
             ForumModel.GuestPosts.Add(guestPost);
             Posts.Add(guestPost);
             ForumService.GetInstance().Update(ForumModel);
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success!", "Post successfully added!", NotificationType.Success);
+            else
+                notificationManager.Show("Uspeh!", "Uspešno postavljena objava!", NotificationType.Success);
         }
         public bool CanPostExecute()
         {
@@ -114,6 +119,7 @@ namespace BookingApp.ViewModel.Owner
                 {
                     hasAccommodations = true; break;
                 }
+            HasAccommodations = hasAccommodations;
 
             foreach (ForumModel forumModel in ForumService.GetInstance().GetAll())
                 if (forumModel.LocationId == SelectedCity.Id)
@@ -139,7 +145,7 @@ namespace BookingApp.ViewModel.Owner
                 ForumPage.BookmarkImage.Visibility = System.Windows.Visibility.Collapsed;
                 ForumPage.UsefulForumTextBlock.Visibility = System.Windows.Visibility.Collapsed;
             }
-            ForumPage.LocationInfoTextBlock.Visibility = System.Windows.Visibility.Hidden;
+            ForumPage.LocationInfoTextBlock.Visibility = System.Windows.Visibility.Collapsed;
 
         }
         public bool CanSearchExecute()
@@ -156,8 +162,18 @@ namespace BookingApp.ViewModel.Owner
         }
         public void ReportClick(GuestPost guestPost)
         {
-            foreach(OwnerReport report in OwnerReportService.GetInstance().GetAll())
-                if(report.OwnerId == User.Id && report.PostId == guestPost.Id)
+            List<Accommodation> accommodations = AccommodationService.GetInstance().GetAllByUser(User).ToList();
+            if (!HasAccommodations)
+            {
+                if (App.currentLanguage() == ENG)
+                    notificationManager.Show("Info", "You cannot report this user if you have no accommodations on this location!", NotificationType.Error);
+                else
+                    notificationManager.Show("Info", "Ne možeš da prijaviš ovog korisnika ako nemaš smeštaj na ovoj lokaciji!", NotificationType.Error);
+                return;
+            }
+            foreach (OwnerReport report in OwnerReportService.GetInstance().GetAll())
+            {
+                if (report.OwnerId == User.Id && report.PostId == guestPost.Id)
                 {
                     if (App.currentLanguage() == ENG)
                         notificationManager.Show("Info", "You have already reported this user!", NotificationType.Error);
@@ -165,6 +181,7 @@ namespace BookingApp.ViewModel.Owner
                         notificationManager.Show("Info", "Već si prijavio ovog korisnika!", NotificationType.Error);
                     return;
                 }
+            }
             OwnerReport ownerReport = new OwnerReport();
             ownerReport.OwnerId = User.Id;
             ownerReport.PostId = guestPost.Id;

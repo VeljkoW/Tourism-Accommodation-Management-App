@@ -33,8 +33,15 @@ namespace BookingApp.View.Guest.Pages
         {
             InitializeComponent();
             User = user;
+            MainGrid.Focus();
             anywhereAnytimeView = new AnywhereAnytimeViewModel(this);
             this.DataContext = anywhereAnytimeView;
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            AnyButton.Background = backgroundButtonPressedBrush;
+            Color backgroundButtonColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonBrush = new SolidColorBrush(backgroundButtonColor);
+            AccommodationButton.Background = backgroundButtonBrush;
             GuestMainWindow = guestMainWindow;
             openWindow = true;
         }
@@ -47,13 +54,18 @@ namespace BookingApp.View.Guest.Pages
             {
                 AccommodationForReservation accommodationForReservation = anywhereAnytimeView.accommodationForReservations.Where(t => t.AccommodationId == selectedCard.Id).First();
                 AnywhereAnytimeWithDate anywhereAnytimeWithDate = new AnywhereAnytimeWithDate(anywhereAnytimeView, accommodationForReservation, User);
+                this.Focusable = false;
                 anywhereAnytimeWithDate.Show();
+                anywhereAnytimeWithDate.Focusable = true;
+
             }
             else
             {
                 AccommodationForReservation accommodationForReservation = anywhereAnytimeView.accommodationForReservations.Where(t => t.AccommodationId == selectedCard.Id).First();
                 AnywhereAnytimeWithoutDate anywhereAnytimeWithoutDate = new AnywhereAnytimeWithoutDate(anywhereAnytimeView, accommodationForReservation, User);
+                this.Focusable = false;
                 anywhereAnytimeWithoutDate.Show();
+                anywhereAnytimeWithoutDate.Focusable = true;
             }
             //GuestAccommodationsViewModel.ClickedOnCard(sender, e);
         }
@@ -68,5 +80,13 @@ namespace BookingApp.View.Guest.Pages
             AnywhereAnytime anywhereAnytime = new AnywhereAnytime(User, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(anywhereAnytime);
         }
+        private void ClickEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ClickedOnCard(sender, e);
+            }
+        }
+
     }
 }

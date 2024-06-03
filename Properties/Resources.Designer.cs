@@ -151,6 +151,33 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to cancel renovation?.
+        /// </summary>
+        internal static string Are_you_sure_you_want_to_cancel_renovation {
+            get {
+                return ResourceManager.GetString("Are you sure you want to cancel renovation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to close accommodation?.
+        /// </summary>
+        internal static string Are_you_sure_you_want_to_close_accommodation {
+            get {
+                return ResourceManager.GetString("Are you sure you want to close accommodation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to close this request?.
+        /// </summary>
+        internal static string Are_you_sure_you_want_to_close_this_renovation_request {
+            get {
+                return ResourceManager.GetString("Are you sure you want to close this renovation request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Available Dates:*.
         /// </summary>
         internal static string Available_dates__ {
@@ -165,6 +192,15 @@ namespace BookingApp.Properties {
         internal static string Average_Grade_ {
             get {
                 return ResourceManager.GetString("Average Grade:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -223,11 +259,11 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check Reservations:.
+        ///   Looks up a localized string similar to Check Reservations.
         /// </summary>
-        internal static string Check_Reservations_ {
+        internal static string Check_Reservations {
             get {
-                return ResourceManager.GetString("Check Reservations:", resourceCulture);
+                return ResourceManager.GetString("Check Reservations", resourceCulture);
             }
         }
         
@@ -331,6 +367,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date:.
+        /// </summary>
+        internal static string Date_ {
+            get {
+                return ResourceManager.GetString("Date:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decline.
         /// </summary>
         internal static string Decline {
@@ -418,6 +463,15 @@ namespace BookingApp.Properties {
         internal static string Free {
             get {
                 return ResourceManager.GetString("Free", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guest.
+        /// </summary>
+        internal static string Guest {
+            get {
+                return ResourceManager.GetString("Guest", resourceCulture);
             }
         }
         
@@ -526,6 +580,15 @@ namespace BookingApp.Properties {
         internal static string Level_of_Renovation_Request_ {
             get {
                 return ResourceManager.GetString("Level of Renovation Request:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level of request:.
+        /// </summary>
+        internal static string Level_of_request_ {
+            get {
+                return ResourceManager.GetString("Level of request:", resourceCulture);
             }
         }
         
@@ -652,6 +715,15 @@ namespace BookingApp.Properties {
         internal static string Notifications {
             get {
                 return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        internal static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
             }
         }
         
@@ -854,6 +926,24 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the location first!.
+        /// </summary>
+        internal static string Select_the_location_first {
+            get {
+                return ResourceManager.GetString("Select the location first", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the reservation request first!.
+        /// </summary>
+        internal static string Select_the_Reservation_Request_first {
+            get {
+                return ResourceManager.GetString("Select the Reservation Request first", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select the reservation request you want to accept/decline:.
         /// </summary>
         internal static string Select_the_reservation_request_you_want_to_accept_decline_ {
@@ -868,6 +958,15 @@ namespace BookingApp.Properties {
         internal static string Selected_Guest {
             get {
                 return ResourceManager.GetString("Selected Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected reservation request.
+        /// </summary>
+        internal static string Selected_Reservation_Request {
+            get {
+                return ResourceManager.GetString("Selected Reservation Request", resourceCulture);
             }
         }
         
@@ -953,6 +1052,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no more guests to rate.
+        /// </summary>
+        internal static string There_are_no_more_guests_to_rate {
+            get {
+                return ResourceManager.GetString("There are no more guests to rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type:.
         /// </summary>
         internal static string Type_ {
@@ -998,11 +1106,29 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are a Superowner!.
         /// </summary>
         internal static string You_are_a_Superowner {
             get {
                 return ResourceManager.GetString("You are a Superowner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You successfully rated all the guests!.
+        /// </summary>
+        internal static string You_successfully_rated_all_the_guests {
+            get {
+                return ResourceManager.GetString("You successfully rated all the guests", resourceCulture);
             }
         }
         

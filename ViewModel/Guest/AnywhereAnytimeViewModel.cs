@@ -11,6 +11,12 @@ using System.Threading.Tasks;
 using OwnerModel = BookingApp.Domain.Model.Owner;
 using System.Windows;
 using LiveCharts.Wpf;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Image = BookingApp.Domain.Model.Image;
+using Acc = BookingApp.View.Guest.Pages.Accommodations;
+using Any = BookingApp.View.Guest.Pages.AnywhereAnytime;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Guest
 {
@@ -18,12 +24,17 @@ namespace BookingApp.ViewModel.Guest
     {
         public User user { get; set; }
         public AnywhereAnytime AnywhereAnytime { get; set; }
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         ObservableCollection<Accommodation> superOwnerAccommodations { get; set; }
         ObservableCollection<Accommodation> noSuperOwnerAccommodations { get; set; }
 
         public List<AccommodationForReservation> accommodationForReservations { get; set; }
-
+        public RelayCommand AccommodationTab => new RelayCommand(execute => AccommodationsTab());
+        public RelayCommand AnyTab => new RelayCommand(execute => AnysTab());
+        public RelayCommand StartDate => new RelayCommand(execute => StartDatePicker());
+        public RelayCommand EndDate => new RelayCommand(execute => EndDatePicker());
+        public RelayCommand CardsSelect => new RelayCommand(execute => SelectCard());
         public ObservableCollection<AvailableDate> printDates { get; set; }
         public RelayCommand SearchButtonClick => new RelayCommand(execute => SearchExecute());
         public AnywhereAnytimeViewModel(AnywhereAnytime anywhereAnytime) {
@@ -33,6 +44,8 @@ namespace BookingApp.ViewModel.Guest
             superOwnerAccommodations = new ObservableCollection<Accommodation>();
             noSuperOwnerAccommodations = new ObservableCollection<Accommodation>();
             accommodationForReservations = new List<AccommodationForReservation>();
+            AnywhereAnytime.ErrorLabelNoData.Visibility = System.Windows.Visibility.Visible;
+            AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
             //printDates = new ObservableCollection<AvailableDate>();
             //foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             //{
@@ -45,6 +58,41 @@ namespace BookingApp.ViewModel.Guest
             //}
             //AddSortAccommodations();
             //AnywhereAnytime.accommodationItems.ItemsSource = Accommodations;
+        }
+        public void AccommodationsTab()
+        {
+            Acc accommodations = new Acc(user, AnywhereAnytime.GuestMainWindow);
+            AnywhereAnytime.GuestMainWindow.mainFrame.Navigate(accommodations);
+        }
+        public void AnysTab()
+        {
+            Any anywhereAnytime = new Any(user, AnywhereAnytime.GuestMainWindow);
+            AnywhereAnytime.GuestMainWindow.mainFrame.Navigate(anywhereAnytime);
+        }
+        public void StartDatePicker()
+        {
+            AnywhereAnytime.CheckInDate.InputDateBox.IsDropDownOpen = true;
+        }
+        public void EndDatePicker()
+        {
+            AnywhereAnytime.CheckOutDate.InputDateBox.IsDropDownOpen = true;
+        }
+        private void SelectFirstCard()
+        {
+            var container = AnywhereAnytime.accommodationItems.ItemContainerGenerator.ContainerFromIndex(0) as ContentPresenter;
+            if (container != null)
+            {
+                var contentTemplate = container.ContentTemplate;
+                var textBlock = contentTemplate.FindName("BorderBlock", container) as Border;
+                if (textBlock != null)
+                {
+                    Keyboard.Focus(textBlock); // Focus the TextBlock or other inner element
+                }
+            }
+        }
+        public void SelectCard()
+        {
+            SelectFirstCard();
         }
         public void AddSortAccommodations()
         {
@@ -69,6 +117,8 @@ namespace BookingApp.ViewModel.Guest
 
         public void SearchExecute()
         {
+            AnywhereAnytime.ErrorLabelNoData.Visibility = System.Windows.Visibility.Collapsed;
+            AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
             DateTime CheckInDate = DateTime.Now;
             DateTime CheckOutDate = DateTime.Now;
             if (!string.IsNullOrEmpty(AnywhereAnytime.CheckInDate.InputDateBox.Text) && !string.IsNullOrEmpty(AnywhereAnytime.CheckOutDate.InputDateBox.Text))
@@ -87,6 +137,12 @@ namespace BookingApp.ViewModel.Guest
             {
                 ReservationDays = Convert.ToInt32(AnywhereAnytime.TextBoxReservationDays.InputTextBox.Text.Trim());
                 if (ReservationDays <= 0) return;
+            }
+            if(string.IsNullOrEmpty(AnywhereAnytime.CheckInDate.InputDateBox.Text) && string.IsNullOrEmpty(AnywhereAnytime.CheckOutDate.InputDateBox.Text)
+                && string.IsNullOrEmpty(AnywhereAnytime.TextBoxGuestNumber.InputTextBox.Text) && string.IsNullOrEmpty(AnywhereAnytime.TextBoxReservationDays.InputTextBox.Text))
+            {
+                AnywhereAnytime.ErrorLabelNoData.Visibility = System.Windows.Visibility.Visible;
+                return;
             }
             if (string.IsNullOrEmpty(AnywhereAnytime.CheckInDate.InputDateBox.Text) && string.IsNullOrEmpty(AnywhereAnytime.CheckOutDate.InputDateBox.Text))
             {
@@ -118,7 +174,15 @@ namespace BookingApp.ViewModel.Guest
                 //Accommodations.Add(accommodation);
             }
             AddSortAccommodations();
-            AnywhereAnytime.accommodationItems.ItemsSource = Accommodations;
+            if (Accommodations.Count != 0)
+            {
+                AnywhereAnytime.accommodationItems.ItemsSource = Accommodations;
+                AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                AnywhereAnytime.ErrorLabelNoSearch.Visibility = System.Windows.Visibility.Visible;
+            }
         }
         private List<Accommodation> SearchAccommodation(int GuestNumber, int ReservationDays)
         {
@@ -138,7 +202,6 @@ namespace BookingApp.ViewModel.Guest
                     countSchedule = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodation.Id).Count();
                     if (countReserved == 0 && countSchedule == 0)
                     {
-
                         AccommodationForReservation accommodationForReservation = new AccommodationForReservation();
                         accommodationForReservation.AccommodationId = accommodation.Id;
                         accommodationForReservation.GuestNumber = GuestNumber;
@@ -291,17 +354,16 @@ namespace BookingApp.ViewModel.Guest
         private bool AreDatesAvailable(DateTime startDate, DateTime endDate, int reservationDays, int accommodationId)
         {
             if (!CheckDates(startDate, endDate, reservationDays)) return false;
+            List<ReservedAccommodation> reservedAccommodations = ReservedAccommodationService.GetInstance().GetAll().Where(t => t.Accommodation.Id == accommodationId).ToList();
+            List<ScheduledRenovation> scheduledRenovations = ScheduledRenovationService.GetInstance().GetAll().Where(t => t.AccommodationId == accommodationId).ToList();
 
             for (DateTime date = startDate; date <= startDate.AddDays(reservationDays); date = date.AddDays(1))
             {
-                foreach (ReservedAccommodation reservedAccommodation in ReservedAccommodationService.GetInstance().GetAll())
-                    if (accommodationId == reservedAccommodation.Accommodation.Id)
-                        if (!CheckReservedDates(date, reservedAccommodation)) return false;
-                            
+                foreach (ReservedAccommodation reservedAccommodation in reservedAccommodations)
+                    if (!CheckReservedDates(date, reservedAccommodation)) return false;
 
-                foreach (ScheduledRenovation scheduledRenovation in ScheduledRenovationService.GetInstance().GetAll())
-                    if (scheduledRenovation.AccommodationId == accommodationId)
-                        if (!CheckRenovationDates(date, scheduledRenovation)) return false;
+                foreach (ScheduledRenovation scheduledRenovation in scheduledRenovations)
+                    if (!CheckRenovationDates(date, scheduledRenovation)) return false;
             }
             return true;
         }
@@ -342,7 +404,11 @@ namespace BookingApp.ViewModel.Guest
                 currentStartDate = currentStartDate.AddDays(1);
                 currentEndDate = currentStartDate.AddDays(reservationDays);
 
-                if (currentStartDate == startDate.AddDays(31) || counterDates == 5) break;
+                if (currentStartDate == startDate.AddDays(31) || counterDates == 5)
+                {
+                   
+                    break;
+                } 
 
                 if (AreDatesAvailable(currentStartDate, currentEndDate, reservationDays, accommodationId))
                 {

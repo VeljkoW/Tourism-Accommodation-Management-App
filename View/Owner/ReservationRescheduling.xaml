@@ -35,6 +35,45 @@
         <Style TargetType="DataGrid">
             <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
         </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="30" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -46,25 +85,69 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1" Grid.Row="1" Margin="30 0 30 30">
+        <Grid Grid.Column="1" Grid.Row="1" Margin="30 0 30 20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Label Content="{loc:Loc Select the reservation request you want to accept/decline:}"
+            <Label Content="{loc:Loc Select the reservation request you want to accept/decline:}" Style="{DynamicResource OwnerLabel}"
                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Margin="0 10 0 0"/>
-            <DataGrid x:Name="RatingGuestsTable" Grid.Row="0" Margin="0 60 0 0"
-                      ItemsSource="{Binding GuestReschedulingRequests, UpdateSourceTrigger=PropertyChanged}"
+            <DataGrid x:Name="ReservationRequestsTable" Grid.Row="0" Margin="0 60 0 0" SelectionChanged="ReservationRequestsSelectionChanged"
+                      ItemsSource="{Binding GuestReschedulingRequests, UpdateSourceTrigger=PropertyChanged}" SelectionUnit="FullRow"
                       SelectedItem="{Binding SelectedGuestReschedulingRequest, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False" FontSize="16"
+                      AutoGenerateColumns="False" FontSize="16" Style="{DynamicResource OwnerDataGrid}"
                       SelectionMode="Single" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Accommodation Name}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Location}" Binding="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTemplateColumn Width="70" Header="{loc:Loc Free}">
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Guest Username}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                           Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Accommodation Name}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                           Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Location}" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                           Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-in Date}" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                           Text="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*" Header="{loc:Loc Check-out Date}" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                           Text="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="90" Header="{loc:Loc Free}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="isFreeTextBlock" Text="{Binding IsFreeText, UpdateSourceTrigger=PropertyChanged}" 
+                                           Style="{DynamicResource OwnerDataGridTextBlock}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                    <!-- <DataGridTemplateColumn Width="90" Header="{loc:Loc Free}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Image x:Name="isFreeImage" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"
@@ -72,7 +155,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                </DataGrid.Columns>
+                </DataGrid.Columns> -->
             </DataGrid>
 
             <Grid Grid.Row="1" Margin="0 5 0 0">
@@ -80,48 +163,69 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="{loc:Loc Selected Guest}" Grid.Column="0"
+                <Label Content="{loc:Loc Selected Reservation Request}" Grid.Column="0" Style="{DynamicResource OwnerLabel}"
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
-                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 40 0 0">
+                <Border Grid.Column="0" BorderBrush="{StaticResource OwnerTabPressedColorBrush}" 
+                        BorderThickness="1" CornerRadius="10" Margin="0 40 0 0" Background="{DynamicResource BorderBackgroundBrush}">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*" MinHeight="80"/>
-                            <RowDefinition Height="*" MinHeight="50"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <Label Content="{loc:Loc Guest Username:}" FontSize="20"/>
-                            <Label Content="{Binding SelectedGuestReschedulingRequest.GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"  Grid.Row="1">
-                            <Label Content="{loc:Loc Accommodation Name:}" FontSize="20"/>
-                            <Label Content="{Binding SelectedGuestReschedulingRequest.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Row="2">
-                            <Label Content="{loc:Loc Location:}" FontSize="20"/>
-                            <Label Content="{Binding SelectedGuestReschedulingRequest.AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-                        </StackPanel>
-                        <Label Content="{loc:Loc Comment:*}" FontSize="20"  Grid.Row="3"/>
+                        <Border Padding="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*" MinHeight="80"/>
+                                    <RowDefinition Height="*" MinHeight="50"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" FontSize="20" Style="{DynamicResource OwnerTextBlock}" Margin="0 0 0 5">
+                                    <Run Text="{loc:Loc Guest Username:}"/>
+                                    <Run Text="{Binding SelectedGuestReschedulingRequest.GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                </TextBlock>
+                                <TextBlock Grid.Row="1" FontSize="20" Style="{DynamicResource OwnerTextBlock}" Margin="0 0 0 5">
+                                    <Run Text="{loc:Loc Accommodation:}"/>
+                                    <Run Text="{Binding SelectedGuestReschedulingRequest.AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0},'}"/>
+                                    <Run Text="{Binding SelectedGuestReschedulingRequest.AccommodationId, Converter={StaticResource AccommodationIdToLocation}, UpdateSourceTrigger=PropertyChanged}"/>
+                                </TextBlock>
+                                <TextBlock Grid.Row="2" FontSize="20" Style="{DynamicResource OwnerTextBlock}" Margin="0 0 0 5">
+                                    <Run Text="{loc:Loc Date:}"/>
+                                    <Run Text="{Binding SelectedGuestReschedulingRequest.CheckInDate, StringFormat={}{0:dd/MM/yyyy  hhtt}, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Run Text="-"/>
+                                    <Run Text="{Binding SelectedGuestReschedulingRequest.CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hhtt}, UpdateSourceTrigger=PropertyChanged}"/>
+                                </TextBlock>
+                                <TextBlock Text="{loc:Loc Comment:*}" FontSize="20"  Grid.Row="3" Style="{DynamicResource OwnerTextBlock}"/>
 
-                        <TextBox x:Name="CommentTextBox" Grid.Row="4" Height="80" VerticalAlignment="Top" FontSize="20" TextWrapping="Wrap" AcceptsReturn="True"/>
+                                <TextBox x:Name="CommentTextBox" Grid.Row="4" Height="95" VerticalAlignment="Top" 
+                                         FontSize="20" TextWrapping="Wrap" AcceptsReturn="True" Style="{DynamicResource OwnerTextBox}"/>
 
-                        <Grid Grid.Row="5" Margin="0 5 0 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" MinWidth="220"/>
-                                <ColumnDefinition Width="*" MinWidth="220"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Content="{loc:Loc Decline}" Grid.Column="0" Height="60" Width="200" FontSize="24"
-                                    HorizontalAlignment="Center" Command="{Binding DeclineClick}" VerticalAlignment="Center"/>
-                            <Button Content="{loc:Loc Accept}" Command="{Binding AcceptClick}" Grid.Column="1" Height="60" Width="200" FontSize="24"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Grid Grid.Row="5" Margin="0 5 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" MinWidth="220"/>
+                                        <ColumnDefinition Width="*" MinWidth="220"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Content="{loc:Loc Decline}" Grid.Column="1" Height="60" Width="200" FontSize="24" Style="{DynamicResource OwnerButtonStyle}"
+                                            HorizontalAlignment="Center" Command="{Binding DeclineClick}" VerticalAlignment="Center"/>
+                                    <Button Content="{loc:Loc Accept}" Command="{Binding AcceptClick}" Grid.Column="0" Height="60" Width="200" FontSize="24"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource OwnerButtonStyle}"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+
+
+                        <Grid x:Name="CancelRenovationAccept">
+                            <Border Background="{StaticResource OwnerTabDarkColorBrush}" CornerRadius="10" Opacity="0.9"/>
+                            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="160" Padding="30" Background="{StaticResource OwnerTabLightColorBrush}"
+                                    BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+                                <Grid>
+                                    <TextBlock Grid.Row="0" Text="{loc:Loc Select the Reservation Request first}" TextAlignment="Center" TextWrapping="Wrap" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
                         </Grid>
                     </Grid>
                 </Border>
 
-                <Label Content="{loc:Loc Check Reservations:}" Grid.Column="1" 
+                <Label Content="{loc:Loc Check Reservations}" Grid.Column="1" Style="{DynamicResource OwnerLabel}"
                        HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
                 <Grid Grid.Column="1"  Margin="20 40 0 0">
                     <Grid.RowDefinitions>
@@ -129,46 +233,68 @@
                         <RowDefinition Height="2*" MinHeight="80"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0">
-                        <TextBlock Text="{loc:Loc Accommodation Name:}" FontSize="20" Margin="20 0 20 0"/>
+                        <TextBlock Text="{loc:Loc Accommodation Name:}" FontSize="20" Margin="20 0 20 0"  Style="{DynamicResource OwnerTextBlock}"/>
                         <ComboBox ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30" FontSize="20" SelectionChanged="AccommodationSelectionChanged" Margin="0 0 20 0"
-                                  SelectedValuePath="PrintAccommodation" DisplayMemberPath="PrintAccommodation"/>
+                                  SelectedValuePath="PrintAccommodation" DisplayMemberPath="PrintAccommodation"  Style="{DynamicResource OwnerComboBox}"/>
                     </DockPanel>
-                    <DataGrid Grid.Row="0" Margin="0 40 0 20"
+                    <DataGrid Grid.Row="0" Margin="0 40 0 20" 
                               ItemsSource="{Binding ReservedAccommodations, UpdateSourceTrigger=PropertyChanged}"
-                              AutoGenerateColumns="False" FontSize="14"
+                              AutoGenerateColumns="False" FontSize="14" Style="{DynamicResource OwnerDataGrid}"
                               SelectionMode="Single" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="{loc:Loc Guest Username}" Binding="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Width="*" Header="{loc:Loc Check-in Date}" Binding="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Width="*" Header="{loc:Loc Check-out Date}" Binding="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTemplateColumn Width="1.5*" Header="{loc:Loc Guest Username}" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                                   Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="2*" Header="{loc:Loc Check-in Date}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                                   Text="{Binding CheckInDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="2*" Header="{loc:Loc Check-out Date}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock HorizontalAlignment="Center" Style="{DynamicResource OwnerDataGridTextBlock}"
+                                                   Text="{Binding CheckOutDate, StringFormat={}{0:dd/MM/yyyy  hh:mm tt}, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="5" Margin="0 0 0 0">
+                    <Border Grid.Row="1" BorderBrush="{StaticResource OwnerTabPressedColorBrush}"  
+                            BorderThickness="1" CornerRadius="10" Padding="5" Margin="0 0 0 0" Background="{DynamicResource BorderBackgroundBrush}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1.5*" MinHeight="50"/>
+                                <RowDefinition Height="*" MinHeight="50"/>
                                 <RowDefinition Height="*" MinHeight="30"/>
                                 <RowDefinition Height="*" MinHeight="30"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition Width="3.5*"/>
+                                <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock TextWrapping="Wrap" Text="{loc:Loc For the selected accommodation choose start and end date you want the report for:}" 
-                                   FontSize="15" Grid.Row="0"/>
+                                   FontSize="15" Grid.Row="0" Style="{DynamicResource OwnerTextBlock}" Margin="10 5 0 0"/>
                             <DockPanel Grid.Row="1" VerticalAlignment="Center">
-                                <TextBlock Text="{loc:Loc Start Date:*}" FontSize="15"/>
-                                <DatePicker Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
+                                <TextBlock Text="{loc:Loc Start Date:*}" FontSize="15" Style="{DynamicResource OwnerTextBlock}" Margin="10 3 0 0"/>
+                                <DatePicker x:Name="StartDatePicker" Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Margin="0 0 30 5"/>
                             </DockPanel>
                             <DockPanel Grid.Row="2" VerticalAlignment="Center">
-                                <TextBlock Text="{loc:Loc End Date:*}" FontSize="15" Margin="0 0 6 0"/>
-                                <DatePicker Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
+                                <TextBlock Text="{loc:Loc End Date:*}" FontSize="15" Margin="10 3 0 0" Style="{DynamicResource OwnerTextBlock}"/>
+                                <DatePicker x:Name="EndDatePicker" Width="210" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Margin="0 0 30 5"/>
                             </DockPanel>
 
-                            <Button Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" Height="82" Width="140" FontSize="19.5"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" Height="82" Width="140" FontSize="19.5" Style="{DynamicResource OwnerButtonStyle20}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="DownloadReservationReportClick" Command="{Binding DownloadReservationReportCommand}">
                                 <Button.ContentTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{loc:Loc Download Reservation Report}" TextWrapping="Wrap" VerticalAlignment="Center"/>

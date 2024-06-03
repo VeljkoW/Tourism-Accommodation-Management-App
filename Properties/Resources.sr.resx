@@ -150,6 +150,15 @@
   <data name="Add Image" xml:space="preserve">
     <value>Dodaj sliku</value>
   </data>
+  <data name="Are you sure you want to cancel renovation" xml:space="preserve">
+    <value>Da li si siguran da želiš da otkažeš renoviranje?</value>
+  </data>
+  <data name="Are you sure you want to close accommodation" xml:space="preserve">
+    <value>Da li si siguran da želiš da zatvoriš smeštaj?</value>
+  </data>
+  <data name="Are you sure you want to close this renovation request" xml:space="preserve">
+    <value>Da li si siguran da želiš da zatvoriš ovaj zahtev?</value>
+  </data>
   <data name="Available dates:*" xml:space="preserve">
     <value>Dostupni Datumi:*</value>
     <comment>Renovation</comment>
@@ -157,6 +166,9 @@
   <data name="Average Grade:" xml:space="preserve">
     <value>Srednja ocena:</value>
     <comment>GuestReviews</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Otkaži</value>
   </data>
   <data name="Cancel Renovation" xml:space="preserve">
     <value>Otkaži Renoviranje</value>
@@ -171,7 +183,7 @@
   <data name="Cancellation" xml:space="preserve">
     <value>Otkazivanja</value>
   </data>
-  <data name="Check Reservations:" xml:space="preserve">
+  <data name="Check Reservations" xml:space="preserve">
     <value>Proveri Rezervacije</value>
     <comment>ReservationRescheduling</comment>
   </data>
@@ -224,6 +236,9 @@
     <value>Komentar:*</value>
     <comment>GuestRating</comment>
   </data>
+  <data name="Date:" xml:space="preserve">
+    <value>Datum:</value>
+  </data>
   <data name="Decline" xml:space="preserve">
     <value>Odbij</value>
     <comment>ReservationRescheduling</comment>
@@ -262,6 +277,9 @@
   <data name="Free" xml:space="preserve">
     <value>Slobodno</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Gost</value>
   </data>
   <data name="Guest Rating" xml:space="preserve">
     <value>Ocenjivanje Gostiju</value>
@@ -307,6 +325,9 @@
     <value>Nivo Zahteva za Renoviranje:</value>
     <comment>RenovationRequestPage</comment>
   </data>
+  <data name="Level of request:" xml:space="preserve">
+    <value>Nivo zahteva:</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Lokacija</value>
     <comment>ReservationRescheduling</comment>
@@ -350,6 +371,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Obaveštenja</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Vlasnik</value>
   </data>
   <data name="Owner Integrity:" xml:space="preserve">
     <value>Korektnost vlasnika:</value>
@@ -434,6 +458,12 @@
     <value>Izaberi gosta kog želiš da oceniš:</value>
     <comment>GuestRating</comment>
   </data>
+  <data name="Select the location first" xml:space="preserve">
+    <value>Prvo izaberi lokaciju!</value>
+  </data>
+  <data name="Select the Reservation Request first" xml:space="preserve">
+    <value>Prvo izaberi zahtev za rezervaciju!</value>
+  </data>
   <data name="Select the reservation request you want to accept/decline:" xml:space="preserve">
     <value>Izaberi zahtev za rezervaciju koji želiš da povrdiš/odbiješ:</value>
     <comment>ReservationRescheduling</comment>
@@ -441,6 +471,9 @@
   <data name="Selected Guest" xml:space="preserve">
     <value>Izabrani gost</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Selected Reservation Request" xml:space="preserve">
+    <value>Izabrani zahtev za rezervaciju</value>
   </data>
   <data name="Start date:" xml:space="preserve">
     <value>Početni Datum:</value>
@@ -469,6 +502,9 @@
   <data name="Theme" xml:space="preserve">
     <value>Tema</value>
   </data>
+  <data name="There are no more guests to rate" xml:space="preserve">
+    <value>Nema više gostiju za ocenjivanje</value>
+  </data>
   <data name="Type:" xml:space="preserve">
     <value>Tip:</value>
   </data>
@@ -487,9 +523,15 @@
   <data name="Year" xml:space="preserve">
     <value>Godina</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
   <data name="You are a Superowner" xml:space="preserve">
     <value>Ti si Super-vlasnik!</value>
     <comment>GuestReviews</comment>
+  </data>
+  <data name="You successfully rated all the guests" xml:space="preserve">
+    <value>Uspešno su ocenjeni svi gosti!</value>
   </data>
   <data name="Your Accommodations" xml:space="preserve">
     <value>Tvoji Smeštajevi</value>

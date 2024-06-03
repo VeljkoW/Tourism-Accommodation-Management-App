@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Services;
+using BookingApp.ViewModel;
+using BookingApp.View.Guest.Windows;
+using System.Windows;
 
 namespace BookingApp.Domain.Model
 {
@@ -18,6 +21,8 @@ namespace BookingApp.Domain.Model
         private bool isAccepted { get; set; }
         private DateTime checkInDate { get; set; }
         private DateTime checkOutDate { get; set; }
+        
+
         public ProcessedReschedulingRequest() { }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -165,13 +170,13 @@ namespace BookingApp.Domain.Model
                 if(isAccepted == true)
                 {
                     string str = "Your request for a change of reservation\nhas been accepted.\n";
-                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString() + "\nCheck Out: " + checkOutDate.ToString();
+                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString("dd/MM/yyyy HHtt") + "\nCheck Out: " + checkOutDate.ToString("dd/MM/yyyy HHtt");
                     return str;
                 }
                 else
                 {
                     string str = "The request to reschedule the reservation\nhas been declined. Please select new dates.\n";
-                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString() + "\nCheck Out: " + checkOutDate.ToString();
+                    str += "Name: " + AccommodationService.GetInstance().GetById(accommodationId).Name + "\nCheck In: " + checkInDate.ToString("dd/MM/yyyy HHtt") + "\nCheck Out: " + checkOutDate.ToString("dd/MM/yyyy HHtt");
                     return str;
                 }
             }

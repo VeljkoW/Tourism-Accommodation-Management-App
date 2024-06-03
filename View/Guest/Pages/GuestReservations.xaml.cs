@@ -40,10 +40,20 @@ namespace BookingApp.View.Guest.Pages
         {
             InitializeComponent();
             this.user = user;
+            MainGrid.Focus();
             GuestReservationsViewModel = new GuestReservationsViewModel(this, user);
             DataContext = GuestReservationsViewModel;
             selectedAccommodation = new ReservedAccommodation();
-            GuestMainWindow = guestMainWindow;
+            GuestMainWindow = guestMainWindow; 
+            Color backgroundButtonPressedColor = (Color)ColorConverter.ConvertFromString("#74877A");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            ReservationsButton.Background = backgroundButtonPressedBrush;
+            Color backgroundButtonColor = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtonBrush = new SolidColorBrush(backgroundButtonColor);
+            StatusesButton.Background = backgroundButtonBrush;
+            Color backgroundButton = (Color)ColorConverter.ConvertFromString("#56736F");
+            SolidColorBrush backgroundButtons = new SolidColorBrush(backgroundButton);
+            HistoryButton.Background = backgroundButtons;
 
         }
 
@@ -99,6 +109,12 @@ namespace BookingApp.View.Guest.Pages
         {
             ReservationHistory reservationHistory = new ReservationHistory(user, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(reservationHistory);
+        }
+
+        private void PdfClick(object sender, RoutedEventArgs e)
+        {
+            GuestCreatePdf guestCreatePdf = new GuestCreatePdf(user);
+            guestCreatePdf.Show();
         }
     }
 }

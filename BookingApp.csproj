@@ -34,12 +34,16 @@
 		<None Remove="Resources\Images\Guest\book.png" />
 		<None Remove="Resources\Images\Guest\cancel.png" />
 		<None Remove="Resources\Images\Guest\forum.png" />
+		<None Remove="Resources\Images\Guest\leftforward.png" />
 		<None Remove="Resources\Images\Guest\loading.png" />
 		<None Remove="Resources\Images\Guest\logout.png" />
 		<None Remove="Resources\Images\Guest\medal.png" />
 		<None Remove="Resources\Images\Guest\notifications.png" />
+		<None Remove="Resources\Images\Guest\pdf.jpg" />
+		<None Remove="Resources\Images\Guest\pdf.png" />
 		<None Remove="Resources\Images\Guest\rating.png" />
 		<None Remove="Resources\Images\Guest\refresh.png" />
+		<None Remove="Resources\Images\Guest\rightforward.png" />
 		<None Remove="Resources\Images\Guest\shine.png" />
 		<None Remove="Resources\Images\Guest\star.png" />
 		<None Remove="Resources\Images\Guest\superGuest.png" />
@@ -55,30 +59,52 @@
 		<None Remove="Resources\Images\Owner\arrow-up.png" />
 		<None Remove="Resources\Images\Owner\background1.jpg" />
 		<None Remove="Resources\Images\Owner\bell.png" />
+		<None Remove="Resources\Images\Owner\bellWhite.png" />
 		<None Remove="Resources\Images\Owner\bookmark.png" />
+		<None Remove="Resources\Images\Owner\bookmarkWhite.png" />
 		<None Remove="Resources\Images\Owner\check-box.png" />
+		<None Remove="Resources\Images\Owner\check-boxWhite.png" />
+		<None Remove="Resources\Images\Owner\enovationWhite.png" />
 		<None Remove="Resources\Images\Owner\forum-user.png" />
 		<None Remove="Resources\Images\Owner\forum.png" />
+		<None Remove="Resources\Images\Owner\forumUserWhite.png" />
+		<None Remove="Resources\Images\Owner\forumWhite.png" />
 		<None Remove="Resources\Images\Owner\guest-rating.png" />
+		<None Remove="Resources\Images\Owner\guestRatingWhite.png" />
+		<None Remove="Resources\Images\Owner\guestReviewWhite.png" />
 		<None Remove="Resources\Images\Owner\hotel.png" />
 		<None Remove="Resources\Images\Owner\hotelBlue.png" />
+		<None Remove="Resources\Images\Owner\hotelWhite.png" />
 		<None Remove="Resources\Images\Owner\info.png" />
+		<None Remove="Resources\Images\Owner\keyWhite.png" />
+		<None Remove="Resources\Images\Owner\logo.png" />
 		<None Remove="Resources\Images\Owner\medal.png" />
+		<None Remove="Resources\Images\Owner\owner.png" />
 		<None Remove="Resources\Images\Owner\record.png" />
 		<None Remove="Resources\Images\Owner\renovation.png" />
+		<None Remove="Resources\Images\Owner\renovationWhite.png" />
 		<None Remove="Resources\Images\Owner\rescheduling.png" />
+		<None Remove="Resources\Images\Owner\reschedulingWhite.png" />
 		<None Remove="Resources\Images\Owner\review.png" />
 		<None Remove="Resources\Images\Owner\serbia-flag.png" />
 		<None Remove="Resources\Images\Owner\star.png" />
+		<None Remove="Resources\Images\Owner\starWhite.png" />
 		<None Remove="Resources\Images\Owner\statistics.png" />
+		<None Remove="Resources\Images\Owner\statisticsWhite.png" />
 		<None Remove="Resources\Images\Owner\united-kingdom-flag.png" />
+		<None Remove="Resources\Images\Owner\user-verificationWhite.png" />
 		<None Remove="Resources\Images\Owner\user.png" />
 		<None Remove="Resources\Images\Owner\user128x128.png" />
+		<None Remove="Resources\Images\Owner\userWhite.png" />
 		<None Remove="Resources\Images\Owner\verified-user.png" />
 		<None Remove="Resources\Images\Owner\x-box.png" />
+		<None Remove="Resources\Images\Owner\x-boxWhite.png" />
+		<None Remove="Resources\Images\pause.png" />
+		<None Remove="Resources\Images\play.png" />
     <None Remove="Resources\Images\ratetour.png" />
     <None Remove="Resources\Images\report.png" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\stop.png" />
 		<None Remove="Resources\Images\Tourist\person.png" />
 		<None Remove="Resources\Images\Tourist\search.png" />
 		<None Remove="Resources\Images\TourReview\hqdefault.jpg" />
@@ -90,6 +116,7 @@
 		<None Remove="Resources\Images\Tour\PlitvickaJezera.jpg" />
 		<None Remove="Resources\Images\Tour\PlitvickaJezera2.jpg" />
 		<None Remove="Resources\Images\view.png" />
+		<None Remove="Resources\Video\tutorial.mp4" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -112,17 +139,31 @@
 	  <Resource Include="Resources\Images\Guest\attachment.png" />
 	  <Resource Include="Resources\Images\Guest\book.png" />
 	  <Resource Include="Resources\Images\Guest\cancel.png" />
+	  <Resource Include="Resources\Images\Guest\leftforward.png" />
 	  <Resource Include="Resources\Images\Guest\loading.png" />
+	  <Resource Include="Resources\Images\Guest\pdf.png" />
+	  <Resource Include="Resources\Images\Guest\rightforward.png" />
 	  <Resource Include="Resources\Images\Guest\shine.png" />
 	  <Resource Include="Resources\Images\Owner\background1.jpg" />
 	  <Resource Include="Resources\Images\Guest\medal.png" />
 	  <Resource Include="Resources\Images\Guest\refresh.png" />
 	  <Resource Include="Resources\Images\Guest\superGuest.png" />
+	  <Resource Include="Resources\Images\Owner\bellWhite.png" />
 	  <Resource Include="Resources\Images\Owner\bookmark.png" />
+	  <Resource Include="Resources\Images\Owner\bookmarkWhite.png" />
+	  <Resource Include="Resources\Images\Owner\check-boxWhite.png" />
 	  <Resource Include="Resources\Images\Owner\forum-user.png" />
+	  <Resource Include="Resources\Images\Owner\forumUserWhite.png" />
+	  <Resource Include="Resources\Images\Owner\forumWhite.png" />
+	  <Resource Include="Resources\Images\Owner\guestRatingWhite.png" />
+	  <Resource Include="Resources\Images\Owner\guestReviewWhite.png" />
 	  <Resource Include="Resources\Images\Owner\hotelBlue.png" />
+	  <Resource Include="Resources\Images\Owner\hotelWhite.png" />
 	  <Resource Include="Resources\Images\Owner\info.png" />
+	  <Resource Include="Resources\Images\Owner\keyWhite.png" />
+	  <Resource Include="Resources\Images\Owner\logo.png" />
 	  <Resource Include="Resources\Images\Owner\medal.png" />
+	  <Resource Include="Resources\Images\Owner\owner.png" />
 	  <Resource Include="Resources\Images\Owner\renovation.png" />
 	</ItemGroup>
 
@@ -147,6 +188,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Remove="Resources\Images\accommodationsLogo.png" />
+		<Content Remove="Resources\Images\pause.png" />
+		<Content Remove="Resources\Images\play.png" />
+		<Content Remove="Resources\Images\stop.png" />
       <Content Remove="Resources\Images\Tourist\bell.png" />
       <Content Remove="Resources\Images\Tourist\coupon.png" />
       <Content Remove="Resources\Images\Tourist\live.png" />
@@ -165,6 +209,8 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Notification.Wpf" Version="8.0.0" />
 		<PackageReference Include="VirtualKeyboard.Wpf" Version="0.1.0" />
+		<PackageReference Include="PdfSharpCore" Version="1.3.63" />
+		<PackageReference Include="QuestPDF" Version="2024.3.10" />
 		<Resource Include="Resources\Images\accommodationsLogo.png" />
 		<Resource Include="Resources\Images\Guest\arrowleft.png" />
 		<Resource Include="Resources\Images\Guest\arrowright.png" />
@@ -186,16 +232,26 @@
 		<Resource Include="Resources\Images\Owner\guest-rating.png" />
 		<Resource Include="Resources\Images\Owner\hotel.png" />
 		<Resource Include="Resources\Images\Owner\record.png" />
+		<Resource Include="Resources\Images\Owner\renovationWhite.png" />
 		<Resource Include="Resources\Images\Owner\rescheduling.png" />
+		<Resource Include="Resources\Images\Owner\reschedulingWhite.png" />
 		<Resource Include="Resources\Images\Owner\review.png" />
 		<Resource Include="Resources\Images\Owner\serbia-flag.png" />
 		<Resource Include="Resources\Images\Owner\star.png" />
+		<Resource Include="Resources\Images\Owner\starWhite.png" />
 		<Resource Include="Resources\Images\Owner\statistics.png" />
+		<Resource Include="Resources\Images\Owner\statisticsWhite.png" />
 		<Resource Include="Resources\Images\Owner\united-kingdom-flag.png" />
+		<Resource Include="Resources\Images\Owner\user-verificationWhite.png" />
 		<Resource Include="Resources\Images\Owner\user.png" />
 		<Resource Include="Resources\Images\Owner\user128x128.png" />
+		<Resource Include="Resources\Images\Owner\userWhite.png" />
 		<Resource Include="Resources\Images\Owner\verified-user.png" />
 		<Resource Include="Resources\Images\Owner\x-box.png" />
+		<Resource Include="Resources\Images\Owner\x-boxWhite.png" />
+		<Resource Include="Resources\Images\Guest\pause.png" />
+		<Resource Include="Resources\Images\Guest\play.png" />
+		<Resource Include="Resources\Images\Guest\stop.png" />
 		<Resource Include="Resources\Images\Tourist\bell.png" />
 		<Resource Include="Resources\Images\Tourist\coupon.png" />
 		<Resource Include="Resources\Images\Tourist\live.png" />
@@ -212,6 +268,7 @@
 		<Resource Include="Resources\Images\TourReview\stock-photo-happy-funny-bearded-man-taking-selfie-and-showing-thumbs-up-in-manhattan-hipster-tourist-posing-523994248.jpg" />
 		<Resource Include="Resources\Images\TourReview\tourist.jpg" />
 		<Resource Include="Resources\Images\Tour\613a18aa2534ab00185376eb.jpg" />
+		<Resource Include="Resources\Video\tutorial.mp4" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -219,6 +276,11 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Settings.settings</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\Guide\Pages\UserControlTourist.xaml.cs">
 	    <SubType>Code</SubType>
@@ -255,5 +317,9 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	    <Generator>XamlIntelliSenseFileGenerator</Generator>
 	  </Page>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
 	</ItemGroup>
 </Project>

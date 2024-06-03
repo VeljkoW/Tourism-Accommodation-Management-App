@@ -127,7 +127,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="ReviewsButton" Content="{loc:Loc Reviews}" FontSize="18" Width="120" Height="50" Style="{DynamicResource TabButtonStyle}"
+                    <Button x:Name="ReviewsButton" Content="{loc:Loc Reviews}" FontSize="18" Width="120" Height="50" Style="{DynamicResource OwnerTabButtonStyle}"
                             HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
@@ -143,7 +143,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button x:Name="RenovationRequestsButton" Grid.Column="1" FontSize="18" Width="120" Height="50" Style="{DynamicResource TabButtonStyle}"
+                    <Button x:Name="RenovationRequestsButton" Grid.Column="1" FontSize="18" Width="120" Height="50" Style="{DynamicResource OwnerTabButtonStyle}"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick">
                         <Button.ContentTemplate>
                             <DataTemplate>
@@ -170,7 +170,7 @@
                         Click="SuperOwnerInfoClick" Margin="0 0 175 0">
                     <Image Source="../../Resources/Images/Owner/info.png" Width="32"/>
                 </Button>
-                <TextBlock Grid.Column="2" x:Name="SuperOwnerInfoLabel" FontSize="15" Text="{loc:Loc In order to become a superowner}" 
+                <TextBlock Grid.Column="2" x:Name="SuperOwnerInfoLabel" FontSize="15" Text="{loc:Loc In order to become a superowner}"  Style="{DynamicResource OwnerTextBlock}"
                        HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" TextWrapping="Wrap" Margin="50 0 70 10" TextAlignment="Center"/>
                 
                 <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
@@ -179,11 +179,11 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Style="{DynamicResource OwnerTextBlock}">
                         <Run FontSize="24" Text="{loc:Loc Reviews number:}"/>
                         <Run FontSize="24" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
                     </TextBlock>
-                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Style="{DynamicResource OwnerTextBlock}">
                         <Run FontSize="24" Text="{loc:Loc Average Grade:}"/>
                         <Run FontSize="24" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
                     </TextBlock>
@@ -196,18 +196,19 @@
                         </Image.ToolTip>
                     </Image>
                     <Label Grid.Column="1" x:Name="SuperownerLabel" FontSize="28" Content="{loc:Loc You are a Superowner}" FontWeight="DemiBold"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 50 0 0"/>
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 50 0 0" Style="{DynamicResource OwnerLabel}"/>
                 </Grid>
 
 
-                <Label Grid.Row="2" Grid.ColumnSpan="2" Content="{loc:Loc Reviews}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Margin="0 30 0 0">
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Content="{loc:Loc Reviews}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                       FontSize="24" Margin="0 30 0 0" Style="{DynamicResource OwnerLabel}">
                     
                 </Label>
-                <ItemsControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="0 60 0 0" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="0 70 0 0" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10" Background="White"
-                                    HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <Border BorderBrush="{StaticResource OwnerTabPressedColorBrush}" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10"
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{DynamicResource BorderBackgroundBrush}">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
@@ -224,7 +225,8 @@
                                                 <ColumnDefinition Width="2*"/>
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" >
-                                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Margin="0 15 0 0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Margin="0 15 0 0" TextWrapping="Wrap" 
+                                                           HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Guest:}" FontWeight="Bold" />
                                                     <Run Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" />
                                                 </TextBlock>
@@ -232,20 +234,20 @@
                                             </StackPanel>
 
                                             <StackPanel Margin="30 60 30 30">
-                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Accommodation:}" FontStyle="Italic" FontWeight="Medium"/>
                                                     <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}" />
                                                     <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
                                                 </TextBlock>
-                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Cleanliness:}" FontStyle="Italic" FontWeight="Medium" />
                                                     <Run Text="{Binding Cleanliness}" />
                                                 </TextBlock>
-                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Owner Integrity:}" FontStyle="Italic" FontWeight="Medium" />
                                                     <Run Text="{Binding OwnerIntegrity}" />
                                                 </TextBlock>
-                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Comment:}"  FontStyle="Italic" FontWeight="Medium"/>
                                                     <Run Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}" />
                                                 </TextBlock>

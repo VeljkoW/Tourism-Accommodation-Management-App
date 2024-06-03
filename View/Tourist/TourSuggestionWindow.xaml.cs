@@ -22,10 +22,10 @@ namespace BookingApp.View.Tourist
     public partial class TourSuggestionWindow : Window
     {
         TourSuggestionWindowViewModel TourSuggestionWindowViewModel { get; set; }
-        public TourSuggestionWindow(User user, bool isComplex, int complexId)
+        public TourSuggestionWindow(User user, bool isComplex, int complexId,bool demo, TouristMainWindowViewModel touristMainWindowViewModel)
         {
             InitializeComponent();
-            TourSuggestionWindowViewModel = new TourSuggestionWindowViewModel(this, user, isComplex, complexId);
+            TourSuggestionWindowViewModel = new TourSuggestionWindowViewModel(this, user, isComplex, complexId,demo, touristMainWindowViewModel);
             this.DataContext = TourSuggestionWindowViewModel;
             SetDatePickerBlackoutDates();
         }
@@ -40,7 +40,10 @@ namespace BookingApp.View.Tourist
         {
             CenterWindow();
         }
-
+        public void EndDemoMode(object sender, MouseButtonEventArgs e)
+        {
+            TourSuggestionWindowViewModel.EndDemoMode();
+        }
         private void CenterWindow()
         {
             double SWidth = SystemParameters.PrimaryScreenWidth;

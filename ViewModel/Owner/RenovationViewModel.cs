@@ -57,6 +57,10 @@ namespace BookingApp.ViewModel.Owner
                 }
             }
             ScheduledRenovationService.GetInstance().UpdateUpcomingRenovations(User, ScheduledRenovations);
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success", "You have successfully cancelled this renovation!", NotificationType.Success);
+            else
+                notificationManager.Show("Success", "Usesno ste otkazali renoviranje smeštaja!", NotificationType.Success);
         }
         public void RenovateExecute()
         {
@@ -160,7 +164,14 @@ namespace BookingApp.ViewModel.Owner
                     currentStartDate = currentStartDate.AddDays(1);
                     currentEndDate = currentStartDate.AddDays(durationDays);
 
-                    if (counterDates == 5) break;
+                    if (counterDates == 5)
+                    {
+                        if (App.currentLanguage() == ENG)
+                            notificationManager.Show("Info", "There are no available dates for given period of time, here are some suggested dates", NotificationType.Information);
+                        else
+                            notificationManager.Show("Info", "Nema dostupnih datuma za uneti period, evo nekoliko predlozenih datuma", NotificationType.Information);
+                        break;
+                    }
 
                     if (AreDatesAvailable(currentStartDate, currentEndDate, durationDays))
                     {

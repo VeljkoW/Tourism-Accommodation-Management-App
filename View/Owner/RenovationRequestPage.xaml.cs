@@ -40,6 +40,8 @@ namespace BookingApp.View.Owner
             SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
             RenovationRequestsButton.Background = backgroundButtonPressedBrush;
             ReviewsButton.Background = basicBackgroundBrush;
+            App.ThemeChanged += OnThemeChanged;
+            OnThemeChanged();
         }
 
         private void ReviewsClick(object sender, RoutedEventArgs e)
@@ -72,7 +74,50 @@ namespace BookingApp.View.Owner
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as RenovationRequest;
             RenovationRequestPageViewModel.SelectedRenovationRequest = selectedCard;
+            Accommodation? accommodation = AccommodationService.GetInstance().GetById(selectedCard.AccommodationId);
+            SelectedAccommodationNameRun.Text = accommodation?.Name + ",";
+            SelectedAccommodationStateRun.Text = accommodation?.Location.State;
+            SelectedAccommodationCityRun.Text = accommodation?.Location.City;
+            SelectedLevelOfRequest.Text = selectedCard.Level.ToString();
+            CloseRenovationRequestAccept.Visibility = Visibility.Visible;
+        }
+        private void CloseRenovationRequestAcceptClick(object sender, RoutedEventArgs e)
+        {
             RenovationRequestPageViewModel.CloseRequest();
+            CloseRenovationRequestAccept.Visibility = Visibility.Collapsed;
+        }
+        private void CloseRenovationRequestCancelClick(object sender, RoutedEventArgs e)
+        {
+            CloseRenovationRequestAccept.Visibility = Visibility.Collapsed;
+        }
+        private void OnThemeChanged()
+        {
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            Color basicDarkBackgroundColor = (Color)FindResource("OwnerTabDarkColor");
+            SolidColorBrush basicDarkBackgroundBrush = new SolidColorBrush(basicDarkBackgroundColor);
+
+            if (App.currentTheme() == "Light")
+            {
+                var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+                ReviewsButton.Background = basicBackgroundBrush;
+                RenovationRequestsButton.Background = backgroundButtonPressedBrush;
+                CloseRenovationRequestAcceptBorder.Background = basicBackgroundBrush;
+            }
+            else
+            {
+                Color OwnerDarkBackgroundColor = (Color)FindResource("OwnerDarkBackgroundColor");
+                SolidColorBrush OwnerDarkBackgroundColorBrush = new SolidColorBrush(OwnerDarkBackgroundColor);
+
+                var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+                ReviewsButton.Background = basicDarkBackgroundBrush;
+                RenovationRequestsButton.Background = backgroundButtonPressedBrush;
+                CloseRenovationRequestAcceptBorder.Background = OwnerDarkBackgroundColorBrush;
+            }
         }
     }
 }

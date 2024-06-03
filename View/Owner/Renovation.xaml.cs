@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.View.Guest.Pages;
 using BookingApp.ViewModel.Owner;
 using System;
@@ -46,8 +47,12 @@ namespace BookingApp.View.Owner
 
             RenovationDetailsValidation.Visibility = Visibility.Hidden;
             AvailableDatesValidation.Visibility = Visibility.Hidden;
+            CancelRenovationAccept.Visibility = Visibility.Hidden;
             App.LanguageChanged += OnLanguageChanged;
+            App.ThemeChanged += OnThemeChanged;
             ValidationErrors();
+            OnThemeChanged();
+
         }
 
         private void HistoryClick(object sender, RoutedEventArgs e)
@@ -59,8 +64,59 @@ namespace BookingApp.View.Owner
         {
             var selectedCard = ((FrameworkElement)sender).DataContext as ScheduledRenovation;
             RenovationViewModel.SelectedScheduledRenovation = selectedCard;
-            RenovationViewModel.DeleteRowExecute(selectedCard);
+            Accommodation? accommodation = AccommodationService.GetInstance().GetById(selectedCard.AccommodationId);
+            SelectedAccommodationNameRun.Text = accommodation.Name;
+            SelectedAccommodationStateRun.Text = accommodation.Location.State;
+            SelectedAccommodationCityRun.Text = accommodation.Location.City;
+            CancelRenovationAccept.Visibility = Visibility.Visible;
         }
+        private void CancelRenovationAcceptedClick(object sender, RoutedEventArgs e)
+        {
+            RenovationViewModel.DeleteRowExecute(RenovationViewModel.SelectedScheduledRenovation);
+            CancelRenovationAccept.Visibility = Visibility.Hidden;
+        }
+
+        private void CancelRenovationCancelClick(object sender, RoutedEventArgs e)
+        {
+
+            CancelRenovationAccept.Visibility = Visibility.Hidden;
+        }
+
+
+
+        private void OnThemeChanged()
+        {
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            Color basicDarkBackgroundColor = (Color)FindResource("OwnerTabDarkColor");
+            SolidColorBrush basicDarkBackgroundBrush = new SolidColorBrush(basicDarkBackgroundColor);
+
+            if (App.currentTheme() == "Light")
+            {
+                ScheduleRenovationBorder.Background = basicBackgroundBrush;
+                CancelRenovationAcceptBorder.Background = basicBackgroundBrush;
+                var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+                SchedulingButton.Background = backgroundButtonPressedBrush;
+                HistoryButton.Background = basicBackgroundBrush;
+            }
+            else
+            {
+                Color OwnerDarkBackgroundColor = (Color)FindResource("OwnerDarkBackgroundColor");
+                SolidColorBrush OwnerDarkBackgroundColorBrush = new SolidColorBrush(OwnerDarkBackgroundColor);
+
+                ScheduleRenovationBorder.Background = basicDarkBackgroundBrush;
+                CancelRenovationAcceptBorder.Background = OwnerDarkBackgroundColorBrush;
+                var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+                SchedulingButton.Background = backgroundButtonPressedBrush;
+                HistoryButton.Background = basicDarkBackgroundBrush;
+            }
+        }
+
+        //VALIDATION
         public void ValidationErrors()
         {
             if (App.currentLanguage() == ENG)
@@ -222,5 +278,6 @@ namespace BookingApp.View.Owner
         {
             App.LanguageChanged -= OnLanguageChanged;
         }
+
     }
 }

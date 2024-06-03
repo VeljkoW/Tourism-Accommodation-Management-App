@@ -98,7 +98,7 @@ namespace BookingApp.Services
                     numberOfReservation++;
             }
 
-            if (numberOfReservation >= 2)
+            if (numberOfReservation >= 10)
                 return true;
 
             return false;

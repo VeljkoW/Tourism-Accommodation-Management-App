@@ -150,6 +150,15 @@
   <data name="Add Image" xml:space="preserve">
     <value>Add Image</value>
   </data>
+  <data name="Are you sure you want to cancel renovation" xml:space="preserve">
+    <value>Are you sure you want to cancel renovation?</value>
+  </data>
+  <data name="Are you sure you want to close accommodation" xml:space="preserve">
+    <value>Are you sure you want to close accommodation?</value>
+  </data>
+  <data name="Are you sure you want to close this renovation request" xml:space="preserve">
+    <value>Are you sure you want to close this request?</value>
+  </data>
   <data name="Available dates:*" xml:space="preserve">
     <value>Available Dates:*</value>
     <comment>Renovation</comment>
@@ -157,6 +166,9 @@
   <data name="Average Grade:" xml:space="preserve">
     <value>Average Grade:</value>
     <comment>GuestReviews</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Cancel Renovation" xml:space="preserve">
     <value>Cancel Renovation</value>
@@ -171,8 +183,8 @@
   <data name="Cancellation" xml:space="preserve">
     <value>Cancellation</value>
   </data>
-  <data name="Check Reservations:" xml:space="preserve">
-    <value>Check Reservations:</value>
+  <data name="Check Reservations" xml:space="preserve">
+    <value>Check Reservations</value>
     <comment>ReservationRescheduling</comment>
   </data>
   <data name="Check-in Date" xml:space="preserve">
@@ -224,6 +236,9 @@
     <value>Comment:*</value>
     <comment>GuestRating</comment>
   </data>
+  <data name="Date:" xml:space="preserve">
+    <value>Date:</value>
+  </data>
   <data name="Decline" xml:space="preserve">
     <value>Decline</value>
     <comment>ReservationRescheduling</comment>
@@ -262,6 +277,9 @@
   <data name="Free" xml:space="preserve">
     <value>Free</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
   </data>
   <data name="Guest Rating" xml:space="preserve">
     <value>Guest Rating</value>
@@ -307,6 +325,9 @@
     <value>Level of Renovation Request:</value>
     <comment>RenovationRequestPage</comment>
   </data>
+  <data name="Level of request:" xml:space="preserve">
+    <value>Level of request:</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
     <comment>ReservationRescheduling</comment>
@@ -350,6 +371,9 @@
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
   </data>
   <data name="Owner Integrity:" xml:space="preserve">
     <value>Owner Integrity:</value>
@@ -434,6 +458,12 @@
     <value>Select the guest you want to rate:</value>
     <comment>GuestRating</comment>
   </data>
+  <data name="Select the location first" xml:space="preserve">
+    <value>Select the location first!</value>
+  </data>
+  <data name="Select the Reservation Request first" xml:space="preserve">
+    <value>Select the reservation request first!</value>
+  </data>
   <data name="Select the reservation request you want to accept/decline:" xml:space="preserve">
     <value>Select the reservation request you want to accept/decline:</value>
     <comment>ReservationRescheduling</comment>
@@ -441,6 +471,9 @@
   <data name="Selected Guest" xml:space="preserve">
     <value>Selected Guest</value>
     <comment>ReservationRescheduling</comment>
+  </data>
+  <data name="Selected Reservation Request" xml:space="preserve">
+    <value>Selected reservation request</value>
   </data>
   <data name="Start date:" xml:space="preserve">
     <value>Start Date:</value>
@@ -473,6 +506,9 @@
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
   </data>
+  <data name="There are no more guests to rate" xml:space="preserve">
+    <value>There are no more guests to rate</value>
+  </data>
   <data name="Type:" xml:space="preserve">
     <value>Type:</value>
   </data>
@@ -491,9 +527,15 @@
   <data name="Year" xml:space="preserve">
     <value>Year</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
   <data name="You are a Superowner" xml:space="preserve">
     <value>You are a Superowner!</value>
     <comment>GuestReviews</comment>
+  </data>
+  <data name="You successfully rated all the guests" xml:space="preserve">
+    <value>You successfully rated all the guests!</value>
   </data>
   <data name="Your Accommodations" xml:space="preserve">
     <value>Your Accommodations</value>

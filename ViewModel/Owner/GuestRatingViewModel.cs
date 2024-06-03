@@ -9,6 +9,7 @@ using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
 using System.ComponentModel;
 using Notification.Wpf;
+using System.Windows;
 
 namespace BookingApp.ViewModel.Owner
 {
@@ -59,6 +60,15 @@ namespace BookingApp.ViewModel.Owner
             OwnerMainWindow.NotificationListBox.Items.Refresh();
 
             GuestRatingPage.CommentTextBox.Text = string.Empty;
+
+            if (ReservedAccommodations.Count <= 0)
+            {
+                GuestRatingPage.NoGuestsToRateMessage.Visibility = Visibility.Visible;
+            }
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success!", "Guest successfully rated!", NotificationType.Success);
+            else
+                notificationManager.Show("Uspeh!", "Gost uspešno ocenjen!", NotificationType.Success);
         }
         public bool RateGuestCanExecute()
         {

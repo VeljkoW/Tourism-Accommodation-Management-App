@@ -6,7 +6,57 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
         mc:Ignorable="d"
-        Title="GuestRate" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderBrush="#56736F" BorderThickness="3">
+        Title="GuestRate" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+    <Window.InputBindings>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="C"
+         Command="{Binding FocusCleanlinessRadioButton}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="Right"
+         Command="{Binding GoRight}"/>
+        <KeyBinding
+         Modifiers="Control" 
+         Key="Left"
+         Command="{Binding GoLeft}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="O"
+         Command="{Binding FocusOwnerIntegrityRadioButton}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="T"
+         Command="{Binding AddCommentTextBox}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="A"
+         Command="{Binding attachImage}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="F"
+         Command="{Binding RenovationButton}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="N"
+         Command="{Binding Next}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="P"
+         Command="{Binding Previous}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="R"
+         Command="{Binding rateIt}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="D"
+         Command="{Binding DeleteImageCommand}"/>
+        <KeyBinding
+         Modifiers="Control"
+         Key="E"
+         Command="{Binding Exit}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <local1:ImagePathToImage x:Key="ImagePathToImage"/>
         <Style x:Key="FocusVisual">
@@ -18,12 +68,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#F3B124"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -63,12 +113,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="Transparent"/>
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
@@ -87,12 +137,12 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
                             </Trigger>
                             <Trigger Property="IsFocused"  Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -100,7 +150,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Background="#B5AE9F">
+    <Grid Background="#DDDDDD">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
@@ -128,16 +178,17 @@
             <ComboBoxItem Content="4"></ComboBoxItem>
             <ComboBoxItem Content="5"></ComboBoxItem>
         </ComboBox>-->
+        <TextBlock x:Name="ValidateRadioButtonClean" Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom" Margin="220 0 0 2" FontSize="10" Foreground="Red"></TextBlock>
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="160 0 0 0" VerticalAlignment="Center">
-            <RadioButton Background="WhiteSmoke" x:Name="Cleanliness1" Content="1" FontSize="20" GroupName="CleanlinessRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+C" Background="WhiteSmoke" x:Name="Cleanliness1" Content="1" FontSize="20" GroupName="CleanlinessRadioButton" 
+          Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0" AutomationProperties.AccessKey=""/>
+            <RadioButton ToolTipService.ToolTip="Ctrl+C" Background="WhiteSmoke" x:Name="Cleanliness2" Content="2" FontSize="20" GroupName="CleanlinessRadioButton" 
           Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Cleanliness2" Content="2" FontSize="20" GroupName="CleanlinessRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+C" Background="WhiteSmoke" x:Name="Cleanliness3" Content="3" FontSize="20" GroupName="CleanlinessRadioButton" 
           Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Cleanliness3" Content="3" FontSize="20" GroupName="CleanlinessRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+C" Background="WhiteSmoke" x:Name="Cleanliness4" Content="4" FontSize="20" GroupName="CleanlinessRadioButton" 
           Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Cleanliness4" Content="4" FontSize="20" GroupName="CleanlinessRadioButton" 
-          Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Cleanliness5" Content="5" FontSize="20" GroupName="CleanlinessRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+C" Background="WhiteSmoke" x:Name="Cleanliness5" Content="5" FontSize="20" GroupName="CleanlinessRadioButton" 
           Checked="CleanLinessChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
         </StackPanel>
         <Label Grid.Row="2" Grid.Column="0" Height="36" Width="170" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left">Owner integrity:*</Label>
@@ -148,29 +199,30 @@
             <ComboBoxItem Content="4"></ComboBoxItem>
             <ComboBoxItem Content="5"></ComboBoxItem>
         </ComboBox>-->
+        <TextBlock x:Name="ValidateRadioButtonOwner" Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom" Margin="220 0 0 2" FontSize="10" Foreground="Red"></TextBlock>
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="160 0 0 0" VerticalAlignment="Center">
-            <RadioButton Background="WhiteSmoke" x:Name="Integrity1" Content="1" FontSize="20" GroupName="IntegrityRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+O" Background="WhiteSmoke" x:Name="Integrity1" Content="1" FontSize="20" GroupName="IntegrityRadioButton" 
         Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Integrity2" Content="2" FontSize="20" GroupName="IntegrityRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+O" Background="WhiteSmoke" x:Name="Integrity2" Content="2" FontSize="20" GroupName="IntegrityRadioButton" 
         Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Integrity3" Content="3" FontSize="20" GroupName="IntegrityRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+O" Background="WhiteSmoke" x:Name="Integrity3" Content="3" FontSize="20" GroupName="IntegrityRadioButton" 
         Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Integrity4" Content="4" FontSize="20" GroupName="IntegrityRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+O" Background="WhiteSmoke" x:Name="Integrity4" Content="4" FontSize="20" GroupName="IntegrityRadioButton" 
         Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
-            <RadioButton Background="WhiteSmoke" x:Name="Integrity5" Content="5" FontSize="20" GroupName="IntegrityRadioButton" 
+            <RadioButton ToolTipService.ToolTip="Ctrl+O" Background="WhiteSmoke" x:Name="Integrity5" Content="5" FontSize="20" GroupName="IntegrityRadioButton" 
         Checked="IntegrityChecked" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
         </StackPanel>
-        <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding PreviousImageCommand}">
+        <Button ToolTipService.ToolTip="Ctrl+P" Style="{DynamicResource ButtonStyle1}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding PreviousImageCommand}">
             <Button.Content>
                 <Image Source="../../../Resources/Images/Guest/arrowleft.png"></Image>
             </Button.Content>
         </Button>
-        <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding NextImageCommand}">
+        <Button ToolTipService.ToolTip="Ctrl+N" Style="{DynamicResource ButtonStyle1}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" BorderThickness="0" Width="20" Height="20" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding NextImageCommand}">
             <Button.Content>
                 <Image Source="../../../Resources/Images/Guest/arrowright.png"></Image>
             </Button.Content>
         </Button>
-        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="1" Grid.Column="2" FontSize="20" Height="35" Width="320" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding attachImage}">
+        <Button ToolTipService.ToolTip="Ctrl+A" Style="{DynamicResource ButtonStyle}" Grid.Row="1" Grid.Column="2" FontSize="20" Height="35" Width="320" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding attachImage}">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Attach" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0 0 0 0"></Label>
                 <Image Source="../../../Resources/Images/Guest/attachment.png" Height="30" Width="30"></Image>
@@ -188,8 +240,9 @@
             </Grid>
         </Border>
         <Label Grid.Row="3" Grid.Column="0" Height="35" Width="170" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">Add comment*</Label>
-        <TextBox Background="WhiteSmoke" x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Margin="5 0 0 0" MaxLength="400" TextWrapping="Wrap" ></TextBox>
-        <Button Style="{DynamicResource ButtonStyle}" x:Name="RenovationButton" Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Renovation" Click="RenovationClick"></Button>
-        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Rate It" Command="{Binding rateIt}"></Button>
+        <TextBox ToolTipService.ToolTip="Ctrl+T" Background="WhiteSmoke"  PreviewKeyDown="CommentTextBox_PreviewKeyDown" x:Name="CommentTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Margin="5 0 0 15" MaxLength="400" TextWrapping="Wrap" TextChanged="InputTextChanged" ></TextBox>
+        <TextBlock x:Name="ValidateTextBox" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontSize="10" Foreground="Red"></TextBlock>
+        <Button ToolTipService.ToolTip="Ctrl+F" Style="{DynamicResource ButtonStyle}" x:Name="RenovationButton" Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Renovation" Click="RenovationClick"></Button>
+        <Button ToolTipService.ToolTip="Ctrl+R" Style="{DynamicResource ButtonStyle}" Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" FontSize="20" Content="Rate It" Command="{Binding rateIt}"></Button>
     </Grid>
 </Window>
