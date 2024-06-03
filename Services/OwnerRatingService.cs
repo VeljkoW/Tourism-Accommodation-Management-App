@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.Repository.AccommodationRepositories;
+using BookingApp.View.Owner;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace BookingApp.Services
         public void Add(OwnerRating ownerRating)
         {
             OwnerRatingRepository.Add(ownerRating);
+            //OwnerNotification ownerNotification = new OwnerNotification();
+            //ownerNotification.ReservedAccommodationId = reservedAccommodation.Id;
+            //ownerNotification.Root = "OwnerRating";
+            //OwnerNotificationService.GetInstance().Add(ownerNotification);
         }
 
         public List<OwnerRating> GetAll()

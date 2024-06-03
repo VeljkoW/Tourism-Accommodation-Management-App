@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,12 @@ namespace BookingApp.View.UserControls
     /// <summary>
     /// Interaction logic for NumberTextBox.xaml
     /// </summary>
-    public partial class NumberTextBox : UserControl
+    public partial class NumberTextBox : UserControl, INotifyPropertyChanged
     {
         public NumberTextBox()
         {
             InitializeComponent();
+            NumTextBox.TextChanged += NumTextBoxChanged;
         }
         private void UpClick(object sender, RoutedEventArgs e)
         {
@@ -46,6 +48,14 @@ namespace BookingApp.View.UserControls
                 e.Handled = true;
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+            }
+        }
         private void StartClick(object sender, MouseButtonEventArgs e)
         {
 
@@ -54,6 +64,23 @@ namespace BookingApp.View.UserControls
         private void StopClick(object sender, MouseButtonEventArgs e)
         {
 
+        }
+        // Definisanje RoutedEvent-a za TextChanged
+        public static readonly RoutedEvent TextChangedEvent =
+            EventManager.RegisterRoutedEvent("TextChanged", RoutingStrategy.Bubble, typeof(TextChangedEventHandler), typeof(NumberTextBox));
+
+        // Dodavanje i uklanjanje rukovaoca za TextChanged događaj
+        public event TextChangedEventHandler TextChanged
+        {
+            add { AddHandler(TextChangedEvent, value); }
+            remove { RemoveHandler(TextChangedEvent, value); }
+        }
+
+        // Rukovalac za TextChanged događaj unutar user kontrole
+        private void NumTextBoxChanged(object sender, TextChangedEventArgs e)
+        {
+            // Prosljeđivanje događaja
+            RaiseEvent(new TextChangedEventArgs(TextChangedEvent, e.UndoAction));
         }
     }
 }

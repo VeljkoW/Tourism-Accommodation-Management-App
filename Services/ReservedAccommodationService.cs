@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
 using GuestRatingPage = BookingApp.View.Owner.GuestRating;
 using BookingApp.View.Guest.Pages;
+using System.Collections;
 
 namespace BookingApp.Services
 {
@@ -48,6 +49,10 @@ namespace BookingApp.Services
         {
             ReservedAccommodationRepository.Delete(reservedAccommodation);
         }
+        public void DeleteByAccommodationId(int accommodationId)
+        {
+            ReservedAccommodationRepository.DeleteByAccommodationId(accommodationId);
+        }
         public void UpdateDatesByReschedulingRequest(GuestReschedulingRequest GuestReschedulingRequest)
         {
             ReservedAccommodationRepository.UpdateDatesByReschedulingRequest(GuestReschedulingRequest);
@@ -65,9 +70,10 @@ namespace BookingApp.Services
         public ObservableCollection<ReservedAccommodation> NotificationUpdate(User user, ObservableCollection<ReservedAccommodation> ReservedAccommodations)
         {
             ReservedAccommodations.Clear();
+            List<Accommodation> accommodations = AccommodationService.GetInstance().GetAll().Where(t => t.OwnerId == user.Id).ToList();
             foreach (ReservedAccommodation tempReservedAccommodation in GetAll())
-                foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
-                    if (tempReservedAccommodation.Accommodation.Id == accommodation.Id && user.Id == accommodation.OwnerId)
+                foreach (Accommodation accommodation in accommodations)
+                    if (tempReservedAccommodation.Accommodation.Id == accommodation.Id)
                     {
                         if (GuestRatingService.GetInstance().GetAll().Count == 0)
                             AvailableForRating(tempReservedAccommodation, ReservedAccommodations);
@@ -132,6 +138,74 @@ namespace BookingApp.Services
                 foreach (AccommodationStatisticsByMonth AccommodationStatisticsByMonth in AccommodationStatisticsByMonths)
                     if (AccommodationStatisticsByMonth.Month == reservedAccommodation.CheckInDate.Month)
                         AccommodationStatisticsByMonth.Reservations++;
+        }
+
+        public void SortAccommodationStatisticsByLocation(ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations)
+        {
+            ReservationCountByLocation(AccommodationsStatisticsByLocations);
+            BusynessByLocation(AccommodationsStatisticsByLocations);
+            Dictionary<int, int> LocationsByPopularity = new Dictionary<int, int>();
+            foreach (AccommodationsStatisticsByLocation accommodationsStatisticsByLocation in AccommodationsStatisticsByLocations)
+            {
+                LocationsByPopularity.Add(accommodationsStatisticsByLocation.LocationId, 0);
+            }
+
+            var sortedListByReservations = AccommodationsStatisticsByLocations.OrderByDescending(x => x.Reservations).ToList();
+            for(int i=0; i<sortedListByReservations.Count(); i++)
+            {
+                LocationsByPopularity[sortedListByReservations[i].LocationId] += i + 1;
+            }
+
+            var sortedListByBusyness = AccommodationsStatisticsByLocations.OrderByDescending(x => x.Busyness).ToList();
+            for (int i = 0; i < sortedListByBusyness.Count(); i++)
+            {
+                LocationsByPopularity[sortedListByBusyness[i].LocationId] += i + 1;
+            }
+
+            ObservableCollection<AccommodationsStatisticsByLocation> TempAccommodationsStatisticsByLocations = new ObservableCollection<AccommodationsStatisticsByLocation>();
+            var sortedByValueDescending = LocationsByPopularity.OrderBy(kvp => kvp.Value).ToList();
+            foreach (var kvp in sortedByValueDescending)
+            {
+                var temporaryAccommodationStatistics = AccommodationsStatisticsByLocations.ToList().Find(t => t.LocationId == kvp.Key);
+                TempAccommodationsStatisticsByLocations.Add(temporaryAccommodationStatistics);
+            }
+            AccommodationsStatisticsByLocations.Clear();
+            foreach(var tempItem in TempAccommodationsStatisticsByLocations)
+            {
+                AccommodationsStatisticsByLocations.Add(tempItem);
+            }
+        }
+        private void ReservationCountByLocation(ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations)
+        {
+            foreach (AccommodationsStatisticsByLocation accommodationsStatisticsByLocation in AccommodationsStatisticsByLocations)
+                foreach (ReservedAccommodation reservedAccommodation in GetAll())
+                    if (accommodationsStatisticsByLocation.Accommodations.Where(t => t.Id == reservedAccommodation.Accommodation.Id).Count() != 0)
+                        accommodationsStatisticsByLocation.Reservations++;
+        }
+        private void BusynessByLocation(ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations)
+        {
+            foreach (AccommodationsStatisticsByLocation accommodationsStatisticsByLocation in AccommodationsStatisticsByLocations)
+            {
+                double busyness = 0;
+                foreach(Accommodation accommodation in accommodationsStatisticsByLocation.Accommodations)
+                {
+                    double guestNumberSum = 0;
+                    int numberOfReservations = 0;
+                    foreach(ReservedAccommodation reservedAccommodation in GetAll())
+                    {
+                        if(reservedAccommodation.Accommodation.Id == accommodation.Id)
+                        {
+                            numberOfReservations++;
+                            guestNumberSum += reservedAccommodation.GuestNumber;
+                        }
+                    }
+                    if (numberOfReservations == 0)
+                        continue;
+                    guestNumberSum /= numberOfReservations;
+                    busyness += guestNumberSum / accommodation.MaxGuestNumber;
+                }
+                accommodationsStatisticsByLocation.Busyness = busyness / accommodationsStatisticsByLocation.Accommodations.Count();
+            }
         }
     }
 }

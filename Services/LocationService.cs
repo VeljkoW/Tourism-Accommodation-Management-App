@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using ForumModel = BookingApp.Domain.Model.Forum;
 
 namespace BookingApp.Services
 {
@@ -52,6 +53,27 @@ namespace BookingApp.Services
             foreach (Location location in GetAll())
                 if(location.State == state)
                     Cities.Add(location);
+        }
+        public List<string> GetStatesWithForums()
+        {
+            List<string> States = new List<string>();
+            foreach (Location location in GetAll())
+                foreach (ForumModel forumModel in ForumService.GetInstance().GetAll())
+                    if (forumModel.LocationId == location.Id && 
+                        (States.Count == 0 || States.Where(t => t == location.State).Count() == 0))
+                        States.Add(location.State);
+            return States;
+        }
+        public void GetCitiesForStateWithForums(ObservableCollection<Location> Cities, string state)
+        {
+            Cities.Clear();
+            foreach (Location location in GetAll())
+                foreach (ForumModel forumModel in ForumService.GetInstance().GetAll())
+                    if (location.State == state && forumModel.LocationId == location.Id)
+                    {
+                        Cities.Add(location);
+                        break;
+                    }
         }
     }
 }

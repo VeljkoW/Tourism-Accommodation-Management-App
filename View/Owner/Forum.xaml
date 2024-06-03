@@ -4,9 +4,96 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
+      xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="Forum">
+    <Page.Resources>
+        <local1:GuestIdToUsernameConverter x:Key="GuestIdToUsernameConverter"/>
+        <local1:AccommodationIdToNameConverter x:Key="AccommodationIdToNameConverter"/>
+        <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
+        <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+        <local1:UserIdToOwnerFlagConverter x:Key="UserIdToOwnerFlagConverter"/>
+        <local1:PostIdToReportVisibilityConverter x:Key="PostIdToReportVisibilityConverter"/>
+        <local1:PostIdToOwnerFlagConverter x:Key="PostIdToOwnerFlagConverter"/>
+        <local1:BoolToViewImage x:Key="BoolToViewImage"/>
+        <local1:UserIdToOwnerVisibilityConverter x:Key="UserIdToOwnerVisibilityConverter"/>
+        <local1:UserIdToGuestVisibilityConverter x:Key="UserIdToGuestVisibilityConverter"/>
+
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -17,6 +104,128 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Grid.Row="1" Content="Forum"></Button>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="30 10 30 30">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" MinHeight="150"/>
+                    <RowDefinition Height="4.5*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{loc:Loc State:}" FontSize="24" Margin="0 0 0 80" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"/>
+                    <ComboBox x:Name="StatesComboBox" Grid.Column="0" VerticalAlignment="Center" Height="40" FontSize="24" Margin="0 0 30 0"
+                              ItemsSource="{Binding States, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource OwnerComboBox}"
+                              SelectedItem="{Binding SelectedState, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectionChanged="statePicked"/>
+
+                    <TextBlock Grid.Column="1" Text="{loc:Loc City:}" FontSize="24" Margin="0 0 0 80" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"/>
+                    <ComboBox x:Name="CitiesComboBox" Grid.Column="1" VerticalAlignment="Center" Height="40" FontSize="24" Margin="0 0 30 0"
+                              ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource OwnerComboBox}"
+                              SelectedItem="{Binding SelectedCity, UpdateSourceTrigger=PropertyChanged}"
+                              SelectionChanged="cityPicked"
+                              SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities"/>
+
+                    <Button Grid.Column="2" Content="{loc:Loc Search}" FontSize="24" VerticalAlignment="Center" Height="40" Margin="0 0 30 0" 
+                            Style="{DynamicResource OwnerButtonStyle20}" Command="{Binding SearchClick}"/>
+
+                    <Image x:Name="BookmarkImage" Grid.Column="3" Source="../../Resources/Images/Owner/bookmark.png" Height="64" Width="64" 
+                           VerticalAlignment="Center" Margin="20 0 0 50"/>
+                    <TextBlock x:Name="UsefulForumTextBlock" Grid.Column="3" Text="{loc:Loc Useful Forum!}" Margin="20 50 0 0" FontSize="24" FontWeight="Bold"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"/>
+
+                    <Button Grid.Column="4" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top" Click="UsefulForumInfoClick">
+                        <Image Source="../../Resources/Images/Owner/info.png" Width="32"/>
+                    </Button>
+                    <TextBlock x:Name="UsefulForumMessage" Grid.Column="4" FontSize="14" Margin="20 0 20 30" TextAlignment="Center"
+                               VerticalAlignment="Bottom" HorizontalAlignment="Center" TextWrapping="Wrap"
+                               Text="{loc:Loc usefulForumMessage}" Style="{DynamicResource OwnerTextBlock}"/>
+                </Grid>
+                <StackPanel Grid.Row="1">
+                    <TextBlock x:Name="LocationInfoTextBlock" Text="{loc:Loc Select the location first}" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20" Style="{DynamicResource OwnerTextBlock}"/>
+                    <TextBlock x:Name="SelectedLocationTextBlock" FontSize="24" HorizontalAlignment="Center" Margin="0 0 0 20" Style="{DynamicResource OwnerTextBlock}">
+                        <Run Text="Selected Location: "/>
+                        <Run x:Name="SelectedStateRun"/>
+                        <Run Text="-"/>
+                        <Run x:Name="SelectedCityRun"/>
+                    </TextBlock>
+                    <Border x:Name="MainPostBorder" Grid.Row="1" BorderThickness="1" CornerRadius="10" Height="160" Margin="0 30 20 50"
+                            Background="{DynamicResource BorderBackgroundBrush}" BorderBrush="{StaticResource OwnerTabPressedColorBrush}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="OwnerMainPostImage" Grid.Column="0" Source="../../Resources/Images/Owner/verified-user.png" Width="48" 
+                                   VerticalAlignment="Center" Margin="15 10 0 40"/>
+                            <TextBlock Grid.Column="0" Text="{Binding User.Username}" FontWeight="Bold" FontSize="20" Margin="10 50 0 0" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource OwnerTextBlock}"/>
+
+                            <TextBlock Grid.Column="1" Text="{loc:Loc Comment:}" FontSize="20" Margin="10 5 0 0" Style="{DynamicResource OwnerTextBlock}"/>
+                            <TextBox x:Name="PostCommentTextBox" Grid.Column="1" Margin="10 35 10 10" FontSize="20"
+                                     TextWrapping="Wrap"/>
+
+                            <Button Grid.Column="2" Content="{loc:Loc Post}" FontSize="24" Margin="20 0 20 10"
+                                    VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Command="{Binding PostClick}" Style="{DynamicResource OwnerButtonStyle20}"/>
+                        </Grid>
+                    </Border>
+                    <ItemsControl x:Name="CommentsItemsControl" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 20 0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Grid.Row="1" BorderBrush="{StaticResource OwnerTabPressedColorBrush}" BorderThickness="1" 
+                                        CornerRadius="10" Height="160" Margin="0 10 0 10" Background="{DynamicResource BorderBackgroundBrush}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="10*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Width="48" Style="{DynamicResource ForumOwnerImage}"
+                                               VerticalAlignment="Center" Margin="5 10 0 40" Visibility="{Binding UserId, Converter={StaticResource UserIdToOwnerVisibilityConverter}}"/>
+                                        <Image Grid.Column="0" Width="48" Style="{DynamicResource ForumGuestImage}"
+                                               VerticalAlignment="Center" Margin="5 10 0 40" Visibility="{Binding UserId, Converter={StaticResource UserIdToGuestVisibilityConverter}}"/>
+
+                                        <TextBlock Grid.Column="0" Text="{Binding UserId, Converter={StaticResource GuestIdToUsernameConverter}}" 
+                                                   FontSize="20" Margin="5 45 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{DynamicResource OwnerTextBlock}"/>
+
+                                        <TextBlock Grid.Column="1" Text="{loc:Loc Comment:}" FontSize="20" Margin="10 5 0 0" Style="{DynamicResource OwnerTextBlock}"/>
+                                        <Border Grid.Column="1" Margin="10 35 10 10" BorderThickness="1" BorderBrush="{StaticResource OwnerButtonPressedColorBrush}"  Padding="5" Background="{DynamicResource BorderBackgroundBrush}">
+                                            <TextBlock FontSize="18" TextWrapping="Wrap" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource OwnerTextBlock}"/>
+                                        </Border>
+
+                                        <!--Special guest-->
+                                        <Image Style="{DynamicResource ForumSpecialGuestStarImage}" Height="30" Grid.Column="2" Margin="0 10 0 0" 
+                                               VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding SpecialUser, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToViewImage}}"/>
+                                        <TextBlock x:Name="SpeacialGuestTextBlock" Text="Special Guest" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                                   Visibility="{Binding SpecialUser, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToViewImage}}" Style="{DynamicResource OwnerTextBlock}"/>
+                                        <!--Owner-->
+                                        <Image Style="{DynamicResource ForumOwnerKeyImage}" Height="30" Grid.Column="2" Margin="0 10 0 0" 
+                                               VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding Id, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PostIdToOwnerFlagConverter}}"/>
+                                        <TextBlock x:Name="OwnerTextBlock" Text="Owner" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                                   Visibility="{Binding Id, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PostIdToOwnerFlagConverter}}" Style="{DynamicResource OwnerTextBlock}"/>
+
+
+                                        <TextBlock x:Name="ReportNumbersTextBlock" Grid.Column="2" FontSize="16" Margin="0 45 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                                   Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}" Style="{DynamicResource OwnerTextBlock}">
+                                            <Run Text="{loc:Loc Report numbers:}"/>
+                                            <Run Text="{Binding Reports, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </TextBlock>
+                                        <Button x:Name="ReportNumberButton" Grid.Column="2" Content="{loc:Loc Report}" FontSize="20" Margin="20 10 20 0" Click="ReportClick" Style="{DynamicResource OwnerButtonStyle15}"
+                                                VerticalAlignment="Top" HorizontalAlignment="Stretch" Visibility="{Binding Id, Converter={StaticResource PostIdToReportVisibilityConverter}}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

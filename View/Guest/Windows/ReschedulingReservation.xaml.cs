@@ -30,7 +30,38 @@ namespace BookingApp.View.Guest.Windows
             selectedReservedAccommodation = reservedAccommodation;
             GuestReschedulingRequestViewModel = new GuestReschedulingRequestViewModel(user, this, selectedReservedAccommodation);
             DataContext = GuestReschedulingRequestViewModel;
+            ValidateStartDate.Text = "*Select date!";
+            ValidateStartDate.Visibility = Visibility.Visible;
+            ValidateEndDate.Text = "*Select date!";
+            ValidateEndDate.Visibility = Visibility.Visible;
         }
 
+        private void SelectInDate(object sender, SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(checkInDatePicker.Text) || string.IsNullOrWhiteSpace(checkInDatePicker.Text))
+            {
+                ValidateStartDate.Text = "*Select date!";
+                ValidateStartDate.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                ValidateStartDate.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void SelectOutDate(object sender, SelectionChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(checkOutDatePicker.Text) || string.IsNullOrWhiteSpace(checkOutDatePicker.Text))
+            {
+                ValidateEndDate.Text = "*Select date!";
+                ValidateEndDate.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                ValidateEndDate.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }

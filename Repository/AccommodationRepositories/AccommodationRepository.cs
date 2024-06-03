@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository.AccommodationRepositories
 {
@@ -49,6 +50,13 @@ namespace BookingApp.Repository.AccommodationRepositories
         {
             _accommodations = _serializer.FromCSV(FilePath);
             return _accommodations.Find(c => c.Id == Id);
+        }
+        public void DeleteById(int Id)
+        {
+            _accommodations = _serializer.FromCSV(FilePath);
+            Accommodation founded = _accommodations.Find(c => c.Id == Id);
+            _accommodations.Remove(founded);
+            _serializer.ToCSV(FilePath, _accommodations);
         }
 
     }

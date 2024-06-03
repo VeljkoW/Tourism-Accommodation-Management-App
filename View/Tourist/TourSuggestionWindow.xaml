@@ -47,132 +47,144 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
 
-        <Border Grid.Row="0" Background="{StaticResource BorderColorBrush}">
-            <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 6 6 0" BorderBrush="{StaticResource BorderColorBrush}">
-                <Border.CornerRadius>
-                    <CornerRadius TopRight="10" TopLeft="10"/>
-                </Border.CornerRadius>
-                <Border Background="{StaticResource TabColorBrush}" Margin="30 30 30 0" CornerRadius="10">
-                    <Grid Margin="20 20 20 10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Border Grid.Row="0" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}">
-                            <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="30" Text="Tour Suggestion Form" Margin="0 0 0 5"/>
-                        </Border>
+            <Border Grid.Row="0" Background="{StaticResource BorderColorBrush}">
+                <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 6 6 0" BorderBrush="{StaticResource BorderColorBrush}">
+                    <Border.CornerRadius>
+                        <CornerRadius TopRight="10" TopLeft="10"/>
+                    </Border.CornerRadius>
+                    <Border Background="{StaticResource TabColorBrush}" Margin="30 30 30 0" CornerRadius="10">
+                        <Grid Margin="20 20 20 10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}">
+                                <TextBlock Grid.Row="1" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="30" Text="Tour Suggestion Form" Margin="0 0 0 5"/>
+                            </Border>
 
                         
-                        <Border Grid.Row="1" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0">
-                            <Grid>
+                            <Border Grid.Row="1" BorderThickness="2 2 2 2" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Number of tourists* :" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="15" Margin="10 5 0 5"/>
+                                    <TextBox Grid.Column="1" TextAlignment="Center" Foreground="{StaticResource TextColorBrush}" Background="{StaticResource TabColorBrush}" HorizontalAlignment="Center" Width="150" FontWeight="Bold" FontSize="15" Margin="10 5 10 5" 
+                                         x:Name="NumberOfPeopleTextBox" TextChanged="GenerateTextBoxes"/>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="2" BorderThickness="2 2 2 2" Height="Auto" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 15">
+                                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                                    <StackPanel x:Name="TextBoxesPanel" Orientation="Vertical" Height="Auto"/>
+                                </ScrollViewer>
+                            </Border>
+                            <Grid Grid.Row="3" Margin="0 10 0 10">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="Number of tourists* :" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="15" Margin="10 5 0 5"/>
-                                <TextBox Grid.Column="1" TextAlignment="Center" Foreground="{StaticResource TextColorBrush}" Background="{StaticResource TabColorBrush}" HorizontalAlignment="Center" Width="150" FontWeight="Bold" FontSize="15" Margin="10 5 10 5" 
-                                     x:Name="NumberOfPeopleTextBox" TextChanged="GenerateTextBoxes"/>
-                            </Grid>
-                        </Border>
-
-                        <Border Grid.Row="2" BorderThickness="2 2 2 2" Height="Auto" CornerRadius="10" BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 15">
-                            <ScrollViewer VerticalScrollBarVisibility="Visible">
-                                <StackPanel x:Name="TextBoxesPanel" Orientation="Vertical" Height="Auto"/>
-                            </ScrollViewer>
-                        </Border>
-                        <Grid Grid.Row="3" Margin="0 10 0 10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Language* :" Margin="25 0 20 0" FontSize="18" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="LanguageTextBox" HorizontalAlignment="Left" Width="122" Margin="12 0 18 0"/>
-                            <Grid Grid.Row="1" Grid.Column="0" Margin="25 5 0 0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="State*" HorizontalAlignment="Left" Margin="0 0 20 0" Foreground="{StaticResource TextColorBrush}"/>
-                                <ComboBox x:Name="StateComboBox" Grid.Row="1" Width="101" HorizontalAlignment="Left" Margin="0 0 20 0" SelectionChanged="StateComboBoxSelectionChanged"/>
-                            </Grid>
-                            <Grid Grid.Row="1" Grid.Column="1" Margin="12 5 0 0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="Start Date*" HorizontalAlignment="Left" Foreground="{StaticResource TextColorBrush}"/>
-                                <DatePicker Grid.Row="1" x:Name="StartDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
-                            </Grid>
-                            <Grid Grid.Row="2" Grid.Column="0" Margin="25 5 0 0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="City*" HorizontalAlignment="Left" Margin="0 0 20 0" Foreground="{StaticResource TextColorBrush}"/>
-                                <ComboBox x:Name="CityComboBox" Grid.Row="1" Width="101" HorizontalAlignment="Left" Margin="0 0 20 0" />
-                            </Grid>
-                            <Grid Grid.Row="2" Grid.Column="1" Margin="12 5 0 0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="End Date*" HorizontalAlignment="Left" Foreground="{StaticResource TextColorBrush}"/>
-                                <DatePicker Grid.Row="1" x:Name="EndDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
-                            </Grid>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Language* :" Margin="25 0 20 0" FontSize="18" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" x:Name="LanguageTextBox" HorizontalAlignment="Left" Width="122" Margin="12 0 18 0"/>
+                                <Grid Grid.Row="1" Grid.Column="0" Margin="25 5 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="State*" HorizontalAlignment="Left" Margin="0 0 20 0" Foreground="{StaticResource TextColorBrush}"/>
+                                    <ComboBox x:Name="StateComboBox" Grid.Row="1" Width="101" HorizontalAlignment="Left" Margin="0 0 20 0" SelectionChanged="StateComboBoxSelectionChanged"/>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="1" Margin="12 5 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Start Date*" HorizontalAlignment="Left" Foreground="{StaticResource TextColorBrush}"/>
+                                    <DatePicker Grid.Row="1" x:Name="StartDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
+                                </Grid>
+                                <Grid Grid.Row="2" Grid.Column="0" Margin="25 5 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="City*" HorizontalAlignment="Left" Margin="0 0 20 0" Foreground="{StaticResource TextColorBrush}"/>
+                                    <ComboBox x:Name="CityComboBox" Grid.Row="1" Width="101" HorizontalAlignment="Left" Margin="0 0 20 0" />
+                                </Grid>
+                                <Grid Grid.Row="2" Grid.Column="1" Margin="12 5 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="End Date*" HorizontalAlignment="Left" Foreground="{StaticResource TextColorBrush}"/>
+                                    <DatePicker Grid.Row="1" x:Name="EndDatePicker" Width="150" HorizontalAlignment="Left" Margin="0 0 18 0" PreviewKeyDown="DatePicker_PreviewKeyDown"/>
+                                </Grid>
             
-                        </Grid>
-                        <Grid Grid.Row="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="Description" Margin="25 10 20 3" FontSize="18" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold"/>
-                            <TextBox Grid.Row="1" Margin="25 0 25 10" Height="100" TextWrapping="Wrap" x:Name="DescriptionTextBox"/>
-                        </Grid>
+                            </Grid>
+                            <Grid Grid.Row="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Description" Margin="25 10 20 3" FontSize="18" Foreground="{StaticResource TextColorBrush}" HorizontalAlignment="Left" FontWeight="Bold"/>
+                                <TextBox Grid.Row="1" Margin="25 0 25 10" Height="100" TextWrapping="Wrap" x:Name="DescriptionTextBox"/>
+                            </Grid>
                         
+                        </Grid>
+                    </Border>
+                </Border>
+            </Border>
+
+            <Border Grid.Row="1" Background="{StaticResource BorderColorBrush}">
+                <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 0 6 6" CornerRadius="0 0 10 10" BorderBrush="{StaticResource BorderColorBrush}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickCancel}" Cursor="Hand">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                            </Button.Effect>
+                            <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        </Button>
+
+                        <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickSuggest}" Cursor="Hand">
+                            <Button.Effect>
+                                <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                            </Button.Effect>
+                            <TextBlock Text="Suggest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                        </Button>
+
                     </Grid>
                 </Border>
             </Border>
-        </Border>
+        </Grid>
 
-        <Border Grid.Row="1" Background="{StaticResource BorderColorBrush}">
-            <Border Background="{StaticResource BackgroundColorBrush}" BorderThickness="6 0 6 6" CornerRadius="0 0 10 10" BorderBrush="{StaticResource BorderColorBrush}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Button Grid.Column="0" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickCancel}" Cursor="Hand">
-                        <Button.Effect>
-                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
-                        </Button.Effect>
-                        <TextBlock Text="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
-                    </Button>
-
-                    <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickSuggest}" Cursor="Hand">
-                        <Button.Effect>
-                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
-                        </Button.Effect>
-                        <TextBlock Text="Suggest" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
-                    </Button>
-
-                </Grid>
+        <Grid x:Name="TourSuggestionWindowOverlay" Background="Transparent" Visibility="Collapsed" MouseDown="EndDemoMode">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.15*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource BackgroundColorBrush}" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="20" BorderThickness="5">
+                <TextBlock Text="Click anywhere to end demo mode" FontSize="25" Foreground="{StaticResource TextColorBrush}" FontWeight="Bold" Margin="10" VerticalAlignment="Center"/>
             </Border>
-        </Border>
+        </Grid>
     </Grid>
 </Window>

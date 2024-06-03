@@ -61,5 +61,11 @@ namespace BookingApp.View.UserControls
                 PlaceholderTextBlock.Visibility = Visibility.Hidden;
 
         }
+
+        private void ClearClick(object sender, RoutedEventArgs e)
+        {
+            InputTextBox.Clear();
+            InputTextBox.Focus();
+        }
     }
 }

@@ -6,17 +6,26 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
     public class TourRequestsPageViewModel : INotifyPropertyChanged
     {
         public RelayCommand ClickGoBack => new RelayCommand(execute => ClickGoBackExecute());
+        public RelayCommand Filter => new RelayCommand(execute => FilterExecute());
+
+        private void FilterExecute()
+        {
+            FilterUpdated();
+        }
+
         public ObservableCollection<UserControlTourSuggestion> Cards { get; set; } = new ObservableCollection<UserControlTourSuggestion>();
         public TourRequestsPage TourRequestsPage { get; }
         private int userId = GuideMainWindow.UserId;
@@ -50,7 +59,6 @@ namespace BookingApp.ViewModel.Guide
                 {
                     _acceptTourCard = value;
                     OnPropertyChanged(nameof(AcceptTourCard));
-                    ClearPopup();
                     TourRequestsPage.VAU.Children.Add(AcceptTourCard);
                 }
             }
@@ -171,6 +179,16 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        private bool _isDimOverlayVisible = false;
+        public bool IsDimOverlayVisible
+        {
+            get { return _isDimOverlayVisible; }
+            set
+            {
+                _isDimOverlayVisible = value;
+                OnPropertyChanged();
+            }
+        }
         public List<Location> Locations = new List<Location>();
         public ObservableCollection<string> States { get; set;} = new ObservableCollection<string>();
         public ObservableCollection<string> Cities { get; set;} = new ObservableCollection<string>();
@@ -186,9 +204,14 @@ namespace BookingApp.ViewModel.Guide
             TourRequestsPage.FilterUpdateEvent += FilterUpdated;
             Load();
         }
+        public void Dimm()
+        {
+            IsDimOverlayVisible = true;
+        }
         public void ClearPopup()
         {
             TourRequestsPage.VAU.Children.Clear();
+            IsDimOverlayVisible= false;
             Load();
         }
         private DateTime oldestDate;
@@ -243,6 +266,7 @@ namespace BookingApp.ViewModel.Guide
             foreach (var tourSuggestion in tourSuggestions)
             {
                 Location location = LocationService.GetInstance().GetById(tourSuggestion.LocationId);
+                if(SelectedLanguage != null)
                 if (SelectedLanguage != "" && !SelectedLanguage.Equals(tourSuggestion.Language))
                 {
                     continue;

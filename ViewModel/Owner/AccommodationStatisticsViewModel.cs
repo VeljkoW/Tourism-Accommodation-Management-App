@@ -17,12 +17,19 @@ namespace BookingApp.ViewModel.Owner
     public class AccommodationStatisticsViewModel
     {
         public User User { get; set; }
+        public ObservableCollection<AccommodationsStatisticsByLocation> AccommodationsStatisticsByLocations {  get; set; }
         public ObservableCollection<AccommodationStatisticsByMonth> AccommodationStatisticsByMonths { get; set; }
         public ObservableCollection<AccommodationStatisticsByYear> AccommodationStatisticsByYears { get; set; }
         public AccommodationStatisticsByYear SelectedAccommodationStatisticsByYear {  get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation {  get; set; }
         public AccommodationStatistics AccommodationStatistics {  get; set; }
+        public int MostPopularLocationId1 {  get; set; }
+        public int MostPopularLocationId2 { get; set; }
+        public int MostPopularLocationId3 { get; set; }
+        public int LeastPopularLocationId1 {  get; set; }
+        public int LeastPopularLocationId2 { get; set; }
+        public int LeastPopularLocationId3 { get; set; }
         public AccommodationStatisticsViewModel(AccommodationStatistics accommodationStatistics)
         {
             User = accommodationStatistics.User;
@@ -30,6 +37,56 @@ namespace BookingApp.ViewModel.Owner
             Accommodations = AccommodationService.GetInstance().GetAllByUser(User);
             AccommodationStatisticsByYears = new ObservableCollection<AccommodationStatisticsByYear>();
             AccommodationStatisticsByMonths = new ObservableCollection<AccommodationStatisticsByMonth>();
+            AccommodationsStatisticsByLocations = AccommodationStatisticsService.GetInstance().UpdateLocations(User);
+            CheckLocations();
+            //MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+            //MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+            //MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+            //LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+            //LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
+            //LeastPopularLocationId3 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 3].LocationId;
+        }
+        public int CheckLocations()
+        {
+            switch (AccommodationsStatisticsByLocations.Count)
+            {
+                case 0:
+                    break;
+                case 1:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    break;
+                case 2:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    break;
+                case 3:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    break;
+                case 4:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+                    break;
+                case 5:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+                    LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
+                    break;
+                default:
+                    MostPopularLocationId1 = AccommodationsStatisticsByLocations[0].LocationId;
+                    MostPopularLocationId2 = AccommodationsStatisticsByLocations[1].LocationId;
+                    MostPopularLocationId3 = AccommodationsStatisticsByLocations[2].LocationId;
+                    LeastPopularLocationId1 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 1].LocationId;
+                    LeastPopularLocationId2 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 2].LocationId;
+                    LeastPopularLocationId3 = AccommodationsStatisticsByLocations[AccommodationsStatisticsByLocations.Count() - 3].LocationId;
+                    break;
+            }
+            return AccommodationsStatisticsByLocations.Count;
         }
         public void UpdateYears()
         {
@@ -50,7 +107,7 @@ namespace BookingApp.ViewModel.Owner
                 }
             }
             if(AccommodationStatisticsByYears.Count != 0)
-                AccommodationStatistics.PopularYearLabel.Content = AccommodationStatisticsByYears[popularYearIndex].Year.ToString();
+                AccommodationStatistics.PopularYearLabel.Text = AccommodationStatisticsByYears[popularYearIndex].Year.ToString();
         }
         public void UpdateMonths()
         {
@@ -68,7 +125,7 @@ namespace BookingApp.ViewModel.Owner
                     maxOccupancy = tempOccupancy;
                 }
             }
-            AccommodationStatistics.PopularMonthLabel.Content = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(AccommodationStatisticsByMonths[popularMonthIndex].Month); //AccommodationStatisticsByMonths[popularMonthIndex].Month.ToString();
+            AccommodationStatistics.PopularMonthLabel.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(AccommodationStatisticsByMonths[popularMonthIndex].Month); //AccommodationStatisticsByMonths[popularMonthIndex].Month.ToString();
         }
     }
 }

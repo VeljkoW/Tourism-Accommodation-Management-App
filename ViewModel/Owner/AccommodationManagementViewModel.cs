@@ -16,11 +16,14 @@ using Notification.Wpf.Classes;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using Notification.Wpf.Constants;
+using System.Text.RegularExpressions;
 
 namespace BookingApp.ViewModel.Owner
 {
     public class AccommodationManagementViewModel : INotifyPropertyChanged
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
         public INotificationManager notificationManager = App.GetNotificationManager();
         private int currentImageIndex = 0;
         public ObservableCollection<string> ImagePaths { get; set; }
@@ -33,19 +36,69 @@ namespace BookingApp.ViewModel.Owner
         public RelayCommand NextImageCommand => new RelayCommand(execute => NextImage(), canExecute => CanNextImage());
         public AccommodationRegistration AccommodationRegistration {  get; set; }
         public User user { get; set; }
+        public Accommodation Accommodation {  get; set; }
         public List<string> States { get; set; }
-        public string SelectedState {  get; set; }
+        private string selectedState {  get; set; }
         public ObservableCollection<Location> Cities { get; set; }
-        public Location SelectedLocation { get; set; }
+        private Location selectedLocation { get; set; }
         public List<Image> Images { get; set; }
         public ObservableCollection<string> RelativeImagePaths { get; set; }
         public ObservableCollection<Accommodation> AccommodationsDisplay {  get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
 
         public List<string> StatesForChoosing { get; set; }
         public ObservableCollection<Location> CitiesForChoosing { get; set; }
-        public string SelectedChosenState { get; set; }
-        public Location SelectedChosenCity { get; set; }
+        private string selectedChosenState { get; set; }
+        private Location selectedChosenCity { get; set; }
 
+        public string SelectedState
+        {
+            get { return selectedState; }
+            set
+            {
+                if (selectedState != value)
+                {
+                    selectedState = value;
+                    OnPropertyChanged(nameof(selectedState));
+                }
+            }
+        }
+        public Location SelectedLocation
+        {
+            get { return selectedLocation; }
+            set
+            {
+                if (selectedLocation != value)
+                {
+                    selectedLocation = value;
+                    OnPropertyChanged(nameof(selectedLocation));
+                }
+            }
+        }
+        public string SelectedChosenState
+        {
+            get { return selectedChosenState; }
+            set
+            {
+                if (selectedChosenState != value)
+                {
+                    selectedChosenState = value;
+                    OnPropertyChanged(nameof(selectedChosenState));
+                }
+            }
+        }
+        public Location SelectedChosenCity
+        {
+            get { return selectedChosenCity; }
+            set
+            {
+                if (selectedChosenCity != value)
+                {
+                    selectedChosenCity = value;
+                    OnPropertyChanged(nameof(selectedChosenCity));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -69,6 +122,7 @@ namespace BookingApp.ViewModel.Owner
             StatesForChoosing = LocationService.GetInstance().GetStates();
             AccommodationsDisplay = AccommodationService.GetInstance().GetAllByUser(user);
             SelectedChosenCity = new Location();
+            Accommodation = new Accommodation();
             InitializeChooseStateComboBox();
         }
         private void InitializeChooseStateComboBox()
@@ -81,7 +135,8 @@ namespace BookingApp.ViewModel.Owner
         
         public void StatePicked()
         {
-            LocationService.GetInstance().GetCitiesForState(Cities, SelectedState);
+            if (!string.IsNullOrEmpty(SelectedState))
+                LocationService.GetInstance().GetCitiesForState(Cities, SelectedState);
         }
         public void StateChosen()
         {
@@ -94,11 +149,16 @@ namespace BookingApp.ViewModel.Owner
             UpdateChooseCityComboBox();
             UpdateAccommodationsDisplay("state");
             if (AccommodationsDisplay.Count == 0)
-                notificationManager.Show("Info", "You have no accommodations in this state!", NotificationType.Information);
+            {
+                if(App.currentLanguage() == ENG)
+                    notificationManager.Show("Info", "You have no accommodations in this state!", NotificationType.Information);
+                else
+                    notificationManager.Show("Info", "Nemate smeštaje u ovoj državi!", NotificationType.Information);
+            }
         }
         public void CityChosen()
         {
-            if (SelectedChosenCity == null) return;
+            if (SelectedChosenCity == null || AccommodationRegistration.ChooseCityComboBox.SelectedItem == null) return;
             if (AccommodationRegistration.ChooseCityComboBox.SelectedItem.ToString().Equals(""))
             {
                 UpdateAccommodationsDisplay("state");
@@ -106,7 +166,13 @@ namespace BookingApp.ViewModel.Owner
             }
             UpdateAccommodationsDisplay("city");
             if (AccommodationsDisplay.Count == 0)
-                notificationManager.Show("Info", "You have no accommodations in this city!", NotificationType.Information);
+            {
+                if (App.currentLanguage() == ENG)
+                    notificationManager.Show("Info", "You have no accommodations in this city!", NotificationType.Information);
+                else
+                    notificationManager.Show("Info", "Nemate smeštaje u ovom gradu!", NotificationType.Information);
+            }
+
         }
         private void UpdateChooseCityComboBox()
         {
@@ -210,8 +276,8 @@ namespace BookingApp.ViewModel.Owner
         }
         public void AcceptExecute()
         {
-            Accommodation Accommodation = new Accommodation();
-            Accommodation.Name = AccommodationRegistration.NameTextBox.Text;
+            //Accommodation Accommodation = new Accommodation();
+            //Accommodation.Name = AccommodationRegistration.NameTextBox.Text;
             Accommodation.AccommodationType = ReturnAccommodationType();
             Accommodation.MaxGuestNumber = Convert.ToInt32(AccommodationRegistration.MaxGuestNumberTextBox.NumTextBox.Text);
             Accommodation.MinReservationDays = Convert.ToInt32(AccommodationRegistration.MinResDaysTextBox.NumTextBox.Text);
@@ -268,6 +334,7 @@ namespace BookingApp.ViewModel.Owner
                     CurrentImageIndex = 0;
                     OnPropertyChanged(nameof(CurrentImagePath));
                     OnPropertyChanged(nameof(CurrentImageIndex));
+                    AccommodationRegistration.ImageValidation.Visibility = Visibility.Hidden;
                 }
             }
         }
@@ -352,6 +419,16 @@ namespace BookingApp.ViewModel.Owner
                 }
             }
             return path;
+        }
+        public void CloseAccommodation()
+        {
+            AccommodationsDisplay.Remove(SelectedAccommodation);
+            ReservedAccommodationService.GetInstance().DeleteByAccommodationId(SelectedAccommodation.Id);
+            AccommodationService.GetInstance().DeleteById(SelectedAccommodation.Id);
+            if (App.currentLanguage() == ENG)
+                notificationManager.Show("Success!", "Accommodation successfully closed!", NotificationType.Success);
+            else
+                notificationManager.Show("Uspeh!", "Smeštaj uspešno zatvoren!", NotificationType.Success);
         }
     }
 }

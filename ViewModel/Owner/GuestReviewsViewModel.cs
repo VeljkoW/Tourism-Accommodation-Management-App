@@ -9,11 +9,15 @@ using System.Windows;
 using System.Threading.Tasks;
 using BookingApp.View.Owner;
 using GuestRatingModel = BookingApp.Domain.Model.GuestRating;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Owner
 {
     public class GuestReviewsViewModel
     {
+        public const string SRB = "sr-RS";
+        public const string ENG = "en-US";
+        public INotificationManager notificationManager = App.GetNotificationManager();
         private int currentImageIndex = 0;
         public User User { get; set; }
         public int NumberOfReviews { get; set; }
@@ -34,12 +38,14 @@ namespace BookingApp.ViewModel.Owner
             NumberOfReviews = OwnerRatings.Count;
             if (OwnerService.GetInstance().isSuperOwner(User.Id))
             {
-                GuestReviews.SuperownerLabel.Content = "You are a Superowner!";
+                GuestReviews.SuperOwnerInfoButton.Visibility = Visibility.Collapsed;
+                GuestReviews.SuperownerLabel.Visibility = Visibility.Visible;
                 GuestReviews.starImage.Visibility = Visibility.Visible;
             }
             else
             {
-                GuestReviews.SuperownerLabel.Content = "You are a Basic Owner!";
+                GuestReviews.SuperOwnerInfoButton.Visibility = Visibility.Visible;
+                GuestReviews.SuperownerLabel.Visibility = Visibility.Collapsed;
                 GuestReviews.starImage.Visibility = Visibility.Collapsed;
             }
         }

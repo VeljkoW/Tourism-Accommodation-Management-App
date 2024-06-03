@@ -16,7 +16,6 @@ namespace BookingApp.ViewModel.Guest
         public ObservableCollection<GuestRating> GuestRatings {  get; set; }
        
         public User user { get; set; }
-
         public OwnerReviews OwnerReviews { get; set; }
         public OwnerReviewsViewModel(OwnerReviews ownerReviews, User user)
         {
@@ -34,16 +33,16 @@ namespace BookingApp.ViewModel.Guest
 
             if (GuestBonusService.GetInstance().IsSuperGuest(user))
             {
-                OwnerReviews.starImage.Visibility = System.Windows.Visibility.Visible;
+                OwnerReviews.SuperGuestImage.Visibility = System.Windows.Visibility.Visible;
                 OwnerReviews.SuperGuest.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
-                OwnerReviews.starImage.Visibility = System.Windows.Visibility.Collapsed;
+                OwnerReviews.SuperGuestImage.Visibility = System.Windows.Visibility.Collapsed;
                 OwnerReviews.SuperGuest.Visibility = System.Windows.Visibility.Collapsed;
             }
 
             OwnerReviews.GuestBonus.Content += GuestBonusService.GetInstance().GetBonus(user).ToString();
-        }
+        } 
     }
 }

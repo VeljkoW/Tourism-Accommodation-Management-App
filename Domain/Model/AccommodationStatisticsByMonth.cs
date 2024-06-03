@@ -16,7 +16,8 @@ namespace BookingApp.Domain.Model
         private int reservations;
         private int cancellations;
         private int reschedulings;
-        private int recommendedRenovations; public event PropertyChangedEventHandler? PropertyChanged;
+        private int recommendedRenovations; 
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
         {
             if (PropertyChanged != null)

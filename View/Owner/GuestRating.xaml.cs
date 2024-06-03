@@ -30,10 +30,6 @@ namespace BookingApp.View.Owner
         public int Cleanliness {  get; set; }
         public int FollowingGuidelines {  get; set; }
         public GuestRatingViewModel GuestRatingViewModel {  get; set; }
-        //public OwnerMainWindow ownerMainWindow { get; set; }
-        //public User user { get; set; }
-        //public List<ReservedAccommodation> ReservedAccommodations { get; set; }
-        //public ReservedAccommodation SelectedReservedAccommodations { get; set; }
         public GuestRating(OwnerMainWindow ownerMainWindow, User user)
         {
             InitializeComponent();
@@ -41,9 +37,12 @@ namespace BookingApp.View.Owner
             this.DataContext = GuestRatingViewModel;
             Cleanliness = 0;
             FollowingGuidelines = 0;
-            //this.user = user;
-            //this.ownerMainWindow = ownerMainWindow;
-            //ReservedAccommodations = new List<ReservedAccommodation>();
+            App.ThemeChanged += OnThemeChanged;
+            OnThemeChanged();
+            if (GuestRatingViewModel.ReservedAccommodations.Count <= 0)
+            {
+                NoGuestsToRateMessage.Visibility = Visibility.Visible;
+            }
         }
 
         private void CleanlinessChecked(object sender, RoutedEventArgs e)
@@ -60,7 +59,25 @@ namespace BookingApp.View.Owner
                 }
             }
         }
-
+        public void OnThemeChanged()
+        {
+            Color OwnerTabLightColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush OwnerTabLightColorBrush = new SolidColorBrush(OwnerTabLightColor);
+            Color OwnerTabDarkColor = (Color)FindResource("OwnerTabDarkColor");
+            SolidColorBrush OwnerTabDarkColorBrush = new SolidColorBrush(OwnerTabDarkColor);
+            if (App.currentTheme() == "Light")
+            {
+                RateGuestBorder.Background = OwnerTabLightColorBrush;
+                NoGuestsToRateMessageBorder.Background = OwnerTabLightColorBrush;
+            }
+            else
+            {
+                Color OwnerDarkBackgroundColor = (Color)FindResource("OwnerDarkBackgroundColor");
+                SolidColorBrush OwnerDarkBackgroundColorBrush = new SolidColorBrush(OwnerDarkBackgroundColor);
+                RateGuestBorder.Background = OwnerTabDarkColorBrush;
+                NoGuestsToRateMessageBorder.Background = OwnerDarkBackgroundColorBrush;
+            }
+        }
         private void FollowingGuidelinesChecked(object sender, RoutedEventArgs e)
         {
             if (sender is RadioButton radioButton)

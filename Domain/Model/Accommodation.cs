@@ -1,4 +1,4 @@
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using BookingApp.Serializer;
 using BookingApp.ViewModel;
 using System;
@@ -8,12 +8,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 public enum AccommodationType { Apartment, House, Hut }
 namespace BookingApp.Domain.Model
 {
-    public class Accommodation : ISerializable, INotifyPropertyChanged
+    public class Accommodation : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int id { get; set; }
         private int ownerId { get; set; }
@@ -40,6 +41,44 @@ namespace BookingApp.Domain.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(str));
             }
         }
+        public string Error => null;
+        private const string SRB = "sr-RS";
+        private Regex TextNumberRegex = new Regex("^[A-Za-zČĆŠĐŽčćšđž ]+[0-9]*$");
+        private Regex TextRegex = new Regex("^[A-Za-zČĆŠĐŽčćšđž ]+$");
+        private Regex NumberRegex = new Regex("^[1-9][0-9]+$");
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "*";
+
+                    Match match = TextNumberRegex.Match(Name);
+                    if (!match.Success)
+                        if (App.currentLanguage() == SRB)
+                            return "Polje moze da sadrzi samo slova";
+                        else
+                            return "The field can only contain letters";
+                }
+                else if(columnName == "MaxGuestNumber")
+                {
+                    if (MaxGuestNumber == 0)
+                        return "*";
+
+                    Match match = NumberRegex.Match(MaxGuestNumber.ToString());
+                    if (!match.Success)
+                        if (App.currentLanguage() == SRB)
+                            return "Polje moze da sadrzi samo brojeve";
+                        else
+                            return "The field can only contain digits";
+                }
+                return null;
+            }
+        }
+
         public int Id
         {
             get
@@ -314,7 +353,7 @@ namespace BookingApp.Domain.Model
                 if (value != PrintAccommodation)
                 {
                     PrintAccommodation = value;
-                    OnPropertyChanged("Print");
+                    OnPropertyChanged("PrintAccommodation");
                 }
             }
         }

@@ -20,6 +20,7 @@ using BookingApp.Domain.IRepositories;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -142,10 +143,11 @@ namespace BookingApp.ViewModel.Guide
         public List<KeyPoint> keyPoints = new List<KeyPoint>();
         public List<Location> Locations = new List<Location>();
         public ObservableCollection<string> KeyPointStrings { get; set; } = new ObservableCollection<string>();
-        public DateTime SelectedDate { get; set; }
+        public DateTime SelectedDate { get; set; } = DateTime.Now;
         public RelayCommand BtnSelectFile_Click => new RelayCommand(execute => BtnSelectFiles_ClickExecute());
         public RelayCommand ClickAddDate => new RelayCommand(execute => ClickAddDateExecute(), canExecute => ClickAddDateCanExecute());
-        public RelayCommand ClidKAddKeyPoint => new RelayCommand(execute => ClickAddKeyPointExecute());
+        public RelayCommand ClidKAddKeyPoint => new RelayCommand(execute => ClickAddKeyPointExecute(),canExecute => ClickAddKeyPointCanExecute());
+        public RelayCommand ClicKRemoveKeyPoint => new RelayCommand(execute => ClickRemoveKeyPointExecute(),canExecute => ClickRemoveKeyPointCanExecute());
         public RelayCommand ClickCancelButton => new RelayCommand(execute => ClickCancelButtonExecute());
         public RelayCommand ClickCreateButton => new RelayCommand(execute => ClickCreateButtonExecute(), canExecute => ClickCreateCanExecute());
         public RelayCommand ClickDeleteDate => new RelayCommand(execute => ClickDeleteDateExecute(), canExecute => ClickDeleteDateCanExecute());
@@ -197,7 +199,12 @@ namespace BookingApp.ViewModel.Guide
 
         private bool ClickCreateCanExecute()
         {
-            if (KeyPointStrings.Count() < 2 || Dates.Count() < 1 || RelativeImagePaths.Count() < 1) { return false; }
+            if (KeyPointStrings.Count() < 2 || Dates.Count() < 1 || RelativeImagePaths.Count() < 1 ||
+                Name.Equals("")  || Duration<1 || MaxTourists<1 || Description.Equals("") ||
+                SelectedCity==null) 
+            {
+                return false; 
+            }
             return true;
         }
         public List<int> HoursList { get; set; }
@@ -206,8 +213,8 @@ namespace BookingApp.ViewModel.Guide
 
         public ObservableCollection<string> States { get; set; }
         public ObservableCollection<string> Cities { get; set; }
-        private int _hours;
-        public int Hours
+        private int _hours = 1;
+        public int SelectedHour
         {
             get => _hours;
             set
@@ -220,7 +227,7 @@ namespace BookingApp.ViewModel.Guide
             }
         }
         private int _minutes;
-        public int Minutes
+        public int SelectedMinute
         {
             get => _minutes;
             set
@@ -233,7 +240,7 @@ namespace BookingApp.ViewModel.Guide
             }
         }
         private List<string> toBeDeleted = new List<string>();
-        private string _name;
+        private string _name= "";
         public new string Name
         {
             get => _name;
@@ -246,7 +253,7 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
-        private int _duration;
+        private int _duration=1;
         public int Duration
         {
             get => _duration;
@@ -254,12 +261,14 @@ namespace BookingApp.ViewModel.Guide
             {
                 if (value != _duration)
                 {
+                    bool isInteger = int.TryParse(value.ToString(), out _);
+                    IsDurationInteger = isInteger;
                     _duration = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private int _maxTourists;
+        private int _maxTourists=1;
         public int MaxTourists
         {
             get => _maxTourists;
@@ -267,7 +276,48 @@ namespace BookingApp.ViewModel.Guide
             {
                 if (value != _maxTourists)
                 {
+                    bool isInteger = int.TryParse(value.ToString(), out _);
+                    IsTouristsInteger = isInteger;
                     _maxTourists = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isTouristsInteger;
+        public bool IsTouristsInteger
+        {
+            get => _isTouristsInteger;
+            set
+            {
+                if (value != _isTouristsInteger)
+                {
+                    _isTouristsInteger = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isDurationInteger;
+        public bool IsDurationInteger
+        {
+            get => _isDurationInteger;
+            set
+            {
+                if (value != _isDurationInteger)
+                {
+                    _isDurationInteger = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _currentKeyPoint;
+        public string CurrentKeyPoint
+        {
+            get => _currentKeyPoint;
+            set
+            {
+                if (value != _currentKeyPoint)
+                {
+                    _currentKeyPoint = value;
                     OnPropertyChanged();
                 }
             }
@@ -312,6 +362,19 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        private string _ampm = "AM";
+        public new string SelectedAmPm
+        {
+            get => _ampm;
+            set
+            {
+                if (value != _ampm)
+                {
+                    _ampm = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _currentImage;
         public string CurrentImage
         {
@@ -341,8 +404,7 @@ namespace BookingApp.ViewModel.Guide
         public string CurrentImagePath;
         public int TotalImages => RelativeImagePaths.Count;
 
-        private string _description;
-        private CreateTourForm createTourForm;
+        private string _description="";
 
         public string Description
         {
@@ -356,11 +418,15 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        private CreateTourForm createTourForm;
         public Action OnClickedGoBack { get; set; }
         public CreateTourFormViewModel() { }
+        public void CheckConversions(object o,TextChangedEventArgs e)
+        {
+        }
         public CreateTourFormViewModel(CreateTourForm createTourForm, User user)
         {
-            this.createTourForm = createTourForm;
+            this.createTourForm=createTourForm;
             CurrentImage = "../../../Resources/Images/No-Image-Placeholder.png";
             createTourForm.StateBoxEventHandler += StateBox_SelectionChanged;
             User = user;
@@ -472,18 +538,18 @@ namespace BookingApp.ViewModel.Guide
         {
 
             // Create a new Tour object
-            State = createTourForm.StateBox.Text.Trim();
-            City = createTourForm.CityBox.Text.Trim();
+            State = this.SelectedState;
+            City = this.SelectedCity;
             Location location = new Location(SelectedCity, SelectedState);
             location.Id = LocationService.GetInstance().GetIdByStateCity(SelectedState, SelectedCity);
             Tour newTour = new Tour
             {
-                Name = createTourForm.TourNameTextbox.Text.Trim(),
-                Description = createTourForm.DescriptionTextbox.Text.Trim(),
+                Name = this.Name,
+                Description = this.Description,
                 Language = Language,
                 Location = location,
-                MaxTourists = Convert.ToInt32(createTourForm.MaxTouristTextbox.Text.Trim()),
-                Duration = Convert.ToInt32(createTourForm.DurationTextbox.Text.Trim()),
+                MaxTourists = this.MaxTourists,
+                Duration = this.Duration,
                 DateTime = DateTime.Now,
                 Images = images,
                 KeyPoints = this.keyPoints,
@@ -539,25 +605,48 @@ namespace BookingApp.ViewModel.Guide
             KeyPointStrings.Clear();
             Locations.Clear();
             OnClickedGoBack?.Invoke();
-            createTourForm.NavigationService.GoBack();
+            this.createTourForm.NavigationService.GoBack();
         }
         public void ClickAddKeyPointExecute()
         {
-            KeyPointStrings.Add(createTourForm.KeyPointTextbox.Text);
-            createTourForm.KeyPointTextbox.Clear();
+            KeyPointStrings.Add(this.CurrentKeyPoint);
+            this.CurrentKeyPoint = "";
+        }
+        private bool ClickAddKeyPointCanExecute()
+        {
+            if(CurrentKeyPoint != null) 
+            {
+                if (!CurrentKeyPoint.Equals(""))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void ClickRemoveKeyPointExecute()
+        {
+            KeyPointStrings.Remove(this.SelectedKeyPoint);
+        }
+        private bool ClickRemoveKeyPointCanExecute()
+        {
+            if(SelectedKeyPoint != null)
+            {
+                return true;
+            }
+            return false;
         }
         public bool ClickAddDateCanExecute()
         {
             try
             {
-                if(createTourForm.ChosenHours.SelectedValue == null || createTourForm.ChosenAmPm.SelectedValue == null || createTourForm.ChosenAmPm == null || createTourForm.datePicker.SelectedDate == null)
+                if(this.SelectedHour == null || this.SelectedAmPm == null || this.SelectedMinute == null ||this.SelectedDate == null)
                 {
                     return false;
                 }
-                int selectedHour = (int)createTourForm.ChosenHours.SelectedValue;
-                int selectedMinute = (int)createTourForm.ChosenMinutes.SelectedValue;
-                string selectedAmPm = (string)createTourForm.ChosenAmPm.SelectedValue;
-                DateTime date = createTourForm.datePicker.SelectedDate ?? DateTime.Now.Date;
+                int selectedHour = SelectedHour;
+                int selectedMinute = SelectedMinute;
+                string selectedAmPm = SelectedAmPm;
+                DateTime date = SelectedDate;
                 if (selectedAmPm == "PM" && selectedHour != 12)
                 {
                     selectedHour += 12;
@@ -580,9 +669,9 @@ namespace BookingApp.ViewModel.Guide
         }
         public void ClickAddDateExecute()
         {
-            int selectedHour = (int)createTourForm.ChosenHours.SelectedValue;
-            int selectedMinute = (int)createTourForm.ChosenMinutes.SelectedValue;
-            string selectedAmPm = (string)createTourForm.ChosenAmPm.SelectedValue;
+            int selectedHour = SelectedHour;
+            int selectedMinute = SelectedMinute;
+            string selectedAmPm = SelectedAmPm;
             if (selectedAmPm == "PM" && selectedHour != 12)
             {
                 selectedHour += 12;
@@ -592,7 +681,7 @@ namespace BookingApp.ViewModel.Guide
                 selectedHour = 0;
             }
 
-            DateTime date = createTourForm.datePicker.SelectedDate ?? DateTime.Now.Date;
+            DateTime date = SelectedDate;
             DateTime selectedDate = new DateTime(date.Year, date.Month, date.Day, selectedHour, selectedMinute, 0);
             if(Dates.Where(t=>t.Date==selectedDate.Date && t.Minute==selectedDate.Minute && t.Hour == selectedDate.Hour).Count() == 0)
             {
@@ -645,6 +734,7 @@ namespace BookingApp.ViewModel.Guide
         private void RemoveExecute()
         {
             toBeDeleted.Add(ImagePaths[_currentIndex]);
+            RelativeImagePaths.RemoveAt(_currentIndex);
             ImagePaths.RemoveAt(_currentIndex);
             if(ImagePaths.Count == 0)
             {
@@ -673,12 +763,11 @@ namespace BookingApp.ViewModel.Guide
         public void StateBox_SelectionChanged()
         {
             Cities.Clear();
-            string selectedState = createTourForm.StateBox.SelectedItem as string;
-            if(selectedState != null)
+            if(this.SelectedState != null)
             {
             foreach (Location location in Locations)
             {
-                if (selectedState.Equals(location.State) && !Cities.Contains(location.City))
+                if (this.SelectedState.Equals(location.State) && !Cities.Contains(location.City))
                 {
                     Cities.Add(location.City);
                 }

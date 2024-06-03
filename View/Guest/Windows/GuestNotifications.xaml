@@ -5,8 +5,110 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
-        Title="GuestNotifications" Height="400" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="GuestNotifications" Height="450" Width="360" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+    <Window.InputBindings>
+        <KeyBinding
+      Modifiers="Control" 
+      Key="C"
+      Command="{Binding CardsSelect}"/>
+        <KeyBinding
+  Modifiers="Control"
+  Key="E"
+  Command="{Binding Exit}"/>
+    </Window.InputBindings>
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#EFDE9F"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#f4cc2e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#f4cc2e"/>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused"  Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Focus">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="Transparent"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border1}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused"  Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#DDDDDD">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="10*"/>
@@ -15,7 +117,46 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="New Notifications" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ProcessedReschedulingRequests}" SelectedValuePath="PrintNotifications" DisplayMemberPath="PrintNotifications" FontSize="15"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label FontWeight="Medium" Content="New Notifications" FontSize="20"></Label>
+            <Button Style="{DynamicResource ButtonStyle1}" Click="Refresh"  Background="Transparent" BorderThickness="0">
+            <Image Source="../../../Resources/Images/Guest/refresh.png" Width="30" Height="30"></Image>
+            </Button>
+        </StackPanel>
+        
+        <!--<ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ProcessedReschedulingRequests}" SelectedValuePath="PrintNotifications" DisplayMemberPath="PrintNotifications" FontSize="15"/>-->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="reviewsItems" ItemsSource="{Binding ProcessedReschedulingRequests}">
+               
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DataTemplate.Resources>
+                            <Style TargetType="Border">
+                                <Style.Setters>
+                                    <Setter Property="Focusable" Value="True"/>
+                                </Style.Setters>
+                            </Style>
+                        </DataTemplate.Resources>
+
+                        <Border x:Name="BorderBlock" ToolTipService.ToolTip="Ctrl+C" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="20" Margin="5 5 5 5"  Background="WhiteSmoke"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center" KeyDown="ClickEnter" MouseLeftButtonDown="ClickedOnCard" Cursor="Hand">
+                            
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
+                            </Border.Effect>
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="5">
+                                    <TextBlock x:Name="notificationTextBlock" Text="{Binding PrintNotifications}" FontSize="13" ></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>

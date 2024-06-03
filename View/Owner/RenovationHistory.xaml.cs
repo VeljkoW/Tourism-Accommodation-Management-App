@@ -32,11 +32,43 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             RenovationHistoryViewModel = new RenovationHistoryViewModel(this);
             DataContext = RenovationHistoryViewModel;
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            SchedulingButton.Background = basicBackgroundBrush;
+            HistoryButton.Background = backgroundButtonPressedBrush;
+            App.ThemeChanged += OnThemeChanged;
+            OnThemeChanged();
         }
 
         private void SchedulingClick(object sender, RoutedEventArgs e)
         {
             OwnerMainWindow.mainFrame.Navigate(OwnerMainWindow.Renovation);
+        }
+        private void OnThemeChanged()
+        {
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            Color basicDarkBackgroundColor = (Color)FindResource("OwnerTabDarkColor");
+            SolidColorBrush basicDarkBackgroundBrush = new SolidColorBrush(basicDarkBackgroundColor);
+
+            if (App.currentTheme() == "Light")
+            {
+                var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+                SchedulingButton.Background = basicBackgroundBrush;
+                HistoryButton.Background = backgroundButtonPressedBrush;
+            }
+            else
+            {
+                var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+                SchedulingButton.Background = basicDarkBackgroundBrush;
+                HistoryButton.Background = backgroundButtonPressedBrush;
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace BookingApp.Domain.IRepositories
         ReservedAccommodation? GetById(int Id);
         void Add(ReservedAccommodation newReservedAccommodation);
         void Delete(ReservedAccommodation reservedAccommodation);
+        void DeleteByAccommodationId(int accommodationId);
         void UpdateDatesByReschedulingRequest(GuestReschedulingRequest GuestReschedulingRequest);
     }
 }

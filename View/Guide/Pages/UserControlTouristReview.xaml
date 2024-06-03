@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.Guide.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="1000">
+             d:DesignHeight="200" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="Button">
             <Style.Triggers>
@@ -46,7 +46,7 @@
                             <Image Source="../../../Resources/Images/report.png" Height="50" Width="50"/>
                         </Button>
                     </StackPanel>
-                    <TextBlock Grid.RowSpan="2" VerticalAlignment="Bottom" Text="This review is invalid" FontSize="20">
+                    <TextBlock Grid.RowSpan="2" VerticalAlignment="Bottom" Text="Invalid review" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -67,25 +67,25 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <WrapPanel Grid.Column="0">
-                                <TextBlock Grid.Column="0" Text="Knowledge:" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
+                                <TextBlock Grid.Column="0" Text="Knowledge:" FontSize="16" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <TextBlock Grid.Column="0" Text="{Binding Knowledge}" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <Image Source="../../../Resources/Images/star.png" Height="30" Width="30"/>
                             </WrapPanel>
                             <WrapPanel Grid.Column="1">
-                                <TextBlock Grid.Column="0" Text="Language:" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
+                                <TextBlock Grid.Column="0" Text="Language:" FontSize="16" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <TextBlock Grid.Column="0" Text="{Binding Language}" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <Image Source="../../../Resources/Images/star.png" Height="30" Width="30"/>
                             </WrapPanel>
                             <WrapPanel Grid.Column="2">
-                                <TextBlock Grid.Column="0" Text="Enjoyment:" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
+                                <TextBlock Grid.Column="0" Text="Enjoyment:" FontSize="16" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <TextBlock Grid.Column="0" Text="{Binding Enjoyment}" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <Image Source="../../../Resources/Images/star.png" Height="30" Width="30"/>
                             </WrapPanel>
                         </Grid>
                     </Border>
                     <StackPanel Grid.Row="1" Grid.Column="2">
-                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" TextWrapping="Wrap" Width="500" Height="130" HorizontalAlignment="Left" Grid.Row="1"/>
-                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding JoinedOn}" TextWrapping="Wrap" Width="500" Height="20" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding Description}" TextWrapping="Wrap" Width="440" Height="130" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <TextBlock Foreground="{StaticResource NButtonColor3Text}" Text="{Binding JoinedOn}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap" Width="440" Height="20" HorizontalAlignment="Left" Grid.Row="1"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>

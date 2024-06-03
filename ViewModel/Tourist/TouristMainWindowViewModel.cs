@@ -16,6 +16,9 @@ using Image = BookingApp.Domain.Model.Image;
 using System.Collections.ObjectModel;
 using BookingApp.View;
 using static System.Net.Mime.MediaTypeNames;
+using System.Reflection;
+using System.Windows.Media;
+using System.Threading;
 
 namespace BookingApp.ViewModel.Tourist
 {
@@ -28,12 +31,15 @@ namespace BookingApp.ViewModel.Tourist
         public RelayCommand ClickReservationsTab => new RelayCommand(execute => ReservationsTabExecute(),canExecute => ReservationsTabCanExecute());
         public RelayCommand ClickSuggestionsTab => new RelayCommand(execute => SuggestionsTabExecute(),canExecute => SuggestionsTabCanExecute());
         public RelayCommand ClickCouponsTab => new RelayCommand(execute => CouponsTabExecute(),canExecute => CouponsTabCanExecute());
+        public RelayCommand ClickDemo => new RelayCommand(execute => DemoExecute(), canExecute => DemoCanExecute());
         public RelayCommand ClickCollapseSearchBar => new RelayCommand(execute => CollapseSearchBarExecute());
         public RelayCommand ClickSearchTours => new RelayCommand(execute => SearchToursExecute());
         public RelayCommand ClickNotificationButton => new RelayCommand(execute => NotificationButtonExecute());
         public RelayCommand ClickLogOut => new RelayCommand(execute => LogOutExecute());
-        public RelayCommand ClickTourSuggestion => new RelayCommand(execute => TourSuggestionExecute());
-        public RelayCommand ClickTourSuggestionStatistics => new RelayCommand(execute => TourSuggestionStatisticsExecute());
+        public RelayCommand ClickTourSuggestion => new RelayCommand(execute => TourSuggestionExecute(false));
+        public RelayCommand ClickTourSuggestionStatistics => new RelayCommand(execute => TourSuggestionStatisticsExecute(false));
+        public RelayCommand ClickTourComplexSuggestion => new RelayCommand(execute => TourComplexSuggestionExecute());
+        public RelayCommand ClickSearchBox => new RelayCommand(execute => SearchBoxExecute());
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private ObservableCollection<TourSuggestion> tourSuggestions { get; set; }
@@ -49,8 +55,8 @@ namespace BookingApp.ViewModel.Tourist
                 OnPropertyChanged(nameof(tourSuggestions));
             }
         }
-        private ObservableCollection<TourSuggestion> complexTourSuggestions {  get; set; }
-        public ObservableCollection<TourSuggestion> ComplexTourSuggestions
+        private ObservableCollection<TourComplexSuggestion> complexTourSuggestions {  get; set; }
+        public ObservableCollection<TourComplexSuggestion> ComplexTourSuggestions
         {
             get
             {
@@ -130,6 +136,9 @@ namespace BookingApp.ViewModel.Tourist
         }
         public User User { get; set; }
         public string Username { get; set; }
+        public bool DemoActive { get; set; } = false;
+        public CancellationTokenSource CancellationTokenSource;
+        public int TabBeforeDemo { get; set; } = -1;
         public TouristMainWindowViewModel(TouristMainWindow touristMainWindow,User user)
         {
             this.TouristMainWindow = touristMainWindow;
@@ -149,9 +158,10 @@ namespace BookingApp.ViewModel.Tourist
             Coupons = new ObservableCollection<TourCoupon>();
             FinishedTours = new ObservableCollection<Tour>();
             TourSuggestions = new ObservableCollection<TourSuggestion>();
-            ComplexTourSuggestions = new ObservableCollection<TourSuggestion>();
+            ComplexTourSuggestions = new ObservableCollection<TourComplexSuggestion>();
 
             AddStatesToComboBox(LocationService.GetInstance().GetAll());
+            TourCouponAwardService.GetInstance().CreateACouponAward(User.Id);
             Update();
         }
         public Tour MakeTour(Tour tour,TourSchedule tourSchedule)
@@ -226,6 +236,7 @@ namespace BookingApp.ViewModel.Tourist
             UpdateFinishedTours();
             UpdateReservedTours();
             UpdateTourSuggestions();
+            UpdateComplexTourSuggestions();
             UpdateCoupons();
         }
         public void UpdateAllTours()
@@ -337,6 +348,7 @@ namespace BookingApp.ViewModel.Tourist
         void UpdateTourSuggestions()
         {
             TourSuggestions.Clear();
+            TourSuggestionService.GetInstance().CheckForExpiryDate(User.Id);
             foreach (TourSuggestion ts in TourSuggestionService.GetInstance().GetAll())
             {
                 if (User.Id == ts.UserId)
@@ -344,6 +356,16 @@ namespace BookingApp.ViewModel.Tourist
                     ts.Location = LocationService.GetInstance().GetById(ts.LocationId);
                     TourSuggestions.Add(ts);
                 }
+            }
+        }
+        void UpdateComplexTourSuggestions()
+        {
+            ComplexTourSuggestions.Clear();
+            TourSuggestionComplexService.GetInstance().CheckForExpiryDate(User.Id);
+            TourComplexSuggestionService.GetInstance().UpdateStatus(User.Id);
+            foreach(TourComplexSuggestion tcs in TourComplexSuggestionService.GetInstance().GetAll().Where(t => t.UserId == User.Id))
+            {
+                ComplexTourSuggestions.Add(tcs);
             }
         }
         public void UpdateCoupons()
@@ -553,18 +575,25 @@ namespace BookingApp.ViewModel.Tourist
             notificationWindow.Owner = TouristMainWindow;
             notificationWindow.ShowDialog();
         }
-        public void TourSuggestionExecute()
+        public void TourSuggestionExecute(bool demo)
         {
-            TourSuggestionWindow tourSuggestionWindow= new TourSuggestionWindow(User);
+            TourSuggestionWindow tourSuggestionWindow= new TourSuggestionWindow(User,false,-1,demo,this);
             tourSuggestionWindow.Owner = TouristMainWindow;
             tourSuggestionWindow.Closed += (s, e) => TouristMainWindow.TouristMainWindowViewModel.Update();
             tourSuggestionWindow.ShowDialog();
         }
-        public void TourSuggestionStatisticsExecute()
+        public void TourSuggestionStatisticsExecute(bool demo)
         {
-            TourSuggestionStatistics tourSuggestionStatistics = new TourSuggestionStatistics(User);
+            TourSuggestionStatistics tourSuggestionStatistics = new TourSuggestionStatistics(User,demo,this);
             tourSuggestionStatistics.Owner = TouristMainWindow;
             tourSuggestionStatistics.ShowDialog();
+        }
+        public void TourComplexSuggestionExecute()
+        {
+            TourComplexSuggestionWindow tourComplexSuggestionWindow = new TourComplexSuggestionWindow(User);
+            tourComplexSuggestionWindow.Owner = TouristMainWindow;
+            tourComplexSuggestionWindow.Closed += (s, e) => TouristMainWindow.TouristMainWindowViewModel.Update();
+            tourComplexSuggestionWindow.ShowDialog();
         }
         private void ToursTabExecute()
         {
@@ -674,6 +703,135 @@ namespace BookingApp.ViewModel.Tourist
         {
             if (TouristMainWindow.Tab.SelectedIndex == 5) { return false; }
             return true;
+        }
+
+        public void EndDemoMode()
+        {
+            DemoActive = false;
+            CancellationTokenSource.Cancel();
+            TouristMainWindow.TouristMainWindowOverlay.Visibility = Visibility.Collapsed;
+            if (TabBeforeDemo != -1)
+            {
+                if(TabBeforeDemo == 0)
+                {
+                    ToursTabExecute();
+                }
+                else if(TabBeforeDemo == 1)
+                {
+                    OngoingToursTabExecute();
+                }
+                else if(TabBeforeDemo == 2)
+                {
+                    FinishedToursTabExecute();
+                }
+                else if(TabBeforeDemo == 3)
+                {
+                    ReservationsTabExecute();
+                }
+                else if(TabBeforeDemo == 4)
+                {
+                    SuggestionsTabExecute();
+                }
+                else
+                {
+                    CouponsTabExecute();
+                }
+                CollapseSearchBarExecute();
+            }
+        }
+
+        public async void DemoExecute()
+        {
+            TabBeforeDemo = TouristMainWindow.Tab.SelectedIndex;
+            TouristMainWindow.TouristMainWindowOverlay.Visibility = Visibility.Visible;
+            CancellationTokenSource = new CancellationTokenSource();
+            DemoActive = true;
+            try
+            {
+                CancellationToken cancellationToken = CancellationTokenSource.Token;
+                while (DemoActive)
+                {
+                    await Task.Delay(1000, cancellationToken);
+                    if (TouristMainWindow.Tab.SelectedIndex != 0)
+                    {
+                        ToursTabExecute();
+                    }
+                    else
+                    {
+                        CollapseSearchBarExecute();
+                    }
+                    await Task.Delay(1000,cancellationToken);
+                    SearchBoxExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    TouristMainWindow.LanguageTextBox.Text = "E";
+                    await Task.Delay(500, cancellationToken);
+                    TouristMainWindow.LanguageTextBox.Text = "En";
+                    await Task.Delay(500, cancellationToken);
+                    TouristMainWindow.LanguageTextBox.Text = "Eng";
+                    await Task.Delay(500, cancellationToken);
+                    TouristMainWindow.LanguageTextBox.Text = "Engl";
+                    await Task.Delay(500, cancellationToken);
+                    TouristMainWindow.LanguageTextBox.Text = "Engli";
+                    await Task.Delay(500, cancellationToken);
+                    TouristMainWindow.LanguageTextBox.Text = "Englis";
+                    await Task.Delay(500, cancellationToken);
+                    TouristMainWindow.LanguageTextBox.Text = "English";
+                    await Task.Delay(1000, cancellationToken);
+                    SearchToursExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    TouristMainWindow.StateComboBox.SelectedIndex = 1;
+                    await Task.Delay(1000, cancellationToken);
+                    TouristMainWindow.CityComboBox.SelectedIndex = 0;
+                    await Task.Delay(1000, cancellationToken);
+                    TouristMainWindow.DurationTextBox.Text = "2";
+                    await Task.Delay(1000, cancellationToken);
+                    TouristMainWindow.PeopleTextBox.Text = "2";
+                    await Task.Delay(1000, cancellationToken);
+                    SearchToursExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    CollapseSearchBarExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    OngoingToursTabExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    FinishedToursTabExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    ReservationsTabExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    SuggestionsTabExecute();
+                    await Task.Delay(1000, cancellationToken);
+                    TouristMainWindow.TouristMainWindowOverlay.Visibility = Visibility.Collapsed;
+                    TourSuggestionStatisticsExecute(true);
+                    await Task.Delay(1, cancellationToken);
+                    TouristMainWindow.TouristMainWindowOverlay.Visibility = Visibility.Visible;
+                    await Task.Delay(1000, cancellationToken);
+                    TouristMainWindow.TouristMainWindowOverlay.Visibility = Visibility.Collapsed;
+                    TourSuggestionExecute(true);
+                    await Task.Delay(1, cancellationToken);
+                    TouristMainWindow.TouristMainWindowOverlay.Visibility = Visibility.Visible;
+                    await Task.Delay(1000, cancellationToken);
+                    CouponsTabExecute();
+                    await Task.Delay(1000, cancellationToken);
+                }
+            }
+            catch
+            {
+                EndDemoMode();
+            }
+        }
+        public bool DemoCanExecute()
+        {
+            if(DemoActive) { return false; }
+            return true;
+        }
+        public void SearchBoxExecute()
+        {
+            TextBox textBox = TouristMainWindow.SearchBarTextBox;
+            if (textBox.Text == "Search tours...")
+            {
+                textBox.Text = string.Empty;
+                textBox.Foreground = Brushes.Black;
+            }
+            TouristMainWindow.SearchBarGrid.Visibility = Visibility.Visible;
         }
     }
 }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Owner"
+      xmlns:loc="clr-namespace:BookingApp.Localization"
       xmlns:local1="clr-namespace:BookingApp.Domain.Model.Converters"
       xmlns:userControls="clr-namespace:BookingApp.View.UserControls"
       mc:Ignorable="d" 
@@ -15,6 +16,94 @@
         <local1:AccommodationIdToLocation x:Key="AccommodationIdToLocation"/>
         <local1:ImagesToImagePaths x:Key="ImagesToImagePaths"/>
         <local1:CommentIdToComment x:Key="CommentIdToComment"/>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+        <Style TargetType="Run">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+        </Style>
+
+        <Style x:Key="ImageHoverStyle" TargetType="Image">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="0"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="10"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#579BB1"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#000033"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="{StaticResource OwnerTabHoverLightColor}"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="{StaticResource OwnerButtonPressedColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="{StaticResource OwnerButtonDisabledColor}"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="{StaticResource OwnerButtonDisabledForegroundColor}"/>
+        <Style x:Key="TabButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource OwnerTabLightColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="Foreground" Value="{StaticResource OwnerTextColor1Brush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTabLightColorBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource OwnerTextColor1Brush}"/>
+                                <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -26,96 +115,146 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1" Margin="30">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.1*" MaxHeight="120"/>
-                <RowDefinition Height="9*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="7*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.ColumnSpan="2" Content="Reviews" FontSize="20" Width="150" Height="60" Margin="0 0 200 0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray"/>
-            <Button Grid.ColumnSpan="2" Content="Renovation&#10;Requests" FontSize="20" Width="150" Height="60" Margin="200 0 0 0" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick"/>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" Margin="30 10 30 30" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" MinHeight="110"/>
+                    <RowDefinition Height="2*" MinHeight="110"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="ReviewsButton" Content="{loc:Loc Reviews}" FontSize="18" Width="120" Height="50" Style="{DynamicResource OwnerTabButtonStyle}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="15 0 0 15">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="RenovationRequestsButton" Grid.Column="1" FontSize="18" Width="120" Height="50" Style="{DynamicResource OwnerTabButtonStyle}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Click="RenovationRequestsClick">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{loc:Loc Renovation Requests}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="0 15 15 0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource OwnerTabHoverLightColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
 
-            
-            <!--<DataGrid x:Name="RatingGuestsTable" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedOwnerRating, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False"
-                      SelectionMode="Single" IsReadOnly="True" Grid.Column="0" Margin="0 0 30 0">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="Guest Username" Binding="{Binding guestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="Accommodation Name" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToNameConverter}}"/>
-                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding accommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
-                    <DataGridTextColumn Width="*" Header="Cleanliness" Binding="{Binding cleanliness}"/>
-                    <DataGridTextColumn Width="*" Header="Integrity" Binding="{Binding ownerIntegrity}"/>
-                    <DataGridTextColumn Width="*" Header="Comment" Binding="{Binding commentId,Converter={StaticResource CommentIdToComment}}"/>
-                </DataGrid.Columns>
-                <DataGrid.ToolTip>
-                    <ToolTip>
-                        --><!-- Prilagodite sadržaj ToolTip-a prema vašim potrebama --><!--
-                        <StackPanel>
-                            <TextBlock Text="{Binding SelectedOwnerRating.commentId, Converter={StaticResource CommentIdToComment}}" FontWeight="Bold"/>
-                            --><!-- Dodajte ostale informacije koje želite prikazati --><!--
-                        </StackPanel>
-                    </ToolTip>
-                </DataGrid.ToolTip>
-            </DataGrid>-->
+                <Button x:Name="SuperOwnerInfoButton" Grid.Column="2" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="SuperOwnerInfoClick" Margin="0 0 175 0">
+                    <Image Source="../../Resources/Images/Owner/info.png" Width="32"/>
+                </Button>
+                <TextBlock Grid.Column="2" x:Name="SuperOwnerInfoLabel" FontSize="15" Text="{loc:Loc In order to become a superowner}"  Style="{DynamicResource OwnerTextBlock}"
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="250" TextWrapping="Wrap" Margin="50 0 70 10" TextAlignment="Center"/>
+                
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Style="{DynamicResource OwnerTextBlock}">
+                        <Run FontSize="24" Text="{loc:Loc Reviews number:}"/>
+                        <Run FontSize="24" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBlock>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Style="{DynamicResource OwnerTextBlock}">
+                        <Run FontSize="24" Text="{loc:Loc Average Grade:}"/>
+                        <Run FontSize="24" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBlock>
+                    <Image Grid.Column="1" x:Name="starImage" Source="../../Resources/Images/Owner/medal.png" Height="70"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 45" Style="{StaticResource ImageHoverStyle}">
+                        <Image.ToolTip>
+                            <ToolTip>
+                                <TextBlock Text="{loc:Loc In order to become a superowner}" FontSize="16" TextWrapping="Wrap"/>
+                            </ToolTip>
+                        </Image.ToolTip>
+                    </Image>
+                    <Label Grid.Column="1" x:Name="SuperownerLabel" FontSize="28" Content="{loc:Loc You are a Superowner}" FontWeight="DemiBold"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 50 0 0" Style="{DynamicResource OwnerLabel}"/>
+                </Grid>
 
-            <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right" Margin="0 20 0 0">
-                <ItemsControl x:Name="accommodationItems" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
+
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Content="{loc:Loc Reviews}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                       FontSize="24" Margin="0 30 0 0" Style="{DynamicResource OwnerLabel}">
+                    
+                </Label>
+                <ItemsControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="0 70 0 0" ItemsSource="{Binding OwnerRatings, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="15" Margin="20 10" Background="WhiteSmoke"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border BorderBrush="{StaticResource OwnerTabPressedColorBrush}" BorderThickness="1" CornerRadius="8" Margin="10 10 10 10"
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{DynamicResource BorderBackgroundBrush}">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
                                 </Border.Effect>
-                                <Grid Margin="5">
+                                <Grid Margin="20">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="4*" MinWidth="600"/>
-                                        <ColumnDefinition Width="*" MinWidth="151"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <userControls:ImageSlider Grid.Column="1" MaxHeight="130" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <!-- <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Images}" 
-                                                    VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding Path=Path}" Stretch="UniformToFill"
-                                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl> -->
-                                    <Border Padding="0 0 20 0" Grid.Column="0">
+
+                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                                         <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <Run Text="Guest Username:"/>
-                                                <Run FontWeight="Bold" Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}"/>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <Run Text="Accommodation:"/>
-                                                <Run FontWeight="Bold" Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}"/>
-                                                <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="2" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                                <Run Text="Cleanliness:"/>          
-                                                <Run Text="{Binding Cleanliness, StringFormat='{}{0}, '}"/>
-                                                <Run Text="Owner Integrity:"/>
-                                                <Run Text="{Binding OwnerIntegrity}"/>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="3" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
-                                                <Run Text="Comment:"/>  
-                                                <Run FontSize="18" Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}"/>
-                                            </TextBlock>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Grid.ColumnSpan="2" >
+                                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Margin="0 15 0 0" TextWrapping="Wrap" 
+                                                           HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource OwnerTextBlock}">
+                                                    <Run Text="{loc:Loc Guest:}" FontWeight="Bold" />
+                                                    <Run Text="{Binding GuestId, Converter={StaticResource GuestIdToUsernameConverter}}" />
+                                                </TextBlock>
+                                                <Border Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="Black" Margin="30 10 30 0"/>
+                                            </StackPanel>
+
+                                            <StackPanel Margin="30 60 30 30">
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource OwnerTextBlock}">
+                                                    <Run Text="{loc:Loc Accommodation:}" FontStyle="Italic" FontWeight="Medium"/>
+                                                    <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToNameConverter}, StringFormat='{}{0}, '}" />
+                                                    <Run Text="{Binding AccommodationId, Converter={StaticResource AccommodationIdToLocation}}"/>
+                                                </TextBlock>
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}">
+                                                    <Run Text="{loc:Loc Cleanliness:}" FontStyle="Italic" FontWeight="Medium" />
+                                                    <Run Text="{Binding Cleanliness}" />
+                                                </TextBlock>
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}">
+                                                    <Run Text="{loc:Loc Owner Integrity:}" FontStyle="Italic" FontWeight="Medium" />
+                                                    <Run Text="{Binding OwnerIntegrity}" />
+                                                </TextBlock>
+                                                <TextBlock FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}">
+                                                    <Run Text="{loc:Loc Comment:}"  FontStyle="Italic" FontWeight="Medium"/>
+                                                    <Run Text="{Binding CommentId,Converter={StaticResource CommentIdToComment}}" />
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1">
+                                                <userControls:ImageSlider Margin="30 60 30 8" Height="250" Width="250" HorizontalAlignment="Right" Grid.Column="1" ImagePaths="{Binding ImagePaths, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </StackPanel>
                                         </Grid>
                                     </Border>
                                 </Grid>
@@ -123,30 +262,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </ScrollViewer>
-
-            <Grid Grid.Column="0" Grid.Row="1" Margin="0 20 0 0">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center">
-                        <Run FontSize="32" Text="Reviews number:"/>
-                        <Run FontSize="32" Text="{Binding NumberOfReviews, UpdateSourceTrigger=PropertyChanged}"/>
-                    </TextBlock>
-                    <TextBlock HorizontalAlignment="Center">
-                        <Run FontSize="32" Text="Average Grade:"/>
-                        <Run FontSize="32" Text="{Binding AverageGrade, UpdateSourceTrigger=PropertyChanged}"/>
-                    </TextBlock>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40 0 0">
-                        <Image Source="../../Resources/Images/Owner/user128x128.png" Height="128" Width="128"></Image>
-                        <Image x:Name="starImage" Source="../../Resources/Images/Owner/star.png" Height="64" Width="64"></Image>
-                    </StackPanel>
-                    <Label x:Name="SuperownerLabel" FontSize="32" Content="You are a Superowner!" HorizontalAlignment="Center" Margin="0 0 0 60"/>
-                    <Label FontSize="20" Content="How to become a Superowner?" HorizontalAlignment="Center"/>
-                    <Label FontSize="16" 
-                           Content="In order to become a superowner, &#10;you must have more than 50 reviews &#10;and average grade of at least 4.5" 
-                           HorizontalAlignment="Center"/>
-                </StackPanel>
             </Grid>
-            
-        </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

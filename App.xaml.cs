@@ -14,6 +14,10 @@ using BookingApp.Repository.TourRepositories;
 using BookingApp.Repository.AccommodationRepositories;
 using BookingApp.Domain.IRepositories;
 using Notification.Wpf;
+using BookingApp.Localization;
+using QuestPDF;
+using QuestPDF.Infrastructure;
+using BookingApp.Properties;
 
 namespace BookingApp
 {
@@ -24,6 +28,8 @@ namespace BookingApp
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            QuestPDF.Settings.License = LicenseType.Community;
+
             _services = new ServiceCollection();
             _services.AddSingleton<ImageService>();
             _services.AddSingleton<IImageRepository,ImageRepository>();
@@ -85,6 +91,24 @@ namespace BookingApp
             _services.AddSingleton<INotificationManager, NotificationManager>();
             _services.AddSingleton<ITourNotificationRepository, TourNotificationRepository>();
             _services.AddSingleton<TourNotificationService>();
+            _services.AddSingleton<ITourCouponAwardRepository, TourCouponAwardRepository>();
+            _services.AddSingleton<TourCouponAwardService>();
+            _services.AddSingleton<IForumRepository, ForumRepository>();
+            _services.AddSingleton<ForumService>();
+            _services.AddSingleton<IGuestPostRepository, GuestPostRepository>();
+            _services.AddSingleton<GuestPostService>();
+            _services.AddSingleton<IOwnerNotificationRepository, OwnerNotificationRepository>();
+            _services.AddSingleton<OwnerNotificationService>();
+            _services.AddSingleton<ITourSuggestionComplexRepository, TourSuggestionComplexRepository>();
+            _services.AddSingleton<TourSuggestionComplexService>();
+            _services.AddSingleton<ITourComplexSuggestionRepository, TourComplexSuggestionRepository>();
+            _services.AddSingleton<TourComplexSuggestionService>();
+            _services.AddSingleton<IOwnerReportRepository, OwnerReportRepository>();
+            _services.AddSingleton<OwnerReportService>();
+            _services.AddSingleton<ISuperGuideRepository, SuperGuideRepository>();
+            _services.AddSingleton<SuperGuideService>();
+            _services.AddSingleton<IReportOnReservationsRepository, ReportOnReservationsRepository>();
+            _services.AddSingleton<ReportOnReservationsService>();
             _serviceProvider = _services.BuildServiceProvider();
 
             SignInForm signInForm = new SignInForm();
@@ -94,5 +118,26 @@ namespace BookingApp
         {
             return _serviceProvider.GetRequiredService<INotificationManager>();
         }
+        public static string currentTheme()
+        {
+            return BookingApp.Properties.Settings.Default.ColorMode;
+        }
+        public static void ChangeTheme(string theme)
+        {
+            BookingApp.Properties.Settings.Default.ColorMode = theme;
+            BookingApp.Properties.Settings.Default.Save();
+            ThemeChanged?.Invoke();
+        }
+        public static string currentLanguage()
+        {
+            return TranslationSource.Instance.CurrentCulture.Name;
+        }
+        public static void ChangeLanguage(string lang)
+        {
+            TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo(lang);
+            LanguageChanged?.Invoke();
+        }
+        public static event Action LanguageChanged;
+        public static event Action ThemeChanged;
     }
 }
