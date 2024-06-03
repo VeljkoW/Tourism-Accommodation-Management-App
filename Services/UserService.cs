@@ -27,7 +27,6 @@ namespace BookingApp.Services
         {
             UserRepository.Add(newUser);
         }
-
         public User? GetById(int Id)
         {
             return UserRepository.GetById(Id);
@@ -39,6 +38,10 @@ namespace BookingApp.Services
         public List<User> GetAll()
         {
             return UserRepository.GetAll();
+        }
+        public bool Delete(int id)
+        {
+            return UserRepository.Delete(id);
         }
     }
 }

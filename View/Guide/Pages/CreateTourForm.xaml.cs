@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,6 +42,7 @@ namespace BookingApp.View.Guide.Pages
             CreateTourFormViewModel = new CreateTourFormViewModel(this,user);
             CreateTourFormViewModel.OnClickedGoBack += RequestRefresh;
             this.DataContext = CreateTourFormViewModel;
+            NavigationService navService = this.NavigationService;
         }
         public Action RequestRefreshEvent { get; set; }
         private void RequestRefresh()
@@ -54,6 +57,11 @@ namespace BookingApp.View.Guide.Pages
         private void StateBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             StateBoxEventHandler?.Invoke();
+        }
+
+        private void CheckConversions(object sender, TextChangedEventArgs e)
+        {
+            CreateTourFormViewModel.CheckConversions(sender,e);
         }
     }
 }

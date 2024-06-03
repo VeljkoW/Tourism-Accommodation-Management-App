@@ -24,7 +24,7 @@
         <Color x:Key="OwnerButtonDisabledColor">#8495ba</Color>
         <Color x:Key="OwnerTabPressedColor">#4578eb</Color>
         <Color x:Key="OwnerButtonDisabledForegroundColor">#454545</Color>
-        
+
         <SolidColorBrush x:Key="OwnerBackgroundColorBrush" Color="{StaticResource OwnerBackgroundColor}"/>
         <SolidColorBrush x:Key="OwnerTextColor1Brush" Color="{StaticResource OwnerTextColor1}"/>
         <SolidColorBrush x:Key="OwnerImageColor1Brush" Color="{StaticResource OwnerImageColor1}"/>
@@ -458,6 +458,7 @@
         <SolidColorBrush x:Key="DirtColor" Color="#1c160e"/>
         <SolidColorBrush x:Key="LightDirtColor" Color="#ff9142"/>
         <SolidColorBrush x:Key="GuideTextboxBackground" Color="#fcde97"/>
+        <SolidColorBrush x:Key="GuideButtonColor" Color="#E94F37"/>
         <SolidColorBrush x:Key="GrassDark" Color="#166300"/>
         <SolidColorBrush x:Key="GrassLight" Color="#24a800"/>
         <SolidColorBrush x:Key="NBackGroundColor" Color="#383838"/>
@@ -468,5 +469,10 @@
         <SolidColorBrush x:Key="NButtonColor3Text" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="NButtonColor4" Color="#854efe"/>
         <SolidColorBrush x:Key="NTextboxBackground" Color="#34333f"/>
+        <ResourceDictionary x:Key="keyboardKey">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/VirtualKeyboard.Wpf;component/ResourceDictionaries/DefaultStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

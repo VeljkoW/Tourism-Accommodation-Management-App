@@ -53,9 +53,6 @@
                     <TextBlock Text="{Binding TourName}" FontSize="30" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Date}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <Button Height="60" Width="150" Content="Back" Command="{Binding ClickGoBack}" FontSize="30" FontWeight="Bold"></Button>
-                </StackPanel>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">

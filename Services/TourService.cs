@@ -1,6 +1,8 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.Repository.TourRepositories;
+using BookingApp.View.Guide.Pages;
+using BookingApp.ViewModel.Guide;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TourStatistics = BookingApp.Domain.Model.TourStatistics;
 
 namespace BookingApp.Services
 {
@@ -189,6 +192,53 @@ namespace BookingApp.Services
             tour1.Images = imagesForward;
             imagesForward = new List<Image>();
             return tour1;
+        }
+        public void Resign(int userId)
+        {
+            List<int> tourIds=GetAll().Where(t=>t.OwnerId==userId).Select(t => t.Id).ToList();
+            List<TourReservation> reservations = TourReservationService.GetInstance().GetAll();
+            foreach(TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
+            {
+                if(tourSchedule.ScheduleStatus == ScheduleStatus.Finished || tourSchedule.ScheduleStatus == ScheduleStatus.Canceled)
+                {
+                    continue;
+                }
+                if(tourIds.Contains(tourSchedule.TourId)) 
+                {
+                    tourSchedule.ScheduleStatus = ScheduleStatus.Canceled;
+                    foreach(TourReservation reservation in reservations)
+                    {
+                        if(reservation.TourScheduleId == tourSchedule.Id)
+                        {
+                            TourCouponService.GetInstance().Add(new TourCoupon(userId, "FIX THIS PLS IN TOURCUPON ADD", "Coupon awarded because the guide resigned", DateTime.Now, 24, CouponStatus.Valid));
+                        }
+                    }
+                    TourScheduleService.GetInstance().Update(tourSchedule);
+                }
+            }
+            UserService.GetInstance().Delete(userId);
+        }
+        public List<DateTime> GetDatesForGuide(int guideId,TourSuggestion schedule)
+        {
+            List<DateTime> retlist = new List<DateTime>();
+            DateTime firstDate = schedule.FromDate.Date;
+            DateTime lastDate = schedule.ToDate.Date;
+            if(firstDate < DateTime.Now.Date.AddDays(2))
+            {
+                firstDate = DateTime.Now.Date.AddDays(2);
+            }
+            for (DateTime date = firstDate; date <= lastDate; date = date.AddDays(1))
+            {
+                retlist.Add(date);
+            }
+            HashSet<DateTime> dateSet = new HashSet<DateTime>(retlist);
+            TourComplexSuggestion complexSuggestion = TourComplexSuggestionService.GetInstance().GetById(schedule.ComplexTourId);
+
+            foreach (TourSuggestion suggestion in TourSuggestionComplexService.GetInstance().GetAllByComplexId(complexSuggestion.Id))
+            {
+                dateSet.Remove(suggestion.Date.Date);
+            }
+            return dateSet.ToList();
         }
     }
 }

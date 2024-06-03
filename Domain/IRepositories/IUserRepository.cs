@@ -13,6 +13,7 @@ namespace BookingApp.Domain.IRepositories
         void Add(User user);
         User? GetById(int Id);
         int NextId();
+        bool Delete(int id);
         User GetByUsername(string username);
     }
 }

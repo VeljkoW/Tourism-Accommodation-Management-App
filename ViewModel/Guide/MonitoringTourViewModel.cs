@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Windows;
 using BookingApp.Services;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -102,7 +103,7 @@ namespace BookingApp.ViewModel.Guide
         public MonitoringTourViewModel() { }
         public MonitoringTourViewModel(MonitoringTour monitoringTour, Tour tour, User user, TourSchedule schedule)
         {
-            MonitoringTour= monitoringTour;
+            MonitoringTour = monitoringTour;
             KeyPoints = tour.KeyPoints;
             TourName = tour.Name;
             User = user;

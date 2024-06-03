@@ -43,7 +43,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Button Width="150" Height="40" Command="{Binding ClickGoBack}" Content="Go back" FontSize="18" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"></Button>
+            <TextBlock FontSize="45" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}"> Finished tours:</TextBlock>
         </Grid>
         <Grid Grid.Row="1">
             <ScrollViewer>
