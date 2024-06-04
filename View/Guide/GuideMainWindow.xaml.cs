@@ -27,15 +27,24 @@ namespace BookingApp.View.Guide
         public User User { get; set; }
         public string UserName { get; set; }
         public static int UserId;
+        private GuideMainPage guideMainPage;
         public GuideMainWindow(User user)
         {
             InitializeComponent();
             User = user;
             UserId = user.Id;
-            GuideMainPage guideMainPage = new GuideMainPage(user);
-            guideMainPage.OnLogoutHandler +=(s,e) => LogOut(s,e);
+            WizardPage wizardPage = new WizardPage();
+            this.guideMainPage = new GuideMainPage(user);
+            MainFrame.Navigate(wizardPage);
+            wizardPage.Finished += LogIn;
+        }
+
+        private void LogIn()
+        {
+            guideMainPage.OnLogoutHandler += (s, e) => LogOut(s, e);
             MainFrame.Navigate(guideMainPage);
         }
+
         public void LogOut(object s,EventArgs e)
         {
             Close();

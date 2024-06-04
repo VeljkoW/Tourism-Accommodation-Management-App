@@ -147,7 +147,9 @@ namespace BookingApp.ViewModel.Guide
                         mostVisitedEntry = entry;
                     }
                 }
-                MostVisited.Add(new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value));
+                UserControlTourStatistics mostVisited = new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value);
+                mostVisited.Border.BorderBrush = new SolidColorBrush(Colors.Gold);
+                MostVisited.Add(mostVisited);
 
                 foreach (var entry in userControlData){
                     if (entry.Key != mostVisitedEntry.Key){
@@ -169,7 +171,10 @@ namespace BookingApp.ViewModel.Guide
                     mostVisitedEntry = entry;
                 }
             }
-            MostVisited.Add(new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value));
+            //Border
+            UserControlTourStatistics mostVisited = new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value);
+            mostVisited.Border.BorderBrush=new SolidColorBrush(Colors.Gold);
+            MostVisited.Add(mostVisited);
             foreach (var entry in userControlData){
                 if (entry.Key != mostVisitedEntry.Key){
                     UserControlTourStatistics.Add(new UserControlTourStatistics(User, entry.Key, entry.Value));
@@ -184,14 +189,14 @@ namespace BookingApp.ViewModel.Guide
             TourStatisticsPage = tourStatistics;
             UserControlTourStatistics = new ObservableCollection<UserControlTourStatistics>();
             MostVisited = new ObservableCollection<UserControlTourStatistics>();
-            ClickInGeneralExecute();
             int currentYear = DateTime.Now.Year;
             ComboBoxYears.Add("All");
             for (int year = 2020; year <= currentYear; year++)
             {
                 ComboBoxYears.Add(year.ToString());
             }
-            SelectedYear = ComboBoxYears.LastOrDefault();
+            SelectedYear = "All";
+            ClickSelectedYearExecute();
         }
         public ObservableCollection<string> ComboBoxYears { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<UserControlTourStatistics> UserControlTourStatistics { get; set; }
