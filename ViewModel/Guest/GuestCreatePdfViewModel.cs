@@ -191,8 +191,8 @@ namespace BookingApp.ViewModel.Guest
                                 table.Cell().Element(CellStyle).Background(backgroundColor).Text((i + 1).ToString()).AlignCenter();
                                 table.Cell().Element(CellStyle).Background(backgroundColor).Text(AccommodationService.GetInstance().GetById(reserved[i].AccommodationId).Name).AlignCenter();
                                 table.Cell().Element(CellStyle).Background(backgroundColor).Text(AccommodationService.GetInstance().GetById(reserved[i].AccommodationId).Location.State + " - " + AccommodationService.GetInstance().GetById(reserved[i].AccommodationId).Location.City).AlignCenter();
-                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(ReservedAccommodationService.GetInstance().GetById(reserved[i].ReservedId).CheckInDate.ToString("dd/MM/yyyy")).AlignCenter();
-                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(ReservedAccommodationService.GetInstance().GetById(reserved[i].ReservedId).CheckOutDate.ToString("dd/MM/yyyy")).AlignCenter();
+                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(ReportOnReservationsService.GetInstance().GetById(reserved[i].Id).CheckInDate.ToString("dd/MM/yyyy")).AlignCenter();
+                                table.Cell().Element(CellStyle).Background(backgroundColor).Text(ReportOnReservationsService.GetInstance().GetById(reserved[i].Id).CheckOutDate.ToString("dd/MM/yyyy")).AlignCenter();
 
                                 static IContainer CellStyle(IContainer container)
                                 {

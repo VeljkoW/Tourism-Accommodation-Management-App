@@ -122,7 +122,7 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="AccommodationInfo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock x:Name="AccommodationInfo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
         <Border Background="Transparent" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="black" BorderThickness="0.5" Height="32" Margin="15" CornerRadius="10">
             <Label Content="Are you sure you want to cancel the reservation?" FontSize="15" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         </Border>

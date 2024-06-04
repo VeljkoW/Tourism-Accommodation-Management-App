@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -106,6 +107,7 @@ namespace BookingApp.ViewModel.Guide
         public void AcceptTourRequestExecute()
         {
             UserControlAcceptTourRequest popup = new UserControlAcceptTourRequest(TourRequestsPageViewModel,TourSuggestion);
+            TourRequestsPageViewModel.Dimm();
             TourRequestsPageViewModel.AcceptTourCard = popup;
         }
         public UserControlTourSuggestionViewModel(TourRequestsPageViewModel tourRequestsPageViewModel, TourSuggestion tour) {

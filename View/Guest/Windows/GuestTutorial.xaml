@@ -6,6 +6,33 @@
         xmlns:local="clr-namespace:BookingApp.View.Guest.Windows"
         mc:Ignorable="d"
         Title="GuestTutorial" Height="650" Width="1000"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    
+        <Window.InputBindings>
+            <KeyBinding
+                Modifiers="Control" 
+                Key="P"
+                Command="{Binding PlayVideo1}"/>
+            <KeyBinding
+                Modifiers="Control"
+                Key="H"
+                Command="{Binding PauseVideo1}"/>
+            <KeyBinding
+                Modifiers="Control"
+                Key="S"
+                Command="{Binding StopVideo1}"/>
+            <KeyBinding
+     Modifiers="Control"
+     Key="L"
+     Command="{Binding Left1}"/>
+            <KeyBinding
+     Modifiers="Control"
+     Key="R"
+     Command="{Binding Right1}"/>
+            <KeyBinding
+Modifiers="Control"
+Key="E"
+Command="{Binding Exit}"/>
+        </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -61,12 +88,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.Static.Border1" Color="#56736F"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#74877A"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#74877A"/>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#B7B7B7"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="Transparent"/>
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
@@ -99,17 +126,73 @@
         </Style>
     </Window.Resources>
     <Grid Background="#DDDDDD">
-        <MediaElement x:Name="videoPlayer" Width="800" Height="450" Margin="100,50" LoadedBehavior="Manual" 
-UnloadedBehavior="Stop"/>
-        <Grid VerticalAlignment="Bottom" Height="90" Width="800">
+        <MediaElement x:Name="videoPlayer" Width="800" Height="450" Margin="80,40,80,130" LoadedBehavior="Manual" UnloadedBehavior="Stop" MediaEnded="VideoPlayer_MediaEnded"/>
+
+        <Grid VerticalAlignment="Bottom" Height="110" Width="800">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Play" Click="PlayButton_Click" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Grid.Column="1" Content="Pause" Click="PauseButton_Click" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Grid.Column="2" Content="Stop" Click="StopButton_Click" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="1" Click="RewindButton_Click" BorderThickness="0" Height="100" Width="100" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical">
+                        <Grid Width="60" Height="60">
+                            <Image Source="../../../Resources/Images/Guest/leftforward.png" Height="50" Width="50"/>
+                        </Grid>
+                        <TextBlock Text="10" FontSize="18" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="0" Click="PlayButton_Click" BorderThickness="0" Height="100" Width="100" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical">
+                        <Grid Width="60" Height="60">
+                            <Image Source="../../../Resources/Images/Guest/play.png" Height="50" Width="50"/>
+                        </Grid>
+                        <TextBlock Text="Play" FontSize="18" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="2" Click="PauseButton_Click" BorderThickness="0" Height="100" Width="100" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical">
+                        <Grid Width="60" Height="60">
+                            <Image Source="../../../Resources/Images/Guest/pause.png" Height="50" Width="50"/>
+                        </Grid>
+                        <TextBlock Text="Pause" FontSize="18" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="4" Click="StopButton_Click" BorderThickness="0" Height="100" Width="100" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical">
+                        <Grid Width="60" Height="60">
+                            <Image Source="../../../Resources/Images/Guest/stop.png" Height="50" Width="50"/>
+                        </Grid>
+                        <TextBlock Text="Stop" FontSize="18" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button Style="{DynamicResource ButtonStyle1}" Grid.Column="3" Click="ForwardButton_Click" BorderThickness="0" Height="100" Width="100" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button.Content>
+                    <StackPanel Orientation="Vertical">
+                        <Grid Width="60" Height="60">
+                            <Image Source="../../../Resources/Images/Guest/rightforward.png" Height="50" Width="50"/>
+                        </Grid>
+                        <TextBlock Text="10" FontSize="18" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </Grid>
+
+        <Slider x:Name="timelineSlider"  VerticalAlignment="Bottom" Minimum="0" Maximum="1" Value="0"  Width="800" Margin="80,0,80,115" ValueChanged="TimelineSlider_ValueChanged" Background="#FFB2B2B2"/>
     </Grid>
 </Window>

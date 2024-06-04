@@ -21,6 +21,8 @@ namespace BookingApp.Domain.Model
         private int accommodationId { get; set; }
 
         private int reservedId { get; set; }
+        private DateTime checkInDate {  get; set; }
+        private DateTime checkOutDate { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string str)
@@ -42,6 +44,36 @@ namespace BookingApp.Domain.Model
                 {
                     id = value;
                     OnPropertyChanged(nameof(id));
+                }
+            }
+        }
+        public DateTime CheckInDate
+        {
+            get
+            {
+                return checkInDate;
+            }
+            set
+            {
+                if (value != checkInDate)
+                {
+                    checkInDate = value;
+                    OnPropertyChanged(nameof(checkInDate));
+                }
+            }
+        }
+        public DateTime CheckOutDate
+        {
+            get
+            {
+                return checkOutDate;
+            }
+            set
+            {
+                if (value != checkOutDate)
+                {
+                    checkOutDate = value;
+                    OnPropertyChanged(nameof(checkOutDate));
                 }
             }
         }
@@ -129,7 +161,9 @@ namespace BookingApp.Domain.Model
                 GuestId.ToString(),
                 Date.ToString(),
                 TypeReport.ToString(),
-                ReservedId.ToString()
+                ReservedId.ToString(),
+                CheckInDate.ToString(),
+                CheckOutDate.ToString()
             };
             return csvValues;
         }
@@ -141,6 +175,8 @@ namespace BookingApp.Domain.Model
             Date = Convert.ToDateTime(values[3]);
             TypeReport = values[4];
             ReservedId = Convert.ToInt32(values[5]);
+            CheckInDate = Convert.ToDateTime(values[6]);
+            CheckOutDate = Convert.ToDateTime(values[7]);
         }
     }
 }

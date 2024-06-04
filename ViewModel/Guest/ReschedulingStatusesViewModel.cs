@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Res = BookingApp.View.Guest.Pages.GuestReservations;
@@ -94,6 +95,13 @@ namespace BookingApp.ViewModel.Guest
 
             foreach (ProcessedReschedulingRequest processed in processedReschedulingRequest)
                     processedReschedulingRequests.Add(processed);
+        }
+        public void ClickedOnCard(object sender, RoutedEventArgs e)
+        {
+            var selectedCard = ((FrameworkElement)sender).DataContext as ProcessedReschedulingRequest;
+            OwnerCommentForRescheduling ownerCommentForRescheduling = new OwnerCommentForRescheduling(selectedCard, User);
+            ownerCommentForRescheduling.Show();
+            ownerCommentForRescheduling.Focus();
         }
     }
 }

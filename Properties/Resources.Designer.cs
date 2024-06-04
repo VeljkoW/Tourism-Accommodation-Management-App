@@ -367,6 +367,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date:.
+        /// </summary>
+        internal static string Date_ {
+            get {
+                return ResourceManager.GetString("Date:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decline.
         /// </summary>
         internal static string Decline {
@@ -1043,6 +1052,15 @@ namespace BookingApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no more guests to rate.
+        /// </summary>
+        internal static string There_are_no_more_guests_to_rate {
+            get {
+                return ResourceManager.GetString("There are no more guests to rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type:.
         /// </summary>
         internal static string Type_ {
@@ -1102,6 +1120,15 @@ namespace BookingApp.Properties {
         internal static string You_are_a_Superowner {
             get {
                 return ResourceManager.GetString("You are a Superowner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You successfully rated all the guests!.
+        /// </summary>
+        internal static string You_successfully_rated_all_the_guests {
+            get {
+                return ResourceManager.GetString("You successfully rated all the guests", resourceCulture);
             }
         }
         

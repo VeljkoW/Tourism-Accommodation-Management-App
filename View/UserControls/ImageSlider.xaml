@@ -56,9 +56,6 @@
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Visibility" Value="Hidden"/>
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -68,7 +65,7 @@
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
+            <Setter Property="Background" Value="#ebebeb"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -83,10 +80,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="Background" TargetName="border" Value="#b7b7b7"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="Background" TargetName="border" Value="#a6a6a6"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Visibility" Value="Hidden"/>
@@ -101,13 +98,13 @@
         <Border BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black">
             <Image Source="{Binding CurrentImagePath, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
         </Border>
-        <Button BorderThickness="0" Width="25" Height="50" Style="{DynamicResource ButtonStyle}"
+        <Button x:Name="LeftImageButton" BorderThickness="0" Width="25" Height="50" Style="{DynamicResource ButtonStyle}"
                 HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding PreviousImageCommand}">
             <Button.Content>
                 <Image Width="20" Source="../../Resources/Images/Guest/arrowleft.png"/>
             </Button.Content>
         </Button>
-        <Button BorderThickness="0" Width="25" Height="50" Style="{DynamicResource ButtonStyle}"
+        <Button x:Name="RightImageButton" BorderThickness="0" Width="25" Height="50" Style="{DynamicResource ButtonStyle}"
                 HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding NextImageCommand}">
             <Button.Content>
                 <Image Width="20" Source="../../Resources/Images/Guest/arrowright.png"/>

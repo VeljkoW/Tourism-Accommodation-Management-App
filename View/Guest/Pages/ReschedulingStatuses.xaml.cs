@@ -66,5 +66,18 @@ namespace BookingApp.View.Guest.Pages
             ReservationHistory reservationHistory = new ReservationHistory(user, GuestMainWindow);
             GuestMainWindow.mainFrame.Navigate(reservationHistory);
         }
+
+        private void ClickedOnCard(object sender, RoutedEventArgs e)
+        {
+            reschedulingStatusesViewModel.ClickedOnCard(sender, e);
+        }
+
+        private void ClickEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ClickedOnCard(sender, e);
+            }
+        }
     }
 }

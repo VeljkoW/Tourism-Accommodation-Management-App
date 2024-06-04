@@ -11,34 +11,6 @@
       Title="AccommodationRegistration">
 
     <Page.Resources>
-        <ControlTemplate x:Key="ValidationTemplate">
-            <StackPanel>
-                <!-- Placeholder for the TextBox itself -->
-                <AdornedElementPlaceholder x:Name="textBox" />
-                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="12"/>
-            </StackPanel>
-        </ControlTemplate>
-        <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-        </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-        </Style>
-        <Style TargetType="Run">
-            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-        </Style>
-        <Style TargetType="ItemsControl">
-            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
-        </Style>
 
         <Color x:Key="BackgroundColor">#579BB1</Color>
         <Color x:Key="ButtonPressedColor">#154c79</Color>
@@ -88,6 +60,7 @@
             </Setter>
         </Style>
         <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="{StaticResource OwnerFontFamily}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Background" Value="{StaticResource OwnerTabPressedColorBrush}"/>
@@ -173,7 +146,7 @@
         <ScrollViewer x:Name="ScrollViewerName" Grid.Column="1" Grid.RowSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="6*" MinHeight="500"/>
+                    <RowDefinition Height="6*" MinHeight="520"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Margin="30 0 30 20">
@@ -183,9 +156,10 @@
                     </Grid.RowDefinitions>
 
                     <!--Registration-->
-                    <Label Content="{loc:Loc Registration}" Grid.Column="0" Grid.ColumnSpan="2"
-                           HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
-                    <Border Background="{StaticResource OwnerTabLightColorBrush}" Grid.Column="0" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 40 0 0">
+                    <Label Content="{loc:Loc Registration}" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource OwnerLabel}"
+                           HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Margin="0 10 0 0"/>
+                    <Border x:Name="AccommodationRegistrationBorder" Background="{DynamicResource BorderBackgroundBrush}" Grid.Column="0" Grid.RowSpan="2" 
+                            BorderBrush="{StaticResource OwnerButtonPressedColorBrush}" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 50 0 0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="3*"/>
@@ -206,20 +180,20 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <DockPanel Grid.Row="0" VerticalAlignment="Center">
-                                    <Label Content="{loc:Loc Accommodation Name:*}" FontSize="20"/>
+                                    <Label Content="{loc:Loc Accommodation Name:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Stretch">
                                         <TextBox x:Name="NameTextBox" Text="{Binding Accommodation.Name, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="32" FontSize="20" 
-                                             TextChanged="AccommodationNameTextChanged"/>
+                                             TextChanged="AccommodationNameTextChanged" Style="{DynamicResource OwnerTextBox}"/>
                                         <TextBlock x:Name="AccommodationNameValidation" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                                     </StackPanel>
                                 </DockPanel>
 
 
                                 <DockPanel Grid.Row="1" VerticalAlignment="Center">
-                                    <Label Content="{loc:Loc Accommodation Type:*}" FontSize="20"/>
+                                    <Label Content="{loc:Loc Accommodation Type:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Stretch">
-                                        <ComboBox x:Name="AccommodationTypeComboBox" Width="250" Height="32" FontSize="20" Background="Red"
-                                                  HorizontalAlignment="Right" VerticalAlignment="Center" SelectionChanged="AccommodationTypeSelectionChanged">
+                                        <ComboBox x:Name="AccommodationTypeComboBox" Width="250" Height="32" FontSize="20" Background="Red" Style="{DynamicResource OwnerComboBox}"
+                                                  HorizontalAlignment="Right" VerticalAlignment="Center" SelectionChanged="AccommodationTypeSelectionChanged" >
                                             <ComboBox.Items>
                                                 <ComboBoxItem Content="Apartment"/>
                                                 <ComboBoxItem Content="House"/>
@@ -230,18 +204,18 @@
                                     </StackPanel>
                                 </DockPanel>
                                 <DockPanel Grid.Row="2" VerticalAlignment="Center">
-                                    <Label Content="{loc:Loc Location - State:*}" FontSize="20"/>
+                                    <Label Content="{loc:Loc Location - State:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <ComboBox x:Name="StateComboBox" Width="250" Height="32" FontSize="20"
+                                        <ComboBox x:Name="StateComboBox" Width="250" Height="32" FontSize="20" Style="{DynamicResource OwnerComboBox}"
                                                   ItemsSource="{Binding States, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState, UpdateSourceTrigger=PropertyChanged}"
                                                   HorizontalAlignment="Right" VerticalAlignment="Center" SelectionChanged="StatePickedSelectionChanged"/>
                                         <TextBlock x:Name="StateValidation" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                                     </StackPanel>
                                 </DockPanel>
                                 <DockPanel Grid.Row="3" VerticalAlignment="Center">
-                                    <Label Content="{loc:Loc Location - City:*}" FontSize="20"/>
+                                    <Label Content="{loc:Loc Location - City:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <ComboBox x:Name="CityComboBox" Width="250" Height="32" FontSize="20" 
+                                        <ComboBox x:Name="CityComboBox" Width="250" Height="32" FontSize="20" Style="{DynamicResource OwnerComboBox}"
                                                   ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}" 
                                                   HorizontalAlignment="Right" VerticalAlignment="Center" SelectionChanged="CityPickedSelectionChanged"
                                                   SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities"/>
@@ -249,15 +223,15 @@
                                     </StackPanel>
                                 </DockPanel>
                                 <DockPanel Grid.Row="4" VerticalAlignment="Center">
-                                    <Label Content="{loc:Loc Max number of guests:*}" FontSize="20"/>
+                                    <Label Content="{loc:Loc Max number of guests:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <userControls:NumberTextBox x:Name="MaxGuestNumberTextBox" Width="250" Height="32" FontSize="20" 
+                                        <userControls:NumberTextBox x:Name="MaxGuestNumberTextBox" Width="250" Height="32" FontSize="20"
                                                                 HorizontalAlignment="Right" VerticalAlignment="Center" TextChanged="MaxNumOfGuestsTextChanged"/>
                                         <TextBlock x:Name="MaxNumOfGuestsValidation" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                                     </StackPanel>
                                 </DockPanel>
                                 <DockPanel Grid.Row="5" VerticalAlignment="Center">
-                                    <Label Content="{loc:Loc Min number of reservation days:*}" FontSize="20"/>
+                                    <Label Content="{loc:Loc Min number of reservation days:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                                         <userControls:NumberTextBox x:Name="MinResDaysTextBox" Width="250" Height="32" FontSize="20" 
                                                                 HorizontalAlignment="Right" VerticalAlignment="Center" TextChanged="MinNumOfResDaysTextChanged"/>
@@ -265,7 +239,7 @@
                                     </StackPanel>
                                 </DockPanel>
                                 <DockPanel Grid.Row="6" VerticalAlignment="Center">
-                                    <Label Content="{loc:Loc Cancelation days limit:*}" FontSize="20"/>
+                                    <Label Content="{loc:Loc Cancelation days limit:*}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
                                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                                         <userControls:NumberTextBox x:Name="CancelationDaysLimitTextBox" Width="250" Height="32" FontSize="20" 
                                                                 HorizontalAlignment="Right" VerticalAlignment="Center" TextChanged="CancelationDaysLimitTextChanged"/>
@@ -279,7 +253,7 @@
                                     <RowDefinition Height="*" MinHeight="60"/>
                                     <RowDefinition Height="3*" MinHeight="140"/>
                                 </Grid.RowDefinitions>
-                                <Button Style="{DynamicResource ButtonStyle}" x:Name="AddImagesButton" Grid.Row="0" Command="{Binding AddImage}" Content="{loc:Loc Add Image}"
+                                <Button Style="{DynamicResource OwnerButtonStyle}" x:Name="AddImagesButton" Grid.Row="0" Command="{Binding AddImage}" Content="{loc:Loc Add Image}"
                                         HorizontalAlignment="Center" VerticalAlignment="Top" Width="180" Height="60" FontSize="24"/>
 
                                 <Border Grid.Row="1" BorderThickness="2" Margin="0 7 0 17" Height="270"
@@ -308,7 +282,7 @@
                                 </Button>
                                 <TextBlock x:Name="ImageValidation" Grid.Row="1" Foreground="Red" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                             </Grid>
-                            <Button Style="{DynamicResource ButtonStyle}" x:Name="AcceptButton" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                            <Button Style="{DynamicResource OwnerButtonStyle}" x:Name="AcceptButton" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                                     Command="{Binding Accept}" Height="60" Width="200" Margin="0 20"
                                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Content="{loc:Loc Accept}"/>
                         </Grid>
@@ -319,7 +293,7 @@
                         <ColumnDefinition Width="7*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Background="{StaticResource OwnerTabLightColorBrush}"  x:Name="ChooseLocationBorder" Grid.Column="1" 
+                    <Border Background="{DynamicResource BorderBackgroundBrush}"  x:Name="ChooseLocationBorder" Grid.Column="1" 
                             BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0 70 30 30"
                             VerticalAlignment="Top">
                         <Grid Height="auto">
@@ -328,16 +302,16 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="{loc:Loc Choose Location}" Grid.Column="1" Margin="0 0 0 10"
+                            <Label Grid.Row="0" Content="{loc:Loc Choose Location}" Grid.Column="1" Margin="0 0 0 10" Style="{DynamicResource OwnerLabel}"
                                    HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
                             <DockPanel Grid.Row="1">
-                                <Label Content="{loc:Loc State:}" FontSize="20"/>
-                                <ComboBox x:Name="ChooseStateComboBox" SelectedItem="{Binding SelectedChosenState}"
+                                <Label Content="{loc:Loc State:}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
+                                <ComboBox x:Name="ChooseStateComboBox" SelectedItem="{Binding SelectedChosenState}" Style="{DynamicResource OwnerComboBox}"
                                           Width="230" Height="30" FontSize="20" HorizontalAlignment="Right" Margin="0 0 0 10" SelectionChanged="StateChosenSelectionChanged"/>
                             </DockPanel>
                             <DockPanel Grid.Row="2">
-                                <Label Content="{loc:Loc City:}" FontSize="20"/>
-                                <ComboBox x:Name="ChooseCityComboBox" SelectedItem="{Binding SelectedChosenCity}"
+                                <Label Content="{loc:Loc City:}" FontSize="20" Style="{DynamicResource OwnerLabel}"/>
+                                <ComboBox x:Name="ChooseCityComboBox" SelectedItem="{Binding SelectedChosenCity}" Style="{DynamicResource OwnerComboBox}"
                                           Width="230" Height="30" FontSize="20" HorizontalAlignment="Right" Margin="0 0 0 10" SelectionChanged="CityChosenSelectionChanged"
                                           SelectedValuePath="PrintCities" DisplayMemberPath="PrintCities"/>
                             </DockPanel>
@@ -345,12 +319,13 @@
                     </Border>
 
 
-                    <TextBlock Text="{loc:Loc Your Accommodations}" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0"
+                    <TextBlock Text="{loc:Loc Your Accommodations}" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0" Style="{DynamicResource OwnerTextBlock}"
                            HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28"/>
                     <ItemsControl x:Name="accommodationItems" Grid.Column="0" ItemsSource="{Binding AccommodationsDisplay}" Margin="20 60 20 10">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="#EBEBEB" BorderThickness="1" CornerRadius="15" Margin="0 10" Background="WhiteSmoke"
+                                <Border x:Name="AccommodationItemsControlBorder" BorderBrush="{StaticResource OwnerTabPressedColorBrush}" 
+                                        BorderThickness="1" CornerRadius="15" Margin="0 10" Background="{DynamicResource BorderBackgroundBrush}"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="5" Color="#A0A0A0" Opacity="0.5"/>
@@ -376,35 +351,42 @@
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
 
-                                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Path=Name}" FontWeight="Bold" FontSize="27" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="7 0 0 0"/>
+                                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Path=Name}" FontWeight="Bold" FontSize="27" 
+                                                           HorizontalAlignment="Center" VerticalAlignment="Top" Margin="7 0 0 0" Style="{DynamicResource OwnerTextBlock}"/>
 
-                                                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" Margin="10 0 0 0">
+                                                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" 
+                                                           Margin="10 0 0 0" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc State:}"/>
                                                     <Run Text="{Binding Path=Location.State}" FontWeight="Bold"/>
                                                 </TextBlock>
-                                                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" Margin="10 0 0 0">
+                                                <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" 
+                                                           Margin="10 0 0 0" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc City:}"/>
                                                     <Run Text="{Binding Path=Location.City}"  FontWeight="Bold"/>
                                                 </TextBlock>
-                                                <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" Margin="10 0 0 0">
+                                                <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="20" 
+                                                           Margin="10 0 0 0" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Type:}"/>
                                                     <Run Text="{Binding Path=AccommodationType}"  FontWeight="Bold"/>
                                                 </TextBlock>
-                                                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" Margin="50 0 0 0">
+                                                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" 
+                                                           Margin="50 0 0 0" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Max Guest Number:}"/>
                                                     <Run Text="{Binding Path=MaxGuestNumber}"/>
                                                 </TextBlock>
-                                                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" Margin="50 0 0 0">
+                                                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" 
+                                                           Margin="50 0 0 0" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Min Reservation Days:}"/>
                                                     <Run Text="{Binding Path=MinReservationDays}"/>
                                                 </TextBlock>
-                                                <TextBlock Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" Margin="50 0 0 0">
+                                                <TextBlock Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="17" 
+                                                           Margin="50 0 0 0" Style="{DynamicResource OwnerTextBlock}">
                                                     <Run Text="{loc:Loc Cancelation Days Limit:}"/>
                                                     <Run Text="{Binding Path=CancelationDaysLimit}"/>
                                                 </TextBlock>
 
-                                                <Button Grid.Column="0" Grid.Row="4" Content="{loc:Loc Close Accommodation}" Grid.ColumnSpan="2" Height="30" FontSize="18" Padding="5 0"
-                                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 4" Click="CloseAccommodationClick" Style="{DynamicResource ButtonStyle2}"/>
+                                                <Button Grid.Column="0" Grid.Row="4" Content="{loc:Loc Close Accommodation}" Grid.ColumnSpan="2" Height="30" FontSize="18" Padding="5 0" Style="{DynamicResource ButtonStyle2}"
+                                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 4" Click="CloseAccommodationClick"/> <!--Style="{DynamicResource ButtonStyle2}"-->
                                             </Grid>
                                         </Border>
                                     </Grid>
@@ -417,16 +399,18 @@
         </ScrollViewer>
         <Grid x:Name="CloseAccommodationAccept" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
             <Grid Background="{StaticResource OwnerTabDarkColorBrush}" Opacity="0.8"/>
-            <Border  HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="200" Background="{StaticResource OwnerTabLightColorBrush}"
-                     BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+            <Border x:Name="CloseAccommodationAcceptBorder" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Width="500" Height="200" Background="{DynamicResource BorderBackgroundBrush}"
+                    BorderBrush="Black" BorderThickness="1" CornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="{loc:Loc Are you sure you want to close accommodation}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-                    <TextBlock Grid.Row="1" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Grid.Row="0" Text="{loc:Loc Are you sure you want to close accommodation}" FontSize="20" 
+                               HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{DynamicResource OwnerTextBlock}"/>
+                    <TextBlock Grid.Row="1" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource OwnerTextBlock}">
                         <Run x:Name="SelectedAccommodationNameRun"/>
                         <Run x:Name="SelectedAccommodationStateRun"/>
                         <Run Text="-"/>
@@ -437,8 +421,10 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="{loc:Loc Yes}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="40 0 0 10" Click="CloseAccommodationAcceptedClick"/>
-                        <Button Grid.Column="1" Content="{loc:Loc Cancel}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}" Margin="0 0 40 10" Click="CloseAccommodationCancelClick"/>
+                        <Button Grid.Column="0" Content="{loc:Loc Yes}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}"
+                                Margin="40 0 0 10" Click="CloseAccommodationAcceptedClick"/>
+                        <Button Grid.Column="1" Content="{loc:Loc Cancel}" Width="120" Height="50" FontSize="24" Style="{DynamicResource ButtonStyle2}"
+                                Margin="0 0 40 10" Click="CloseAccommodationCancelClick"/>
                     </Grid>
                 </Grid>
             </Border>

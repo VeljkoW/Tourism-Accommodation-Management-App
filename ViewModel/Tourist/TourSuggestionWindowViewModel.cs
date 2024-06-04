@@ -417,7 +417,7 @@ namespace BookingApp.ViewModel.Tourist
                         TourPersonService.GetInstance().Add(person);
                     }
 
-                    TourSuggestion tourSuggestion = new TourSuggestion(User.Id,location,description,language,numberOfPeople,tourists,fromDate,toDate,DateTime.MinValue,TourSuggestionStatus.Pending,ComplexId);
+                    TourSuggestion tourSuggestion = new TourSuggestion(User.Id,location,description,language,numberOfPeople,tourists,fromDate,toDate,DateTime.MinValue,TourSuggestionStatus.Pending,ComplexId,-1);
                     if (!IsComplex)
                     {
                         TourSuggestionService.GetInstance().Add(tourSuggestion);

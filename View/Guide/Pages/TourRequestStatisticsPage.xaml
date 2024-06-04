@@ -33,31 +33,36 @@
         </Style>
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
-            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontSize" Value="22"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
         </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
     </Page.Resources>
     <Grid Background="{StaticResource NBackGroundColor}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Button Width="150" Height="40" Command="{Binding ClickGoBack}" Content="Go back" FontSize="18" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"></Button>
+            <TextBlock FontSize="45" FontWeight="Bold" Foreground="{StaticResource NButtonColor3Text}"> Tour request statistics:</TextBlock>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -68,16 +73,19 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="State:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="StateCombobox" Grid.Row="0" Grid.Column="1" Margin="5"  ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState}" SelectionChanged="UpdateFilter"/>
+                    <ComboBox FontSize="22" x:Name="StateCombobox" Grid.Row="0" Grid.Column="1" Margin="10"  ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedState}" SelectionChanged="UpdateFilter"/>
                     <TextBlock Grid.Row="1" Text="City:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="1"
-          x:Name="CityCombobox"
-          Grid.Column="1"
-          Margin="5"
-          ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}"
-          SelectedItem="{Binding SelectedCity}">
+                    <ComboBox Grid.Row="1" 
+                          x:Name="CityCombobox"
+                          Grid.Column="1"
+                          Margin="10"
+                          ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedCity}">
                         <ComboBox.Style>
                             <Style TargetType="ComboBox">
+                                <Style.Setters>
+                                    <Setter Property="FontSize" Value="18"></Setter>
+                                </Style.Setters>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding SelectedState}" Value="{x:Null}">
                                         <Setter Property="IsEnabled" Value="False"/>
@@ -92,7 +100,7 @@
 
                 </Grid>
             </Grid>
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="1">
                 <Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -104,14 +112,19 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="Language:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="LanguageCombobox" Grid.Row="0" Grid.Column="1" Margin="5" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
+                        <ComboBox x:Name="LanguageCombobox" Margin="10" Grid.Row="0" Grid.Column="1"  ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
                         <TextBlock Grid.Row="1" Text="Year:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Year,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Margin="10" FontSize="18" TextAlignment="Justify" Grid.Row="1" Grid.Column="1" Text="{Binding Year,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </Grid>
             </Grid>
+            <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                <Button Margin="220 10" Command="{Binding ClearFilter}">
+                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Clear"/>
+                </Button>
+            </Grid>
         </Grid>
-        <Grid Grid.Row="2" Width="500">
+        <Grid Grid.Row="2">
             <ScrollViewer>
                 <StackPanel x:Name="Statistics"/>
             </ScrollViewer>

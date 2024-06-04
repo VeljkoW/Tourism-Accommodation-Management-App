@@ -20,6 +20,7 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using Colors = QuestPDF.Helpers.Colors;
 using QuestPDF.Previewer;
+using Color = System.Windows.Media.Color;
 
 namespace BookingApp.View.Owner
 {
@@ -36,14 +37,34 @@ namespace BookingApp.View.Owner
             this.User = User;
             ReservationReschedulingViewModel = new ReservationReschedulingViewModel(this, User);
             DataContext = ReservationReschedulingViewModel;
-            
+            App.ThemeChanged += OnThemeChanged;
+            OnThemeChanged();
         }
 
         private void AccommodationSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ReservationReschedulingViewModel.AccommodationSelectionChanged();
         }
+        public void OnThemeChanged()
+        {
+            Color backgroundButtonPressedColor = (Color)FindResource("OwnerTabPressedColor");
+            SolidColorBrush backgroundButtonPressedBrush = new SolidColorBrush(backgroundButtonPressedColor);
+            Color basicBackgroundColor = (Color)FindResource("OwnerTabLightColor");
+            SolidColorBrush basicBackgroundBrush = new SolidColorBrush(basicBackgroundColor);
+            Color basicDarkBackgroundColor = (Color)FindResource("OwnerTabDarkColor");
+            SolidColorBrush basicDarkBackgroundBrush = new SolidColorBrush(basicDarkBackgroundColor);
 
+            if (App.currentTheme() == "Light")
+            {
+                var newColor = (Color)Application.Current.Resources["BorderLightBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
+            else
+            {
+                var newColor = (Color)Application.Current.Resources["BorderDarkBackgroundColor"];
+                Application.Current.Resources["BorderBackgroundBrush"] = new SolidColorBrush(newColor);
+            }
+        }
         private void DownloadReservationReportClick(object sender, RoutedEventArgs e)
         {
             string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\hello.pdf";
