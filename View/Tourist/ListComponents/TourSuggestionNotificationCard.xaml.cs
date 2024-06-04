@@ -34,7 +34,7 @@ namespace BookingApp.View.Tourist.ListComponents
             {
                 SelectedNotification.NotificationStatus = NotificationStatus.Read;
                 TourSuggestionNotificationService.GetInstance().Update(SelectedNotification);
-                //(Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourSuggestionNotifications(); does not work as intended
+                (Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourSuggestionNotifications();// does not work as intended
             }
 
         }
