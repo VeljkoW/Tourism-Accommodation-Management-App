@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
         Title="NotificationWindow" Height="700" Width="520">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ClickClose}" Key="Esc"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
@@ -137,15 +140,22 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="1" Height="50" Width="120" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickClose}" Cursor="Hand">
+                    <Button Grid.Column="0" Height="50" Width="170" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickClose}" Cursor="Hand">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                         </Button.Effect>
                         <TextBlock Text="Go Back" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
                     </Button>
 
+                    <Button Grid.Column="1" Height="50" Width="170" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickReadAll}" Cursor="Hand">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
+                        </Button.Effect>
+                        <TextBlock Text="Mark all as read" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextColorBrush}"/>
+                    </Button>
                 </Grid>
             </Border>
         </Border>

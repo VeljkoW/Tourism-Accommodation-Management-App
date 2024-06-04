@@ -26,7 +26,7 @@ namespace BookingApp.ViewModel.Tourist
         public TouristMainWindowViewModel TouristMainWindowViewModel { get; set; }
         public SeriesCollection LanguageData { get; set; } = new SeriesCollection();
         public SeriesCollection LocationData { get; set; } = new SeriesCollection();
-        public RelayCommand ClickBoBack => new RelayCommand(execute => GoBackExecute());
+        public RelayCommand ClickGoBack => new RelayCommand(execute => GoBackExecute());
         public RelayCommand ClickInGeneral => new RelayCommand(execute => InGeneralExecute());
         public RelayCommand ClickPrintPDF => new RelayCommand(execute => PrintPDFExecute());
         public User User;
