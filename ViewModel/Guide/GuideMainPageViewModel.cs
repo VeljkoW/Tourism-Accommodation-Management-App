@@ -21,9 +21,19 @@ namespace BookingApp.ViewModel.Guide
 
         private void ResignCommandExecute()
         {
-            TourService.GetInstance().Resign(user.Id);
-            Resigned?.Invoke();
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to resign?",
+                "Confirm Resignation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                TourService.GetInstance().Resign(user.Id);
+                Resigned?.Invoke();
+            }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private string _userName;
@@ -40,6 +50,20 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
+        private bool _isSuper;
+
+        public bool IsSuper
+        {
+            get => _isSuper;
+            set
+            {
+                if (value != _isSuper)
+                {
+                    _isSuper = value;
+                    OnPropertyChanged(nameof(IsSuper));
+                }
+            }
+        }
         private User user;
         public Action Resigned;
         public GuideMainPageViewModel(User user)
@@ -48,7 +72,7 @@ namespace BookingApp.ViewModel.Guide
             VKeyboard.Config(typeof(KeyboardCustom));
             this.user = user;
             UserName = user.Username;
-            SuperGuideService.GetInstance().UpdateSuperGuide(user.Id);
+            IsSuper= SuperGuideService.GetInstance().UpdateSuperGuide(user.Id);
         }
         protected virtual void OnPropertyChanged(string propertyName)
         {

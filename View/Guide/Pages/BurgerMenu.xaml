@@ -31,7 +31,7 @@
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
-            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
     </UserControl.Resources>
@@ -46,7 +46,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0" Background="{StaticResource NButtonColor3}" Height="60" Click="HideBurger">
+            <Button Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0" Background="Transparent" Height="60" Click="HideBurger">
                 <Image Source="../../../Resources/Images/Guide/hamburger.png" ></Image>
             </Button>
             <Button HorizontalAlignment="Right" Grid.Row="0" Margin="10 20" Width="90">
@@ -54,37 +54,37 @@
                         Help
                 </TextBlock>
             </Button>
-            <Button Grid.Row="1"  Click="UpcommingTours">
+            <Button Grid.Row="1"  Click="UpcommingTours" ToolTip="Show upcoming tours.">
                 <TextBlock>
                         Upcomming tours
                 </TextBlock>
             </Button>
-            <Button Grid.Row="2"  Click="CreateTour">
+        <Button Grid.Row="2"  Click="CreateTour" ToolTip="Create a new tour.">
                 <TextBlock>
                     Create tour
                 </TextBlock>
             </Button>
-            <Button Grid.Row="3"  Click="TourStatistics">
+        <Button Grid.Row="3"  Click="TourStatistics" ToolTip="Show tour statistics for a selected year.">
                 <TextBlock>
                     Tour statistics
                 </TextBlock>
             </Button>
-            <Button Grid.Row="4"  Click="TourRequestStatistics">
+        <Button Grid.Row="4"  Click="TourRequestStatistics" ToolTip="Show tour request statistics for a location or language, yearly or monthly.">
                 <TextBlock>
-                    Tour request statistics
+                    Request statistics
                 </TextBlock>
             </Button>
-            <Button Grid.Row="5" Click="TourRequests">
+        <Button Grid.Row="5" Click="TourRequests" ToolTip="Show requested tours.">
                 <TextBlock>
                    Tour requests
                 </TextBlock>
             </Button>
-            <Button Grid.Row="6" Click="ComplexRequests">
+            <Button Grid.Row="6" Click="ComplexRequests" ToolTip="Show complex tours you can guide.">
                 <TextBlock>
-                   Complex tour requests
+                   Complex requests
                 </TextBlock>
             </Button>
-            <Button Grid.Row="7" Click="FinishedTours">
+        <Button Grid.Row="7" Click="FinishedTours" ToolTip="Show finished tours that have reviews.">
                 <TextBlock>
                    Finished tours
                 </TextBlock>

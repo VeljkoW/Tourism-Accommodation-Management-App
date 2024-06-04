@@ -35,8 +35,9 @@ namespace BookingApp.Services
         {
             return SuperGuideRepository.GetAll();
         }
-        public void UpdateSuperGuide(int userId)
+        public bool UpdateSuperGuide(int userId)
         {
+            bool ret = false;
             List<Tour> tours =tourService.GetAll();
             List<string> languages = tours.Where(t => t.OwnerId == userId).Select(t => t.Language).Distinct().ToList();
 
@@ -69,8 +70,10 @@ namespace BookingApp.Services
                 else
                 {
                     Add(new SuperGuide(userId, language));
+                    ret=true;
                 }
             }
+            return ret;
         }
     }
 }

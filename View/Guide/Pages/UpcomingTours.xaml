@@ -47,7 +47,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid>
-            <TextBlock FontSize="45">Upcomming tours:</TextBlock>
+            <TextBlock FontSize="45" Margin="30 20 20 20">Upcoming tours:</TextBlock>
         </Grid>
         
         <Grid Grid.Row="2">

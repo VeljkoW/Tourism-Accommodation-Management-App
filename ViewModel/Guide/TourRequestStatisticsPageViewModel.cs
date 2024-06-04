@@ -111,6 +111,19 @@ namespace BookingApp.ViewModel.Guide
                 FilterStatistics();
             }
         }
+        private string _timeHeader = "Year:";
+        public string TimeHeader
+        {
+            get { return _timeHeader; }
+            set
+            {
+                if (_timeHeader != value)
+                {
+                    _timeHeader = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _selectedCity = "";
         public string SelectedCity
         {
@@ -206,11 +219,11 @@ namespace BookingApp.ViewModel.Guide
                         yearRequestCounts[year]++;
                     }
                 }
-
+                TimeHeader = "Year:";
                 // Display statistics for each year
                 foreach (var entry in yearRequestCounts)
                 {
-                    TourRequestStatisticsPage.Statistics.Children.Add(new UserControlRequestStatistics(entry.Key.ToString(), entry.Value.ToString()));
+                    TourRequestStatisticsPage.Statistics.Children.Add(new UserControlRequestStatistics(entry.Key.ToString()+".", entry.Value.ToString()));
                 }
             }
             else
@@ -252,6 +265,7 @@ namespace BookingApp.ViewModel.Guide
                         monthRequestCounts[month]++;
                     }
                 }
+                TimeHeader = "Month:";
                 foreach (var entry in monthRequestCounts)
                 {
                     TourRequestStatisticsPage.Statistics.Children.Add(new UserControlRequestStatistics(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(entry.Key), entry.Value.ToString()));

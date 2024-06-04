@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Services;
 using BookingApp.ViewModel.Guide;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace BookingApp.View.Guide.Pages
     /// </summary>
     public partial class GuideMainPage : Page
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public EventHandler? ListUpdater {  get; set; }
         public GuideMainPageViewModel GuideMainPageViewModel { get;set; }
         public User User { get; set; }
@@ -61,7 +63,20 @@ namespace BookingApp.View.Guide.Pages
         {
             CreateTourForm createTourForm = new CreateTourForm(User);
             NavigationService.Navigate(createTourForm);
+                createTourForm.Unloaded += AddCreatedTourNotification;
         }
+
+        private void AddCreatedTourNotification(object sender, RoutedEventArgs e)
+        {
+            if(CreateTourFormViewModel.IsCreated)
+            {
+                NotificationArea.HorizontalAlignment= HorizontalAlignment.Center;
+                NotificationArea.VerticalAlignment= VerticalAlignment.Center;
+                notificationManager.Show("Success", "You have successfully created a tour!", NotificationType.Success, "MainNotificationArea");
+                
+            }
+        }
+
         //ClickUpcommingTour
         public void Logout()
         {

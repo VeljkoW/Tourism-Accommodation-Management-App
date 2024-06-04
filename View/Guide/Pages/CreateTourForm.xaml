@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.Guide.Pages"
       xmlns:converter="clr-namespace:BookingApp.Domain.Model.Converters"
+      xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="1000" d:DesignWidth="1024"
       Title="CreateTourForm">
@@ -77,63 +78,63 @@
     </Page.Resources>
     <ScrollViewer>
         <Grid Background="{StaticResource NBackGroundColor}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="125"/>
-            <RowDefinition Height="700"/>
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Column="0" Grid.Row="0" Text="Create a new Tour" FontSize="38" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            
-        <Border Grid.Column="1" Grid.Row="0" Margin="5" BorderBrush="{StaticResource NButtonColor3Text}" BorderThickness="4" CornerRadius="10">
-            <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="125"/>
+                <RowDefinition Height="700"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Column="0" Grid.Row="0" Text="Create a new Tour" FontSize="38" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <Border Grid.Column="1" Grid.Row="0" Margin="5" BorderBrush="{StaticResource NButtonColor3Text}" BorderThickness="4" CornerRadius="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0" Grid.ColumnSpan="2" Text="Recommended by tourists:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="Location " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <Button ToolTip="Set location to the current most requested location." Height="50" Width="125" Command="{Binding SetLocationCommand}">
+                                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Set Location" FontSize="18"/>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="Language " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <Button ToolTip="Set language to the current most requested language." Height="50" Width="125" Command="{Binding SetLanguageCommand}">
+                                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Set Language" FontSize="18"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="1.5*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Style="{StaticResource TextBlockStyle}" Grid.Row="0" Grid.ColumnSpan="2" Text="Recommended by tourists:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Location " VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Button Height="50" Width="125" Command="{Binding SetLocationCommand}">
-                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="Set Location" FontSize="18"/>
-                    </Button>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Language " VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Button Height="50" Width="125" Command="{Binding SetLanguageCommand}">
-                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="Set Language" FontSize="18"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.8*"/>
-                <ColumnDefinition Width="0.5*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="1.5*"/>
-            </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
                     <Grid Height="93">
                         <Grid.ColumnDefinitions>
@@ -163,66 +164,66 @@
                         </TextBlock>
                     </Grid>
                 </StackPanel>
-            <TextBlock Style="{StaticResource TextBlockStyle}" Text="State:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="1" Grid.Column="0"/>
-            <ComboBox Grid.Column="1" Grid.Row="1" x:Name="StateBox" IsEnabled="{Binding StateBoxIsEnabled}"  ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5 10" SelectedItem="{Binding SelectedState}" SelectionChanged="StateBox_SelectionChanged"/>
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-                <Grid Height="93">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="1.8*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text="State:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="1" Grid.Column="0"/>
+                <ComboBox Grid.Column="1" Grid.Row="1" x:Name="StateBox" IsEnabled="{Binding StateBoxIsEnabled}"  ItemsSource="{Binding States,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5 10" SelectedItem="{Binding SelectedState}" SelectionChanged="StateBox_SelectionChanged"/>
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                    <Grid Height="93">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1.8*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="4*"/>
                             <RowDefinition Height="1.2*"/>
                         </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Margin="15,0,0,0" Text="City:" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                    <ComboBox Grid.Column="1" x:Name="CityBox" IsEnabled="{Binding CityBoxIsEnabled}" Margin="5 2"  ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCity}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Location is required" Margin="15,0,0,0">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=CityBox}" Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Setter Property="Foreground" Value="OrangeRed"/>
-                                        <Setter Property="FontSize" Value="16"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-            </StackPanel>
-            <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
-                <Grid Height="93">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="1.8*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Margin="15,0,0,0" Text="City:" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                        <ComboBox Grid.Column="1" x:Name="CityBox" IsEnabled="{Binding CityBoxIsEnabled}" Margin="5 2"  ItemsSource="{Binding Cities, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCity}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Location is required" Margin="15,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=CityBox}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                            <Setter Property="FontSize" Value="16"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+                    <Grid Height="93">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1.8*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="4*"/>
                             <RowDefinition Height="1.2*"/>
                         </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Language:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" />
-                    <TextBox x:Name="LanguageTextBox" Style="{StaticResource TextboxStyle}" Grid.Column="1"  IsEnabled="{Binding LanguageBoxIsEnabled}" Text="{Binding Language,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5 10"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Language is required" Margin="15,0,0,0">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="Language:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" />
+                        <TextBox x:Name="LanguageTextBox" Style="{StaticResource TextboxStyle}" Grid.Column="1"  IsEnabled="{Binding LanguageBoxIsEnabled}" Text="{Binding Language,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="5 10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Language is required" Margin="15,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
                                         <DataTrigger Binding="{Binding Text, ElementName=LanguageTextBox}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Setter Property="Foreground" Value="OrangeRed"/>
-                                        <Setter Property="FontSize" Value="16"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-            </StackPanel>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                            <Setter Property="FontSize" Value="16"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
 
                 <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
                     <Grid Height="93">
@@ -235,7 +236,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource TextBlockStyle}" Text="Tourists:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" />
                         <TextBox Style="{StaticResource TextboxStyle}" Grid.Column="1" x:Name="MaxTouristTextbox" Text="{Binding MaxTourists,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5 10"/>
-                        
+
                     </Grid>
                 </StackPanel>
 
@@ -272,17 +273,17 @@
                     </Grid>
                 </StackPanel>
             </Grid>
-        <Grid Grid.Row="1" Grid.Column="1" Width="470">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.3*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0">
-                <Grid>
+            <Grid Grid.Row="1" Grid.Column="1" Width="470">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
@@ -309,95 +310,160 @@
                         </StackPanel>
                         <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Command="{Binding ClickAddDate}">
                             <TextBlock Style="{StaticResource TextBlockStyle}" Text="Add" FontSize="18"/>
-                    </Button>
+                        </Button>
                         <Button Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Command="{Binding ClickDeleteDate}">
-                        <TextBlock  Style="{StaticResource TextBlockStyle}" Text="Remove" FontSize="18" />
-                    </Button>
+                            <TextBlock  Style="{StaticResource TextBlockStyle}" Text="Remove" FontSize="18" />
+                        </Button>
+                    </Grid>
+                </StackPanel>
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource TextBlockStyle}"> Added dates:</TextBlock>
+                    <DataGrid ItemsSource="{Binding Dates}" AutoGenerateColumns="False" Margin="0,35,0,0" SelectedItem="{Binding SelectedDate}">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Added Date" Width="*" Binding="{Binding Path=., StringFormat={}{0:dd/MM/yyyy HH:mm}}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                        <TextBlock Text="Add a date" Grid.Row="1">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Dates.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                            <Setter Property="FontSize" Value="16"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
                 </Grid>
-            </StackPanel>
-            <Grid Grid.Column="0" Grid.Row="1">
-                    <TextBlock Style="{StaticResource TextBlockStyle}"> Added dates:</TextBlock>
-                <DataGrid ItemsSource="{Binding Dates}" AutoGenerateColumns="False" Margin="0,35,0,0" SelectedItem="{Binding SelectedDate}">
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Added Date" Width="*" Binding="{Binding Path=., StringFormat={}{0:dd/MM/yyyy HH:mm}}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid Grid.Row="2" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid></Grid>
                     <TextBlock Style="{StaticResource TextBlockStyle}"> Add keypoint:</TextBlock>
                     <TextBox Style="{StaticResource TextboxStyle}" Grid.Column="0" Grid.Row="1" x:Name="KeyPointTextbox" TextWrapping="Wrap" Text="{Binding CurrentKeyPoint,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Grid.Column="1"  Grid.Row="1" Command="{Binding ClidKAddKeyPoint}">
-                    <TextBlock Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold">Add</TextBlock>
-                </Button>
-                    <Button Grid.Column="2"  Grid.Row="1" Command="{Binding ClicKRemoveKeyPoint}">
-                    <TextBlock Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold">Remove</TextBlock>
-                </Button>
-            </Grid>
-                <Grid Grid.Column="0" Grid.Row="3" >
-                    <TextBlock Style="{StaticResource TextBlockStyle}"> Added Keypoints:</TextBlock>
-                    <DataGrid ItemsSource="{Binding KeyPointStrings}" AutoGenerateColumns="False" Margin="0,35,0,0" SelectedItem="{Binding SelectedKeyPoint}" >
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Added Keypoint" Width="*" Binding="{Binding Path=.}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-            <Grid Grid.Column="1" Grid.Row="4">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button x:Name="ImageBox" Command="{Binding BtnSelectFile_Click}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" FontWeight="Bold">Attach images</Button>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Column="1" Grid.Row="5">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource ImageButton}" Grid.Column="0" Command="{Binding DataContext.LeftArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Height="50" Width="50">
-                        <Image Source="../../../Resources/Images/Guide/left_arrow.png" Width="24" Height="24" />
+                        <TextBlock Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold">Add</TextBlock>
                     </Button>
-
-                    <Image Grid.Column="1" Source="{Binding Path=CurrentImage,Mode=OneWay}" Height="100" Width="250"/>
-
-                    <Button Style="{StaticResource ImageButton}" Grid.Column="2" Command="{Binding DataContext.RightArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Height="50" Width="50">
-                        <Image Source="../../../Resources/Images/Guide/right_arrow.png" Width="24" Height="24" />
+                    <Button Grid.Column="2"  Grid.Row="1" Command="{Binding ClicKRemoveKeyPoint}">
+                        <TextBlock Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" TextAlignment="Center" FontSize="18" FontWeight="Bold">Remove</TextBlock>
                     </Button>
                 </Grid>
-                <Button Style="{StaticResource ImageButton}" Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="30" Height="30" Margin="200,-60,0,0" Panel.ZIndex="100">
-                    <TextBlock Text="X" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </Button>
+                <Grid Grid.Column="0" Grid.Row="3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource TextBlockStyle}"> Added Keypoints:</TextBlock>
+                        <DataGrid ItemsSource="{Binding KeyPointStrings}" AutoGenerateColumns="False" Margin="0,35,0,0" SelectedItem="{Binding SelectedKeyPoint}">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Added Keypoint" Width="*" Binding="{Binding Path=.}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBlock Text="Add more keypoints" Grid.Row="1">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasEnoughKeypoints}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                            <Setter Property="FontSize" Value="16"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="4">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:Name="ImageBox" ToolTip="Attach images to your tour." Command="{Binding BtnSelectFile_Click}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="69" FontSize="22" FontWeight="Bold">Attach images</Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Button Style="{StaticResource ImageButton}" Grid.Column="0" Command="{Binding DataContext.LeftArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Height="50" Width="50">
+                            <Image Source="../../../Resources/Images/Guide/left_arrow.png" Width="24" Height="24" />
+                        </Button>
+
+                        <Image Grid.Column="1" Source="{Binding Path=CurrentImage,Mode=OneWay}" Height="100" Width="250"/>
+
+                        <Button Style="{StaticResource ImageButton}" Grid.Column="2" Command="{Binding DataContext.RightArrowCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Height="50" Width="50">
+                            <Image Source="../../../Resources/Images/Guide/right_arrow.png" Width="24" Height="24" />
+                        </Button>
+                        <TextBlock Grid.Row="1"></TextBlock>
+                    </Grid>
+                    <Button Style="{StaticResource ImageButton}" Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" Width="30" Height="30" Margin="200,-60,0,0" Panel.ZIndex="100">
+                        <TextBlock Text="X" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+                    <TextBlock Text="Add an image" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Row="1" Grid.ColumnSpan="3">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentImage}" Value="../../../Resources/Images/No-Image-Placeholder.png">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Foreground" Value="OrangeRed"/>
+                                        <Setter Property="FontSize" Value="16"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="0" >
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Command="{Binding ClickCancelButton}" ToolTip="Cancel making this tour." HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Cancel" FontWeight="Bold"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1" >
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Command="{Binding ClickCreateButton}" ToolTip="Create a tour." HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Create" FontWeight="Bold"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.ColumnSpan="5" Grid.RowSpan="5" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <notifications:NotificationArea x:Name="WindowArea" Position="TopLeft" MaxItems="3"/>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="0" >
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Command="{Binding ClickCancelButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Cancel" FontWeight="Bold"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="3" Grid.Column="1" >
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Command="{Binding ClickCreateButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="90" FontSize="22" Content="Create" FontWeight="Bold"/>
-            </StackPanel>
-        </Grid>
-    </Grid>
     </ScrollViewer>
 </Page>

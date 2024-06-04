@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.View.Guide.Pages;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace BookingApp.View.Guide
     /// </summary>
     public partial class GuideMainWindow : Window
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public User User { get; set; }
         public string UserName { get; set; }
         public static int UserId;

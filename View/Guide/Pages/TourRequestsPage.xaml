@@ -69,8 +69,8 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="From:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="0" Grid.Row="1" Text="To:" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"/>
-                <DatePicker Grid.Column="1" x:Name="fromDatePicker" Width="150" PreviewKeyDown="DatePicker_PreviewKeyDown" SelectedDate="{Binding SelectedFromDate,Mode=TwoWay}" VerticalAlignment="Center"/>
-                <DatePicker Grid.Column="1" Grid.Row="1" x:Name="toDatePicker" IsEnabled="{Binding IsEnabledToDate}" Width="150" PreviewKeyDown="DatePicker_PreviewKeyDown" SelectedDate="{Binding SelectedToDate,Mode=TwoWay}" VerticalAlignment="Center"/>
+                <DatePicker SelectedDateChanged="FilterUpdated" Grid.Column="1" x:Name="fromDatePicker" Width="150" PreviewKeyDown="DatePicker_PreviewKeyDown" SelectedDate="{Binding SelectedFromDate,Mode=TwoWay}" VerticalAlignment="Center"/>
+                <DatePicker SelectedDateChanged="FilterUpdated" Grid.Column="1" Grid.Row="1" x:Name="toDatePicker" IsEnabled="{Binding IsEnabledToDate}" Width="150" PreviewKeyDown="DatePicker_PreviewKeyDown" SelectedDate="{Binding SelectedToDate,Mode=TwoWay}" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid>

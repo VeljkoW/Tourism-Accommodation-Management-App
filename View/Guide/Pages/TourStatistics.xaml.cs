@@ -25,12 +25,18 @@ namespace BookingApp.View.Guide.Pages
     {
         public ObservableCollection<UserControlTourStatistics> UserControlTourStatistics { get; set; } = new ObservableCollection<UserControlTourStatistics>();
         public User User { get; }
+        private TourStatisticsViewModel tourStatisticsViewModel;
         public TourStatistics(User user)
         {
             InitializeComponent();
             User = user;
-            TourStatisticsViewModel tourStatisticsViewModel = new TourStatisticsViewModel(this,User);
+            this.tourStatisticsViewModel = new TourStatisticsViewModel(this,User);
             DataContext = tourStatisticsViewModel;
+        }
+
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            tourStatisticsViewModel.ClickSelectedYearExecute();
         }
     }
 }

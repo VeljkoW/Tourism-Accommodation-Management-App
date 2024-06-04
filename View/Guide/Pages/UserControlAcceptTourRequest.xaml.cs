@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.ViewModel.Guide;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace BookingApp.View.Guide.Pages
     /// </summary>
     public partial class UserControlAcceptTourRequest : UserControl
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public UserControlAcceptTourRequest(TourRequestsPageViewModel tourRequestsPageViewModel, TourSuggestion tourSuggestion)
         {
             InitializeComponent();

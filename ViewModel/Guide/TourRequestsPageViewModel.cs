@@ -10,8 +10,10 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using VirtualKeyboard.Wpf;
 
 namespace BookingApp.ViewModel.Guide
@@ -204,6 +206,25 @@ namespace BookingApp.ViewModel.Guide
             TourRequestsPage.FilterUpdateEvent += FilterUpdated;
             Load();
         }
+        public bool IsTextAllowed(string text)
+        {
+            // Only allow numeric input
+            Regex regex = new Regex("^[0-9]+$");
+            return regex.IsMatch(text);
+        }
+
+        internal void DurationTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        internal void DurationTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
         public void Dimm()
         {
             IsDimOverlayVisible = true;
@@ -222,19 +243,17 @@ namespace BookingApp.ViewModel.Guide
             List<int> locationIds = new List<int>();
             Cards.Clear();
             List<TourSuggestion> tourSuggestions = TourSuggestionService.GetInstance().GetAll().ToList();
-            DateTime oldestDate = tourSuggestions.Min(suggestion => suggestion.FromDate);
+            List<TourSuggestion> filteredSuggestions = tourSuggestions.Where(t=>t.Status==TourSuggestionStatus.Pending).ToList();
+            DateTime oldestDate = filteredSuggestions.Min(suggestion => suggestion.FromDate);
             this.oldestDate = oldestDate.AddDays(-1);
             SelectedFromDate = oldestDate.AddDays(-1);
             this.TourRequestsPage.fromDatePicker.DisplayDateStart = oldestDate;
             IsEnabledToDate = false;
-            foreach (var tourSuggestion in tourSuggestions)
+            foreach (var tourSuggestion in filteredSuggestions)
             {
-                if(tourSuggestion.Status == TourSuggestionStatus.Pending)
-                {
-                    Cards.Add(new UserControlTourSuggestion(this,tourSuggestion));
-                    languages.Add(tourSuggestion.Language);
-                    locationIds.Add(tourSuggestion.LocationId);
-                }
+                Cards.Add(new UserControlTourSuggestion(this,tourSuggestion));
+                languages.Add(tourSuggestion.Language);
+                locationIds.Add(tourSuggestion.LocationId);
             }
             foreach(string language in languages.Distinct())
             {
