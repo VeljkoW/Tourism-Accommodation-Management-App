@@ -8,6 +8,10 @@
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
         Title="TourSuggestionStatistics" Height="700" Width="1000">
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ClickGoBack}" Key="Esc"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
@@ -195,7 +199,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Height="50" Width="150" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickBoBack}" Cursor="Hand">
+                        <Button Grid.Column="0" Height="50" Width="150" Background="{StaticResource BackgroundColorBrush}" Margin="0 20 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="2" Command="{Binding ClickGoBack}" Cursor="Hand">
                             <Button.Effect>
                                 <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" Opacity="0.7" BlurRadius="5"/>
                             </Button.Effect>

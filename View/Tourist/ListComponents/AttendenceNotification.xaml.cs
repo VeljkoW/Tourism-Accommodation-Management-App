@@ -34,7 +34,7 @@ namespace BookingApp.View.Tourist.ListComponents
             {
                 SelectedNotification.ConfirmedAttendence = true;
                 TourAttendenceNotificationService.GetInstance().Update(SelectedNotification);
-                //(Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourAttencenceNotifications(); does not work as intended
+                (Window.GetWindow(this) as NotificationWindow).NotificationWindowViewModel.UpdateTourAttencenceNotifications();
             }
 
         }

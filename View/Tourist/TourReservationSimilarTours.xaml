@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
         Title="TourReservationSimilarTours" Height="750" Width="700">
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ClickExit}" Key="Esc"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>
