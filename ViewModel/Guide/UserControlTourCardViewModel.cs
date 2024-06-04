@@ -57,8 +57,8 @@ namespace BookingApp.ViewModel.Guide
             {
                 TourService.GetInstance().HandoutCoupons(ScheduleId);
                 OnFinishedTour?.Invoke(this, new EventArgs());
+                notificationManager.Show("Success", "You have successfully deleted this tour!", NotificationType.Success);
             }
-            notificationManager.Show("Success", "You have successfully deleted this tour!", NotificationType.Success);
         }
         private string _tourName;
         public string TourName

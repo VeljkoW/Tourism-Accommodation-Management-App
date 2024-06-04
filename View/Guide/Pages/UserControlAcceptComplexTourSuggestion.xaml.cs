@@ -57,6 +57,7 @@ namespace BookingApp.View.Guide
         private void CancelComplexTour(object sender, RoutedEventArgs e)
         {
             complexTourRequestToursPage.PopupPanel.Children.Clear();
+            complexTourRequestToursPage.Undimm();
         }
         private void AcceptComplextourExecute()
         {

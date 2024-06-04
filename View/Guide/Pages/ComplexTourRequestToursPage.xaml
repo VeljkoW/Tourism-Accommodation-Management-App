@@ -61,7 +61,9 @@
                 <StackPanel x:Name="TourSuggestions"/>
             </ScrollViewer>
         </Grid>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="150" Width="250">
+        <Rectangle x:Name="DimOverlay" Fill="Black" Opacity="0.6" Visibility="Collapsed" Grid.RowSpan="3" Panel.ZIndex="3" Grid.ColumnSpan="4"/>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center"  Panel.ZIndex="5" Height="150" Width="250">
             <StackPanel  x:Name="PopupPanel"/>
         </Grid>
     </Grid>

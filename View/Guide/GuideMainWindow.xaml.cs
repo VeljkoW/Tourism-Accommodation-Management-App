@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VirtualKeyboard.Wpf;
 
 namespace BookingApp.View.Guide
 {
@@ -34,8 +35,10 @@ namespace BookingApp.View.Guide
             User = user;
             UserId = user.Id;
             WizardPage wizardPage = new WizardPage();
-            this.guideMainPage = new GuideMainPage(user);
             MainFrame.Navigate(wizardPage);
+            VKeyboard.Listen<System.Windows.Controls.TextBox>(e => e.Text);
+            VKeyboard.Config(typeof(KeyboardCustom));
+            this.guideMainPage = new GuideMainPage(user);
             wizardPage.Finished += LogIn;
         }
 

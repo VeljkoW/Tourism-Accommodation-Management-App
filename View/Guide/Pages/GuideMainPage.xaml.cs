@@ -38,6 +38,7 @@ namespace BookingApp.View.Guide.Pages
         private FinishedToursPage tourReviewsPage;
         private TourRequestsPage tourRequestsPage;
         private TourRequestStatisticsPage tourRequestStatisticsPage;
+        private HelpPage helpPage;
         private ComplexTourRequestsPage complexTourRequestsPage;
         public static int UserId;
         public GuideMainPage(User user)
@@ -57,6 +58,7 @@ namespace BookingApp.View.Guide.Pages
             tourRequestsPage = new TourRequestsPage();
             complexTourRequestsPage = new ComplexTourRequestsPage();
             tourRequestStatisticsPage = new TourRequestStatisticsPage();
+            helpPage = new HelpPage();
             Frame.Navigate(upcomingTours);
         }
         public void ClickCreateTour(object sender, RoutedEventArgs e)
@@ -73,11 +75,8 @@ namespace BookingApp.View.Guide.Pages
                 NotificationArea.HorizontalAlignment= HorizontalAlignment.Center;
                 NotificationArea.VerticalAlignment= VerticalAlignment.Center;
                 notificationManager.Show("Success", "You have successfully created a tour!", NotificationType.Success, "MainNotificationArea");
-                
             }
         }
-
-        //ClickUpcommingTour
         public void Logout()
         {
             ClickLogout(1,new RoutedEventArgs());
@@ -112,6 +111,10 @@ namespace BookingApp.View.Guide.Pages
         {
             complexTourRequestsPage.Load();
             Frame.Navigate(complexTourRequestsPage);
+        }
+        public void ClickHelp(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(helpPage);
         }
 
         public void ClickTourSuggestionsStatistics(object sender, RoutedEventArgs e)

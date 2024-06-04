@@ -49,7 +49,7 @@
             <Button Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0" Background="Transparent" Height="60" Click="HideBurger">
                 <Image Source="../../../Resources/Images/Guide/hamburger.png" ></Image>
             </Button>
-            <Button HorizontalAlignment="Right" Grid.Row="0" Margin="10 20" Width="90">
+        <Button Click="ClickHelp" HorizontalAlignment="Right" Grid.Row="0" Margin="10 20" Width="90">
                 <TextBlock>
                         Help
                 </TextBlock>

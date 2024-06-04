@@ -68,8 +68,6 @@ namespace BookingApp.ViewModel.Guide
         public Action Resigned;
         public GuideMainPageViewModel(User user)
         {
-            VKeyboard.Listen<System.Windows.Controls.TextBox>(e => e.Text);
-            VKeyboard.Config(typeof(KeyboardCustom));
             this.user = user;
             UserName = user.Username;
             IsSuper= SuperGuideService.GetInstance().UpdateSuperGuide(user.Id);

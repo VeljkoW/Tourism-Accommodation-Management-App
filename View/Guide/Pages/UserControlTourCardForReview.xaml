@@ -8,11 +8,27 @@
              d:DesignHeight="200" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" x:Name="border">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#252525"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand">
+            </Setter>
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
@@ -65,7 +81,7 @@
                         <TextBlock Grid.Column="2" HorizontalAlignment="Center" Foreground="{StaticResource NButtonColor3Text}" FontWeight="Bold" FontSize="18" Text="{Binding Date}" TextWrapping="Wrap"/>
                     </Grid>
                     <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" Orientation="Vertical" Margin="0,25,0,0">
-                        <Button Grid.Row="1" Command="{Binding CheckReviews}" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource NBackGroundColorLight}" BorderBrush="{StaticResource NButtonColor3}">
+                        <Button Grid.Row="1" Command="{Binding CheckReviews}" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" >
                             <Image Source="../../../Resources/Images/ratetour.png" Height="50" Width="50"/>
                         </Button>
                         <TextBlock Text="Reviews" FontWeight="Bold" FontSize="16"/>

@@ -51,8 +51,17 @@ namespace BookingApp.View.Guide.Pages
                 {
                     continue;
                 }
-                TourSuggestions.Children.Add(new UserControlComplexTourSuggestionCard(this, userControlComplexTourSuggestionListing, suggestion));
+                UserControlComplexTourSuggestionCard card = new UserControlComplexTourSuggestionCard(this, userControlComplexTourSuggestionListing, suggestion);
+                TourSuggestions.Children.Add(card);
             }
+        }
+        public void Dimm()
+        {
+            this.DimOverlay.Visibility = Visibility.Visible;
+        }
+        public void Undimm()
+        {
+            this.DimOverlay.Visibility = Visibility.Collapsed;
         }
         private void GoBack(object sender, RoutedEventArgs e)
         {

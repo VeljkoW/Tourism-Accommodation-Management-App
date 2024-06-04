@@ -38,7 +38,7 @@
                                 <Setter TargetName="border" Property="Background" Value="LightGray"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                <Setter TargetName="border" Property="Background" Value="#202020"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

@@ -8,11 +8,27 @@
              d:DesignHeight="200" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" x:Name="border">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand">
+            </Setter>
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
@@ -24,7 +40,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3.5*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -40,7 +56,7 @@
                     <StackPanel Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" Orientation="Vertical">
                         <TextBlock Text="Tourist:" FontWeight="Bold" FontSize="30"/>
                         <TextBlock Text="{Binding TouristName}" FontSize="30"/>
-                        <Button x:Name="ReportButton" Grid.Row="1" Command="{Binding ReportReview}" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource NBackGroundColorLight}" BorderBrush="{StaticResource NButtonColor3}">
+                        <Button x:Name="ReportButton" Grid.Row="1" Command="{Binding ReportReview}" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderBrush="{StaticResource NButtonColor3}">
                             <Image Source="../../../Resources/Images/report.png" Height="50" Width="50"/>
                         </Button>
                     </StackPanel>
@@ -60,22 +76,22 @@
                     <Border Grid.Column="1" BorderThickness="0,0,0,2" BorderBrush="{StaticResource NButtonColor3}" Grid.Row="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.05*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <WrapPanel Grid.Column="0">
-                                <TextBlock Grid.Column="0" Text="Knowledge:" FontSize="16" FontWeight="Bold" Margin="0,0,5,0"/>
+                                <TextBlock Grid.Column="0" Text="Knowledge:" FontSize="20" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <TextBlock Grid.Column="0" Text="{Binding Knowledge}" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <Image Source="../../../Resources/Images/star.png" Height="30" Width="30"/>
                             </WrapPanel>
                             <WrapPanel Grid.Column="1">
-                                <TextBlock Grid.Column="0" Text="Language:" FontSize="16" FontWeight="Bold" Margin="0,0,5,0"/>
+                                <TextBlock Grid.Column="0" Text="Language:" FontSize="20" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <TextBlock Grid.Column="0" Text="{Binding Language}" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <Image Source="../../../Resources/Images/star.png" Height="30" Width="30"/>
                             </WrapPanel>
                             <WrapPanel Grid.Column="2">
-                                <TextBlock Grid.Column="0" Text="Enjoyment:" FontSize="16" FontWeight="Bold" Margin="0,0,5,0"/>
+                                <TextBlock Grid.Column="0" Text="Enjoyment:" FontSize="20" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <TextBlock Grid.Column="0" Text="{Binding Enjoyment}" FontSize="18" FontWeight="Bold" Margin="0,0,5,0"/>
                                 <Image Source="../../../Resources/Images/star.png" Height="30" Width="30"/>
                             </WrapPanel>
