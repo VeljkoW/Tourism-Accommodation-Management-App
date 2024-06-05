@@ -125,11 +125,16 @@ namespace BookingApp.ViewModel.Guide
         private void ClickGoBackExecute(){
             TourStatisticsPage.NavigationService.GoBack();
         }
-        private void ClickSelectedYearExecute()
+        public void ClickSelectedYearExecute()
         {
+            if (SelectedYear == "All")
+            {
+                ClickInGeneralExecute();
+                return;
+            }
             UserControlTourStatistics.Clear();
             MostVisited.Clear();
-            int year = Convert.ToInt32(TourStatisticsPage.YearComboBox.Text);
+            int year = Convert.ToInt32(TourStatisticsPage.YearComboBox.SelectedValue);
             if(year > 0){
                 Dictionary<Tour, Domain.Model.TourStatistics> userControlData = TourService.GetInstance().GetTourStatistics(year);
                 if (userControlData.Count < 1){
@@ -142,7 +147,9 @@ namespace BookingApp.ViewModel.Guide
                         mostVisitedEntry = entry;
                     }
                 }
-                MostVisited.Add(new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value));
+                UserControlTourStatistics mostVisited = new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value);
+                mostVisited.Border.BorderBrush = new SolidColorBrush(Colors.Gold);
+                MostVisited.Add(mostVisited);
 
                 foreach (var entry in userControlData){
                     if (entry.Key != mostVisitedEntry.Key){
@@ -164,14 +171,17 @@ namespace BookingApp.ViewModel.Guide
                     mostVisitedEntry = entry;
                 }
             }
-            MostVisited.Add(new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value));
+            //Border
+            UserControlTourStatistics mostVisited = new UserControlTourStatistics(User, mostVisitedEntry.Key, mostVisitedEntry.Value);
+            mostVisited.Border.BorderBrush=new SolidColorBrush(Colors.Gold);
+            MostVisited.Add(mostVisited);
             foreach (var entry in userControlData){
                 if (entry.Key != mostVisitedEntry.Key){
                     UserControlTourStatistics.Add(new UserControlTourStatistics(User, entry.Key, entry.Value));
                 }
             }
         }
-        public int SelectedYear { get; set; }
+        public string SelectedYear { get; set; }
         public View.Guide.Pages.TourStatistics TourStatisticsPage { get;set; }
         public TourStatisticsViewModel(View.Guide.Pages.TourStatistics tourStatistics, User user)
         {
@@ -179,15 +189,16 @@ namespace BookingApp.ViewModel.Guide
             TourStatisticsPage = tourStatistics;
             UserControlTourStatistics = new ObservableCollection<UserControlTourStatistics>();
             MostVisited = new ObservableCollection<UserControlTourStatistics>();
-            ClickInGeneralExecute();
             int currentYear = DateTime.Now.Year;
+            ComboBoxYears.Add("All");
             for (int year = 2020; year <= currentYear; year++)
             {
-                ComboBoxYears.Add(year);
+                ComboBoxYears.Add(year.ToString());
             }
-            SelectedYear = ComboBoxYears.FirstOrDefault();
+            SelectedYear = "All";
+            ClickSelectedYearExecute();
         }
-        public ObservableCollection<int> ComboBoxYears { get; set; } = new ObservableCollection<int>();
+        public ObservableCollection<string> ComboBoxYears { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<UserControlTourStatistics> UserControlTourStatistics { get; set; }
         public ObservableCollection<UserControlTourStatistics> MostVisited { get; set; }
     }

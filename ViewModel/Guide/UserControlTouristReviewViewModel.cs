@@ -1,12 +1,14 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.View.Tourist;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ViewModel.Guide
 {
@@ -19,12 +21,24 @@ namespace BookingApp.ViewModel.Guide
         private string _touristName;
         private string _imgPath;
         private string _joinedOn;
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public RelayCommand ReportReview => new RelayCommand(execute => ReportReviewExecute(), canExecute => ReportReviewCanExecute());
         private void ReportReviewExecute()
         {
-            Review.Status = ReviewStatus.Invalid;
-            TourReviewService.GetInstance().Update(Review);
-            Load();
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to report this review?",
+                "Confirm Report",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+            if (result == MessageBoxResult.Yes)
+            {
+                Review.Status = ReviewStatus.Invalid;
+                TourReviewService.GetInstance().Update(Review);
+                Load();
+                notificationManager.Show("Success", "You reported a review!", NotificationType.Success);
+                return;
+            }
         }
 
         private bool ReportReviewCanExecute()

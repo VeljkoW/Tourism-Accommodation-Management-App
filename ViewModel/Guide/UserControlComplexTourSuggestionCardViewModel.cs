@@ -52,6 +52,7 @@ namespace BookingApp.ViewModel.Guide
         private void AcceptTourExecute()
         {
             complexTourRequestToursPage.PopupPanel.Children.Clear();
+            complexTourRequestToursPage.Dimm();
             UserControlAcceptComplexTourSuggestion popup = new UserControlAcceptComplexTourSuggestion(complexTourRequestToursPage, suggestion);
             popup.requestRefresh += LoadComplextours;
             complexTourRequestToursPage.PopupPanel.Children.Add(popup);
@@ -59,6 +60,8 @@ namespace BookingApp.ViewModel.Guide
 
         private void LoadComplextours()
         {
+
+            complexTourRequestToursPage.Undimm();
             complexTourRequestToursPage.Load();
             userControlComplexTourSuggestionListing.LoadTours();
             complexTourRequestToursPage.NavigationService.GoBack();

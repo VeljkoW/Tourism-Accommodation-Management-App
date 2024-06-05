@@ -184,9 +184,12 @@
       <Content Include="Resources\Images\Tourist\*.*">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-		<Content Include="Resources\Images\TourReview\*.*">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
+    <Content Include="Resources\Images\TourReview\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\GuideWizard\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
 		<Content Remove="Resources\Images\accommodationsLogo.png" />
 		<Content Remove="Resources\Images\pause.png" />
 		<Content Remove="Resources\Images\play.png" />
@@ -321,5 +324,9 @@
 	    <Generator>SettingsSingleFileGenerator</Generator>
 	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\Images\GuideWizard\" />
 	</ItemGroup>
 </Project>

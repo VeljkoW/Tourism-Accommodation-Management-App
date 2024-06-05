@@ -10,6 +10,8 @@
 
     <Page.Resources>
         <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -20,22 +22,23 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="Background" Value="LightGray"/>
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Setter Property="Cursor" Value="Hand">
             </Setter>
-            <Setter Property="Background" Value="{StaticResource NBackGroundColorLight}"/>
-            <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource NButtonColor3}"/>
-            <Setter Property="BorderThickness" Value="2"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
         </Style>
-        <Style TargetType="TextBlock">
+        <Style TargetType="TextBlock" >
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
+            <Setter Property="FontSize" Value="22"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
     </Page.Resources>
     <Grid Background="{StaticResource NBackGroundColor}">
@@ -53,6 +56,9 @@
                     <TextBlock Text="{Binding TourName}" FontSize="30" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Date}"/>
                 </StackPanel>
+                <Button Grid.Column="1" Click="GoBack" HorizontalAlignment="Right" Width="150" Height="70">
+                    <TextBlock>Go back</TextBlock>
+                </Button>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">

@@ -31,7 +31,7 @@ namespace BookingApp.ViewModel.Tourist
         private List<Image> Images = new List<Image>();
         public RelayCommand ClickBtnSelectFiles => new RelayCommand(execute => BtnSelectFiles_ClickExecute());
         public RelayCommand ClickCancel => new RelayCommand(execute => CancelExecute());
-        public RelayCommand ClickSubmit => new RelayCommand(execute => SubmitExecute());
+        public RelayCommand ClickSubmit => new RelayCommand(execute => SubmitExecute(), canExecute => SubmitCanExecute());
         public RelayCommand ClickLeftArrow => new RelayCommand(execute => ClickLeftArrowExecute(), canExecute => ClickLeftArrowCanExecute());
         public RelayCommand ClickRightArrow => new RelayCommand(execute => ClickRightArrowExecute(), canExecute => ClickRightArrowCanExecute());
         public int Counter;
@@ -606,6 +606,7 @@ namespace BookingApp.ViewModel.Tourist
                 TourReviewWindow.Close();
 
             }
+            
         }
         public void ClickLeftArrowExecute()
         {
@@ -618,6 +619,14 @@ namespace BookingApp.ViewModel.Tourist
             Counter++;
             var converter = new ImageSourceConverter();
             TourReviewWindow.ImageDisplay.Source = (ImageSource)converter.ConvertFromString(RelativeImagePaths[Counter]);
+        }
+        public bool SubmitCanExecute()
+        {
+            if(TourEnjoyment != -1 && GuideKnowledge != -1 && GuideSpeech != -1 && !String.IsNullOrEmpty(TourReviewWindow.DescriptionTextBox.Text))
+            {
+                return true;
+            }
+            return false;
         }
         public bool ClickRightArrowCanExecute()
         {

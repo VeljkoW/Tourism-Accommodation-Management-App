@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.View.Guide.Pages;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace BookingApp.ViewModel.Guide
 {
     public class UserControlAcceptTourRequestViewModel : INotifyPropertyChanged
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public List<int> HoursList { get; set; }
         public List<int> MinutesList { get; set; }
         public List<string> AmPm { get; set; }
@@ -95,6 +97,7 @@ namespace BookingApp.ViewModel.Guide
             TourSuggestion.Date = selectedDate;
             TourSuggestionService.GetInstance().Update(TourSuggestion);
             TourSuggestionNotificationService.GetInstance().Add(new TourSuggestionNotification(TourSuggestion.Id, DateTime.Now));
+            notificationManager.Show("Success", "You have accepted a tour request!", NotificationType.Success);
             TourRequestsPageViewModel.ClearPopup();
         }
     }

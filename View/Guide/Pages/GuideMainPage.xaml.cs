@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using BookingApp.Repository.TourRepositories;
 using BookingApp.Services;
 using BookingApp.ViewModel.Guide;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace BookingApp.View.Guide.Pages
     /// </summary>
     public partial class GuideMainPage : Page
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public EventHandler? ListUpdater {  get; set; }
         public GuideMainPageViewModel GuideMainPageViewModel { get;set; }
         public User User { get; set; }
@@ -36,6 +38,7 @@ namespace BookingApp.View.Guide.Pages
         private FinishedToursPage tourReviewsPage;
         private TourRequestsPage tourRequestsPage;
         private TourRequestStatisticsPage tourRequestStatisticsPage;
+        private HelpPage helpPage;
         private ComplexTourRequestsPage complexTourRequestsPage;
         public static int UserId;
         public GuideMainPage(User user)
@@ -55,14 +58,25 @@ namespace BookingApp.View.Guide.Pages
             tourRequestsPage = new TourRequestsPage();
             complexTourRequestsPage = new ComplexTourRequestsPage();
             tourRequestStatisticsPage = new TourRequestStatisticsPage();
+            helpPage = new HelpPage();
             Frame.Navigate(upcomingTours);
         }
         public void ClickCreateTour(object sender, RoutedEventArgs e)
         {
             CreateTourForm createTourForm = new CreateTourForm(User);
             NavigationService.Navigate(createTourForm);
+                createTourForm.Unloaded += AddCreatedTourNotification;
         }
-        //ClickUpcommingTour
+
+        private void AddCreatedTourNotification(object sender, RoutedEventArgs e)
+        {
+            if(CreateTourFormViewModel.IsCreated)
+            {
+                NotificationArea.HorizontalAlignment= HorizontalAlignment.Center;
+                NotificationArea.VerticalAlignment= VerticalAlignment.Center;
+                notificationManager.Show("Success", "You have successfully created a tour!", NotificationType.Success, "MainNotificationArea");
+            }
+        }
         public void Logout()
         {
             ClickLogout(1,new RoutedEventArgs());
@@ -97,6 +111,10 @@ namespace BookingApp.View.Guide.Pages
         {
             complexTourRequestsPage.Load();
             Frame.Navigate(complexTourRequestsPage);
+        }
+        public void ClickHelp(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(helpPage);
         }
 
         public void ClickTourSuggestionsStatistics(object sender, RoutedEventArgs e)

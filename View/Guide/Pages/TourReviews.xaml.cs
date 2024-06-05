@@ -31,5 +31,10 @@ namespace BookingApp.View.Guide.Pages
         }
 
         public UserControlTourCardForReviewViewModel UserControlTourCardForReviewViewModel { get; }
+
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

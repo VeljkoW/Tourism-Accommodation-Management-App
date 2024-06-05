@@ -11,11 +11,13 @@ using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows;
 using BookingApp.Services;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
     public class UserControlTourCardViewModel
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public event EventHandler TourSelected;
         public Tour Tour { get; set; }
         public User User { get; set; }
@@ -55,6 +57,7 @@ namespace BookingApp.ViewModel.Guide
             {
                 TourService.GetInstance().HandoutCoupons(ScheduleId);
                 OnFinishedTour?.Invoke(this, new EventArgs());
+                notificationManager.Show("Success", "You have successfully deleted this tour!", NotificationType.Success);
             }
         }
         private string _tourName;

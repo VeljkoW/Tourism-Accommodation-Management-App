@@ -20,6 +20,7 @@ namespace BookingApp.ViewModel.Tourist
         public ObservableCollection<TourNotification> TourLocationNotifications { get; set; }
         public User User { get; set; }
         public RelayCommand ClickClose => new RelayCommand(execute => CloseExecute());
+        public RelayCommand ClickReadAll => new RelayCommand(execute => ReadAllExecute());
         public NotificationWindowViewModel(NotificationWindow notificationWindow,User user) 
         { 
             this.NotificationWindow = notificationWindow;
@@ -108,21 +109,54 @@ namespace BookingApp.ViewModel.Tourist
         public void UpdateTourSuggestionNotifications()
         {
             TourSuggestionNotifications.Clear();
-            TourSuggestionNotifications = new (TourSuggestionNotificationService.GetInstance().GetAllUnread(User.Id));
+            foreach(var notif in TourSuggestionNotificationService.GetInstance().GetAllUnread(User.Id))
+            {
+                TourSuggestionNotifications.Add(notif);
+            }
         }
         public void UpdateTourLanguageNotifications()
         {
             TourLanguageNotifications.Clear();
-            TourLanguageNotifications = new(TourNotificationService.GetInstance().GetAllLanguage(User.Id));
+            foreach(var notif in TourNotificationService.GetInstance().GetAllLanguage(User.Id))
+            {
+                TourLanguageNotifications.Add(notif);
+            }
         }
         public void UpdateTourLocationNotifications()
         {
             TourLocationNotifications.Clear();
-            TourLocationNotifications = new(TourNotificationService.GetInstance().GetAllLocation(User.Id));
+            foreach(var notif in TourNotificationService.GetInstance().GetAllLocation(User.Id))
+            {
+                TourLocationNotifications.Add(notif);
+            }
         }
         public void CloseExecute()
         {
             NotificationWindow.Close();
+        }
+        public void ReadAllExecute()
+        {
+            foreach(var notif in TourAttendenceNotifications)
+            {
+                notif.ConfirmedAttendence = true;
+                TourAttendenceNotificationService.GetInstance().Update(notif);
+            }
+            foreach(var notif in TourSuggestionNotifications)
+            {
+                notif.NotificationStatus = NotificationStatus.Read;
+                TourSuggestionNotificationService.GetInstance().Update(notif);
+            }
+            foreach(var notif in TourLanguageNotifications)
+            {
+                notif.Status = NotificationStatus.Read;
+                TourNotificationService.GetInstance().Update(notif);
+            }
+            foreach(var notif in TourLocationNotifications)
+            {
+                notif.Status = NotificationStatus.Read;
+                TourNotificationService.GetInstance().Update(notif);
+            }
+            Update();
         }
     }
 }

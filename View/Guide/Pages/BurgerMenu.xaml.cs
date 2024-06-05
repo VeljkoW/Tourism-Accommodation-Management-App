@@ -59,5 +59,10 @@ namespace BookingApp.View.Guide.Pages
         {
             page.HideBurger(sender, e);
         }
+
+        private void ClickHelp(object sender, RoutedEventArgs e)
+        {
+            page.ClickHelp(sender, e);
+        }
     }
 }

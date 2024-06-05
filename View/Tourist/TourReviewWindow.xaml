@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Loaded="LoadedFunctions"
         Title="TourReviewWindow" Height="700" Width="500">
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ClickCancel}" Key="Esc"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Color x:Key="BackgroundColor">#BD8E62</Color>
         <Color x:Key="BorderColor">#9c734e</Color>

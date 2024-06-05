@@ -34,20 +34,21 @@
             <Setter Property="Foreground" Value="{StaticResource NButtonColor3Text}"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
     </UserControl.Resources>
     <Border x:Name="Border" BorderBrush="{StaticResource NButtonColor3}" BorderThickness="3" Margin="5" CornerRadius="5" Background="{StaticResource NBackGroundColor}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid  Grid.Column="0">
-                <TextBlock FontSize="30" FontWeight="Bold" Text="{Binding ComplexTourHeader}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock FontSize="35" FontWeight="Bold" Text="{Binding ComplexTourHeader}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="1">
-                <Button Height="70" Width="70" Click="ShowComplexSuggestions">
-                    <TextBlock FontWeight="Bold" Text="Check" TextAlignment="Justify"/>
+                <Button Height="100" Width="100" Click="ShowComplexSuggestions">
+                    <TextBlock FontSize="25" FontWeight="Bold" Text="Check" TextAlignment="Justify"/>
                 </Button>
             </Grid>
         </Grid>

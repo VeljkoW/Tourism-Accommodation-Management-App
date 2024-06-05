@@ -3,6 +3,7 @@ using BookingApp.Services;
 using BookingApp.View.Guide.Pages;
 using BookingApp.ViewModel;
 using BookingApp.ViewModel.Guide;
+using Notification.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,8 +29,8 @@ namespace BookingApp.View.Guide
     /// </summary>
     public partial class UserControlAcceptComplexTourSuggestion : UserControl,INotifyPropertyChanged
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -56,6 +57,7 @@ namespace BookingApp.View.Guide
         private void CancelComplexTour(object sender, RoutedEventArgs e)
         {
             complexTourRequestToursPage.PopupPanel.Children.Clear();
+            complexTourRequestToursPage.Undimm();
         }
         private void AcceptComplextourExecute()
         {
@@ -64,6 +66,7 @@ namespace BookingApp.View.Guide
             suggestion.GuideId = GuideMainPage.UserId;
             TourSuggestionComplexService.GetInstance().Update(suggestion);
             complexTourRequestToursPage.PopupPanel.Children.Clear();
+            notificationManager.Show("Success", "You have successfully accepted a complex tour part!", NotificationType.Success);
             requestRefresh?.Invoke();
         }
         private bool AcceptComplextourCanExecute()

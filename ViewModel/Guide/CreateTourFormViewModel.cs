@@ -21,11 +21,13 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using VirtualKeyboard.Wpf;
+using Notification.Wpf;
 
 namespace BookingApp.ViewModel.Guide
 {
     public class CreateTourFormViewModel : INotifyPropertyChanged
     {
+        public INotificationManager notificationManager = App.GetNotificationManager();
         private ObservableCollection<string> _relativeImagePaths = new ObservableCollection<string>();
         public ObservableCollection<string> RelativeImagePaths
         {
@@ -103,6 +105,16 @@ namespace BookingApp.ViewModel.Guide
                     _selectedCity = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+        private bool _hasEnoughKeypoints = false;
+        public bool HasEnoughKeypoints
+        {
+            get { return _hasEnoughKeypoints; }
+            set
+            {
+                _hasEnoughKeypoints = value;
+                OnPropertyChanged();
             }
         }
         private bool _stateBoxIsEnabled = true;
@@ -335,7 +347,7 @@ namespace BookingApp.ViewModel.Guide
                 }
             }
         }
-
+        public static bool IsCreated=false;
         private string _city;
         public string City
         {
@@ -582,6 +594,8 @@ namespace BookingApp.ViewModel.Guide
                     schedule.Date = date;
                     TourScheduleService.GetInstance().Add(schedule);
                 }
+                IsCreated = true;
+                notificationManager.Show("Success", "You have successfully created a tour!", NotificationType.Success);
             }
             catch (Exception ex)
             {
@@ -611,6 +625,10 @@ namespace BookingApp.ViewModel.Guide
         {
             KeyPointStrings.Add(this.CurrentKeyPoint);
             this.CurrentKeyPoint = "";
+            if (KeyPointStrings.Count > 1)
+            {
+                HasEnoughKeypoints=true;
+            }
         }
         private bool ClickAddKeyPointCanExecute()
         {
@@ -626,6 +644,10 @@ namespace BookingApp.ViewModel.Guide
         private void ClickRemoveKeyPointExecute()
         {
             KeyPointStrings.Remove(this.SelectedKeyPoint);
+            if (KeyPointStrings.Count < 2)
+            {
+                HasEnoughKeypoints = false;
+            }
         }
         private bool ClickRemoveKeyPointCanExecute()
         {
